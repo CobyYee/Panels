@@ -104,6 +104,46 @@ updateComic = async (req, res) => {
     })
 }
 
+getComicByGenre = async(req, res) => {
+    filterComics = []
+    allComics = await this.getComics()
+    for(comic in allComics) {
+        if(comic.genres.includes(req.body.genre)) {
+            filterComics.push(comic);
+        }
+    }
+    if(filterComics.length == 0) {
+        return res.status(400).json({
+            success: false,
+            message: "No comics with that genre"
+        });
+    }
+    return res.status(200).json({
+        success: true,
+        data: filterComics
+    });
+}
+
+getComicByName = async(req, res) => {
+    filterComics = []
+    allComics = await this.getComics()
+    for(comic in allComics) {
+        if(comic.name === req.body.name) {
+            filterChapters.push(comic);
+        }
+    }
+    if(filterComics.length == 0) {
+        return res.status(400).json({
+            success: false,
+            message: "No comics with that name"
+        });
+    }
+    return res.status(200).json({
+        success: true,
+        data: filterComics
+    });
+}
+
 addChapter = async(req, res) => {
     await Comic.findById({_id: req.params.id}, (err, comicFound) => {
         if(err)
@@ -127,16 +167,38 @@ addChapter = async(req, res) => {
 }
 
 getChapterById = async(req, res) => {
-
+    const body = req.body;
+    comic = await this.getChapterById(body.comicId);
+    for(chapter in comic.chapters){
+        if(chapter._id = body.chapterId) {
+            return res.status(200).json({
+                success: true,
+                data: chapter
+            })
+        }
+    }
+    return res.status(400).json({
+        success: false,
+        message: "No chapter with that id"
+    });
 }
 
 deleteChapter = async(req, res) => {
-
-}
-
-getChaptersByFilter = async(req, res) => {
-    filteredChapters = [];
-    allChapters = getComics();
+    const body = req.body;
+    comic = await this.getComicById(body.comicId);
+    for(let i = 0; i < comic.chapters.length; i++) {
+        if(chapter.name === body.chapterName) {
+            deletedComic = comic.chapters.splice(i, 1);
+            return res.status(200).json({
+                success: true,
+                data: deletedComic
+            });
+        }
+    }
+    return res.status(400).json({
+        success: false,
+        message: "No chapter to delete with that name"
+    });
 }
 
 module.exports = {
@@ -146,7 +208,7 @@ module.exports = {
     getComics,
     updateComic,
     addChapter,
-    getChpaterById,
+    getChapterById,
     deleteChapter,
     getChaptersByFilter
 }
