@@ -1,7 +1,9 @@
 const auth = require('../auth')
 const User = require('../models/user-model')
 const bcrypt = require('bcryptjs')
+const mailer = require('../mail')
 
+// authenticate user sessions through JWTs
 getSession = async(req, res) => {
     auth.verify(req, res, async function() {
         const existingUser = await User.findOne({ _id: req.userId });
@@ -32,6 +34,7 @@ getSession = async(req, res) => {
     })
 }
 
+// register new user
 registerUser = async(req, res) => {
     try {
         const { firstName, lastName, email, username, password } = req.body;
@@ -74,6 +77,7 @@ registerUser = async(req, res) => {
     }
 }
 
+// log user in
 loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -120,6 +124,7 @@ loginUser = async (req, res) => {
     }
 }
 
+// log user out
 logoutUser = async (req, res) => {
     try {
         await res.cookie("token", "", {
@@ -134,6 +139,17 @@ logoutUser = async (req, res) => {
     }
 }
 
+// start password recovery process
+passwordRecovery = async (req, res) => {
+
+}
+
+// save new password
+saveNewPassword = async (req, res) => {
+
+}
+
+// suspend a user, admin privileges required
 ban = async (req, res) => {
     auth.verify(req, res, async function() {
         try {
@@ -167,6 +183,7 @@ ban = async (req, res) => {
     })
 }
 
+// unsuspend a user, admin privileges required
 unban = async (req, res) => {
     auth.verify(req, res, async function() {
         try {

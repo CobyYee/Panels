@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken")
 
 function authManager() {
+    // function to verify request cookies
     verify = function(req, res, next) {
         try {
             const token = req.cookies.token;
@@ -22,6 +23,7 @@ function authManager() {
         }
     }
 
+    // function to create token by encrypting userId with secret key
     signToken = function (user) {
         return jwt.sign({
             userId: user._id
