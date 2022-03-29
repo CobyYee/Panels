@@ -1,4 +1,5 @@
 const Story = require('../models/story-model');
+const StoryChapter = require('../models/storyChapter-model');
 const User = require('../models/user-model');
 
 createStory = (req, res) => {
@@ -114,8 +115,8 @@ getStories = async (req, res) => {
     }).catch(err => console.log(err))
 }
 
-addChapter = async(req, res) => {
-    await Story.findById({_id: req.params.id}, (err, story) => {
+addStoryChapter = async(req, res) => {
+    await Story.findById({ _id: req.params.id }, (err, story) => {
         if(err)
             return res.status(401).json({success: false, error: err})
         story.chapters.push(req.body.newChapter)
@@ -136,10 +137,78 @@ addChapter = async(req, res) => {
     })
 }
 
+updateStoryChapter = async(req, res) => {
+    const body = req.body
+    console.log("updateStoryChapter: " + JSON.stringify(body));
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            error: 'You must provide a body to update',
+        })
+    }
+
+    StoryChapter.findOne({ _id: req.params.id }, (err, storyChapter) => {
+        console.log("story found: " + JSON.stringify(storyChapter));
+        if (err) {
+            return res.status(404).json({
+                err,
+                message: 'Story Chapter not found!',
+            })
+        }
+
+        story.name = body.name
+        story.uploaded = body.uploaded
+        story.chapter = body.chapter
+
+        storyChapter
+            .save()
+            .then(() => {
+                console.log("SUCCESS!!!");
+                return res.status(200).json({
+                    success: true,
+                    id: storyChapter._id,
+                    message: 'Story Chapter updated!',
+                })
+            })
+            .catch(error => {
+                console.log("FAILURE: " + JSON.stringify(error));
+                return res.status(404).json({
+                    error,
+                    message: 'Story Chapter not updated!',
+                })
+            })
+    })
+}
+
+deleteStoryChapter = async (req, res) => {
+    StoryChapter.findById({ _id: req.params.id }, (err, storyChapter) => {
+        if (err) {
+            return res.status(404).json({
+                err,
+                message: 'Story Chapter not found!',
+            })
+        }
+        StoryChapter.findOneAndDelete({ _id: req.params.id }, () => {
+            return res.status(200).json({ success: true, data: storyChapter })
+        }).catch(err => console.log(err))
+    })
+}
+
+getStoryChapterById = async (req, res) => {
+    await StoryChapter.findById({ _id: req.params.id }, (err, storyChapter) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err });
+        }
+        return res.status(200).json({ success: true, storyChapter: storyChapter })
+    }).catch(err => console.log(err))
+}
+
+
 module.exports = {
     createStory,
     updateStory,
     deleteStory,
     getStoryById,
-    getStories
+    getStories,
+    addStoryChapter
 }
