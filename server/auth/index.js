@@ -1,8 +1,10 @@
 const jwt = require("jsonwebtoken")
+const crypto = require("crypto-js")
+
 
 function authManager() {
     // function to verify request cookies
-    verify = function(req, res, next) {
+    verifyJWT = function(req, res, next) {
         try {
             const token = req.cookies.token;
             if (!token) {
@@ -24,10 +26,24 @@ function authManager() {
     }
 
     // function to create token by encrypting userId with secret key
-    signToken = function (user) {
+    signJWT = function (user) {
         return jwt.sign({
             userId: user._id
         }, process.env.JWT_SECRET, { expiresIn: '1h'});
+    }
+
+    encryptUser = function(userId) {
+        if (!userId) {
+            return -1;
+        }
+        return crypto.AES.encrypt(userId, process.env.TOKEN_SECRET);
+    }
+
+    decryptUser = function(encrypted) {
+        if (!encrypted) {
+            return -1;
+        }
+        return crypto.AES.decrypt(encrypted, process.env.TOKEN_SECRET);
     }
 
     return this;

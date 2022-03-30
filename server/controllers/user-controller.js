@@ -1,11 +1,12 @@
 const auth = require('../auth')
 const User = require('../models/user-model')
 const bcrypt = require('bcryptjs')
+const crypto = require('crypto-js')
 const sendEmail = require('../mail/mailbox')
 
 // authenticate user sessions through JWTs
 getSession = async(req, res) => {
-    auth.verify(req, res, async function() {
+    auth.verifyJWT(req, res, async function() {
         const existingUser = await User.findOne({ _id: req.userId });
         if (!existingUser) {
             return res.status(400).json({ errorMessage: "User does not exist"});
@@ -19,7 +20,7 @@ getSession = async(req, res) => {
             }).status(400).json({ errorMessage: "User has been banned"});
         }
 
-        const token = auth.signToken(existingUser);
+        const token = auth.signJWT(existingUser);
         return res.cookie("token", token, {
             httpOnly: true,
             secure: true,
@@ -102,7 +103,7 @@ loginUser = async (req, res) => {
                 return res.status(400).json({ errorMessage: "User has been banned" });
             }
             console.log("User login successful");
-            const token = auth.signToken(existingUser);
+            const token = auth.signJWT(existingUser);
 
             await res.cookie("token", token, {
                 httpOnly: true,
@@ -152,12 +153,75 @@ logoutUser = async (req, res) => {
 
 // start password recovery process
 passwordRecovery = async (req, res) => {
-    const { email } = req.body;
+    try {
+        const user = await User.findOne({ email: req.body.email });
+        if (!user) {
+            return res.status(400).json({ errorMessage: "An account with this email does not exist!"})
+        }
+
+        const token = Token.findOne({ userId: user._id })
+        if (token) {
+            Token.findOneAndDelete({ _id: token._id });
+        }
+        token = new Token({
+            userId: user._id,
+            token: crypto.randomBytes(32).toString("hex")
+        });
+
+        await token.save();
+
+        encryptedUserId = auth.encryptUser(user._id);
+        const link = `localhost:4000/password_recovery/${encryptedUserId}/${token.token}`;       // need to update baseURL
+
+        const text = "You have requested for a password reset. Please click on the link below to set a new password. The link will expire in 1 hour.\n\n" + link + "\n\n DO NOT share the link with anyone else!\n\nPanels Support Team";
+
+        await sendEmail(user.email, "Panels Password Recovery", text);
+        
+        return res.status(200).send();
+    }
+    catch(err) {
+        console.error("Password recovery iniation process failed: " + err);
+        res.status(500).send();
+    }
 }
 
 // save new password
 saveNewPassword = async (req, res) => {
+    try {
+        const { encryptedUserId, token, newPassword } = req.body;
+        if (!encryptedUserId || !token || !newPassword)
+            return res.status(400).json({ errorMessage: "Fields cannot be empty" });
+        
+        const foundToken = Token.findOne({ token: token });
+        if (!foundToken) {
+            return res.status(400).json({ errorMessage: "This link is expired"});
+        }
 
+        const decryptedUserId = auth.decryptUser(encryptedUserId);
+        if (decryptedUserId != foundToken.userId) {
+            return res.status(401).json({ errorMessage: "Unauthorized" });
+        }
+
+        const user = User.findOneById(decryptedUserId);
+        if (!user) {
+            return res.status(400).json({ errorMessage: "This user does not exist!"})
+        }
+
+        const salt = await bcrypt.genSalt();
+        const passwordHash = await bcrypt.hash(newPassword, salt);
+
+        user.passwordHash = passwordHash;
+        await user.save();
+
+        const text = "Your account password has been updated.\n\nPanels Support Team";
+        await sendEmail(user.email, "Panels Account Password Changed", text);
+
+        return res.status(200).send();
+    }
+    catch (err) {
+        console.error("Save new password failed: " + err);
+        res.status(500).send();
+    }
 }
 
 // suspend a user, admin privileges required
