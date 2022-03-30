@@ -106,6 +106,24 @@ getStoryById = async (req, res) => {
     }).catch(err => console.log(err))
 }
 
+getStoriesByName = async (req, res) => {
+    await Story.find({ title: req.params.title }, (err, stories) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+        return res.status(200).json({ success: true, data: stories })
+    }).catch(err => console.log(err))
+}
+
+getStoriesByGenre = async (req, res) => {
+    await Story.find({ genres: req.params.genre }, (err, stories) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+        return res.status(200).json({ success: true, data: stories })
+    }).catch(err => console.log(err))
+}
+
 getStories = async (req, res) => {
     await Story.find({}, (err, stories) => {
         if (err) {
@@ -209,6 +227,11 @@ module.exports = {
     updateStory,
     deleteStory,
     getStoryById,
+    getStoriesByName,
+    getStoriesByGenre,
     getStories,
-    addStoryChapter
+    addStoryChapter,
+    updateStoryChapter,
+    deleteStoryChapter,
+    getStoryChapterById
 }
