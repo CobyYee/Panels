@@ -205,10 +205,12 @@ module.exports = {
     createComic,
     deleteComic,
     getComicById,
+    getComicByGenre,
+    getComicByName,
     getComics,
     updateComic,
     addChapter,
     getChapterById,
     deleteChapter,
-    getChaptersByFilter
+    //getChaptersByFilter
 }

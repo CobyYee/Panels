@@ -291,3 +291,14 @@ unban = async (req, res) => {
         }
     })
 }
+
+module.exports = {
+    getSession,
+    registerUser,
+    loginUser,
+    logoutUser,
+    passwordRecovery,
+    saveNewPassword,
+    ban,
+    unban,
+}

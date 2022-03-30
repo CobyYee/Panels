@@ -10,10 +10,10 @@ const UserSchema = new Schema(
         username: { type: String, required: true },
         passwordHash: { type: String, required: true },
         email: { type: String, required: true },
-        profilePicture: { type: Image, required: false },
+        profilePicture: { type: ObjectId, required: false },
         follows: { type: [ObjectId], required: true },
-        works: { type: [Comic], required: true },
-        drafts: { type: [Comic], required: true },
+        works: { type: [ObjectId], required: true },
+        drafts: { type: [ObjectId], required: true },
         bookmarks: { type: [ObjectId], required: true },
         banned: { type: Boolean, required: true }
     }, 
