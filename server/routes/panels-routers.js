@@ -1,0 +1,22 @@
+const auth = require('../auth')
+const express = require('express')
+const ComicController = require('../controllers/comic-controller')
+const StoryController = require('../controllers/story-controller')
+const router = express.Router()
+
+router.post('/comic', auth.verify, ComicController.createComic)
+router.put('/comic/:id', auth.verify, ComicController.updateComic)
+router.delete('/comic/:id', auth.verify, ComicController.deleteComic)
+router.get('/comic/:id', auth.verify, ComicController.getTop5ListById)
+router.get('/comics', auth.verify, ComicController.getComics)
+router.get('/comics', auth.verify, ComicController.getComicByGenre)
+router.get('/comics', auth.verify, ComicController.getComicByName)
+router.delete('/comic/:id', auth.verify, ComicController.deleteChapter)
+router.get('/comics/:id', auth.verify, ComicController.getChapterById)
+router.post('/comic/:id', auth.verify, ComicController.addChapter)
+
+router.post('/register', UserController.registerUser)
+router.get('/loggedIn', UserController.getLoggedIn)
+router.post('/login', UserController.loginUser)
+router.get('/logout', UserController.logoutUser)
+module.exports = router
