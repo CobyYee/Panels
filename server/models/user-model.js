@@ -14,7 +14,8 @@ const UserSchema = new Schema(
         follows: { type: [ObjectId], required: true },
         works: { type: [Comic], required: true },
         drafts: { type: [Comic], required: true },
-        bookmarks: { type: [ObjectId], required: true }
+        bookmarks: { type: [ObjectId], required: true },
+        banned: { type: Boolean, required: true }
     }, 
     { timestamps: true }
 )

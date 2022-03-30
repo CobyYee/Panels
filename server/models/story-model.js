@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const { modelName } = require('./user-model')
 const Schema = mongoose.Schema
+const ObjectId = Schema.Types.ObjectId
 
 const StorySchema = new Schema(
     {
