@@ -15,6 +15,9 @@ app.use(cors({
 app.use(express.json())
 app.use(cookieParser())
 
+const panelsRouter = require('./routes/panels-routers');
+app.use('/api', panelsRouter)
+
 const db = require('./db')
 db.on('error', console.error.bind(console, 'MongoDB Atlas connection error: '))
 

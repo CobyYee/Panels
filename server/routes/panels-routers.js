@@ -16,7 +16,12 @@ router.get('/comics/:id', auth.verify, ComicController.getChapterById)
 router.post('/comic/:id', auth.verify, ComicController.addChapter)
 
 router.post('/register', UserController.registerUser)
-router.get('/loggedIn', UserController.getLoggedIn)
+router.get('/loggedIn', UserController.getSession)
 router.post('/login', UserController.loginUser)
 router.get('/logout', UserController.logoutUser)
+router.post('/passwordRecovery', UserController.passwordRecovery)
+router.post('/saveNewPassword', UserController.saveNewPassword)
+router.post('/ban', UserController.ban)
+router.post('/unban', UserController.unban)
+
 module.exports = router
