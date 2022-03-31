@@ -1,7 +1,8 @@
 const auth = require('../auth')
 const User = require('../models/user-model')
+const Token = require('../models/token-model')
 const bcrypt = require('bcryptjs')
-const crypto = require('crypto-js')
+const crypto = require('crypto')
 const sendEmail = require('../mail/mailbox')
 
 // authenticate user sessions through JWTs
@@ -17,7 +18,7 @@ getSession = async(req, res) => {
                 httpOnly: true,
                 secure: true,
                 sameSite: "lax"
-            }).status(400).json({ errorMessage: "User has been banned"});
+            }).status(401).json({ errorMessage: "User has been banned"});
         }
 
         const token = auth.signJWT(existingUser);
@@ -47,14 +48,11 @@ getSession = async(req, res) => {
 registerUser = async(req, res) => {
     try {
         const { firstName, lastName, email, username, password } = req.body;
-        console.log(req.body)
-        console.log("HERE")
 
         const existingEmail = await User.findOne({ email: email });
         if (existingEmail) {
             return res.status(400).json({ errorMessage: "An account with this email already exists. Please log in."})
         }
-        console.log("HERE1")
 
         const existingUsername = await User.findOne({ username: username });
         if (existingUsername) {
@@ -80,7 +78,6 @@ registerUser = async(req, res) => {
         })
 
         await newUser.save();
-        console.log("HERE3")
         return res.status(200).send();
     }
     catch (err) {
@@ -103,7 +100,7 @@ loginUser = async (req, res) => {
         const match = await bcrypt.compare(password, existingUser.passwordHash)
         if (match) {
             if (existingUser.banned) {
-                return res.status(400).json({ errorMessage: "User has been banned" });
+                return res.status(401).json({ errorMessage: "User has been banned" });
             }
             console.log("User login successful");
             const token = auth.signJWT(existingUser);
@@ -130,7 +127,7 @@ loginUser = async (req, res) => {
         }
         else {
             console.log("User login failed: wrong password")
-            return res.status(400).json({ errorMessage: "Wrong password" });
+            return res.status(401).json({ errorMessage: "Wrong password" });
         }
     }
     catch (err) {
@@ -162,19 +159,19 @@ passwordRecovery = async (req, res) => {
             return res.status(400).json({ errorMessage: "An account with this email does not exist!"})
         }
 
-        const token = Token.findOne({ userId: user._id })
+        const token = Token.findOne({ userId: user._id });
         if (token) {
             Token.findOneAndDelete({ _id: token._id });
         }
-        token = new Token({
+        const newToken = new Token({
             userId: user._id,
             token: crypto.randomBytes(32).toString("hex")
         });
 
-        await token.save();
+        await newToken.save();
 
-        encryptedUserId = auth.encryptUser(user._id);
-        const link = `localhost:4000/password_recovery/${encryptedUserId}/${token.token}`;       // need to update baseURL
+        //encryptedUserId = auth.encryptUser(user._id);
+        const link = `localhost:4000/password_recovery/${user._id}/${newToken.token}`;       // need to update baseURL
 
         const text = "You have requested for a password reset. Please click on the link below to set a new password. The link will expire in 1 hour.\n\n" + link + "\n\n DO NOT share the link with anyone else!\n\nPanels Support Team";
 
@@ -191,21 +188,20 @@ passwordRecovery = async (req, res) => {
 // save new password
 saveNewPassword = async (req, res) => {
     try {
-        const { encryptedUserId, token, newPassword } = req.body;
-        if (!encryptedUserId || !token || !newPassword)
+        const { userId, token, newPassword } = req.body;
+        if (!userId || !token || !newPassword)
             return res.status(400).json({ errorMessage: "Fields cannot be empty" });
         
-        const foundToken = Token.findOne({ token: token });
+        const foundToken = await Token.findOne({ token: token });
         if (!foundToken) {
             return res.status(400).json({ errorMessage: "This link is expired"});
         }
 
-        const decryptedUserId = auth.decryptUser(encryptedUserId);
-        if (decryptedUserId != foundToken.userId) {
+        if (userId !== foundToken.userId.toString()) {
             return res.status(401).json({ errorMessage: "Unauthorized" });
         }
 
-        const user = User.findOneById(decryptedUserId);
+        const user = await User.findById(userId);
         if (!user) {
             return res.status(400).json({ errorMessage: "This user does not exist!"})
         }
@@ -229,9 +225,9 @@ saveNewPassword = async (req, res) => {
 
 // suspend a user, admin privileges required
 ban = async (req, res) => {
-    auth.verify(req, res, async function() {
+    auth.verifyJWT(req, res, async function() {
         try {
-            const existingUser = await User.findOne({ _id: req.userId });
+            const existingUser = await User.findOne({ _id: req.body.userId });
             if (!existingUser) {
                 return res.status(400).json({ errorMessage: "User does not exist" });
             }
@@ -239,7 +235,8 @@ ban = async (req, res) => {
                 return res.status(401).json({ errorMessage: "Unauthorized" });
             }
 
-            const target = await User.findOne({ _id: req.target._id});
+            const targetUserId = req.body.targetUserId;
+            const target = await User.findById(targetUserId);
             if (!target) {
                 return res.status(400).json({ errorMessage: "User does not exist" });
             }
@@ -263,9 +260,9 @@ ban = async (req, res) => {
 
 // unsuspend a user, admin privileges required
 unban = async (req, res) => {
-    auth.verify(req, res, async function() {
+    auth.verifyJWT(req, res, async function() {
         try {
-            const existingUser = await User.findOne({ _id: req.userId });
+            const existingUser = await User.findOne({ _id: req.body.userId });
             if (!existingUser) {
                 return res.status(400).json({ errorMessage: "User does not exist" });
             }
@@ -273,7 +270,7 @@ unban = async (req, res) => {
                 return res.status(401).json({ errorMessage: "Unauthorized" });
             }
 
-            const target = await User.findOne({ _id: req.target._id});
+            const target = await User.findById(req.body.targetUserId);
             if (!target) {
                 return res.status(400).json({ errorMessage: "User does not exist"});
             }

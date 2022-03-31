@@ -36,14 +36,19 @@ function authManager() {
         if (!userId) {
             return -1;
         }
-        return crypto.AES.encrypt(userId, process.env.TOKEN_SECRET);
+        let id = "" + userId;
+        let secret = "" + process.env.TOKEN_SECRET;
+        const encrypted = crypto.AES.encrypt(id, secret);
+        return encrypted
     }
 
     decryptUser = function(encrypted) {
         if (!encrypted) {
             return -1;
         }
-        return crypto.AES.decrypt(encrypted, process.env.TOKEN_SECRET);
+        let id = "" + encrypted;
+        let secret = "" + process.env.TOKEN_SECRET;
+        return crypto.AES.decrypt(id, secret);
     }
 
     return this;

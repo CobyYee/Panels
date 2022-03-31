@@ -26,7 +26,7 @@ router.put('/storychapter/:id', auth.verifyJWT, StoryController.updateStoryChapt
 router.delete('/storychapter/:id', auth.verifyJWT, StoryController.deleteStoryChapter)
 
 router.post('/register', UserController.registerUser)
-router.get('/loggedIn', UserController.getSession)
+router.get('/getSession', UserController.getSession)
 router.post('/login', UserController.loginUser)
 router.get('/logout', UserController.logoutUser)
 router.post('/passwordRecovery', UserController.passwordRecovery)
