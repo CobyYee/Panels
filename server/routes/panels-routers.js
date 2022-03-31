@@ -15,6 +15,16 @@ router.delete('/comicchapter/:id', auth.verifyJWT, ComicController.deleteChapter
 router.get('/comicchapter/:id', auth.verifyJWT, ComicController.getChapterById)
 router.post('/comicchapter/:id', auth.verifyJWT, ComicController.addChapter)
 
+router.post('/story', auth.verifyJWT, StoryController.createStory)
+router.put('/story/:id', auth.verifyJWT, StoryController.updateStory)
+router.delete('/story/:id', auth.verifyJWT, StoryController.deleteStory)
+router.get('stories/:genre', auth.verifyJWT, StoryController.getStoriesByGenre)
+router.get('/stories/:name', auth.verifyJWT, StoryController.getStoriesByName)
+router.get('/stories', auth.verifyJWT, StoryController.getStories)
+router.post('/storychapter', auth.verifyJWT, StoryController.addStoryChapter)
+router.put('/storychapter/:id', auth.verifyJWT, StoryController.updateStoryChapter)
+router.delete('/storychapter/:id', auth.verifyJWT, StoryController.deleteStoryChapter)
+
 router.post('/register', UserController.registerUser)
 router.get('/loggedIn', UserController.getSession)
 router.post('/login', UserController.loginUser)
