@@ -47,11 +47,14 @@ getSession = async(req, res) => {
 registerUser = async(req, res) => {
     try {
         const { firstName, lastName, email, username, password } = req.body;
+        console.log(req.body)
+        console.log("HERE")
 
         const existingEmail = await User.findOne({ email: email });
         if (existingEmail) {
             return res.status(400).json({ errorMessage: "An account with this email already exists. Please log in."})
         }
+        console.log("HERE1")
 
         const existingUsername = await User.findOne({ username: username });
         if (existingUsername) {
@@ -69,7 +72,7 @@ registerUser = async(req, res) => {
              passwordHash: passwordHash,
              email: email,
              profilePicture: null,
-             follows: 0,
+             follows: [],
              works: [],
              drafts: [],
              booksmarks: [],
@@ -77,7 +80,7 @@ registerUser = async(req, res) => {
         })
 
         await newUser.save();
-
+        console.log("HERE3")
         return res.status(200).send();
     }
     catch (err) {
