@@ -5,6 +5,7 @@ const StoryController = require('../controllers/story-controller')
 const UserController = require('../controllers/user-controller')
 const router = express.Router()
 
+router.get('/comic/:id', auth.verifyJWT, ComicController.getComicById)
 router.post('/comic', auth.verifyJWT, ComicController.createComic)
 router.put('/comic/:id', auth.verifyJWT, ComicController.updateComic)
 router.delete('/comic/:id', auth.verifyJWT, ComicController.deleteComic)
@@ -14,6 +15,7 @@ router.get('/comicsbyname', auth.verifyJWT, ComicController.getComicByName)
 router.delete('/comicchapter/:id', auth.verifyJWT, ComicController.deleteChapter)
 router.get('/comicchapter/:id', auth.verifyJWT, ComicController.getChapterById)
 router.post('/comicchapter/:id', auth.verifyJWT, ComicController.addChapter)
+
 
 router.post('/story', auth.verifyJWT, StoryController.createStory)
 router.put('/story/:id', auth.verifyJWT, StoryController.updateStory)
