@@ -83,6 +83,7 @@ updateStory = async (req, res) => {
     })
 }
 
+//STRICTLY DELETES STORY ONLY. MUST MAKE CALLS TO REMOVE RESPECTIVE CHAPTERS ON FRONT-END
 deleteStory = async (req, res) => {
     Story.findById({ _id: req.params.id }, (err, story) => {
         if (err) {
@@ -133,7 +134,7 @@ getStories = async (req, res) => {
     }).catch(err => console.log(err))
 }
 
-addStoryChapter = async(req, res) => {
+addStoryChapter = (req, res) => {
     await Story.findById({ _id: req.params.id }, (err, story) => {
         if(err)
             return res.status(401).json({success: false, error: err})
@@ -155,7 +156,7 @@ addStoryChapter = async(req, res) => {
     })
 }
 
-updateStoryChapter = async(req, res) => {
+updateStoryChapter = async (req, res) => {
     const body = req.body
     console.log("updateStoryChapter: " + JSON.stringify(body));
     if (!body) {
@@ -198,6 +199,7 @@ updateStoryChapter = async(req, res) => {
     })
 }
 
+//STRICTLY DELETES CHAPTER. MUST RETAIN COMIC_ID AND CHAPTER_ID TO REMOVE ID FROM CHAPTERS LIST OF COMIC (FRONT-END)
 deleteStoryChapter = async (req, res) => {
     StoryChapter.findById({ _id: req.params.id }, (err, storyChapter) => {
         if (err) {
