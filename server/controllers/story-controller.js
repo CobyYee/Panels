@@ -83,6 +83,7 @@ updateStory = async (req, res) => {
     })
 }
 
+//STRICTLY DELETES STORY ONLY. MUST MAKE CALLS TO REMOVE RESPECTIVE CHAPTERS ON FRONT-END
 deleteStory = async (req, res) => {
     Story.findById({ _id: req.params.id }, (err, story) => {
         if (err) {
@@ -198,6 +199,7 @@ updateStoryChapter = async (req, res) => {
     })
 }
 
+//STRICTLY DELETES CHAPTER. MUST RETAIN COMIC_ID AND CHAPTER_ID TO REMOVE ID FROM CHAPTERS LIST OF COMIC (FRONT-END)
 deleteStoryChapter = async (req, res) => {
     StoryChapter.findById({ _id: req.params.id }, (err, storyChapter) => {
         if (err) {
@@ -207,11 +209,7 @@ deleteStoryChapter = async (req, res) => {
             })
         }
         StoryChapter.findOneAndDelete({ _id: req.params.id }, () => {
-            Story.findById({ _id: req.params.story_id }, (err, story) => {
-                story.chapters.splice(story.chapters.indexOf(req.params.id), 1)
-                await this.updateStory(req.params.story_id, story)
-                return res.status(200).json({ success: true, data: storyChapter })
-            }).catch(err => console.log(err))
+            return res.status(200).json({ success: true, data: storyChapter })
         }).catch(err => console.log(err))
     })
 }
