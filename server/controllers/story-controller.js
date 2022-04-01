@@ -133,7 +133,7 @@ getStories = async (req, res) => {
     }).catch(err => console.log(err))
 }
 
-addStoryChapter = async(req, res) => {
+addStoryChapter = (req, res) => {
     await Story.findById({ _id: req.params.id }, (err, story) => {
         if(err)
             return res.status(401).json({success: false, error: err})
@@ -155,7 +155,7 @@ addStoryChapter = async(req, res) => {
     })
 }
 
-updateStoryChapter = async(req, res) => {
+updateStoryChapter = async (req, res) => {
     const body = req.body
     console.log("updateStoryChapter: " + JSON.stringify(body));
     if (!body) {
@@ -207,7 +207,11 @@ deleteStoryChapter = async (req, res) => {
             })
         }
         StoryChapter.findOneAndDelete({ _id: req.params.id }, () => {
-            return res.status(200).json({ success: true, data: storyChapter })
+            Story.findById({ _id: req.params.story_id }, (err, story) => {
+                story.chapters.splice(story.chapters.indexOf(req.params.id), 1)
+                await this.updateStory(req.params.story_id, story)
+                return res.status(200).json({ success: true, data: storyChapter })
+            }).catch(err => console.log(err))
         }).catch(err => console.log(err))
     })
 }
