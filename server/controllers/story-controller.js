@@ -134,7 +134,7 @@ getStories = async (req, res) => {
     }).catch(err => console.log(err))
 }
 
-addStoryChapter = (req, res) => {
+addStoryChapter = async (req, res) => {
     await Story.findById({ _id: req.params.id }, (err, story) => {
         if(err)
             return res.status(401).json({success: false, error: err})
