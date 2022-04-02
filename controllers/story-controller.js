@@ -1,5 +1,6 @@
 const Story = require('../models/story-model');
 const StoryChapter = require('../models/storyChapter-model');
+const Image = require('../models/image-model');
 const User = require('../models/user-model');
 
 createStory = (req, res) => {
@@ -104,17 +105,19 @@ updateStory = async (req, res) => {
 
 //STRICTLY DELETES STORY ONLY. MUST MAKE CALLS TO REMOVE RESPECTIVE CHAPTERS ON FRONT-END
 deleteStory = async (req, res) => {
-    Story.findById({ _id: req.params.id }, (err, story) => {
-        if (err) {
-            return res.status(404).json({
-                err,
-                message: 'Story not found!',
-            })
+    try {
+        let id = req.params.id;
+        const story = await Story.findById(id);
+        if (!story) {
+            return res.status(400).json({success: false, message: "Story not found."});
         }
-        Story.findOneAndDelete({ _id: req.params.id }, () => {
-            return res.status(200).json({ success: true, data: story })
-        }).catch(err => console.log(err))
-    })
+
+        const deleted = await Story.findOneAndDelete({ _id: id });
+        return res.status(200).json({ success: true, data: deleted });
+    }
+    catch (err) {
+        return res.status(400);
+    }
 }
 
 getStoryById = async (req, res) => {
