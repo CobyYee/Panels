@@ -213,7 +213,7 @@ getChapterById = async(req, res) => {       // tested 200
     }
 }
 
-deleteChapter = async(req, res) => {
+deleteChapter = async(req, res) => {    // tested 200
     try {
         const id = req.params.id;
         const deleted = await ComicChapter.deleteOne({_id: id});
