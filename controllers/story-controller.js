@@ -194,8 +194,8 @@ getStories = async (req, res) => {
 
 createStoryChapter = async (req, res) => {
     try {
-        const { name, uploaded, chapter } = req.body;
-        if (!name || !uploaded || !chapter) {
+        const { name, chapter } = req.body;
+        if (!name || !chapter) {
             return res.status(400).json({
                 success: false,
                 error: "Must specify information to create the story chapter."
@@ -204,7 +204,6 @@ createStoryChapter = async (req, res) => {
 
         const newChapter = new StoryChapter({
             name: name,
-            uploaded: uploaded,
             chapter: chapter
         });
         
@@ -246,7 +245,6 @@ updateStoryChapter = async (req, res) => {
         }
 
         story.name = body.name
-        story.uploaded = body.uploaded
         story.chapter = body.chapter
 
         storyChapter
