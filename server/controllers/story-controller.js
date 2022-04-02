@@ -2,7 +2,7 @@ const Story = require('../models/story-model');
 const StoryChapter = require('../models/storyChapter-model');
 const User = require('../models/user-model');
 
-createComic = (req, res) => {
+createStory = (req, res) => {
     try {
         const { title, creatorId, creatorName, genres, description, cover_data } = req.body;
         if (!title || !creatorId || !creatorName || !cover_data || !genres || !description) {
