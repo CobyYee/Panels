@@ -17,13 +17,14 @@ router.get('/comicchapter/:id', auth.verifyJWT, ComicController.getChapterById)
 router.post('/comicchapter/:id', auth.verifyJWT, ComicController.addChapter)
 
 
+router.get('/story/:id', auth.verifyJWT, ComicController.getStoryById)
 router.post('/story', auth.verifyJWT, StoryController.createStory)
 router.put('/story/:id', auth.verifyJWT, StoryController.updateStory)
 router.delete('/story/:id', auth.verifyJWT, StoryController.deleteStory)
 router.get('stories/:genre', auth.verifyJWT, StoryController.getStoriesByGenre)
 router.get('/stories/:title', auth.verifyJWT, StoryController.getStoriesByName)
 router.get('/stories', auth.verifyJWT, StoryController.getStories)
-router.post('/storychapter/:id', auth.verifyJWT, StoryController.addStoryChapter)
+router.post('/storychapter/', auth.verifyJWT, StoryController.createStoryChapter)
 router.put('/storychapter/:id', auth.verifyJWT, StoryController.updateStoryChapter)
 router.delete('/storychapter/:id', auth.verifyJWT, StoryController.deleteStoryChapter)
 
