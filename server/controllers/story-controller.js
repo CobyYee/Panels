@@ -189,6 +189,7 @@ getStories = async (req, res) => {
     }
 }
 
+<<<<<<< HEAD
 createStoryChapter = async (req, res) => {
     try {
         const { name, uploaded, chapter } = req.body;
@@ -198,6 +199,18 @@ createStoryChapter = async (req, res) => {
                 error: "Must specify information to create the story chapter."
             });
         }
+=======
+addStoryChapter = async (req, res) => {
+<<<<<<< HEAD
+    await Story.findById({ _id: req.params.id }, (err, story) => {
+        if(err)
+=======
+    await Story.findById({_id: req.params.id}, (err, story) => {
+        if (err)
+>>>>>>> 780f875e9e96afc233c97de452a349e6945c0a6d
+            return res.status(401).json({success: false, error: err})
+        story.chapters.push(req.body.newChapter)
+>>>>>>> 9ab55a062e59dc47cc152344fdbd2be223198dc1
 
         const newChapter = new StoryChapter({
             name: name,
