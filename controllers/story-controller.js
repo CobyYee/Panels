@@ -137,15 +137,28 @@ getStoriesByName = async (req, res) => {
 
 getStoriesByGenre = async (req, res) => {
     try {
-        const found = await Story.find({ title: req.params.genre });
-        if (!found)
-            return res.status(400).json({success: false, message: "Stories not found"});
-        
-        return res.status(200).json({success: true, stories: found});
+        let filterStories = [];
+        const genres = req.body.genres;
+        const stories = await Story.find({});
+        for(let i = 0; i < stories.length; i++) {
+            let good = true;
+            for (let j = 0; j < genres.length; j++) {
+                console.log(genres[j])
+                if (!stories[i].genres.includes(genres[j])) {
+                    good = false;
+                    break;
+                }
+            }
+            if (good === true)
+                filterStories.push(stories[i]);
+        }
+        return res.status(200).json({
+            success: true,
+            data: filterStories  
+        });
     }
     catch (err) {
-        console.error("getStoriesByGenre failed: " + err);
-        return res.status(500).send();
+        return res.status(500);
     }
 }
 
@@ -213,45 +226,28 @@ createStoryChapter = async (req, res) => {
 }
 
 updateStoryChapter = async (req, res) => {
-    const body = req.body
-    console.log("updateStoryChapter: " + JSON.stringify(body));
-    if (!body) {
-        return res.status(400).json({
-            success: false,
-            error: 'You must provide a body to update',
-        })
-    }
-
-    StoryChapter.findOne({ _id: req.params.id }, (err, storyChapter) => {
-        console.log("Story chapter found: " + JSON.stringify(storyChapter));
-        if (err) {
-            return res.status(404).json({
-                err,
-                message: 'Story chapter not found!',
-            })
+    try {
+        const body = req.body;
+        if(!body) {
+            return res.status(400).json({
+                success: false,
+                message: "Must specify information to update the story chapter."
+            });
         }
 
-        storyChapter.name = body.name
-        storyChapter.chapter = body.chapter
+        const old = await Story.findById(body._id);
+        if (!old)
+            return res.status(400).json({success: false, message: "This story chapter does not exist!"});
 
-        storyChapter
-            .save()
-            .then(() => {
-                console.log("SUCCESS!!!");
-                return res.status(200).json({
-                    success: true,
-                    id: storyChapter._id,
-                    message: 'Story Chapter updated!',
-                })
-            })
-            .catch(error => {
-                console.log("FAILURE: " + JSON.stringify(error));
-                return res.status(404).json({
-                    error,
-                    message: 'Story Chapter not updated!',
-                })
-            })
-    })
+        old.name = body.name;
+        old.chapter = body.chapter;
+
+        await old.save();
+        return res.status(200).json({success: true, data: old});
+    }
+    catch (err) {
+        return res.status(500);
+    }
 }
 
 //STRICTLY DELETES CHAPTER. MUST RETAIN STORY_ID AND CHAPTER_ID TO REMOVE ID FROM CHAPTERS LIST OF STORY (FRONT-END)
