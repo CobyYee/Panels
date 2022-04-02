@@ -18,5 +18,8 @@
     "newman": "^5.3.2",
     "nodemailer": "^6.7.3",
     "nodemon": "^2.0.15"
+  },
+  "scripts": {
+    "start": "nodemon"
   }
 }
