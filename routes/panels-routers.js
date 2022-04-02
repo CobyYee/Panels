@@ -7,14 +7,14 @@ const router = express.Router()
 
 router.get('/comic/:id', auth.verifyJWT, ComicController.getComicById)
 router.post('/comic', auth.verifyJWT, ComicController.createComic)
-router.put('/comic/:id', auth.verifyJWT, ComicController.updateComic)
+router.put('/comic', auth.verifyJWT, ComicController.updateComic)
 router.delete('/comic/:id', auth.verifyJWT, ComicController.deleteComic)
 router.get('/comics', auth.verifyJWT, ComicController.getComics)
-router.get('/comicsbygenre', auth.verifyJWT, ComicController.getComicByGenre)
+router.post('/comicsbygenres', auth.verifyJWT, ComicController.getComicsByGenres)
 router.get('/comicsbyname', auth.verifyJWT, ComicController.getComicByName)
 router.delete('/comicchapter/:id', auth.verifyJWT, ComicController.deleteChapter)
 router.get('/comicchapter/:id', auth.verifyJWT, ComicController.getChapterById)
-router.post('/comicchapter/:id', auth.verifyJWT, ComicController.addChapter)
+router.post('/comicchapter/:id', auth.verifyJWT, ComicController.createChapter)
 
 
 router.get('/story/:id', auth.verifyJWT, StoryController.getStoryById)

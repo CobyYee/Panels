@@ -1,8 +1,9 @@
 const comicModel = require('../models/comic-model');
 const Comic = require('../models/comic-model');
 const Image = require('../models/image-model');
+const ComicChapter = require('../models/comicChapter-model.js');
 
-createComic = (req, res) => {
+createComic = (req, res) => {   // tested 200
     try {
         const { title, creatorId, creatorName, genres, description, cover_data } = req.body;
         if (!title || !creatorId || !creatorName || !cover_data || !genres || !description) {
@@ -54,22 +55,36 @@ createComic = (req, res) => {
     }
 }
 
-deleteComic = async (req, res) => {
-    Comic.findById({_id: req.params.id}, (err, comicDel) => {
-        if(err)
+deleteComic = async (req, res) => {     // tested 200
+    try {
+        let id = req.params.id;
+        const comic = await Comic.findById(id);
+        if (!comic) {
             return res.status(400).json({success: false, message: "Comic not found."});
-        Comic.findOneAndDelete({_id: req.params.id}, () => {
-            return res.status(200).json({success: true, data: comicDel});
-        }).catch(err => {
-            return res.status(401).json({
-                success: false,
-                error: err
-            });
-        })
-    });
+        }
+
+        const deleted = await Comic.findOneAndDelete({_id: id});
+        return res.status(200).json({ success: true, data: deleted });
+    }
+    catch (err) {
+        return res.status(400);
+    }
+
+    // Comic.findById({_id: req.params.id}, (err, comicDel) => {
+    //     if(err)
+    //         return res.status(400).json({success: false, message: "Comic not found."});
+    //     Comic.findOneAndDelete({_id: req.params.id}, () => {
+    //         return res.status(200).json({success: true, data: comicDel});
+    //     }).catch(err => {
+    //         return res.status(401).json({
+    //             success: false,
+    //             error: err
+    //         });
+    //     })
+    // });
 }
 
-getComicById = async (req, res) => {
+getComicById = async (req, res) => {        // tested 200
     try {
         const found = await Comic.findById(req.params.id);
         if (!found)
@@ -83,75 +98,76 @@ getComicById = async (req, res) => {
     }
 }
 
-getComics = async(req, res) => {
-    await Comic.find({}, (err, comics) => {
-        if(err)
-            return res.status(400).json({success: false, error: err});
-        
+getComics = async(req, res) => {        // tested 200
+    try {
+        const comics = await Comic.find({});
         return res.status(200).json({success: true, data: comics});
-    }).catch(err => {
-        return res.status(401).json({
-            success: false,
-            error: err
-        })
-    })
+    }
+    catch (err) {
+        return res.status(500);
+    }
 }
 
-updateComic = async (req, res) => {
-    const body = req.body;
-    if(!body) {
-        return res.status(400).json({
-            success: false,
-            error: "Must specify information to create the comic."
-        });
-    }
-
-    await Comic.findById({_id: req.params.id}, (err, comicFound) => {
-        if(err)
-            return res.status(401).json({success: false, error: err});
-        comicFound.title = body.title
-        comicFound.cover = body.cover
-        comicFound.genres = body.genres
-        comicFound.ratings = body.ratings
-        comicFound.description = body.description
-        comicFound.published = body.published
-        comicFound.views = body.views
-        comicFound.chapters = body.chapters
-
-        comicFound.save().then(() => {
-            return res.status(201).json({
-                success: true,
-                comic: newComic,
-                message: "Comic has been updated."
-            });
-        }).catch(err => {
-            return res.status(402).json({
+updateComic = async (req, res) => {     // tested 200
+    try {
+        const body = req.body;
+        if(!body) {
+            return res.status(400).json({
                 success: false,
-                error: err,
-                message: "Comic has not been updated properly."
-            });            
-        })
-    })
+                message: "Must specify information to create the comic."
+            });
+        }
+
+        const old = await Comic.findById(body._id);
+        if (!old)
+            return res.status(400).json({success: false, message: "This comic does not exist!"});
+
+        if (body.cover !== old.cover.toString()) {
+            console.log("HERE");
+            const oldCover = await Image.findById(old.cover);
+            oldCover.data = body.cover;
+            await oldCover.save();
+        }
+
+        old.genres = body.genres;
+        old.ratings = body.ratings;
+        old.description = body.description;
+        old.views = body.views;
+        old.chapters = body.chapters;
+
+        await old.save();
+        return res.status(200).json({success: true, data: old});
+    }
+    catch (err) {
+        return res.status(500);
+    }
 }
 
-getComicByGenre = async(req, res) => {
-    filterComics = []
-    allComics = await this.getComics()
-    for(comic in allComics) {
-        if(comic.genres.includes(req.body.genre)) {
-            filterComics.push(comic);
+getComicsByGenres = async(req, res) => {    // tested 200
+    try {
+        let filterComics = [];
+        const genres = req.body.genres;
+        const allComics = await Comic.find({});
+        for(let i = 0; i < allComics.length; i++) {
+            let good = true;
+            for (let j = 0; j < genres.length; j++) {
+                console.log(genres[j])
+                if (!allComics[i].genres.includes(genres[j])) {
+                    good = false;
+                    break;
+                }
+            }
+            if (good === true)
+                filterComics.push(allComics[i]);
         }
-    }
-    if(filterComics.length == 0) {
-        return res.status(400).json({
-            success: false,
-            message: "No comics with that genre"
+        return res.status(200).json({
+            success: true,
+            data: filterComics  
         });
     }
-    return res.status(200).json({
-        success: true,
-        data: filterComics
-    });
+    catch (err) {
+        return res.status(500);
+    }
 }
 
 getComicByName = async(req, res) => {
@@ -174,27 +190,43 @@ getComicByName = async(req, res) => {
     });
 }
 
-addChapter = async(req, res) => {
-    await Comic.findById({_id: req.params.id}, (err, comicFound) => {
-        if(err)
-            return res.status(401).json({success: false, error: err})
-        comicFound.chapters.push(req.body.newChapter)
+createChapter = async (req, res) => {
+    try {
+        const chapter = req.body;
+        if (!chapter)
+            return res.status(400).json({success: false, message: "New comic chapter cannot be empty!"})
 
-        comicFound.save().then(() => {
-            return res.status(201).json({
-                success: true,
-                comic: newComic,
-                message: "Comic chapter has been added."
-            });
-        }).catch(err => {
-            return res.status(402).json({
-                success: false,
-                error: err,
-                message: "Comic chapter has not been added properly."
-            });            
-        })
-    })
+        const newChapter = new ComicChapter(chapter);
+        const created = newChapter.save();
+
+        return res.status(200).json({success: true, data: created});
+    }
+    catch (err) {
+        return res.status(500);
+    }
 }
+
+// addChapter = async(req, res) => {
+//     await Comic.findById({_id: req.params.id}, (err, comicFound) => {
+//         if(err)
+//             return res.status(401).json({success: false, error: err})
+//         comicFound.chapters.push(req.body.newChapter)
+
+//         comicFound.save().then(() => {
+//             return res.status(201).json({
+//                 success: true,
+//                 comic: newComic,
+//                 message: "Comic chapter has been added."
+//             });
+//         }).catch(err => {
+//             return res.status(402).json({
+//                 success: false,
+//                 error: err,
+//                 message: "Comic chapter has not been added properly."
+//             });            
+//         })
+//     })
+// }
 
 getChapterById = async(req, res) => {
     const body = req.body;
@@ -235,11 +267,11 @@ module.exports = {
     createComic,
     deleteComic,
     getComicById,
-    getComicByGenre,
+    getComicsByGenres,
     getComicByName,
     getComics,
     updateComic,
-    addChapter,
+    createChapter,
     getChapterById,
     deleteChapter,
     //getChaptersByFilter
