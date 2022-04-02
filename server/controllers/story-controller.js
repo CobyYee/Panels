@@ -173,9 +173,9 @@ getStories = async (req, res) => {
     }
 }
 
-addStoryChapter = (req, res) => {
-    await Story.findById({ _id: req.params.id }, (err, story) => {
-        if(err)
+addStoryChapter = async (req, res) => {
+    await Story.findById({_id: req.params.id}, (err, story) => {
+        if (err)
             return res.status(401).json({success: false, error: err})
         story.chapters.push(req.body.newChapter)
 
@@ -190,7 +190,7 @@ addStoryChapter = (req, res) => {
                 success: false,
                 error: err,
                 message: "Story chapter could not be added."
-            });            
+            });
         })
     })
 }
