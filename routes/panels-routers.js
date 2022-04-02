@@ -17,7 +17,7 @@ router.get('/comicchapter/:id', auth.verifyJWT, ComicController.getChapterById)
 router.post('/comicchapter/:id', auth.verifyJWT, ComicController.addChapter)
 
 
-router.get('/story/:id', auth.verifyJWT, ComicController.getStoryById)
+router.get('/story/:id', auth.verifyJWT, StoryController.getStoryById)
 router.post('/story', auth.verifyJWT, StoryController.createStory)
 router.put('/story/:id', auth.verifyJWT, StoryController.updateStory)
 router.delete('/story/:id', auth.verifyJWT, StoryController.deleteStory)
