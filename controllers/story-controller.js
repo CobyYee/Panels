@@ -3,36 +3,55 @@ const StoryChapter = require('../models/storyChapter-model');
 const User = require('../models/user-model');
 
 createStory = (req, res) => {
-    const body = req.body;
-    if (!body) {
-        return res.status(400).json({
-            errorMessage: 'Improperly formatted request',
-        })
-    }
-
-    const story = new Story(body);
-    console.log("creating story: " + JSON.stringify(story));
-    if (!story) {
-        return res.status(400).json({
-            errorMessage: 'Improperly formatted request',
-        })
-    }
-
-    story
-        .save()
-        .then(() => {
-            return res.status(201).json({
-                success: true,
-                story: story,
-                message: 'Story Created!'
-            })
-        })
-        .catch(error => {
+    try {
+        const { title, creatorId, creatorName, genres, description, cover_data } = req.body;
+        if (!title || !creatorId || !creatorName || !cover_data || !genres || !description) {
             return res.status(400).json({
-                error,
-                message: 'Story Not Created!'
-            })
-        })
+                success: false,
+                error: "Must specify information to create the story."
+            });
+        }
+
+        const cover = new Image({data: cover_data});
+        cover.save().then(() => {
+            console.log("Story cover saved")
+        }).catch(err => {
+            console.log("Story cover not saved")
+            return res.status(500).json({
+                success: false,
+                error: err
+            });
+        });
+
+        const newStory = new Story({
+            title: title,
+            creatorId: creatorId,
+            creatorName: creatorName,
+            cover: cover._id,
+            genres: genres,
+            ratings: [],
+            description: description,
+            published: null,
+            views: 0,
+            chapters: []
+        });
+        
+        newStory.save().then(() => {
+            return res.status(200).json({   
+                success: true,
+                story: newStory,
+                message: "New story has been successfully created."
+            });
+        }).catch(err => {
+            return res.status(500).json({
+                success: false,
+                error: err
+            });
+        });
+    }
+    catch (err) {
+        return res.status(500).send();
+    }
 }
 
 updateStory = async (req, res) => {
@@ -99,61 +118,109 @@ deleteStory = async (req, res) => {
 }
 
 getStoryById = async (req, res) => {
-    await Story.findById({ _id: req.params.id }, (err, story) => {
-        if (err) {
-            return res.status(400).json({ success: false, error: err });
-        }
-        return res.status(200).json({ success: true, story: story })
-    }).catch(err => console.log(err))
+    try {
+        const found = await Story.findById({ _id: req.params.id });
+        if (!found)
+            return res.status(400).json({success: false, message: "Story not found"});
+        
+        return res.status(200).json({success: true, story: found});
+    }
+    catch (err) {
+        console.error("getStoryById failed: " + err);
+        return res.status(500).send();
+    }
 }
 
 getStoriesByName = async (req, res) => {
-    await Story.find({ title: req.params.title }, (err, stories) => {
-        if (err) {
-            return res.status(400).json({ success: false, error: err })
-        }
-        return res.status(200).json({ success: true, data: stories })
-    }).catch(err => console.log(err))
+    try {
+        const found = await Story.find({ title: req.params.title });
+        if (!found)
+            return res.status(400).json({success: false, message: "Stories not found"});
+        
+        return res.status(200).json({success: true, stories: found});
+    }
+    catch (err) {
+        console.error("getStoriesByName failed: " + err);
+        return res.status(500).send();
+    }
 }
 
 getStoriesByGenre = async (req, res) => {
-    await Story.find({ genres: req.params.genre }, (err, stories) => {
-        if (err) {
-            return res.status(400).json({ success: false, error: err })
-        }
-        return res.status(200).json({ success: true, data: stories })
-    }).catch(err => console.log(err))
+    try {
+        const found = await Story.find({ title: req.params.genre });
+        if (!found)
+            return res.status(400).json({success: false, message: "Stories not found"});
+        
+        return res.status(200).json({success: true, stories: found});
+    }
+    catch (err) {
+        console.error("getStoriesByGenre failed: " + err);
+        return res.status(500).send();
+    }
 }
+
+/*
+getStoriesByCreator = async (req, res) => {
+    try {
+        const found = await Story.find({ creatorId: req.params.creatorId });
+        if (!found)
+            return res.status(400).json({success: false, message: "Stories not found"});
+        
+        return res.status(200).json({success: true, stories: found});
+    }
+    catch (err) {
+        console.error("getStoriesByGenre failed: " + err);
+        return res.status(500).send();
+    }
+}
+*/
 
 getStories = async (req, res) => {
-    await Story.find({}, (err, stories) => {
-        if (err) {
-            return res.status(400).json({ success: false, error: err })
-        }
-        return res.status(200).json({ success: true, data: stories })
-    }).catch(err => console.log(err))
+    try {
+        const found = await Story.find({});
+        if (!found)
+            return res.status(400).json({success: false, message: "Stories not found"});
+        
+        return res.status(200).json({success: true, stories: found});
+    }
+    catch (err) {
+        console.error("getStories failed: " + err);
+        return res.status(500).send();
+    }
 }
 
-addStoryChapter = async (req, res) => {
-    await Story.findById({ _id: req.params.id }, (err, story) => {
-        if(err)
-            return res.status(401).json({success: false, error: err})
-        story.chapters.push(req.body.newChapter)
+createStoryChapter = async (req, res) => {
+    try {
+        const { name, uploaded, chapter } = req.body;
+        if (!name || !uploaded || !chapter) {
+            return res.status(400).json({
+                success: false,
+                error: "Must specify information to create the story chapter."
+            });
+        }
 
-        story.save().then(() => {
-            return res.status(201).json({
+        const newChapter = new StoryChapter({
+            name: name,
+            uploaded: uploaded,
+            chapter: chapter
+        });
+        
+        newChapter.save().then(() => {
+            return res.status(200).json({   
                 success: true,
-                story: story,
-                message: "Story chapter has been added."
+                chapter: newChapter,
+                message: "New story chapter has been successfully created."
             });
         }).catch(err => {
-            return res.status(402).json({
+            return res.status(500).json({
                 success: false,
-                error: err,
-                message: "Story chapter could not be added."
-            });            
-        })
-    })
+                error: err
+            });
+        });
+    }
+    catch (err) {
+        return res.status(500).send();
+    }
 }
 
 updateStoryChapter = async (req, res) => {
@@ -215,12 +282,17 @@ deleteStoryChapter = async (req, res) => {
 }
 
 getStoryChapterById = async (req, res) => {
-    await StoryChapter.findById({ _id: req.params.id }, (err, storyChapter) => {
-        if (err) {
-            return res.status(400).json({ success: false, error: err });
-        }
-        return res.status(200).json({ success: true, storyChapter: storyChapter })
-    }).catch(err => console.log(err))
+    try {
+        const found = await StoryChapter.findById({ _id: req.params.id });
+        if (!found)
+            return res.status(400).json({success: false, message: "Story chapter not found"});
+        
+        return res.status(200).json({success: true, story: found});
+    }
+    catch (err) {
+        console.error("getStoryChapterById failed: " + err);
+        return res.status(500).send();
+    }
 }
 
 
@@ -232,7 +304,7 @@ module.exports = {
     getStoriesByName,
     getStoriesByGenre,
     getStories,
-    addStoryChapter,
+    createStoryChapter,
     updateStoryChapter,
     deleteStoryChapter,
     getStoryChapterById
