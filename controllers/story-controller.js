@@ -244,8 +244,8 @@ updateStoryChapter = async (req, res) => {
             })
         }
 
-        story.name = body.name
-        story.chapter = body.chapter
+        storyChapter.name = body.name
+        storyChapter.chapter = body.chapter
 
         storyChapter
             .save()
