@@ -159,6 +159,22 @@ getStoriesByGenre = async (req, res) => {
     }
 }
 
+/*
+getStoriesByCreator = async (req, res) => {
+    try {
+        const found = await Story.find({ creatorId: req.params.creatorId });
+        if (!found)
+            return res.status(400).json({success: false, message: "Stories not found"});
+        
+        return res.status(200).json({success: true, stories: found});
+    }
+    catch (err) {
+        console.error("getStoriesByGenre failed: " + err);
+        return res.status(500).send();
+    }
+}
+*/
+
 getStories = async (req, res) => {
     try {
         const found = await Story.find({});
@@ -173,26 +189,38 @@ getStories = async (req, res) => {
     }
 }
 
-addStoryChapter = async (req, res) => {
-    await Story.findById({_id: req.params.id}, (err, story) => {
-        if (err)
-            return res.status(401).json({success: false, error: err})
-        story.chapters.push(req.body.newChapter)
+createStoryChapter = async (req, res) => {
+    try {
+        const { name, uploaded, chapter } = req.body;
+        if (!name || !uploaded || !chapter) {
+            return res.status(400).json({
+                success: false,
+                error: "Must specify information to create the story chapter."
+            });
+        }
 
-        story.save().then(() => {
-            return res.status(201).json({
+        const newChapter = new StoryChapter({
+            name: name,
+            uploaded: uploaded,
+            chapter: chapter
+        });
+        
+        newChapter.save().then(() => {
+            return res.status(200).json({   
                 success: true,
-                story: story,
-                message: "Story chapter has been added."
+                chapter: newChapter,
+                message: "New story chapter has been successfully created."
             });
         }).catch(err => {
-            return res.status(402).json({
+            return res.status(500).json({
                 success: false,
-                error: err,
-                message: "Story chapter could not be added."
+                error: err
             });
-        })
-    })
+        });
+    }
+    catch (err) {
+        return res.status(500).send();
+    }
 }
 
 updateStoryChapter = async (req, res) => {
@@ -276,7 +304,7 @@ module.exports = {
     getStoriesByName,
     getStoriesByGenre,
     getStories,
-    addStoryChapter,
+    createStoryChapter,
     updateStoryChapter,
     deleteStoryChapter,
     getStoryChapterById

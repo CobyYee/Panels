@@ -24,7 +24,7 @@ router.delete('/story/:id', auth.verifyJWT, StoryController.deleteStory)
 router.get('stories/:genre', auth.verifyJWT, StoryController.getStoriesByGenre)
 router.get('/stories/:title', auth.verifyJWT, StoryController.getStoriesByName)
 router.get('/stories', auth.verifyJWT, StoryController.getStories)
-router.post('/storychapter/:id', auth.verifyJWT, StoryController.addStoryChapter)
+router.post('/storychapter/', auth.verifyJWT, StoryController.createStoryChapter)
 router.put('/storychapter/:id', auth.verifyJWT, StoryController.updateStoryChapter)
 router.delete('/storychapter/:id', auth.verifyJWT, StoryController.deleteStoryChapter)
 
