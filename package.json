@@ -16,5 +16,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.8",
     "nodemailer": "^6.7.3"
+  },
+  "scripts": {
+    "test": "newman run ./tests/user_requests.json"
   }
 }
