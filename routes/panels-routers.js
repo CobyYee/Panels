@@ -19,7 +19,7 @@ router.post('/comicchapter', auth.verifyJWT, ComicController.createChapter)
 
 router.get('/story/:id', auth.verifyJWT, StoryController.getStoryById)
 router.post('/story', auth.verifyJWT, StoryController.createStory)
-router.put('/story/:id', auth.verifyJWT, StoryController.updateStory)
+router.put('/story', auth.verifyJWT, StoryController.updateStory)
 router.delete('/story/:id', auth.verifyJWT, StoryController.deleteStory)
 router.get('stories/:genre', auth.verifyJWT, StoryController.getStoriesByGenre)
 router.get('/stories/:title', auth.verifyJWT, StoryController.getStoriesByName)
