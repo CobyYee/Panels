@@ -5,8 +5,7 @@ const ObjectId = Schema.Types.ObjectId
 const ComicChapterSchema = new Schema(
     {
         name: { type: String, required: true },
-        uploaded: { type: Date, required: true },
-        images: { type: ObjectId, required: true }
+        images: { type: [ObjectId], required: true }
     },
     { timestamps: true }
 )

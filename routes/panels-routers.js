@@ -11,10 +11,10 @@ router.put('/comic', auth.verifyJWT, ComicController.updateComic)
 router.delete('/comic/:id', auth.verifyJWT, ComicController.deleteComic)
 router.get('/comics', auth.verifyJWT, ComicController.getComics)
 router.post('/comicsbygenres', auth.verifyJWT, ComicController.getComicsByGenres)
-router.get('/comicsbyname', auth.verifyJWT, ComicController.getComicByName)
+router.get('/comicsbyname/:name', auth.verifyJWT, ComicController.getComicsByName)
 router.delete('/comicchapter/:id', auth.verifyJWT, ComicController.deleteChapter)
 router.get('/comicchapter/:id', auth.verifyJWT, ComicController.getChapterById)
-router.post('/comicchapter/:id', auth.verifyJWT, ComicController.createChapter)
+router.post('/comicchapter', auth.verifyJWT, ComicController.createChapter)
 
 
 router.get('/story/:id', auth.verifyJWT, StoryController.getStoryById)

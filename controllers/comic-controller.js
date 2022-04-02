@@ -2,6 +2,7 @@ const comicModel = require('../models/comic-model');
 const Comic = require('../models/comic-model');
 const Image = require('../models/image-model');
 const ComicChapter = require('../models/comicChapter-model.js');
+const { findById } = require('../models/comic-model');
 
 createComic = (req, res) => {   // tested 200
     try {
@@ -69,19 +70,6 @@ deleteComic = async (req, res) => {     // tested 200
     catch (err) {
         return res.status(400);
     }
-
-    // Comic.findById({_id: req.params.id}, (err, comicDel) => {
-    //     if(err)
-    //         return res.status(400).json({success: false, message: "Comic not found."});
-    //     Comic.findOneAndDelete({_id: req.params.id}, () => {
-    //         return res.status(200).json({success: true, data: comicDel});
-    //     }).catch(err => {
-    //         return res.status(401).json({
-    //             success: false,
-    //             error: err
-    //         });
-    //     })
-    // });
 }
 
 getComicById = async (req, res) => {        // tested 200
@@ -170,97 +158,73 @@ getComicsByGenres = async(req, res) => {    // tested 200
     }
 }
 
-getComicByName = async(req, res) => {
-    filterComics = []
-    allComics = await this.getComics()
-    for(comic in allComics) {
-        if(comic.name === req.body.name) {
-            filterChapters.push(comic);
-        }
-    }
-    if(filterComics.length == 0) {
-        return res.status(400).json({
-            success: false,
-            message: "No comics with that name"
-        });
-    }
-    return res.status(200).json({
-        success: true,
-        data: filterComics
-    });
-}
-
-createChapter = async (req, res) => {
+getComicsByName = async(req, res) => {      // tested 200
     try {
-        const chapter = req.body;
-        if (!chapter)
-            return res.status(400).json({success: false, message: "New comic chapter cannot be empty!"})
-
-        const newChapter = new ComicChapter(chapter);
-        const created = newChapter.save();
-
-        return res.status(200).json({success: true, data: created});
+        const allComics = await Comic.find({title: new RegExp(req.params.name, "i")});
+        return res.status(200).json({
+            success: true,
+            data: allComics
+        });
     }
     catch (err) {
         return res.status(500);
     }
 }
 
-// addChapter = async(req, res) => {
-//     await Comic.findById({_id: req.params.id}, (err, comicFound) => {
-//         if(err)
-//             return res.status(401).json({success: false, error: err})
-//         comicFound.chapters.push(req.body.newChapter)
+createChapter = async (req, res) => {       // tested 200
+    try {
+        const { name, images } = req.body;
+        if (!images || !name)
+            return res.status(400).json({success: false, message: "New comic chapter fields cannot be empty!"});
 
-//         comicFound.save().then(() => {
-//             return res.status(201).json({
-//                 success: true,
-//                 comic: newComic,
-//                 message: "Comic chapter has been added."
-//             });
-//         }).catch(err => {
-//             return res.status(402).json({
-//                 success: false,
-//                 error: err,
-//                 message: "Comic chapter has not been added properly."
-//             });            
-//         })
-//     })
-// }
-
-getChapterById = async(req, res) => {
-    const body = req.body;
-    comic = await this.getChapterById(body.comicId);
-    for(chapter in comic.chapters){
-        if(chapter._id = body.chapterId) {
-            return res.status(200).json({
-                success: true,
-                data: chapter
-            })
+        let arr = [];
+        for (let i = 0; i < images.length; i++) {
+            const newImage = new Image({data: images[i]});
+            await newImage.save();
+            arr.push(newImage._id);
         }
+        const newChapter = new ComicChapter({
+            name: name,
+            images: arr
+        });
+        await newChapter.save();
+
+        return res.status(200).json({success: true, data: newChapter});
     }
-    return res.status(400).json({
-        success: false,
-        message: "No chapter with that id"
-    });
+    catch (err) {
+        return res.status(500);
+    }
 }
 
-deleteChapter = async(req, res) => {
-    const body = req.body;
-    comic = await this.getComicById(body.comicId);
-    for(let i = 0; i < comic.chapters.length; i++) {
-        if(chapter.name === body.chapterName) {
-            deletedComic = comic.chapters.splice(i, 1);
-            return res.status(200).json({
-                success: true,
-                data: deletedComic
-            });
-        }
+getChapterById = async(req, res) => {       // tested 200
+    try {
+        const id = req.params.id;
+        if (!id) 
+            return res.status(400).json({success: false, message: "id field cannot be empty!"});
+
+        const chapter = await ComicChapter.findById(id);
+        if (!chapter)
+            return res.status.json({success: false, message: "Comic chapter with this id does not exist!"})
+
+        return res.status(200).json({success: true, data: chapter});
     }
-    return res.status(400).json({
-        success: false,
-        message: "No chapter to delete with that name"
-    });
+    catch (err) {
+        return res.status(500);
+    }
+}
+
+deleteChapter = async(req, res) => {    // tested 200
+    try {
+        const id = req.params.id;
+        const deleted = await ComicChapter.deleteOne({_id: id});
+        if (deleted.deletedCount === 0)
+            return res.status(400).json({success: false, message: "Chapter with this id does not exist!"})
+
+        return res.status(200).json({success: true, data: deleted});
+    }
+    catch (err) {
+        return res.status(500);
+    }
 }
 
 module.exports = {
@@ -268,7 +232,7 @@ module.exports = {
     deleteComic,
     getComicById,
     getComicsByGenres,
-    getComicByName,
+    getComicsByName,
     getComics,
     updateComic,
     createChapter,
