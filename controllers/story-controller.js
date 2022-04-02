@@ -56,51 +56,38 @@ createStory = (req, res) => {
 }
 
 updateStory = async (req, res) => {
-    const body = req.body
-    console.log("updateStory: " + JSON.stringify(body));
-    if (!body) {
-        return res.status(400).json({
-            success: false,
-            error: 'You must provide a body to update',
-        })
-    }
-
-    Story.findOne({ _id: req.params.id }, (err, story) => {
-        console.log("story found: " + JSON.stringify(story));
-        if (err) {
-            return res.status(404).json({
-                err,
-                message: 'Story not found!',
-            })
+    try {
+        const body = req.body;
+        if(!body) {
+            return res.status(400).json({
+                success: false,
+                message: "Must specify information to update the story."
+            });
         }
 
-        story.title = body.title
-        story.cover = body.cover
-        story.genres = body.genres
-        story.ratings = body.ratings
-        story.description = body.description
-        story.published = body.published
-        story.views = body.views
-        story.chapters = body.chapters
+        const old = await Story.findById(body._id);
+        if (!old)
+            return res.status(400).json({success: false, message: "This story does not exist!"});
 
-        story
-            .save()
-            .then(() => {
-                console.log("SUCCESS!!!");
-                return res.status(200).json({
-                    success: true,
-                    id: story._id,
-                    message: 'Story updated!',
-                })
-            })
-            .catch(error => {
-                console.log("FAILURE: " + JSON.stringify(error));
-                return res.status(404).json({
-                    error,
-                    message: 'Story not updated!',
-                })
-            })
-    })
+        if (body.cover !== old.cover.toString()) {
+            console.log("HERE");
+            const oldCover = await Image.findById(old.cover);
+            oldCover.data = body.cover;
+            await oldCover.save();
+        }
+
+        old.genres = body.genres;
+        old.ratings = body.ratings;
+        old.description = body.description;
+        old.views = body.views;
+        old.chapters = body.chapters;
+
+        await old.save();
+        return res.status(200).json({success: true, data: old});
+    }
+    catch (err) {
+        return res.status(500);
+    }
 }
 
 //STRICTLY DELETES STORY ONLY. MUST MAKE CALLS TO REMOVE RESPECTIVE CHAPTERS ON FRONT-END
@@ -236,11 +223,11 @@ updateStoryChapter = async (req, res) => {
     }
 
     StoryChapter.findOne({ _id: req.params.id }, (err, storyChapter) => {
-        console.log("story found: " + JSON.stringify(storyChapter));
+        console.log("Story chapter found: " + JSON.stringify(storyChapter));
         if (err) {
             return res.status(404).json({
                 err,
-                message: 'Story Chapter not found!',
+                message: 'Story chapter not found!',
             })
         }
 
@@ -267,7 +254,7 @@ updateStoryChapter = async (req, res) => {
     })
 }
 
-//STRICTLY DELETES CHAPTER. MUST RETAIN COMIC_ID AND CHAPTER_ID TO REMOVE ID FROM CHAPTERS LIST OF COMIC (FRONT-END)
+//STRICTLY DELETES CHAPTER. MUST RETAIN STORY_ID AND CHAPTER_ID TO REMOVE ID FROM CHAPTERS LIST OF STORY (FRONT-END)
 deleteStoryChapter = async (req, res) => {
     StoryChapter.findById({ _id: req.params.id }, (err, storyChapter) => {
         if (err) {
