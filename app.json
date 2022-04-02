@@ -1,0 +1,5 @@
+{
+    "scripts": {
+        "test": "newman run ./tests/user_requests.json"
+      }
+}
