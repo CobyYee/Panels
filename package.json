@@ -21,6 +21,6 @@
   },
   "scripts": {
     "start": "nodemon index.js",
-    "test": "newman run ./tests/user_requests.json"
+    "test": "newman run ./tests/story_requests.json && nemman run ./tests/comic_requests.json"
   }
 }
