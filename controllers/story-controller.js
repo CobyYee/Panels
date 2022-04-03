@@ -93,6 +93,7 @@ updateStory = async (req, res) => {
 //STRICTLY DELETES STORY ONLY. MUST MAKE CALLS TO REMOVE RESPECTIVE CHAPTERS ON FRONT-END
 deleteStory = async (req, res) => {
     try {
+        /*
         let id = req.params.id;
         const story = await Story.findById(id);
         if (!story) {
@@ -101,19 +102,39 @@ deleteStory = async (req, res) => {
 
         const deleted = await Story.findOneAndDelete({ _id: id });
         return res.status(200).json({ success: true, data: deleted });
+        */
+        Story.findById({ _id: req.params.id}, (err, story) => {
+            if (err) {
+                return res.status(400).json({success: false, message: "Story not found."});
+            }
+
+            Story.findOneAndDelete({ _id: req.params.id }, () => {
+                return res.status(200).json({ success: true, data: story });
+            })
+        })
     }
     catch (err) {
-        return res.status(400);
+        console.error("deleteStory failed: " + err);
+        return res.status(500);
     }
 }
 
 getStoryById = async (req, res) => {
     try {
+        /*
         const found = await Story.findById({ _id: req.params.id });
         if (!found)
             return res.status(400).json({success: false, message: "Story not found"});
         
         return res.status(200).json({success: true, story: found});
+        */
+        Story.findById({ _id: req.params.id}, (err, story) => {
+            if (err || !story) {
+                return res.status(400).json({success: false, message: "Story not found."});
+            }
+
+            return res.status(200).json({ success: true, data: story });
+        })
     }
     catch (err) {
         console.error("getStoryById failed: " + err);
@@ -235,15 +256,25 @@ updateStoryChapter = async (req, res) => {
             });
         }
 
-        const old = await Story.findById(body._id);
-        if (!old)
-            return res.status(400).json({success: false, message: "This story chapter does not exist!"});
+        StoryChapter.findById({ _id: body._id }, (err, chapter) => {
+            if (err || !chapter) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Cannot find story chapter."
+                });
+            }
 
-        old.name = body.name;
-        old.chapter = body.chapter;
+            chapter.name = body.name
+            chapter.chapter = body.chapter
 
-        await old.save();
-        return res.status(200).json({success: true, data: old});
+            chapter.save().then(() => {
+                return res.status(200).json({   
+                    success: true,
+                    chapter: chapter,
+                    message: "Story chapter has been successfully updated."
+                });
+            })
+        })
     }
     catch (err) {
         return res.status(500);
@@ -255,7 +286,7 @@ deleteStoryChapter = async (req, res) => {
     StoryChapter.findById({ _id: req.params.id }, (err, storyChapter) => {
         if (err) {
             return res.status(404).json({
-                err,
+                success: false,
                 message: 'Story Chapter not found!',
             })
         }
