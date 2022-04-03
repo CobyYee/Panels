@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1f99835c-b400-4b32-b341-cca9cc7454d3",
+		"_postman_id": "c10427a6-937c-43c2-bfbf-7353965578d3",
 		"name": "Story_Requests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -26,12 +26,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:4000/api/story",
-					"protocol": "http",
+					"raw": "https://panelswebcomics.herokuapp.com/api/story",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"panelswebcomics",
+						"herokuapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"story"
@@ -59,12 +60,13 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:4000/api/story/6248b3140ee9250e6e06a314",
-					"protocol": "http",
+					"raw": "https://panelswebcomics.herokuapp.com/api/story/6248b3140ee9250e6e06a314",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"panelswebcomics",
+						"herokuapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"story",
@@ -93,12 +95,13 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:4000/api/stories/BTTH",
-					"protocol": "http",
+					"raw": "https://panelswebcomics.herokuapp.com/api/stories/BTTH",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"panelswebcomics",
+						"herokuapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"stories",
@@ -139,12 +142,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:4000/api/storiesbygenres",
-					"protocol": "http",
+					"raw": "https://panelswebcomics.herokuapp.com/api/storiesbygenres",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"panelswebcomics",
+						"herokuapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"storiesbygenres"
@@ -172,12 +176,13 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:4000/api/story/6248a4b2ffa3d61cd8e68eaf",
-					"protocol": "http",
+					"raw": "https://panelswebcomics.herokuapp.com/api/story/6248a4b2ffa3d61cd8e68eaf",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"panelswebcomics",
+						"herokuapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"story",
@@ -215,12 +220,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:4000/api/storychapter",
-					"protocol": "http",
+					"raw": "https://panelswebcomics.herokuapp.com/api/storychapter",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"panelswebcomics",
+						"herokuapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"storychapter"
@@ -255,12 +261,13 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:4000/api/storychapter/6248af51998fbac64c1184f8",
-					"protocol": "http",
+					"raw": "https://panelswebcomics.herokuapp.com/api/storychapter/6248af51998fbac64c1184f8",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"panelswebcomics",
+						"herokuapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"storychapter",
@@ -289,12 +296,13 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:4000/api/storychapter/6248ab97e5a27f6a4b8d5d76",
-					"protocol": "http",
+					"raw": "https://panelswebcomics.herokuapp.com/api/storychapter/6248ab97e5a27f6a4b8d5d76",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"panelswebcomics",
+						"herokuapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"storychapter",
@@ -325,12 +333,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:4000/api/storychapter",
-					"protocol": "http",
+					"raw": "https://panelswebcomics.herokuapp.com/api/storychapter",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"panelswebcomics",
+						"herokuapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"storychapter"
@@ -360,12 +369,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:4000/api/story/",
-					"protocol": "http",
+					"raw": "https://panelswebcomics.herokuapp.com/api/story/",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"panelswebcomics",
+						"herokuapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"story",
