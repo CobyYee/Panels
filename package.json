@@ -20,7 +20,7 @@
     "nodemon": "^2.0.15"
   },
   "scripts": {
-    "test-setup": "nodemon serve",
-    "test": "newman run ./tests/user_requests.json"
+    "start": "nodemon index.js",
+    "test": "newman run ./tests/user_requests.json && newman run ./tests/comic_requests.json && newman run ./tests/story_requests.json"
   }
 }

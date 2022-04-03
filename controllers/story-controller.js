@@ -1,7 +1,6 @@
 const Story = require('../models/story-model');
 const StoryChapter = require('../models/storyChapter-model');
 const Image = require('../models/image-model');
-const User = require('../models/user-model');
 
 createStory = (req, res) => {
     try {
