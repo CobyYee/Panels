@@ -182,7 +182,6 @@ getStoriesByGenre = async (req, res) => {
     }
 }
 
-/*
 getStoriesByCreator = async (req, res) => {
     try {
         const found = await Story.find({ creatorId: req.params.creatorId });
@@ -196,7 +195,6 @@ getStoriesByCreator = async (req, res) => {
         return res.status(500).send();
     }
 }
-*/
 
 getStories = async (req, res) => {
     try {
