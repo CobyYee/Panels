@@ -42,7 +42,7 @@
 			"response": []
 		},
 		{
-			"name": "getStoryById: JohnDoe 200",
+			"name": "GetStoryById: JohnDoe 200",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -84,7 +84,7 @@
 			"response": []
 		},
 		{
-			"name": "getStoriesByName: JohnDoe 200",
+			"name": "GetStoriesByName: JohnDoe 200",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -119,7 +119,7 @@
 			"response": []
 		},
 		{
-			"name": "getStoriesByGenre: JohnDoe 200",
+			"name": "GetStoriesByGenre: JohnDoe 200",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -165,7 +165,7 @@
 			"response": []
 		},
 		{
-			"name": "deleteStory: JohnDoe 200",
+			"name": "DeleteStory: JohnDoe 200",
 			"request": {
 				"method": "DELETE",
 				"header": [
@@ -200,7 +200,7 @@
 			"response": []
 		},
 		{
-			"name": "createStoryChapter: JohnDoe 200",
+			"name": "CreateStoryChapter: JohnDoe 200",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -243,7 +243,7 @@
 			"response": []
 		},
 		{
-			"name": "getStoryChapterById: JohnDoe 200",
+			"name": "GetStoryChapterById: JohnDoe 200",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -285,7 +285,7 @@
 			"response": []
 		},
 		{
-			"name": "deleteStoryChapter: JohnDoe 200",
+			"name": "DeleteStoryChapter: JohnDoe 200",
 			"request": {
 				"method": "DELETE",
 				"header": [
@@ -313,7 +313,7 @@
 			"response": []
 		},
 		{
-			"name": "updateStoryChapter: JohnDoe 200",
+			"name": "UpdateStoryChapter: JohnDoe 200",
 			"request": {
 				"method": "PUT",
 				"header": [

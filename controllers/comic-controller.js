@@ -1,8 +1,6 @@
-const comicModel = require('../models/comic-model');
 const Comic = require('../models/comic-model');
 const Image = require('../models/image-model');
 const ComicChapter = require('../models/comicChapter-model.js');
-const { findById } = require('../models/comic-model');
 
 createComic = (req, res) => {   // tested 200
     try {

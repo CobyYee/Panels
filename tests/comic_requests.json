@@ -114,75 +114,7 @@
 			"response": []
 		},
 		{
-			"name": "DeleteComic: JohnDoe 200",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://panelswebcomics.herokuapp.com/api/comic/62466c9d37b74051e513e996",
-					"protocol": "https",
-					"host": [
-						"panelswebcomics",
-						"herokuapp",
-						"com"
-					],
-					"path": [
-						"api",
-						"comic",
-						"62466c9d37b74051e513e996"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "DeleteChapter: JohnDoe 200",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Cookie",
-						"value": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjQ1MGI3ZDg1ODJjNWZiZjkzOTBiNDAiLCJpYXQiOjE2NDg5Mjg4ODcsImV4cCI6MTY0ODkzMjQ4N30.nPaTR-w22vh7Zk6URL0dpB2PJ8DmE2jU2lsH4phDYCc; Path=/; Secure; HttpOnly;",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://panelswebcomics.herokuapp.com/api/comicchapter/6248a6794d0a734919073ca5",
-					"protocol": "https",
-					"host": [
-						"panelswebcomics",
-						"herokuapp",
-						"com"
-					],
-					"path": [
-						"api",
-						"comicchapter",
-						"6248a6794d0a734919073ca5"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "getComicById: JohnDoe 200",
+			"name": "GetComicById: JohnDoe 200",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -259,7 +191,7 @@
 			"response": []
 		},
 		{
-			"name": "getComics: JohnDoe 200",
+			"name": "GetComics: JohnDoe 200",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -328,7 +260,7 @@
 			"response": []
 		},
 		{
-			"name": "getComicsbyGenre: JohnDoe 200",
+			"name": "GetComicsbyGenre: JohnDoe 200",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -365,6 +297,74 @@
 							"value": "",
 							"disabled": true
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteComic: JohnDoe 200",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://panelswebcomics.herokuapp.com/api/comic/62466c9d37b74051e513e996",
+					"protocol": "https",
+					"host": [
+						"panelswebcomics",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"comic",
+						"62466c9d37b74051e513e996"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteChapter: JohnDoe 200",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjQ1MGI3ZDg1ODJjNWZiZjkzOTBiNDAiLCJpYXQiOjE2NDg5Mjg4ODcsImV4cCI6MTY0ODkzMjQ4N30.nPaTR-w22vh7Zk6URL0dpB2PJ8DmE2jU2lsH4phDYCc; Path=/; Secure; HttpOnly;",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://panelswebcomics.herokuapp.com/api/comicchapter/6248a6794d0a734919073ca5",
+					"protocol": "https",
+					"host": [
+						"panelswebcomics",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"comicchapter",
+						"6248a6794d0a734919073ca5"
 					]
 				}
 			},
