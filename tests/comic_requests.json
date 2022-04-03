@@ -12,7 +12,7 @@
 				"header": [
 					{
 						"key": "Cookie",
-						"value": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjQ1MGI3ZDg1ODJjNWZiZjkzOTBiNDAiLCJpYXQiOjE2NDg3ODA4MzYsImV4cCI6MTY0ODc4NDQzNn0.OKj6SxHyR2eYHvVbhzjG1FYFnPrd-Meutyz1kf54cf0; Path=/; Secure; HttpOnly;",
+						"value": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjQ1MGI3ZDg1ODJjNWZiZjkzOTBiNDAiLCJpYXQiOjE2NDg5MTk5MDQsImV4cCI6MTY0ODkyMzUwNH0.3pK5Wd7Lib3OzYsaKW42DjVf8b6n9GzabLqWE-PYc28; Path=/; Secure; HttpOnly;",
 						"type": "text"
 					}
 				],
@@ -26,12 +26,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:4000/api/comic",
-					"protocol": "http",
+					"raw": "https://panelswebcomics.herokuapp.com/api/comic",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"panelswebcomics",
+						"herokuapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"comic"
@@ -61,12 +62,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:4000/api/comicchapter",
-					"protocol": "http",
+					"raw": "https://panelswebcomics.herokuapp.com/api/comicchapter",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"panelswebcomics",
+						"herokuapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"comicchapter"
@@ -96,12 +98,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:4000/api/comic",
-					"protocol": "http",
+					"raw": "https://panelswebcomics.herokuapp.com/api/comic",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"panelswebcomics",
+						"herokuapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"comic"
@@ -114,13 +117,7 @@
 			"name": "DeleteComic: JohnDoe 200",
 			"request": {
 				"method": "DELETE",
-				"header": [
-					{
-						"key": "Cookie",
-						"value": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjQ1MGI3ZDg1ODJjNWZiZjkzOTBiNDAiLCJpYXQiOjE2NDg5MTk5MDQsImV4cCI6MTY0ODkyMzUwNH0.3pK5Wd7Lib3OzYsaKW42DjVf8b6n9GzabLqWE-PYc28; Path=/; Secure; HttpOnly;",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
 					"raw": "",
@@ -131,16 +128,17 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:4000/api/comic/62488729b195c738d1e4430e",
-					"protocol": "http",
+					"raw": "https://panelswebcomics.herokuapp.com/api/comic/62466c9d37b74051e513e996",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"panelswebcomics",
+						"herokuapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"comic",
-						"62488729b195c738d1e4430e"
+						"62466c9d37b74051e513e996"
 					]
 				}
 			},
@@ -167,12 +165,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:4000/api/comicchapter/6248a6794d0a734919073ca5",
-					"protocol": "http",
+					"raw": "https://panelswebcomics.herokuapp.com/api/comicchapter/6248a6794d0a734919073ca5",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"panelswebcomics",
+						"herokuapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"comicchapter",
@@ -194,12 +193,13 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:4000/api/comic/62466c9d37b74051e513e996",
-					"protocol": "http",
+					"raw": "https://panelswebcomics.herokuapp.com/api/comic/62466c9d37b74051e513e996",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"panelswebcomics",
+						"herokuapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"comic",
@@ -235,12 +235,13 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:4000/api/comicchapter/6248a6794d0a734919073ca5",
-					"protocol": "http",
+					"raw": "https://panelswebcomics.herokuapp.com/api/comicchapter/6248a6794d0a734919073ca5",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"panelswebcomics",
+						"herokuapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"comicchapter",
@@ -269,12 +270,13 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:4000/api/comics",
-					"protocol": "http",
+					"raw": "https://panelswebcomics.herokuapp.com/api/comics",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"panelswebcomics",
+						"herokuapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"comics"
@@ -302,12 +304,13 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:4000/api/comicsbyname/BTT",
-					"protocol": "http",
+					"raw": "https://panelswebcomics.herokuapp.com/api/comicsbyname/BTT",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"panelswebcomics",
+						"herokuapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
 						"comicsbyname",
@@ -327,25 +330,34 @@
 		{
 			"name": "getComicsbyGenre: JohnDoe 200",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Cookie",
-						"value": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjQ1MGI3ZDg1ODJjNWZiZjkzOTBiNDAiLCJpYXQiOjE2NDg3ODQ0ODgsImV4cCI6MTY0ODc4ODA4OH0.UTU0sfR8LRvSlU8yymxM-VGgTtpV0b52p3wyieaZMbM; Path=/; Secure; HttpOnly;",
+						"value": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjQ1MGI3ZDg1ODJjNWZiZjkzOTBiNDAiLCJpYXQiOjE2NDg5MjE5NTEsImV4cCI6MTY0ODkyNTU1MX0.l3dvmTlH2E3MQF2ECjgh-6nk4I5dEwAU0ItUAbhckac; Path=/; Secure; HttpOnly;",
 						"type": "text"
 					}
 				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"genres\": [\"action\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:4000/api/comic/62466c9d37b74051e513e996",
-					"protocol": "http",
+					"raw": "https://panelswebcomics.herokuapp.com/api/comicsbygenres",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"panelswebcomics",
+						"herokuapp",
+						"com"
 					],
-					"port": "4000",
 					"path": [
 						"api",
-						"comic",
-						"62466c9d37b74051e513e996"
+						"comicsbygenres"
 					],
 					"query": [
 						{
