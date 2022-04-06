@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken")
 const crypto = require("crypto-js")
 
-
 function authManager() {
     // function to verify request cookies
     verifyJWT = function(req, res, next) {
