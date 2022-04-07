@@ -11,13 +11,15 @@ import {
     RegisterScreen,
     LoginScreen,
     PasswordRecoveryScreen,
-    PasswordResetScreen
+    PasswordResetScreen,
+    ListScreen
 } from './components'
 
 const App = () => {
     console.log("Started")
     return (
-        <BrowserRouter>          
+        <BrowserRouter> 
+            <GlobalStoreContextProvider>     
                         <Banner />
                         <Routes>
                             <Route exact path="/" element={< HomeWrapper />} />
@@ -25,7 +27,9 @@ const App = () => {
                             <Route exact path="/login/" element={< LoginScreen />} />
                             <Route exact path="/passwordrecovery/" element={< PasswordRecoveryScreen />} />
                             <Route exact path="/passwordreset/" element={< PasswordResetScreen />} /> 
+                            <Route exact path="/listscreen/" element={< ListScreen />} />
                         </Routes>
+            </GlobalStoreContextProvider>
         </BrowserRouter>
     )
 }
