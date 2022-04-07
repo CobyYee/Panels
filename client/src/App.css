@@ -23,7 +23,14 @@
 
 }
 
-#home-wrapper {
+.home-wrapper {
   background-color: #2b2b2b;
-  height: '90%';
+  height: 90%;
+  white-space: nowrap;
+  height: 100%;
+}
+
+html, body, #root {
+  margin: 0;
+  height: 100%;
 }
