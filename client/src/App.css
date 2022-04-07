@@ -1,17 +1,29 @@
 .root {
-  --red: #b8434b;
+  --primary: #b8434b;
   --gray: #4e4e4e;
   --dark-gray: #2b2b2b;
 }
 
 .sort_bar {
   display: flex;
+
+}
+
+.sort_by_button, .sort_label {
+  margin: 5px;
 }
 
 .sort_by_button {
-  padding: 0px 5px 5px 0px;
+  border: transparent;
+  border-radius: 5px;
+  background-color: transparent;
 }
 
-.sort_by_button.clicked {
+.sort_by_button_clicked {
 
+}
+
+#home-wrapper {
+  background-color: #2b2b2b;
+  height: '90%';
 }
