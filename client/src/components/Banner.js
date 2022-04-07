@@ -22,6 +22,12 @@ export default function Banner() {
                         border: 'none', input: {color: 'white'}}}>
                     </TextField>
                 </Grid>
+                <Grid item xs={3}>
+
+                </Grid>
+                <Grid item xs={1}>
+                    
+                </Grid>
             </Grid>
         </Box>
     )

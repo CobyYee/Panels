@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-const ContentContext = createContext();
+const ContentContext = createContext({});
 
 function ContentContextProvider(props) {
     const [content, setContent] = useState({
@@ -23,6 +23,13 @@ function ContentContextProvider(props) {
     content.getContentType = () => {
         return content.contentType;
     }
+
+    return (
+        <ContentContext.Provider value = {{content}}>
+            props.children
+        </ContentContext.Provider>
+
+    )
 }
 
 export default ContentContext;
