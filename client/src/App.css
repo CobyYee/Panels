@@ -17,10 +17,11 @@
 }
 
 .sort_by_button_clicked {
+  margin: 5px;
   color: black;
   background-color: #b8434b;
-  border-radius: 5px;
-
+  border-radius: 10px;
+  border: 2px solid transparent;
 }
 
 .home-wrapper {
