@@ -5,6 +5,9 @@ import PasswordRecoveryScreen from './PasswordRecoveryScreen'
 import PasswordResetScreen from './PasswordResetScreen'
 import RegisterScreen from './RegisterScreen'
 import ListScreen from './ListScreen'
+import BookmarksScreen from './BookmarksScreen'
+import SettingsScreen from './SettingsScreen'
+import ProfileScreen from './ProfileScreen'
 
 export {
     Banner,
@@ -13,5 +16,8 @@ export {
     PasswordRecoveryScreen,
     PasswordResetScreen,
     RegisterScreen,
-    ListScreen
+    ListScreen,
+    BookmarksScreen,
+    SettingsScreen,
+    ProfileScreen
 }

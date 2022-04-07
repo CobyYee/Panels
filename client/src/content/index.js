@@ -6,18 +6,11 @@ function ContentContextProvider(props) {
     const [content, setContent] = useState({
         contentType: "Comics"
     });
-
-    const contextReducer = (action) => {
-        const { type, payload } = action;
-        switch (type) {
-            case "SWAP_TYPE": {
-                return setContent({
-                    contentType: payload
-                });
-            }
-            default:
-                return content;
-        }
+    
+    content.setContentType = (content) => {
+        setContent({
+            contentType: content
+        })
     }
 
     content.getContentType = () => {
@@ -26,7 +19,7 @@ function ContentContextProvider(props) {
 
     return (
         <ContentContext.Provider value = {{content}}>
-            props.children
+            {props.children}
         </ContentContext.Provider>
 
     )

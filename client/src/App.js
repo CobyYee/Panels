@@ -12,7 +12,10 @@ import {
     LoginScreen,
     PasswordRecoveryScreen,
     PasswordResetScreen,
-    ListScreen
+    ListScreen,
+    BookmarksScreen,
+    SettingsScreen,
+    ProfileScreen
 } from './components'
 
 const App = () => {
@@ -20,6 +23,7 @@ const App = () => {
         <BrowserRouter> 
             <GlobalStoreContextProvider>  
                 <AuthContextProvider>
+                    <ContentContextProvider>   
                         <Banner />
                         <Routes>
                             <Route exact path="/" element={< HomeWrapper />} />
@@ -28,7 +32,11 @@ const App = () => {
                             <Route exact path="/passwordrecovery/" element={< PasswordRecoveryScreen />} />
                             <Route exact path="/passwordreset/" element={< PasswordResetScreen />} /> 
                             <Route exact path="/listscreen/" element={< ListScreen />} />
+                            <Route exact path="/bookmarks/" element={< BookmarksScreen />} />
+                            <Route exact path="/settings/" element={< SettingsScreen />} />
+                            <Route exact path="/profilescreen/" element={< ProfileScreen />} />
                         </Routes>
+                    </ContentContextProvider>
                 </AuthContextProvider>
             </GlobalStoreContextProvider>
         </BrowserRouter>
