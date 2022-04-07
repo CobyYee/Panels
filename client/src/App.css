@@ -15,10 +15,18 @@
   color: white;
 }
 
-.sort_button_clicked, .filter_button_clicked {
+.sort_button_clicked, .filter_button_clicked, .genre_button_odd {
   margin: 5px;
   color: black;
   background-color: #b8434b;
+  border-radius: 10px;
+  border: 2px solid transparent;
+}
+
+.genre_button_even {
+  margin: 5px;
+  color: black;
+  background-color: #a6ff61;
   border-radius: 10px;
   border: 2px solid transparent;
 }
