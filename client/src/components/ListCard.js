@@ -1,6 +1,6 @@
 function ListCard(props) {
   return (
-    <div>
+    <div class="listcard">
         <img class="listcard_image" src={"../public/" + props.comic.filename} alt="Nothing here"></img>
         <div>
             <h1 class="list_card_title">
