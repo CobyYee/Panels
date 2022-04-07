@@ -124,7 +124,7 @@ export default function Banner() {
                         variant="h4"
                         noWrap 
                         component="div" 
-                        sx={{ display: { xs: 'none', sm: 'block' } }} 
+                        sx={{ display: { xs: 'none', sm: 'block' }, color: '#9c4247' }} 
                         pr={10}>
                             PANELS 
                     </Typography>

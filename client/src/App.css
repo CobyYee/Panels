@@ -94,16 +94,20 @@ html, body {
 }
 
 #comic-selector {
+  position: relative;
   color: white;
   font-size: 20px;
   width: 50%;
   text-align: center;
   justify-content: center;
+  left: 20%;
 }
 
 #story-selector {
+  position: relative;
   color: white;
   width: 50%;
   font-size: 20px;
   text-align: center;
+  left: 25%
 }
