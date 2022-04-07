@@ -8,6 +8,7 @@
   display: flex;
 }
 
+<<<<<<< Updated upstream
 .sort_button, .sort_label, .filter_label, .filter_button {
   margin: 5px;
   border: transparent;
@@ -33,4 +34,57 @@
 html, body, #root {
   margin: 0;
   height: 100%;
+=======
+#logo {
+  position: absolute;
+  font-size: 34px;
+  color: #B8434B;
+  width: 10%;
+  text-align: center;
+}
+
+#popular {
+  position: absolute;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  width: 6%;
+  left: 14%;
+  top: 1%;
+}
+
+#genres {
+  position: absolute;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  width: 6%;
+  left: 25%;
+  top: 1%;
+}
+
+#content-selector {
+  position: absolute;
+  background-color: #4E4E4E;
+  display: flex;
+  top: 1%;
+  left: 72%;
+  width: 18%;
+  border-radius: 15px;
+  height: 5%
+}
+
+#comic-selector {
+  color: white;
+  font-size: 25px;
+  width: 50%;
+  text-align: center;
+}
+
+#story-selector {
+  color: white;
+  width: 50%;
+  font-size: 25px;
+  text-align: center;
+>>>>>>> Stashed changes
 }

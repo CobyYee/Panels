@@ -46,7 +46,10 @@ export default function RegisterScreen() {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: '#9c4247' }}>
+<<<<<<< Updated upstream
             {/* <LockOutlinedIcon /> */}
+=======
+>>>>>>> Stashed changes
           </Avatar>
           <Typography component="h1" variant="h5" sx={{ color: 'white' }}>
             Sign up
