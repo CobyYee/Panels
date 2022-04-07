@@ -85,26 +85,25 @@ html, body {
 }
 
 #content-selector {
-  position: absolute;
+  position: relative;
   background-color: #4E4E4E;
   display: flex;
-  top: 1%;
-  left: 72%;
-  width: 18%;
+  width: 24%;
   border-radius: 15px;
-  height: 5%
+  left: 20%;
 }
 
 #comic-selector {
   color: white;
-  font-size: 25px;
+  font-size: 20px;
   width: 50%;
   text-align: center;
+  justify-content: center;
 }
 
 #story-selector {
   color: white;
   width: 50%;
-  font-size: 25px;
+  font-size: 20px;
   text-align: center;
 }

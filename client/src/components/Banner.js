@@ -1,9 +1,8 @@
-import { Grid, Typography, Box, TextField, Menu, MenuItem, IconButton, Avatar } from '@mui/material';
+import { Typography, Box, TextField, Menu, MenuItem, IconButton, Avatar, AppBar, Toolbar } from '@mui/material';
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import ContentContext from '../content'
 import { useContext, useState } from 'react';
-import zIndex from '@mui/material/styles/zIndex';
 
 export default function Banner() {
     const {content} = useContext(ContentContext)
@@ -58,6 +57,10 @@ export default function Banner() {
                 </IconButton>
     let menu = <Menu
                     anchorEl={anchorEl}
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
                     id="account-menu"
                     open={open}
                     onClose={handleClose}
@@ -89,7 +92,6 @@ export default function Banner() {
                     },
                     }}
                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
                     <MenuItem onClick={() => navigate('/profilescreen/')}>
                         Profile
@@ -105,7 +107,7 @@ export default function Banner() {
                     </MenuItem>
                 </Menu>
     let iconMenu = 
-        <Box sx = {{position: 'absolute', width: '8%', left: '92%'}}>
+        <Box>
             {icon}
             {menu}
         </Box>
@@ -114,16 +116,55 @@ export default function Banner() {
 
     // START RENDERING
     return (
-        <Box sx = {{width: '100%', height: '7%', backgroundColor: '#3D3D3D'}}>
-                    <Typography id="logo" onClick={() => navigate('/')}> PANELS </Typography>
-                    <Typography id="popular" onClick={() => navigate('/listscreen/')}> POPULAR </Typography>
-                    <div id="genres" onClick={() => navigate('/listscreen/')}> GENRES </div>
-                    <TextField defaultValue = "Search comic or author" sx = {{position: 'absolute', width: '30%', bgcolor: '#4E4E4E', borderRadius: '13px', 
-                        border: 'none', input: {color: 'white'}, left: '35%'}}>
+        <Box sx = {{ flexGrow: 1}}>
+            <AppBar position="static" style={{ background: '#3d3d3d' }}>
+                <Toolbar>
+                    <Typography 
+                        onClick={() => navigate('/')} 
+                        variant="h4"
+                        noWrap 
+                        component="div" 
+                        sx={{ display: { xs: 'none', sm: 'block' } }} 
+                        pr={10}>
+                            PANELS 
+                    </Typography>
+                    <Typography
+                        onClick={() => navigate('/listscreen/')} 
+                        variant="h6"
+                        noWrap
+                        component="div"
+                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                        pr={5}> 
+                            Popular 
+                    </Typography>
+                    <Typography
+                        onClick={() => navigate('/listscreen/')}                        
+                        variant="h6"
+                        noWrap
+                        component="div"
+                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                        pr={20}                        
+                    >
+                        Genres
+                    </Typography>
+                    <TextField 
+                        placeholder = "Search comic or author" 
+                        sx = {{ 
+                            flexGrow: .4,
+                            width: '30%', 
+                            bgcolor: '#4E4E4E', 
+                            border: 'none', 
+                            input: {color: 'white'} 
+                        }}>
                     </TextField>
-                    { contentButton }   
-                    {iconMenu}
-
+                    <Box sx={{ flexGrow: 1 }}>
+                    { 
+                        contentButton 
+                    }
+                    </Box>
+                    { iconMenu }
+                </Toolbar>
+            </AppBar>
         </Box>
     )
 }

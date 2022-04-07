@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-//import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
@@ -45,8 +45,9 @@ export default function RegisterScreen() {
             alignItems: 'center',
           }}
         >
-          {/* <Avatar sx={{ m: 1, bgcolor: '#9c4247' }}>
-          </Avatar> */}
+          <Avatar sx={{ m: 1, bgcolor: '#9c4247' }}>
+            <LockOutlinedIcon />
+          </Avatar>
           <Typography component="h1" variant="h5" sx={{ color: 'white' }}>
             Sign up
           </Typography>
