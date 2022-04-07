@@ -11,15 +11,15 @@
 
 .sort_by_button, .sort_label {
   margin: 5px;
-}
-
-.sort_by_button {
   border: transparent;
-  border-radius: 5px;
   background-color: transparent;
+  color: white;
 }
 
 .sort_by_button_clicked {
+  color: black;
+  background-color: #b8434b;
+  border-radius: 5px;
 
 }
 

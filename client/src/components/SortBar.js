@@ -2,14 +2,20 @@ import { useState } from 'react'
 import { Typography, Button, Box } from '@mui/material';
 
 function SortBar() {
-    const [sortBy, setSortBy] = useState(0);
+    const [sortBy, setSortBy] = useState([false, false, false]);
 
-    return (
+    function handleClick(event) {
+        const newState = sortBy.slice();
+        newState[event.target.value] = !sortBy[event.target.value];
+        setSortBy(newState);
+    }
+
+    return (    
         <Box class="sort_bar">
             <Typography class="sort_label">Sort By:</Typography>
-            <Button class="sort_by_button">Latest Updated</Button>
-            <Button class="sort_by_button">Popularity</Button>
-            <Button class="sort_by_button">Alphabetically</Button>
+            <Button class={sortBy[0] ? "sort_by_button_clicked" : "sort_by_button"} onClick={handleClick} value={0}>Latest Updated</Button>
+            <Button class={sortBy[1] ? "sort_by_button_clicked" : "sort_by_button"} onClick={handleClick} value={1}>Popularity</Button>
+            <Button class={sortBy[2] ? "sort_by_button_clicked" : "sort_by_button"} onClick={handleClick} value={2}>Alphabetically</Button>
         </Box>
     )
 }
