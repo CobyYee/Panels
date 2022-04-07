@@ -1,9 +1,19 @@
 import { Grid, Typography, Box, TextField } from '@mui/material';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useContext } from "react-router-dom";
+import ContentContext from '../content'
 
 export default function Banner() {
+    //const {content} = useContext(ContentContext)
 
     let navigate = useNavigate();
+
+    /*
+    if(content.contentType == "Story") {
+
+    }
+    else {
+        
+    }*/
 
     return (
         <Box sx = {{width: '100%', height: '7%', backgroundColor: '#3D3D3D'}}>

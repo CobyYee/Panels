@@ -20,7 +20,6 @@ const App = () => {
         <BrowserRouter> 
             <GlobalStoreContextProvider>  
                 <AuthContextProvider>
-                    <ContentContextProvider>   
                         <Banner />
                         <Routes>
                             <Route exact path="/" element={< HomeWrapper />} />
@@ -30,7 +29,6 @@ const App = () => {
                             <Route exact path="/passwordreset/" element={< PasswordResetScreen />} /> 
                             <Route exact path="/listscreen/" element={< ListScreen />} />
                         </Routes>
-                    </ContentContextProvider>
                 </AuthContextProvider>
             </GlobalStoreContextProvider>
         </BrowserRouter>
