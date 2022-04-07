@@ -126,7 +126,7 @@ export default function RegisterScreen() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2, backgroundColor:'#9c4247' }}
+              sx={{ mt: 3, mb: 2, backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' } }}
             >
               Sign Up
             </Button>
