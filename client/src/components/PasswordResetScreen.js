@@ -84,55 +84,55 @@ export default function PasswordResetScreen() {
 /*
 <script>
     function validate() {
-    var valid = true;
-    valid = checkEmail($("#email"));
+        var valid = true;
+        valid = checkEmail($("#email"));
 
-    $("#submit").attr("disabled",true);
-    if(valid) {
-    $("#submit").attr("disabled",false);
-}
-}
+        $("#submit").attr("disabled",true);
+        if(valid) {
+            $("#submit").attr("disabled",false);
+        }
+    }
 
     function checkEmpty(obj) {
-    var name = $(obj).attr("name");
+        var name = $(obj).attr("name");
 
-    $("."+name+"-validation").html("");
-    $(obj).css("border","");
+        $("."+name+"-validation").html("");
+        $(obj).css("border","");
 
-    if($(obj).val() == "") {
-    $(obj).css("border","#FF0000 1px solid");
-    $("."+name+"-validation").html("Required");
-    return false;
-}
+        if($(obj).val() == "") {
+            $(obj).css("border","#FF0000 1px solid");
+            $("."+name+"-validation").html("Required");
+            return false;
+        }
 
-    return true;
-}
+        return true;
+    }
 
     function checkEmail(obj) {
-    var result = true;
+        var result = true;
 
-    var name = $(obj).attr("name");
-    $("."+name+"-validation").html("");
-    $(obj).css("border","");
+        var name = $(obj).attr("name");
+        $("."+name+"-validation").html("");
+        $(obj).css("border","");
 
-    result = checkEmpty(obj);
+        result = checkEmpty(obj);
 
-    if(!result) {
-    $(obj).css("border","#FF0000 1px solid");
-    $("."+name+"-validation").html("Required");
-    return false;
-}
+        if(!result) {
+            $(obj).css("border","#FF0000 1px solid");
+            $("."+name+"-validation").html("Required");
+            return false;
+        }
 
-    var email_regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,3})+$/;
-    result = email_regex.test($(obj).val());
+        var email_regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,3})+$/;
+        result = email_regex.test($(obj).val());
 
-    if(!result) {
-    $(obj).css("border","#FF0000 1px solid");
-    $("."+name+"-validation").html("Invalid");
-    return false;
-}
+        if(!result) {
+            $(obj).css("border","#FF0000 1px solid");
+            $("."+name+"-validation").html("Invalid");
+            return false;
+        }
 
-    return result;
-}
+        return result;
+    }
 </script>
 */
