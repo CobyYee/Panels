@@ -34,7 +34,7 @@ const App = () => {
                             <Route exact path="/listscreen/" element={< ListScreen />} />
                             <Route exact path="/bookmarks/" element={< BookmarksScreen />} />
                             <Route exact path="/settings/" element={< SettingsScreen />} />
-                            <Route exact path="/profilescreen/" element={< ProfileScreen />} />
+                            <Route exact path="/profile/" element={< ProfileScreen />} />
                         </Routes>
                     </ContentContextProvider>
                 </AuthContextProvider>

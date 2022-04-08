@@ -93,7 +93,7 @@ export default function Banner() {
                     }}
                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 >
-                    <MenuItem onClick={() => navigate('/profilescreen/')}>
+                    <MenuItem onClick={() => navigate('/profile/')}>
                         Profile
                     </MenuItem>
                     <MenuItem onClick={() => navigate('/bookmarks/')}>
@@ -102,8 +102,14 @@ export default function Banner() {
                     <MenuItem onClick={() => navigate('/settings/')}>
                         Settings
                     </MenuItem>
-                    <MenuItem>
+                    <MenuItem onClick={() => navigate('/login/')}>
                         Login
+                    </MenuItem>
+                    <MenuItem onClick={() => navigate('/register/')}>
+                        Register
+                    </MenuItem>
+                    <MenuItem>
+                        Logout
                     </MenuItem>
                 </Menu>
     let iconMenu = 
