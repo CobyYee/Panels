@@ -47,6 +47,7 @@ export default function PasswordRecoveryScreen() {
                             autoComplete="new-password"
                             sx={{ input: { color: 'white' } }}
                         />
+                        <i className="eyeToggle" id="togglePassword"></i>
                         <Button
                             type="submit"
                             fullWidth
