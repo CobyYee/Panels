@@ -34,7 +34,7 @@ export default function RegisterScreen() {
   };
 
   return (
-      <div style={{ background: '#2b2b2b', height: '95vh' }}>
+      <div style={{ background: '#2b2b2b', height: '95.1vh' }}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
