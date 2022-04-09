@@ -48,6 +48,13 @@
   height: 100%;
   display: block;
 }
+
+button[type="submit"]:disabled {
+  border: 1px solid gray;
+  background-color: #262626;
+  color: dimgray;
+}
+
 #root {
   height: 100%;
 }
