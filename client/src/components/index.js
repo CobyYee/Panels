@@ -1,5 +1,5 @@
 import Banner from './Banner'
-import HomeWrapper from './HomeWrapper'
+import HomeScreen from './HomeScreen'
 import LoginScreen from './LoginScreen'
 import PasswordRecoveryScreen from './PasswordRecoveryScreen'
 import PasswordResetScreen from './PasswordResetScreen'
@@ -11,7 +11,7 @@ import ProfileScreen from './ProfileScreen'
 
 export {
     Banner,
-    HomeWrapper,
+    HomeScreen,
     LoginScreen,
     PasswordRecoveryScreen,
     PasswordResetScreen,

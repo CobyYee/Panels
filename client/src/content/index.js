@@ -11,6 +11,7 @@ function ContentContextProvider(props) {
         setContent({
             contentType: content
         })
+        console.log("changed content to " + content);
     }
 
     content.getContentType = () => {

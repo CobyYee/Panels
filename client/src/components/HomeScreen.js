@@ -1,13 +1,22 @@
 import {Box, Typography, Grid} from '@mui/material'
+import ContentContext from '../content'
+import {useContext} from 'react'
 
-function HomeWrapper() {
-
+function HomeScreen() {
+    const {content} = useContext(ContentContext)
     let featuredComics = []
 
     let latestUpdates = [["Work 1", "1"], ["Work 2", "21"], ["Work 3", "14"], ["Work 4", "1123"], ["Work 5", "41"], ["Work 6", "11"], ["Work 7", "12"], ["Work 8", "1"], 
         ["Work 9", "1"], ["Work 10", "1"], ["Work 11", "1"], ["Work 12", "1"], ["Work 13", "1"], ["Work 14", "1"], ["Work 15", "1"], ["Work 16", "1"], ["Work 17", "1"], 
         ["Work 18", "1"], ["Work 19", "1"], ["Work 21", "1"], ["Work 21", "1"], ["Work 22", "1"], ["Work 23", "1"], ["Work 24", "1"], ["Work 24", "1"], ["Work 26", "1"], 
         ["Work 27", "1"], ["Work 28", "1"]]
+
+    for(let i = 0; i < latestUpdates.length; i++) {
+        if(content.contentType === "Story")
+            latestUpdates[i][0] = "Story" + (i+1)
+        else 
+            latestUpdates[i][0] = "Comic" + (i+1)
+    }
 
     let firstColUpdates = "";
     for(let i = 0; i < 14; i++) {
@@ -30,11 +39,11 @@ function HomeWrapper() {
     }
 
     let firstCol = 
-        <Typography sx = {{color: 'white'}}>
+        <Typography sx = {{color: 'white', position: 'relative'}}>
             {firstColUpdates}
         </Typography>
     let secondCol = 
-        <Typography sx = {{color: 'white'}}>
+        <Typography sx = {{color: 'white', position: 'relative'}}>
             {secondColUpdates}  
         </Typography>
 
@@ -84,4 +93,4 @@ function HomeWrapper() {
 
 }
 
-export default HomeWrapper;
+export default HomeScreen;

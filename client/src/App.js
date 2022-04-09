@@ -7,7 +7,7 @@ import { ContentContextProvider } from './content'
 
 import {
     Banner,
-    HomeWrapper,
+    HomeScreen,
     RegisterScreen,
     LoginScreen,
     PasswordRecoveryScreen,
@@ -26,7 +26,7 @@ const App = () => {
                     <ContentContextProvider>   
                         <Banner />
                         <Routes>
-                            <Route exact path="/" element={< HomeWrapper />} />
+                            <Route exact path="/" element={< HomeScreen />} />
                             <Route exact path="/register/" element={< RegisterScreen />} />
                             <Route exact path="/login/" element={< LoginScreen />} />
                             <Route exact path="/passwordrecovery/" element={< PasswordRecoveryScreen />} />
