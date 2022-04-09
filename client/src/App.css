@@ -19,6 +19,7 @@ body {
   border: transparent;
   background-color: transparent;
   color: white;
+  font-size: 15px;
 }
 
 .sort_button_clicked, .filter_button_clicked, .genre_button_odd {
@@ -26,7 +27,11 @@ body {
   color: black;
   background-color: #b8434b;
   border-radius: 10px;
-  border: 2px solid transparent;
+  border: 0px solid transparent;
+}
+
+.sort_button_clicked, .filter_button_clicked {
+  font-size: 15px;
 }
 
 .genre_button_even {
@@ -34,16 +39,7 @@ body {
   color: black;
   background-color: #a6ff61;
   border-radius: 10px;
-  border: 2px solid transparent;
-}
-
-.listcard {
-  display: flex;
-}
-
-.listcard_image {
-  width: 125px;
-  height: 200px;
+  border: 0px solid transparent;
 }
 
 button[type="submit"]:disabled {
@@ -135,15 +131,28 @@ html, body {
 }
 
 #genre_bar {
-  padding-bottom: 15px;
+  padding-bottom: 0px;
 }
 
 #comic_list {
   columns: 2;
+  padding: 0;
 }
 
 .comic_item {
   list-style-type: none;
+  padding: 5px 5px 5px 0px;
+}
+
+.listcard {
+  display: flex;
+  border: 1px solid gray;
+  padding: 5px 5px 5px 5px;
+}
+
+.listcard_image {
+  width: 125px;
+  height: 200px;
 }
 
 .list_card_title {

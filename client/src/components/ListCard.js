@@ -2,7 +2,7 @@ function ListCard(props) {
   return (
     <div class="listcard">
         <img class="listcard_image" src={"../public/" + props.comic.filename} alt=""></img>
-        <div>
+        <div style={{paddingLeft: '10px'}}>
             <div class="list_card_title">
                 {props.comic.title}
             </div>

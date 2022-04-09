@@ -16,7 +16,7 @@ function GenreBar(props) {
         <Box id="genre_bar">
             <Typography class="filter_label">Genres:</Typography>
             {genres.map((genre, index) => (
-                <Button class={filterBy[index] ? "filter_button_clicked" : "filter_button"} onClick={handleClick} value={index}>{genre}</Button>
+                <Button disableRipple class={filterBy[index] ? "filter_button_clicked" : "filter_button"} onClick={handleClick} value={index}>{genre}</Button>
             ))}
         </Box>
     )
