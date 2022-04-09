@@ -1,7 +1,10 @@
+//import { useState } from 'react'
 import { Typography, Box, Container, Grid, Button } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle'
 
 export default function ProfileScreen() {
+    //get user from url. if user is self, we can display the Drafts section and enable the createNew button. Otherwise, don't
+    //current user and their works should be stored in store? so we can retrieve and filter and place in Box
 
     let profile_image = <AccountCircle sx={{ color: '#4e4e4e', position: 'relative', top: '15%', fontSize: 280 }}/>
     return (
