@@ -99,20 +99,22 @@ html, body {
 #comic-selector {
   position: relative;
   color: white;
-  font-size: 20px;
+  font-size: 15px;
   width: 50%;
   text-align: center;
   justify-content: center;
   left: 15%;
+  top: 15%;
 }
 
 #story-selector {
   position: relative;
   color: white;
   width: 50%;
-  font-size: 20px;
+  font-size: 15px;
   text-align: center;
-  left: 20%
+  left: 20%;
+  top: 15%;
 }
 
 
