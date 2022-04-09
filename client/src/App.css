@@ -117,7 +117,13 @@ html, body {
   top: 15%;
 }
 
-
+#bookmarks-title {
+  position: relative;
+  font-size: 30pt;
+  color: white;
+  display: 'flex';
+  text-align: center;
+}
 
 
 
