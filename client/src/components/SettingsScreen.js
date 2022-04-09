@@ -7,7 +7,7 @@ export default function SettingsScreen() {
         <Box sx={{ paddingTop: 10, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <Grid item={true} xs={12} container sx={{ display: 'flex', justifyContent: 'center' }}>
                 <Grid item xs={1} sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <MenuList sx={{ width: "30%", display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+                    <MenuList sx={{ width: "90%", display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
                         <MenuItem onClick={() => setSetting("General")} sx={{ display: 'flex', justifyContent: 'center' }}>
                             <Typography color='white'>General</Typography>
                         </MenuItem>
