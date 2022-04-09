@@ -1,22 +1,19 @@
-import SortBar from './SortBar';
-import GenreBar from './GenreBar';
-import SearchList from './SearchList';
+import {Box, Typography, Grid} from '@mui/material'
 
 function HomeWrapper() {
-    const comics = [{
-        filename: "beginningaftertheend.jpg",
-        title: "The Beginning After The End",
-        author: "TurtleMe",
-        description: "good shit",
-        genres: ["Action", "Fantasy", "Romance"]
-    }];
+
     return (
-        <div id='home-wrapper' class="home-wrapper">
-            <SortBar></SortBar>
-            <GenreBar state={[false, false, false]}></GenreBar>
-            <SearchList comics={comics}/>
-        </div>  
+        <Grid container sx = {{ flexDirection: 'column' }}>
+            <Grid item xs = {9}>
+                <Box id = "featured-works" sx = {{backgroundColor: '#3d3d3d',  width: '80%', left: '10%', height: '25%', top: '10%', borderRadius: '15px'}}>
+
+                </Box>
+            </Grid>
+            <Grid item xs = {1}> 
+            </Grid>
+        </Grid>
     )
+
 }
 
 export default HomeWrapper;
