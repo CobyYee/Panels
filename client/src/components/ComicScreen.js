@@ -3,10 +3,16 @@ import { Typography, Box, Container, Grid, Button } from '@mui/material';
 
 export default function ComicScreen() {
     return (
-        <Box sx={{ paddingTop: 10, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <Grid item={true} xs={12} container sx={{ display: 'flex', justifyContent: 'center' }}>
-                <Grid item xs={1} sx={{ display: 'flex', justifyContent: 'center' }}></Grid>
-                <Grid item xs={11} sx={{ display: 'flex', justifyContent: 'center' }}></Grid>
+        <Box sx={{ paddingTop: 10, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <Grid item={true} xs={11} container sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Grid item xs={4} sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <Box sx={{ border: 1, borderColor: '#4e4e4e', height: '100%' }}>
+                        <Typography color='white'>image</Typography>
+                    </Box>
+                </Grid>
+                <Grid item xs={8} sx={{ display: 'flex', justifyContent: 'start' }}>
+                    <Typography color='white' sx={{ fontSize: 50 }}>Title</Typography>
+                </Grid>
                 <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
                     <Typography color='white'>Chapters Comments</Typography>
                 </Grid>
