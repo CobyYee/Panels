@@ -147,6 +147,7 @@ html, body {
 }
 
 .listcard {
+  color: white;
   display: flex;
   border: 1px solid gray;
   padding: 5px 5px 5px 5px;
