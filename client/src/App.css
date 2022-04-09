@@ -100,6 +100,9 @@ html, body {
   background-color: #4E4E4E;
   display: flex;
   width: 24%;
+  min-width: 150px;
+  max-width: 10vw;
+  height: 3vh;
   border-radius: 15px;
   left: 20%;
 }
@@ -111,7 +114,7 @@ html, body {
   width: 50%;
   text-align: center;
   justify-content: center;
-  left: 20%;
+  left: 15%;
 }
 
 #story-selector {
@@ -120,5 +123,5 @@ html, body {
   width: 50%;
   font-size: 20px;
   text-align: center;
-  left: 25%
+  left: 20%
 }

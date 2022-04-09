@@ -1,4 +1,4 @@
-import { Typography, Box, TextField, Menu, MenuItem, IconButton, Avatar, AppBar, Toolbar } from '@mui/material';
+import { Typography, Box, TextField, Menu, MenuItem, IconButton, Avatar, AppBar, Toolbar, Button } from '@mui/material';
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import ContentContext from '../content'
@@ -131,38 +131,36 @@ export default function Banner() {
                         noWrap 
                         component="div" 
                         sx={{ display: { xs: 'none', sm: 'block' }, color: '#9c4247' }} 
-                        pr={10}>
+                        pr={15}>
                             PANELS 
                     </Typography>
-                    <Typography
-                        onClick={() => navigate('/listscreen/')} 
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
-                        pr={5}> 
-                            Popular 
-                    </Typography>
-                    <Typography
-                        onClick={() => navigate('/listscreen/')}                        
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
-                        pr={20}                        
-                    >
-                        Genres
-                    </Typography>
+                    <Box pr={10}>
+                        <Button
+                            fullWidth
+                            onClick={() => navigate('/listscreen/')} 
+                            sx={{ color: 'white', fontSize: 15 }}>
+                                Popular  
+                        </Button>
+                    </Box>
+                    <Box pr={0}>
+                        <Button
+                            onClick={() => navigate('/listscreen/')}                        
+                            sx={{ color: 'white', fontSize: 15 }}>
+                                Genres
+                        </Button>
+                    </Box>
+                    <Box sx= {{ width: '100%', maxWidth: '55vw', display: 'flex', justifyContent: 'center' }}>
                     <TextField 
                         placeholder = "Search comic or author" 
-                        sx = {{ 
-                            flexGrow: .4,
-                            width: '30%', 
+                        sx = {{
+                            width: '100%', 
+                            maxWidth: '50vw',
                             bgcolor: '#4E4E4E', 
                             border: 'none', 
                             input: {color: 'white'} 
                         }}>
                     </TextField>
+                    </Box>
                     <Box sx={{ flexGrow: 1 }}>
                     { 
                         contentButton 
