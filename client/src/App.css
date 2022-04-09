@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Poppins";
-  src: url("./fonts/Poppins/Poppins-Black.ttf");
+  src: url("./fonts/Poppins/Poppins-Regular.ttf");
 }
 
 .root {
@@ -130,4 +130,22 @@ html, body {
   font-size: 20px;
   text-align: center;
   left: 20%
+}
+
+
+
+
+
+
+
+.list_card_title {
+  font-size: 25px;
+}
+
+.list_card_author {
+  font-size: 15px;
+}
+
+.list_card_description {
+  font-size: 15px;
 }
