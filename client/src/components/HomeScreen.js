@@ -73,7 +73,7 @@ function HomeScreen() {
                 </Grid>
 
                 <Grid xs={12} sx={{ height: '50vh', justifyContent: 'center', display: 'flex', p: 1}}>
-                    <Box xs={12} sx = {{position: 'relative', border: 0.5 , borderColor: 'white',  width: '80%', height: '25%', height: '100%', borderRadius: '15px', p:1}}>
+                    <Box xs={12} sx = {{position: 'relative', border: 0.5 , borderColor: 'white',  width: '80%', height: '25%', borderRadius: '15px', p:1}}>
 
                         <Grid container sx = {{ display: 'flex', p: 1}}>
                             <Grid item xs = {6} sx={{p: 1}}>

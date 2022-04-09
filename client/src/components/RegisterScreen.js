@@ -114,9 +114,10 @@ export default function RegisterScreen() {
                 <TextField
                   required
                   fullWidth
-                  id="confirm-password"
-                  placeholder="Confirm Password"
                   name="confirm"
+                  type="password"
+                  placeholder="Confirm Password"
+                  id="confirm-password"
                   autoComplete="confirm-password"
                   sx={{ input: { color: 'white' } }}
                 />
