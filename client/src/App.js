@@ -15,7 +15,8 @@ import {
     ListScreen,
     BookmarksScreen,
     SettingsScreen,
-    ProfileScreen
+    ProfileScreen,
+    ComicScreen
 } from './components'
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
                             <Route exact path="/bookmarks/" element={< BookmarksScreen />} />
                             <Route exact path="/settings/" element={< SettingsScreen />} />
                             <Route exact path="/profile/" element={< ProfileScreen />} />
+                            <Route exact path="/comic/" element={< ComicScreen />} />
                         </Routes>
                     </ContentContextProvider>
                 </AuthContextProvider>
