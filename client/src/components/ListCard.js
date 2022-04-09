@@ -1,7 +1,7 @@
 function ListCard(props) {
   return (
     <div class="listcard">
-        <img class="listcard_image" src={"../public/" + props.comic.filename} alt="Nothing here"></img>
+        <img class="listcard_image" src={"../public/" + props.comic.filename} alt=""></img>
         <div>
             <div class="list_card_title">
                 {props.comic.title}

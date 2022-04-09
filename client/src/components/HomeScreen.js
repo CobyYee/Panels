@@ -39,11 +39,11 @@ function HomeScreen() {
     }
 
     let firstCol = 
-        <Typography sx = {{color: 'white', position: 'relative'}}>
+        <Typography sx = {{color: 'white', position: 'relative', textAlign: 'center'}}>
             {firstColUpdates}
         </Typography>
     let secondCol = 
-        <Typography sx = {{color: 'white', position: 'relative'}}>
+        <Typography sx = {{color: 'white', position: 'relative', textAlign: 'center'}}>
             {secondColUpdates}  
         </Typography>
 
@@ -72,14 +72,14 @@ function HomeScreen() {
                     </Typography>
                 </Grid>
 
-                <Grid xs={12} sx={{ height: '50vh', justifyContent: 'center', display: 'flex'}}>
-                    <Box xs={12} sx = {{position: 'relative', border: 0.5 , borderColor: 'white',  width: '80%', height: '25%', height: '100%', borderRadius: '15px'}}>
+                <Grid xs={12} sx={{ height: '50vh', justifyContent: 'center', display: 'flex', p: 1}}>
+                    <Box xs={12} sx = {{position: 'relative', border: 0.5 , borderColor: 'white',  width: '80%', height: '25%', height: '100%', borderRadius: '15px', p:1}}>
 
-                        <Grid container sx = {{justifyContent: 'center', display: 'flex'}}>
-                            <Grid item xs = {6} >
+                        <Grid container sx = {{ display: 'flex', p: 1}}>
+                            <Grid item xs = {6} sx={{p: 1}}>
                                 {firstCol}
                             </Grid>
-                            <Grid item xs = {6} > 
+                            <Grid item xs = {6} sx={{p: 1}}> 
                                 {secondCol}
                             </Grid>
                         </Grid>

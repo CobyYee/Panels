@@ -5,13 +5,14 @@ function SortBar() {
     const [sortBy, setSortBy] = useState([false, false, false]);
 
     function handleClick(event) {
+        event.stopPropagation();
         const newState = sortBy.slice();
         newState[event.target.value] = !sortBy[event.target.value];
         setSortBy(newState);
     }
 
     return (    
-        <Box class="sort_bar">
+        <Box id="sort_bar">
             <Typography class="sort_label">Sort By:</Typography>
             <Button class={sortBy[0] ? "sort_button_clicked" : "sort_button"} onClick={handleClick} value={0}>Latest Updated</Button>
             <Button class={sortBy[1] ? "sort_button_clicked" : "sort_button"} onClick={handleClick} value={1}>Popularity</Button>

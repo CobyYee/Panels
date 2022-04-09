@@ -3,11 +3,13 @@ import ListCard from "./ListCard";
 function SearchList(props) {
     const comics = props.comics;
     return ( 
-       <div>
+       <ul id="comic_list">
            {comics.map((comic, index) => (
+               <li class="comic_item">
                <ListCard comic={comic}/>
+               </li>
            ))}
-       </div>     
+       </ul>     
     )
 }
 

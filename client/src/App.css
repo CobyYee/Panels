@@ -14,10 +14,6 @@ body {
   font-family: "Poppins";
 }
 
-.sort_bar, .filter_bar {
-  display: flex;
-}
-
 .sort_button, .sort_label, .filter_label, .filter_button {
   margin: 5px;
   border: transparent;
@@ -46,17 +42,8 @@ body {
 }
 
 .listcard_image {
-  width: 20%;
-  height: 90%
-  
-}
-
-.home-wrapper {
-  background-color: #2b2b2b;
-  width: 100%;
-  white-space: nowrap;
-  height: 100%;
-  display: block;
+  width: 125px;
+  height: 200px;
 }
 
 button[type="submit"]:disabled {
@@ -136,7 +123,28 @@ html, body {
 
 
 
+.search_list {
+  width: 80%;
+  margin-left: 10%;
+  display: block;
+  padding: 25px 0px 0px 0px;
+}
 
+#genre_bar, #sort_bar {
+  display: flex;
+}
+
+#genre_bar {
+  padding-bottom: 15px;
+}
+
+#comic_list {
+  columns: 2;
+}
+
+.comic_item {
+  list-style-type: none;
+}
 
 .list_card_title {
   font-size: 25px;
