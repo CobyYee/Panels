@@ -4,6 +4,10 @@
   --dark-gray: #2b2b2b;
 }
 
+body {
+  background-color: #2b2b2b;
+}
+
 .sort_bar, .filter_bar {
   display: flex;
 }
