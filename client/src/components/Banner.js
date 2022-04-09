@@ -137,16 +137,9 @@ export default function Banner() {
                     <Box pr={10}>
                         <Button
                             fullWidth
-                            onClick={() => navigate('/popularscreen/')} 
+                            onClick={() => navigate('/listscreen/')} 
                             sx={{ color: 'white', fontSize: 15 }}>
-                                Popular  
-                        </Button>
-                    </Box>
-                    <Box pr={0}>
-                        <Button
-                            onClick={() => navigate('/genrescreen/')}                        
-                            sx={{ color: 'white', fontSize: 15 }}>
-                                Genres
+                                All Comics 
                         </Button>
                     </Box>
                     <Box sx= {{ width: '100%', maxWidth: '55vw', display: 'flex', justifyContent: 'center' }}>

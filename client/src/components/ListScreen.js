@@ -26,15 +26,9 @@ function ListScreen(props) {
     }
     ];
 
-    let sortState = [false, false, false,];
-    if (props.topic === "popular")
-        sortState[1] = true;
-    else 
-        sortState[1] = false;
-
     return (
         <div class="search_list">
-            <SortBar state={sortState}></SortBar>
+            <SortBar></SortBar>
             <GenreBar state={[false, false, false]}></GenreBar>
             <SearchList comics={comics}/>
         </div>  
