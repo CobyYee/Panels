@@ -183,6 +183,9 @@ html, body {
 
 #upload_comic {
   display: block;
+  padding-left: 25%;
+  padding-top: 50px;
+  width: 75%
 }
 
 #upload_comic_label {
@@ -192,7 +195,7 @@ html, body {
 }
 
 #upload_comic_inputs {
-  width: 80%;
+  width: 100%;
   display: flex;
 }
 
@@ -209,11 +212,11 @@ html, body {
 }
 
 #upload_comic_name_label {
-  height: 40px
+  height: 50px
 }
 
 #upload_comic_image_label {
-  height: 40px;
+  height: 50px;
 }
 
 #upload_comic_tags_label {
@@ -222,7 +225,7 @@ html, body {
 
 #upload_comic_name {
   height: 25px;
-  margin-bottom: 15px;
+  margin-bottom: 22px;
   width: 700px;
   background-color: #4E4E4E;
   border: none;
@@ -240,11 +243,20 @@ html, body {
   border: none;
   border-radius: 4px;
   display: inline-block;
-  margin-bottom: 4px;
+  margin-bottom: 20px;
 }
 
 #tags {
-  height: 100px;
+  height: 150px;
+}
+
+.tag_button {
+  font-size: 15px;
+  margin: 5px;
+  color: black;
+  background-color: #b8434b;
+  border-radius: 5px;
+  border: 0px solid transparent;
 }
 
 #terms_checkbox {
@@ -263,6 +275,6 @@ html, body {
   border-radius: 4px;
   display: inline-block;
   margin-bottom: 4px;
-  color: black;
+  color: white;
   font-size: 15px;
 }
