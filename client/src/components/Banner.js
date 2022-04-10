@@ -125,41 +125,47 @@ export default function Banner() {
         <Box sx = {{ flexGrow: 1}}>
             <AppBar position="static" style={{ background: '#3d3d3d' }}>
                 <Toolbar>
-                    <Typography 
-                        onClick={() => navigate('/')} 
-                        variant="h4"
-                        noWrap 
-                        component="div" 
-                        sx={{ display: { xs: 'none', sm: 'block' }, color: '#9c4247' }} 
-                        pr={15}>
-                            PANELS 
-                    </Typography>
-                    <Box>
-                        <Button
-                            fullWidth
-                            onClick={() => navigate('/listscreen/')} 
-                            sx={{ color: 'white', fontSize: 15 }}>
-                                All Comics 
-                        </Button>
-                    </Box>
-                    <Grid container justify='center' sx={{ maxWidth: '70vw', display: 'flex', justifyContent: 'center' }}>
-                    <TextField 
-                        placeholder = "Search comic or author" 
-                        sx = {{
-                            width: '100%', 
-                            maxWidth: '50vw',
-                            bgcolor: '#4E4E4E', 
-                            border: 'none', 
-                            input: {color: 'white'} 
-                        }}>
-                    </TextField>
+                    <Grid item={true} xs={12} container>
+                        <Grid item xs={1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <Typography 
+                                onClick={() => navigate('/')} 
+                                variant="h4" 
+                                component="div" 
+                                sx={{ color: '#9c4247' }}>
+                                    PANELS 
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={1} container sx={{ display: 'flex', justifyContent: 'center' }}>
+                            <Button
+                                fullWidth
+                                onClick={() => navigate('/listscreen/')} 
+                                sx={{ color: 'white', fontSize: 15 }}>
+                                    All Comics 
+                            </Button>
+                        </Grid>
+                        <Grid item xs ={8} container sx={{display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <TextField 
+                                placeholder = "Search comic or author" 
+                                sx = {{
+                                    width: '100%', 
+                                    maxWidth: '50vw',
+                                    bgcolor: '#4E4E4E', 
+                                    border: 'none', 
+                                    input: {color: 'white'} 
+                                }}>
+                            </TextField>
+                        </Grid>
+                        <Grid item xs = {1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <Box>
+                            { 
+                                contentButton 
+                            }
+                            </Box>
+                        </Grid>
+                        <Grid item xs = {1} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            { iconMenu }
+                        </Grid>
                     </Grid>
-                    <Box sx={{ flexGrow: 1 }}>
-                    { 
-                        contentButton 
-                    }
-                    </Box>
-                    { iconMenu }
                 </Toolbar>
             </AppBar>
         </Box>
