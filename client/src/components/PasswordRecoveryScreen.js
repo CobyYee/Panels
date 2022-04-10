@@ -69,10 +69,6 @@ export default function PasswordRecoveryScreen() {
                             id="password"
                             autoComplete="new-password"
 
-                            //minlength="8"
-                            //error
-                            //helperText="Minimum 8 characters"
-
                             type={values.showPassword ? 'text' : 'password'}
                             onChange={handleChange('password')}
                             InputProps={{
