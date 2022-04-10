@@ -9,6 +9,7 @@ import BookmarksScreen from './BookmarksScreen'
 import SettingsScreen from './SettingsScreen'
 import ProfileScreen from './ProfileScreen'
 import ComicScreen from './ComicScreen'
+import Storyboard from './Storyboard'
 
 export {
     Banner,
@@ -21,5 +22,6 @@ export {
     BookmarksScreen,
     SettingsScreen,
     ProfileScreen,
-    ComicScreen
+    ComicScreen,
+    Storyboard
 }
