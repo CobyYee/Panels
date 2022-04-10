@@ -1,4 +1,4 @@
-import { Typography, Box, TextField, Menu, MenuItem, IconButton, Avatar, AppBar, Toolbar, Button } from '@mui/material';
+import { Typography, Box, TextField, Menu, MenuItem, IconButton, Avatar, AppBar, Toolbar, Button, Grid } from '@mui/material';
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import ContentContext from '../content'
@@ -134,7 +134,7 @@ export default function Banner() {
                         pr={15}>
                             PANELS 
                     </Typography>
-                    <Box pr={10}>
+                    <Box>
                         <Button
                             fullWidth
                             onClick={() => navigate('/listscreen/')} 
@@ -142,7 +142,7 @@ export default function Banner() {
                                 All Comics 
                         </Button>
                     </Box>
-                    <Box sx= {{ width: '100%', maxWidth: '55vw', display: 'flex', justifyContent: 'center' }}>
+                    <Grid container justify='center' sx={{ maxWidth: '70vw', display: 'flex', justifyContent: 'center' }}>
                     <TextField 
                         placeholder = "Search comic or author" 
                         sx = {{
@@ -153,7 +153,7 @@ export default function Banner() {
                             input: {color: 'white'} 
                         }}>
                     </TextField>
-                    </Box>
+                    </Grid>
                     <Box sx={{ flexGrow: 1 }}>
                     { 
                         contentButton 
