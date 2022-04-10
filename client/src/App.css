@@ -183,9 +183,9 @@ html, body {
 
 #upload_comic {
   display: block;
-  padding-left: 25%;
-  padding-top: 50px;
-  width: 75%
+  padding-left: 28%;
+  padding-top: 100px;
+  width: 72%
 }
 
 #upload_comic_label {
@@ -248,12 +248,13 @@ html, body {
 
 #tags {
   height: 150px;
+  width: 700px;
 }
 
 .tag_button {
   font-size: 15px;
-  margin: 5px;
-  color: black;
+  margin: 5px 10px 5px 0px;
+  color: white;
   background-color: #b8434b;
   border-radius: 5px;
   border: 0px solid transparent;

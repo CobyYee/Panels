@@ -2,7 +2,8 @@ import { useState } from 'react';
 
 function UploadComic() {
     const [file, setFile] = useState(null);
-    const [tags, setTags] = useState(["Action", "Romance", "Fantasy", "Comedy", "Slice of Life", "Reincarnation", "Martial Arts"]);
+    const [tags, setTags] = useState(["Action", "Romance", "Fantasy", "Comedy", "Slice of Life", "Reincarnation", "Martial Arts",
+                                            "Food", "Horror", "Sports"]);
 
     return (
         <div id="upload_comic">
