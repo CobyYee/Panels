@@ -35,13 +35,17 @@ export default function ProfileScreen() {
                         <Button onClick = {() => navigate('/storyboard/')}sx={{ color: '#9c4247', "&:hover": { color: 'red' }, position: 'relative', left: '75%' }}>Create New</Button>
                     </Grid>
                     <Grid item pt={1} xs={12} sx={{ display: 'flex', verticalAlign: 'center' }}>
-                        <Box sx={{ border: 1, borderColor: '#4e4e4e', width: '100%', height: 350, maxHeight: '30vh' }}></Box>
+                        <Box sx={{ border: 1, borderColor: '#4e4e4e', width: '100%', height: 350, maxHeight: '30vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <Box sx={{ height: '80%', width: '15%', backgroundColor: '#4e4e4e' }}></Box>
+                        </Box>
                     </Grid>
                     <Grid item pt={2} xs={12} sx={{ display: 'flex', verticalAlign: 'center' }}>
                         <Typography sx={{ color: 'white', fontSize: 25 }}>Drafts</Typography>
                     </Grid>
                     <Grid item pt={1} xs={12} sx={{ display: 'flex', verticalAlign: 'center' }}>
-                        <Box sx={{ border: 1, borderColor: '#4e4e4e', width: '100%', height: 350, maxHeight: '30vh' }}></Box>
+                        <Box sx={{ border: 1, borderColor: '#4e4e4e', width: '100%', height: 350, maxHeight: '30vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <Box sx={{ height: '80%', width: '15%', backgroundColor: '#4e4e4e' }}></Box>
+                        </Box>
                     </Grid>
                 </Grid>
             </Grid>
