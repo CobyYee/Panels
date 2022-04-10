@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Typography, Box, Container, Grid, Button, MenuList, MenuItem, List, ListItem, ListItemText, ListItemAvatar } from '@mui/material';
+import batePic from '../testimgs/bate.jpg'
 
 export default function ComicScreen() {
     const [status, setStatus] = useState("chapters");
@@ -44,7 +45,7 @@ export default function ComicScreen() {
             <Grid item={true} xs={11} container sx={{ display: 'flex', justifyContent: 'center' }} pb={4}>
                 <Grid item xs={4} sx={{ display: 'flex', justifyContent: 'flex-end' }} pr={10}>
                     <Box sx={{ border: 1, borderColor: '#4e4e4e', height: '100%', width: '35%' }}>
-                        <Typography color='white'>image</Typography>
+                            <img src={batePic} class = "image-contain" alt="Pic"/>
                     </Box>
                 </Grid>
                 <Grid item xs={8} container spacing={2}>

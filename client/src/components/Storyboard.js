@@ -2,6 +2,8 @@ import ContentContext from '../content'
 import { useContext } from 'react'
 import { Grid, Button, TextField, Box } from '@mui/material'
 import { useNavigate } from "react-router-dom";
+import exStory from '../testimgs/exStory.jpg';
+import exComic from '../testimgs/exComic.jpg';
 
 function StoryBoard() {
     const { content } = useContext(ContentContext)
@@ -9,10 +11,14 @@ function StoryBoard() {
 
     let editor = ""
     if(content.contentType === "Comic") {
-        editor = <Box sx={{ height: '80vh', position: 'relative', backgroundColor: 'white', borderRadius: '10px', width: '90%', left: '5%'}}> </Box>
+        editor = <Box sx={{ height: '80vh', position: 'relative', backgroundColor: 'white', borderRadius: '10px', width: '90%', left: '5%'}}>
+            <img src={exComic} class = "image-contain" alt="Pic"/>
+        </Box>
     }
     else {
-        editor = <Box sx={{ height: '80vh', position: 'relative', backgroundColor: 'black', borderRadius: '10px', width: '90%', left: '5%'}}> </Box>
+        editor = <Box sx={{ height: '80vh', position: 'relative', backgroundColor: 'black', borderRadius: '10px', width: '90%', left: '5%'}}>
+            <img src={exStory} class = "image-contain" alt="Pic"/>
+        </Box>
     }
 
     let component = 
