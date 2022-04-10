@@ -44,7 +44,7 @@ const App = () => {
                             <Route exact path="/uploadcomic" element={< UploadComic />} />
                             <Route exact path="/uploadchapter" element={< UploadChapter />} />
                             <Route exact path="/storyboard/" element={< Storyboard />} />
-                            <Route exact path="chapter/" element={< ChapterScreen />}/>
+                            <Route exact path="/chapter/" element={< ChapterScreen />}/>
                         </Routes>
                     </ContentContextProvider>
                 </AuthContextProvider>
