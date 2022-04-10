@@ -46,10 +46,7 @@ const App = () => {
                             <Route exact path="/uploadchapter" element={< UploadChapter />} />
                             <Route exact path="/storyboard/" element={< Storyboard />} />
                             <Route exact path="/chapter/" element={< ChapterScreen />}/>
-<<<<<<< HEAD
                             <Route exact path="/editcomic/" element={< EditComicScreen />}/>
-=======
->>>>>>> a07241b64acbdfbd6ddfc9c6ff665520c155910d
                         </Routes>
                     </ContentContextProvider>
                 </AuthContextProvider>
