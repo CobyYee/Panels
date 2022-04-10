@@ -11,6 +11,7 @@ import ProfileScreen from './ProfileScreen'
 import ComicScreen from './ComicScreen'
 import Storyboard from './Storyboard'
 import UploadComic from './UploadComic'
+import UploadChapter from './UploadChapter'
 
 export {
     Banner,
@@ -25,5 +26,6 @@ export {
     ProfileScreen,
     ComicScreen,
     Storyboard,
-    UploadComic
+    UploadComic,
+    UploadChapter,
 }
