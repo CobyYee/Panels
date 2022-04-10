@@ -1,7 +1,44 @@
 import { useState } from 'react'
-import { Typography, Box, Container, Grid, Button, MenuList, MenuItem } from '@mui/material';
+import { Typography, Box, Container, Grid, Button, MenuList, MenuItem, List, ListItem, ListItemText, ListItemAvatar } from '@mui/material';
 
 export default function ComicScreen() {
+    const [status, setStatus] = useState("chapters");
+
+    let display =   <MenuList>
+                    <MenuItem>
+                        <Typography color='white'>Chapter 6</Typography>
+                    </MenuItem>
+                    <MenuItem>
+                        <Typography color='white'>Chapter 5</Typography>
+                    </MenuItem>
+                    <MenuItem>
+                        <Typography color='white'>Chapter 4</Typography>
+                    </MenuItem>
+                    <MenuItem>
+                        <Typography color='white'>Chapter 3</Typography>
+                    </MenuItem>
+                    <MenuItem>
+                        <Typography color='white'>Chapter 2</Typography>
+                    </MenuItem>
+                    <MenuItem>
+                        <Typography color='white'>Chapter 1</Typography>
+                    </MenuItem>
+                </MenuList>
+
+    if (status === "comments") {
+        display =   <List>
+                        <ListItem>
+                            <ListItemText primary="USER" secondary={ <Typography color='white'>comment</Typography> }/>
+                        </ListItem>
+                        <ListItem>
+                            <ListItemText primary="USER" secondary={ <Typography color='white'>comment</Typography> }/>
+                        </ListItem>
+                        <ListItem>
+                            <ListItemText primary="USER" secondary={ <Typography color='white'>comment</Typography> }/>
+                        </ListItem>
+                    </List>
+    }
+
     return (
         <Box sx={{ paddingTop: 10, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <Grid item={true} xs={11} container sx={{ display: 'flex', justifyContent: 'center' }} pb={4}>
@@ -35,31 +72,13 @@ export default function ComicScreen() {
                 </Grid>
             </Grid>
             <Grid item={true} xs={11} container spacing={2}>
-                <Grid item xs={4} sx={{ display: 'flex', justifyContent: 'flex-end' }} pr={10}>
-                    <Typography color='white'>Chapters      Comments</Typography>
+                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Button onClick={() => setStatus("chapters")}>Chapters</Button>
+                    <Button onClick={() => setStatus("comments")}>Comments</Button>
                 </Grid>
                 <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
                     <Box sx={{ border: 1, borderColor: '#4e4e4e', height: '100%', width: '57vw' }}>
-                        <MenuList>
-                        <MenuItem>
-                            <Typography color='white'>Chapter 6</Typography>
-                        </MenuItem>
-                        <MenuItem>
-                            <Typography color='white'>Chapter 5</Typography>
-                        </MenuItem>
-                        <MenuItem>
-                            <Typography color='white'>Chapter 4</Typography>
-                        </MenuItem>
-                        <MenuItem>
-                            <Typography color='white'>Chapter 3</Typography>
-                        </MenuItem>
-                        <MenuItem>
-                            <Typography color='white'>Chapter 2</Typography>
-                        </MenuItem>
-                        <MenuItem>
-                            <Typography color='white'>Chapter 1</Typography>
-                        </MenuItem>
-                        </MenuList>
+                        { display }
                     </Box>
                 </Grid>
             </Grid>

@@ -134,7 +134,7 @@ export default function Banner() {
                         pr={15}>
                             PANELS 
                     </Typography>
-                    <Box pr={10}>
+                    <Box pr={22}>
                         <Button
                             fullWidth
                             onClick={() => navigate('/listscreen/')} 
