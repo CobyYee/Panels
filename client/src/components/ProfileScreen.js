@@ -1,10 +1,12 @@
 //import { useState } from 'react'
 import { Typography, Box, Container, Grid, Button } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle'
+import { useNavigate } from 'react-router-dom'
 
 export default function ProfileScreen() {
     //get user from url. if user is self, we can display the Drafts section and enable the createNew button. Otherwise, don't
     //current user and their works should be stored in store? so we can retrieve and filter and place in Box
+    let navigate = useNavigate()
 
     let profile_image = <AccountCircle sx={{ color: '#4e4e4e', position: 'relative', top: '15%', fontSize: 280 }}/>
     return (
@@ -30,7 +32,7 @@ export default function ProfileScreen() {
                     </Grid>
                     <Grid item pt={6} xs={12} sx={{ display: 'flex', verticalAlign: 'center' }}>
                         <Typography sx={{ color: 'white', fontSize: 25 }}>Uploaded Works</Typography>
-                        <Button sx={{ color: '#9c4247', "&:hover": { color: 'red' }, position: 'relative', left: '75%' }}>Create New</Button>
+                        <Button onClick = {() => navigate('/storyboard/')}sx={{ color: '#9c4247', "&:hover": { color: 'red' }, position: 'relative', left: '75%' }}>Create New</Button>
                     </Grid>
                     <Grid item pt={1} xs={12} sx={{ display: 'flex', verticalAlign: 'center' }}>
                         <Box sx={{ border: 1, borderColor: '#4e4e4e', width: '100%', height: 350, maxHeight: '30vh' }}></Box>

@@ -4,21 +4,21 @@ import SearchList from './SearchList';
 
 function ListScreen(props) {
     const comics = [{
-        filename: "beginningaftertheend.jpg",
+        filename: "bate.jpg",
         title: "The Beginning After The End",
         author: "TurtleMe",
         description: "good shit",
         genres: ["Action", "Fantasy", "Romance"]
     }, 
     {
-        filename: "beginningaftertheend.jpg",
+        filename: "bate.jpg",
         title: "The Beginning After The End",
         author: "TurtleMe",
         description: "good shit",
         genres: ["Action", "Fantasy", "Romance"]
     },
     {
-        filename: "beginningaftertheend.jpg",
+        filename: "bate.jpg",
         title: "The Beginning After The End",
         author: "TurtleMe",
         description: "good shit",

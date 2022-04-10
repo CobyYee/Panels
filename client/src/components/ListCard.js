@@ -1,15 +1,19 @@
 import { Navigate } from "react-router-dom";
+import batePic from '../testimgs/bate.jpg';
+import {useNavigate} from 'react-router-dom'
 
 function ListCard(props) {
+    let navigate = useNavigate();
 
     function handleClick(event) {
         event.stopPropagation();
         console.log("comic clicked");
+        navigate('/comic/')
     }
 
     return (
         <div class="listcard">
-            <img class="listcard_image" src={"../public/" + props.comic.filename} alt="" onClick={handleClick}></img>
+            <img class="listcard_image" src={batePic} alt="" onClick={handleClick}></img>
             <div style={{paddingLeft: '10px'}}>
                 <div class="list_card_title" onClick={handleClick}>
                     {props.comic.title}

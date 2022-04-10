@@ -1,9 +1,19 @@
 import {Box, Typography, Grid} from '@mui/material'
 import ContentContext from '../content'
 import {useContext} from 'react'
+import batePic from '../testimgs/bate.jpg'
+import naruto from '../testimgs/naruto.jpg'
+import bleach from '../testimgs/bleach.jpg'
+import lookism from '../testimgs/lookism.jpg'
+import mha from '../testimgs/mha.jpg'
+import onepiece from '../testimgs/onepiece.jpg'
+import sao from '../testimgs/sao.jpg'
+import rezero from '../testimgs/rezero.jpg'
+import { useNavigate } from 'react-router-dom'
 
 function HomeScreen() {
     const {content} = useContext(ContentContext)
+    let navigate = useNavigate();
 
     let latestUpdates = [["Work 1", "1"], ["Work 2", "21"], ["Work 3", "14"], ["Work 4", "1123"], ["Work 5", "41"], ["Work 6", "11"], ["Work 7", "12"], ["Work 8", "1"], 
         ["Work 9", "1"], ["Work 10", "1"], ["Work 11", "1"], ["Work 12", "1"], ["Work 13", "1"], ["Work 14", "1"], ["Work 15", "1"], ["Work 16", "1"], ["Work 17", "1"], 
@@ -53,14 +63,30 @@ function HomeScreen() {
                 <Grid pt={5} pb={5}  xs={12} sx={{ height: '30vh', justifyContent: 'center', display: 'flex' }}>
                     <Box sx = {{position: 'relative', backgroundColor: '#3d3d3d',  width: '70%', height: '100%', borderRadius: '15px', display: 'flex'}}>
 
-                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '3%', height: '90%', top: '5%'}}/>
-                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '5%', height: '90%', top: '5%'}}/>
-                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '7%', height: '90%', top: '5%'}}/>
-                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '9%', height: '90%', top: '5%'}}/>
-                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '11%', height: '90%', top: '5%'}}/>
-                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '13%', height: '90%', top: '5%'}}/>
-                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '15%', height: '90%', top: '5%'}}/>
-                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '17%', height: '90%', top: '5%'}}/>
+                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '3%', height: '90%', top: '5%'}}>
+                            <img src={batePic} class = "image-contain" alt="Pic" onClick = {() => navigate('/comic/')}/>
+                        </Box>
+                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '5%', height: '90%', top: '5%'}}>
+                            <img src={naruto} class = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
+                        </Box>
+                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '7%', height: '90%', top: '5%'}}>
+                            <img src={bleach} class = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
+                        </Box>
+                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '9%', height: '90%', top: '5%'}}>
+                            <img src={lookism} class = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
+                        </Box>
+                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '11%', height: '90%', top: '5%'}}>
+                            <img src={mha} class = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
+                        </Box>
+                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '13%', height: '90%', top: '5%'}}>
+                            <img src={onepiece} class = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
+                        </Box>
+                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '15%', height: '90%', top: '5%'}}>
+                            <img src={rezero} class = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
+                        </Box>
+                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '17%', height: '90%', top: '5%'}}>
+                            <img src={sao} class = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
+                        </Box>
 
                     </Box>
                 </Grid>
