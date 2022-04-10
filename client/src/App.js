@@ -15,8 +15,10 @@ import {
     ListScreen,
     BookmarksScreen,
     SettingsScreen,
-    ProfileScreen,
-    ComicScreen
+    ProfileScreen,  
+    ComicScreen,
+    UploadComic,
+    Storyboard
 } from './components'
 
 const App = () => {
@@ -37,6 +39,8 @@ const App = () => {
                             <Route exact path="/settings/" element={< SettingsScreen />} />
                             <Route exact path="/profile/" element={< ProfileScreen />} />
                             <Route exact path="/comic/" element={< ComicScreen />} />
+                            <Route exact path="/uploadcomic" element={< UploadComic />} />
+                            <Route exact path="/storyboard/" element={< Storyboard />} />
                         </Routes>
                     </ContentContextProvider>
                 </AuthContextProvider>
