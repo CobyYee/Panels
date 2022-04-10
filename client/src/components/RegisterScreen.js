@@ -9,6 +9,10 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 function Copyright(props) {
   return (
@@ -31,6 +35,26 @@ export default function RegisterScreen() {
       email: data.get('email'),
       password: data.get('password'),
     });
+  };
+
+  const[values, setValues] = React.useState({
+      password: '',
+      showPassword: false
+  });
+
+  const handleChange = (prop) => (event) => {
+      setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleClickShowPassword = () => {
+      setValues({
+          ...values,
+          showPassword: !values.showPassword,
+      });
+  };
+
+  const handleMouseDownPassword = (event) => {
+      event.preventDefault();
   };
 
   return (
@@ -107,6 +131,24 @@ export default function RegisterScreen() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+
+                  type={values.showPassword ? 'text' : 'password'}
+                  onChange={handleChange('password')}
+                  InputProps={{
+                    endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                              edge="end"
+                          >
+                            {values.showPassword ? <VisibilityOffIcon style={{ color: "white" }} /> : <VisibilityIcon style={{ color: "white" }} />}
+                          </IconButton>
+                        </InputAdornment>
+                    )
+                  }}
+
                   sx={{ input: { color: 'white' } }}
                 />
               </Grid>
@@ -115,10 +157,28 @@ export default function RegisterScreen() {
                   required
                   fullWidth
                   name="confirm"
-                  type="password"
                   placeholder="Confirm Password"
+                  type="password"
                   id="confirm-password"
                   autoComplete="confirm-password"
+
+                  type={values.showPassword ? 'text' : 'password'}
+                  onChange={handleChange('password')}
+                  InputProps={{
+                    endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                              edge="end"
+                          >
+                            {values.showPassword ? <VisibilityOffIcon style={{ color: "white" }} /> : <VisibilityIcon style={{ color: "white" }} />}
+                          </IconButton>
+                        </InputAdornment>
+                    )
+                  }}
+
                   sx={{ input: { color: 'white' } }}
                 />
               </Grid>

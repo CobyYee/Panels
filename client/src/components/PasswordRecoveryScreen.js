@@ -7,6 +7,10 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 export default function PasswordRecoveryScreen() {
     const handleSubmit = (event) => {
@@ -15,6 +19,26 @@ export default function PasswordRecoveryScreen() {
         console.log({
             password: data.get('password'),
         });
+    };
+
+    const[values, setValues] = React.useState({
+        password: '',
+        showPassword: false
+    });
+
+    const handleChange = (prop) => (event) => {
+        setValues({ ...values, [prop]: event.target.value });
+    };
+
+    const handleClickShowPassword = () => {
+        setValues({
+            ...values,
+            showPassword: !values.showPassword,
+        });
+    };
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
     };
 
     return (
@@ -42,12 +66,32 @@ export default function PasswordRecoveryScreen() {
                             fullWidth
                             name="password"
                             placeholder="New Password"
-                            type="password"
                             id="password"
                             autoComplete="new-password"
+
+                            //minlength="8"
+                            //error
+                            //helperText="Minimum 8 characters"
+
+                            type={values.showPassword ? 'text' : 'password'}
+                            onChange={handleChange('password')}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            edge="end"
+                                        >
+                                            {values.showPassword ? <VisibilityOffIcon style={{ color: "white" }} /> : <VisibilityIcon style={{ color: "white" }} />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                )
+                            }}
+
                             sx={{ input: { color: 'white' } }}
                         />
-                        <i className="eyeToggle" id="togglePassword"></i>
                         <Button
                             type="submit"
                             fullWidth
