@@ -9,19 +9,8 @@ import BookmarksScreen from './BookmarksScreen'
 import SettingsScreen from './SettingsScreen'
 import ProfileScreen from './ProfileScreen'
 import ComicScreen from './ComicScreen'
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 import Storyboard from './Storyboard'
-=======
 import UploadComic from './UploadComic'
->>>>>>> Stashed changes
-=======
-import UploadComic from './UploadComic'
->>>>>>> Stashed changes
-=======
-import UploadComic from './UploadComic'
->>>>>>> Stashed changes
 
 export {
     Banner,
@@ -35,17 +24,6 @@ export {
     SettingsScreen,
     ProfileScreen,
     ComicScreen,
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    Storyboard
-=======
+    Storyboard,
     UploadComic
->>>>>>> Stashed changes
-=======
-    UploadComic
->>>>>>> Stashed changes
-=======
-    UploadComic
->>>>>>> Stashed changes
 }
