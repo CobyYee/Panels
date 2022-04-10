@@ -13,6 +13,7 @@ import Storyboard from './Storyboard'
 import UploadComic from './UploadComic'
 import UploadChapter from './UploadChapter'
 import ChapterScreen from './ChapterScreen'
+import EditComicScreen from './EditComicScreen'
 
 export {
     Banner,
@@ -29,5 +30,6 @@ export {
     Storyboard,
     UploadComic,
     UploadChapter,
-    ChapterScreen
+    ChapterScreen,
+    EditComicScreen
 }

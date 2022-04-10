@@ -20,7 +20,8 @@ import {
     UploadComic,
     UploadChapter,
     Storyboard,
-    ChapterScreen
+    ChapterScreen,
+    EditComicScreen
 } from './components'
 
 const App = () => {
@@ -44,7 +45,8 @@ const App = () => {
                             <Route exact path="/uploadcomic" element={< UploadComic />} />
                             <Route exact path="/uploadchapter" element={< UploadChapter />} />
                             <Route exact path="/storyboard/" element={< Storyboard />} />
-                            <Route exact path="chapter/" element={< ChapterScreen />}/>
+                            <Route exact path="/chapter/" element={< ChapterScreen />}/>
+                            <Route exact path="/editcomic/" element={< EditComicScreen />}/>
                         </Routes>
                     </ContentContextProvider>
                 </AuthContextProvider>
