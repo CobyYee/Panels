@@ -12,7 +12,7 @@ export default function ProfileScreen() {
         <ListItem>
             <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
                 <Box sx={{ flexGrow: 1 }}>
-                    <Button sx={{ color: '#9c4247', flexGrow: 1 }}>Work 1</Button>
+                    <Button onClick = {() => navigate('/comic/')} sx={{ color: '#9c4247', flexGrow: 1 }}>Work 1</Button>
                 </Box>
                 <Button sx={{ color: '#9c4247' }}>Delete</Button>
             </Box>
@@ -33,7 +33,7 @@ export default function ProfileScreen() {
     let profile_image = <AccountCircle sx={{ color: '#4e4e4e', position: 'relative', top: '15%', fontSize: 280 }}/>
     return (
         <Box sx={{ paddingTop: 10, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <Grid item={true} xs={10} container sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Grid item={true} xs={10} container sx={{ display: 'flex', justifyContent: 'center', minWidth: '1200px' }}>
                 <Grid item xs={3} sx={{ alignItems: 'right' }}>
                     <Grid item xs={12} pb={6} sx={{ display: 'flex', justifyContent: 'center' }}>
                         { profile_image }

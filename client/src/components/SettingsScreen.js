@@ -3,12 +3,13 @@ import { Typography, Box, Grid, MenuList, MenuItem, TextField, Divider, List, Li
 
 export default function SettingsScreen() {
     const [setting, setSetting] = useState(0)
-    let settingsArray=["Reset settings", "Change Account Password", "Enable notifications for Updates", "a", "b", "c"]
+    //let settingsArray=["Reset settings", "Change Account Password", "Enable notifications for Updates", "a", "b", "c"]
+
     return (
         <Box sx={{ paddingTop: 10, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <Grid item={true} xs={12} container sx={{ display: 'flex', justifyContent: 'center' }}>
-                <Grid item xs={1} sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <MenuList sx={{ width: "90%", display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+                <Grid item xs={1} sx={{ display: 'flex', justifyContent: 'center', width: '210px' }}>
+                    <MenuList sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
                         <MenuItem onClick={() => setSetting(0)} sx={{ display: 'flex', justifyContent: 'center' }}>
                             <Typography color='white'>General</Typography>
                         </MenuItem>
@@ -39,15 +40,15 @@ export default function SettingsScreen() {
                             <ListItem>
                                 <Button sx={{ color: 'white' }}>Reset Account Settings</Button>
                             </ListItem>
-                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                             <ListItem>
                                 <Button sx={{ color: 'white' }}>Enable Email Notifications for Updates</Button>
                             </ListItem>
-                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                             <ListItem>
                                 <Button sx={{ color: 'white' }}>Update Password</Button>
                             </ListItem>
-                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                             <ListItem>
                                 <Button sx={{ color: 'white' }}>Update Email</Button>
                             </ListItem>

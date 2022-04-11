@@ -83,8 +83,8 @@ export default function ComicScreen() {
                         <Typography color='white'>Views: #        Rating: #/5</Typography>
                     </Grid>
                     <Grid item xs={3.4} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Button variant='contained' onClick = {() => navigate('/chapter/')} sx={{ backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' }, minWidth:'8vw' }}>Continue Reading</Button>
-                        <Button variant='contained' sx={{ backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' }, minWidth:'8vw' }}>Bookmark</Button>
+                        <Button variant='contained' onClick = {() => navigate('/chapter/')} sx={{ backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' }, minWidth:'200px', maxWidth: '8vw' }}>Continue Reading</Button>
+                        <Button variant='contained' sx={{ backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' }, minWidth:'200px', maxWidth: '8vw' }}>Bookmark</Button>
                     </Grid>
                     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'start' }}>
                         <Box sx={{ width: '70%' }}>

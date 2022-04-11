@@ -54,12 +54,12 @@ export default function BookmarksScreen() {
             <div id = "bookmarks-title">
                 Your Bookmarks
             </div>
-            <div class="search_list">
+            <div className="search_list">
                 <SortBar />
             </div>  
-            <Box xs={12} sx = {{position: 'relative', border: 0.5 , borderColor: 'white',  width: '80%', height: '100%', borderRadius: '15px', left: '10%'}}>
+            <Box xs={12} sx = {{ position: 'relative', border: 1 , borderColor: '#4e4e4e',  width: '80%', height: '100%', borderRadius: '15px', left: '10%', maxWidth: '1780px' }}>
 
-                        <Grid container sx = {{ display: 'flex', p: 1}}>
+                        <Grid container sx = {{ display: 'flex', p: 1, maxWidth: '1780px' }}>
                             <Grid item xs = {6} sx={{p: 1}}>
                                 {firstCol}
                             </Grid>

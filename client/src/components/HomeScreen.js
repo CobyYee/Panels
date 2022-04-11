@@ -60,47 +60,47 @@ function HomeScreen() {
         <Grid container sx = {{ flexDirection: 'column' }}>
             <Grid item xs = {12} sx={{ height: '100vh' }}>
 
-                <Grid pt={5} pb={5}  xs={12} sx={{ height: '30vh', justifyContent: 'center', display: 'flex' }}>
+                <Grid item pt={5} pb={5}  xs={12} sx={{ height: '30vh', justifyContent: 'center', display: 'flex', minWidth: '1750px', minHeight: '400px' }}>
                     <Box sx = {{position: 'relative', backgroundColor: '#3d3d3d',  width: '70%', height: '100%', borderRadius: '15px', display: 'flex'}}>
 
                         <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '3%', height: '90%', top: '5%'}}>
-                            <img src={batePic} class = "image-contain" alt="Pic" onClick = {() => navigate('/comic/')}/>
+                            <img src={batePic} className = "image-contain" alt="Pic" onClick = {() => navigate('/comic/')}/>
                         </Box>
                         <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '5%', height: '90%', top: '5%'}}>
-                            <img src={naruto} class = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
+                            <img src={naruto} className = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
                         </Box>
                         <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '7%', height: '90%', top: '5%'}}>
-                            <img src={bleach} class = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
+                            <img src={bleach} className = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
                         </Box>
                         <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '9%', height: '90%', top: '5%'}}>
-                            <img src={lookism} class = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
+                            <img src={lookism} className = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
                         </Box>
                         <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '11%', height: '90%', top: '5%'}}>
-                            <img src={mha} class = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
+                            <img src={mha} className = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
                         </Box>
                         <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '13%', height: '90%', top: '5%'}}>
-                            <img src={onepiece} class = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
+                            <img src={onepiece} className = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
                         </Box>
                         <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '15%', height: '90%', top: '5%'}}>
-                            <img src={rezero} class = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
+                            <img src={rezero} className = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
                         </Box>
                         <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '17%', height: '90%', top: '5%'}}>
-                            <img src={sao} class = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
+                            <img src={sao} className = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
                         </Box>
 
                     </Box>
                 </Grid>
 
-                <Grid xs={12} sx={{ height: '5vh', justifyContent: 'center', display: 'flex' }}>
+                <Grid item xs={12} sx={{ height: '5vh', justifyContent: 'center', display: 'flex' }}>
                     <Typography sx = {{color: 'white', fontSize: '16pt'}}>
                         Latest Updates
                     </Typography>
                 </Grid>
 
-                <Grid xs={12} sx={{ height: '50vh', justifyContent: 'center', display: 'flex', p: 1}}>
-                    <Box xs={12} sx = {{position: 'relative', border: 0.5 , borderColor: 'white',  width: '80%', height: '100%', borderRadius: '15px', p:1}}>
+                <Grid item xs={12} sx={{ height: '50vh', justifyContent: 'center', display: 'flex', p: 1}}>
+                    <Box xs={12} sx = {{ position: 'relative', border: 1 , borderColor: '#4e4e4e',  width: '80%', height: '100%', borderRadius: '15px', p: 1, maxWidth: '1780px' }}>
 
-                        <Grid container sx = {{ display: 'flex', p: 1}}>
+                        <Grid item container sx = {{ display: 'flex', p: 1}}>
                             <Grid item xs = {6} sx={{p: 1}}>
                                 {firstCol}
                             </Grid>

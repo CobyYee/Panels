@@ -29,7 +29,7 @@ function UploadComic() {
                     <label id="uploaded_comic_image_label_label" for="uploaded_comic_image_label"> [uploaded file name here]</label>
                     <div id="tags">
                         {tags.map((tag, index) => {
-                            return <button class="tag_button" value={index}>{tag}</button>
+                            return <button className = "tag_button" value={index}>{tag}</button>
                         })}
                     </div>
                     <input id="terms_checkbox" type="checkbox"></input>
