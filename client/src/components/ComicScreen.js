@@ -66,7 +66,7 @@ export default function ComicScreen() {
 
     return (
         <Box sx={{ paddingTop: 10, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-            <Grid item={true} xs={11} container sx={{ display: 'flex', justifyContent: 'center' }} pb={4}>
+            <Grid item={true} xs={11} container sx={{ display: 'flex', justifyContent: 'center', minWidth: '2300px' }} pb={4}>
                 <Grid item xs={4} sx={{ display: 'flex', justifyContent: 'flex-end' }} pr={10}>
                     <Box sx={{ border: 1, borderColor: '#4e4e4e', height: '100%', width: '35%' }}>
                             <img src={batePic} className = "image-contain" alt="Pic"/>
@@ -96,13 +96,13 @@ export default function ComicScreen() {
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid item={true} xs={7} container spacing={2} sx={{ display: 'flex', alignItems: 'center' }}>
+            <Grid item={true} xs={7} container spacing={2} sx={{ display: 'flex', alignItems: 'center', minWidth: '1500px' }}>
                 <Grid item xs={2} sx={{ display: 'flex', justifyContent: 'space-between', position: 'relative', left: '1%' }}>
                     <Button onClick={() => setStatus("chapters")} sx={{ color:'#9c4247' }}>Chapters</Button>
                     <Button onClick={() => setStatus("comments")} sx={{ color:'#9c4247' }}>Comments</Button>
                 </Grid>
                 <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <Box sx={{ height: '100%', width: '60vw', maxHeight: '50vh', overflowY: 'scroll' }}>
+                    <Box sx={{ height: '100%', width: '100%', maxHeight: '50vh', overflowY: 'scroll' }}>
                         { display }
                     </Box>
                 </Grid>
