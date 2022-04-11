@@ -48,7 +48,7 @@ export default function SettingsScreen() {
                     </Grid>
                 </Toolbar>
             </Box>
-            <Box sx={{ height: '90vh', width: '40vw', overflowY: 'scroll', position: 'relative', left: '30%' }}>
+            <Box sx={{ height: '88vh', width: '40vw', overflowY: 'scroll', position: 'relative', left: '30%' }}>
                 <Box sx={{ height: '2000px', width: '100%', backgroundColor: 'white' }}></Box>
             </Box>
         </div>

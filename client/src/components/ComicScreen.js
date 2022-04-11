@@ -1,9 +1,12 @@
 import { useState } from 'react'
-import { Typography, Box, Container, Grid, Button, MenuList, MenuItem, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
+import { Typography, Box, Grid, Button, MenuList, MenuItem, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import batePic from '../testimgs/bate.jpg'
+import { useNavigate } from 'react-router-dom'
 
 export default function ComicScreen() {
+    let navigate = useNavigate()
+    
     const [status, setStatus] = useState("chapters");
 
     let chapter =
@@ -80,7 +83,7 @@ export default function ComicScreen() {
                         <Typography color='white'>Views: #        Rating: #/5</Typography>
                     </Grid>
                     <Grid item xs={3.4} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Button variant='contained' sx={{ backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' }, minWidth:'8vw' }}>Continue Reading</Button>
+                        <Button variant='contained' onClick = {() => navigate('/chapter/')} sx={{ backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' }, minWidth:'8vw' }}>Continue Reading</Button>
                         <Button variant='contained' sx={{ backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' }, minWidth:'8vw' }}>Bookmark</Button>
                     </Grid>
                     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'start' }}>
