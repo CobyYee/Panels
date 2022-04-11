@@ -63,23 +63,23 @@ export default function ProfileScreen() {
                     <Grid item xs={12} sx={{ border: 1, borderColor: '#4e4e4e' }}>
                         <List sx={{ width: '100%', overflowY: 'scroll', maxHeight: '25vh' }}>
                             { publishedWork }
-                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                             { publishedWork }
-                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                             { publishedWork }
-                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                             { publishedWork }
-                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                             { publishedWork }
-                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                             { publishedWork }
-                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                             { publishedWork }
-                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                             { publishedWork }
-                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                             { publishedWork }
-                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                             { publishedWork }
                         </List>
                     </Grid>
@@ -89,21 +89,21 @@ export default function ProfileScreen() {
                     <Grid item xs={12} sx={{ border: 1, borderColor: '#4e4e4e' }}>
                         <List sx={{ width: '100%', overflowY: 'scroll', maxHeight: '25vh' }}>
                             { draft }
-                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                             { draft }
-                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                             { draft }
-                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                             { draft }
-                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                             { draft }
-                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                             { draft }
-                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                             { draft }
-                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                             { draft }
-                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                             { draft }
                         </List>
                     </Grid>

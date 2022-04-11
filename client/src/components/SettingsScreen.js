@@ -35,19 +35,19 @@ export default function SettingsScreen() {
                             <ListItem>
                                 <TextField fullWidth placeholder="Search... " sx={{ backgroundColor: '#4e4e4e', input: {color: 'white'} }}/>
                             </ListItem>
-                            <Divider variant="inset" component="li" sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                             <ListItem>
                                 <Button sx={{ color: 'white' }}>Reset Account Settings</Button>
                             </ListItem>
-                            <Divider variant="inset" component="li" sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
                             <ListItem>
                                 <Button sx={{ color: 'white' }}>Enable Email Notifications for Updates</Button>
                             </ListItem>
-                            <Divider variant="inset" component="li" sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
                             <ListItem>
                                 <Button sx={{ color: 'white' }}>Update Password</Button>
                             </ListItem>
-                            <Divider variant="inset" component="li" sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <Divider light sx={{ backgroundColor: '#4e4e4e' }}/>
                             <ListItem>
                                 <Button sx={{ color: 'white' }}>Update Email</Button>
                             </ListItem>

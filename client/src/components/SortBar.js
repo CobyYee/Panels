@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { Typography, Button, Box } from '@mui/material';
 
 function SortBar(props) {
-    const [sortBy, setSortBy] = useState([false, false, false]);
+    const [sortBy, setSortBy] = useState([true, false, false]);
 
     function handleClick(event) {
         event.stopPropagation();
-        const newState = sortBy.slice();
-        newState[event.target.value] = !sortBy[event.target.value];
+        const newState = [false, false, false];
+        newState[event.target.value] = true;
         setSortBy(newState);
     }
 

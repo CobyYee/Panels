@@ -1,42 +1,63 @@
 import { useState } from 'react'
-import { Typography, Box, Container, Grid, Button, MenuList, MenuItem, List, ListItem, ListItemText, ListItemAvatar } from '@mui/material';
+import { Typography, Box, Container, Grid, Button, MenuList, MenuItem, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 import batePic from '../testimgs/bate.jpg'
 
 export default function ComicScreen() {
     const [status, setStatus] = useState("chapters");
 
-    let display =   <MenuList>
-                    <MenuItem>
-                        <Typography color='white'>Chapter 6</Typography>
-                    </MenuItem>
-                    <MenuItem>
-                        <Typography color='white'>Chapter 5</Typography>
-                    </MenuItem>
-                    <MenuItem>
-                        <Typography color='white'>Chapter 4</Typography>
-                    </MenuItem>
-                    <MenuItem>
-                        <Typography color='white'>Chapter 3</Typography>
-                    </MenuItem>
-                    <MenuItem>
-                        <Typography color='white'>Chapter 2</Typography>
-                    </MenuItem>
-                    <MenuItem>
-                        <Typography color='white'>Chapter 1</Typography>
-                    </MenuItem>
-                </MenuList>
+    let chapter =
+        <MenuItem sx={{ p: '2px' }}>
+            <Box sx={{ width: '100%', border: 1, borderColor: '#3d3d3d', display: 'flex', alignItems: 'flex-start', verticalAlign: 'center', p: 1 }}>
+                <Typography color='white' sx={{ flexGrow: .8 }}>Chapter Name</Typography>
+                <Typography color='white' sx={{ flexGrow: .2, fontSize: 12 }}>Date Released</Typography>
+                <Typography color='white' sx={{ fontSize: 12 }}>Likes</Typography>
+            </Box>
+        </MenuItem>
+
+    let display =   
+        <MenuList>
+            { chapter }
+            { chapter }
+            { chapter }
+            { chapter }
+            { chapter }
+            { chapter }
+            { chapter }
+            { chapter }
+            { chapter }
+            { chapter }
+            { chapter }
+            { chapter }
+            { chapter }
+            { chapter }
+            { chapter }
+            { chapter }
+            { chapter }
+            { chapter }
+            { chapter }
+            { chapter }
+            { chapter }
+            { chapter }
+            { chapter }
+            { chapter }
+        </MenuList>
+
+    let comment =
+        <ListItem>
+            <ListItemAvatar>
+                <Avatar>
+                    <AccountCircle/>
+                </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={ <Typography color='white'>User</Typography> } secondary={ <Typography color='white'>comment</Typography> }/>
+        </ListItem>
 
     if (status === "comments") {
         display =   <List>
-                        <ListItem>
-                            <ListItemText primary="USER" secondary={ <Typography color='white'>comment</Typography> }/>
-                        </ListItem>
-                        <ListItem>
-                            <ListItemText primary="USER" secondary={ <Typography color='white'>comment</Typography> }/>
-                        </ListItem>
-                        <ListItem>
-                            <ListItemText primary="USER" secondary={ <Typography color='white'>comment</Typography> }/>
-                        </ListItem>
+                        { comment }
+                        { comment }
+                        { comment }
                     </List>
     }
 
@@ -45,7 +66,7 @@ export default function ComicScreen() {
             <Grid item={true} xs={11} container sx={{ display: 'flex', justifyContent: 'center' }} pb={4}>
                 <Grid item xs={4} sx={{ display: 'flex', justifyContent: 'flex-end' }} pr={10}>
                     <Box sx={{ border: 1, borderColor: '#4e4e4e', height: '100%', width: '35%' }}>
-                            <img src={batePic} class = "image-contain" alt="Pic"/>
+                            <img src={batePic} className = "image-contain" alt="Pic"/>
                     </Box>
                 </Grid>
                 <Grid item xs={8} container spacing={2}>
@@ -72,13 +93,13 @@ export default function ComicScreen() {
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid item={true} xs={11} container spacing={2}>
-                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Button onClick={() => setStatus("chapters")}>Chapters</Button>
-                    <Button onClick={() => setStatus("comments")}>Comments</Button>
+            <Grid item={true} xs={7} container spacing={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                <Grid item xs={2} sx={{ display: 'flex', justifyContent: 'space-between', position: 'relative', left: '1%' }}>
+                    <Button onClick={() => setStatus("chapters")} sx={{ color:'#9c4247' }}>Chapters</Button>
+                    <Button onClick={() => setStatus("comments")} sx={{ color:'#9c4247' }}>Comments</Button>
                 </Grid>
                 <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <Box sx={{ border: 1, borderColor: '#4e4e4e', height: '100%', width: '57vw' }}>
+                    <Box sx={{ height: '100%', width: '60vw', maxHeight: '50vh', overflowY: 'scroll' }}>
                         { display }
                     </Box>
                 </Grid>
