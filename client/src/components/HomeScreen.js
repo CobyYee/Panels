@@ -1,6 +1,6 @@
-import {Box, Typography, Grid} from '@mui/material'
+import { Box, Typography, Grid, List, ListItem, Button } from '@mui/material'
 import ContentContext from '../content'
-import {useContext} from 'react'
+import { useContext } from 'react'
 import batePic from '../testimgs/bate.jpg'
 import naruto from '../testimgs/naruto.jpg'
 import bleach from '../testimgs/bleach.jpg'
@@ -16,45 +16,7 @@ function HomeScreen() {
     let navigate = useNavigate();
 
     let latestUpdates = [["Work 1", "1"], ["Work 2", "21"], ["Work 3", "14"], ["Work 4", "1123"], ["Work 5", "41"], ["Work 6", "11"], ["Work 7", "12"], ["Work 8", "1"], 
-        ["Work 9", "1"], ["Work 10", "1"], ["Work 11", "1"], ["Work 12", "1"], ["Work 13", "1"], ["Work 14", "1"], ["Work 15", "1"], ["Work 16", "1"], ["Work 17", "1"], 
-        ["Work 18", "1"], ["Work 19", "1"], ["Work 21", "1"], ["Work 21", "1"], ["Work 22", "1"], ["Work 23", "1"], ["Work 24", "1"], ["Work 24", "1"], ["Work 26", "1"], 
-        ["Work 27", "1"], ["Work 28", "1"]]
-
-    for(let i = 0; i < latestUpdates.length; i++) {
-        if(content.contentType === "Story")
-            latestUpdates[i][0] = "Story" + (i+1)
-        else 
-            latestUpdates[i][0] = "Comic" + (i+1)
-    }
-
-    let firstColUpdates = "";
-    for(let i = 0; i < 14; i++) {
-        let missingLen = 100 - latestUpdates[i][0].length - 4 - latestUpdates[i][1].length
-        let str = latestUpdates[i][0]
-        for(let j = 0; j < missingLen; j++)
-            str += '.'
-        str += "Ch. " + latestUpdates[i][1]
-        firstColUpdates += str + "\n"
-    }
-
-    let secondColUpdates = "";
-    for(let i = 14; i < 28; i++) {
-        let missingLen = 100 - latestUpdates[i][0].length - 4 - latestUpdates[i][1].length
-        let str = latestUpdates[i][0]
-        for(let j = 0; j < missingLen; j++)
-            str += '.'
-        str += "Ch. " + latestUpdates[i][1]
-        secondColUpdates += str + "\n"
-    }
-
-    let firstCol = 
-        <Typography sx = {{color: 'white', position: 'relative', textAlign: 'center'}}>
-            {firstColUpdates}
-        </Typography>
-    let secondCol = 
-        <Typography sx = {{color: 'white', position: 'relative', textAlign: 'center'}}>
-            {secondColUpdates}  
-        </Typography>
+        ["Work 9", "1"], ["Work 10", "1"], ["Work 11", "1"], ["Work 12", "1"], ["Work 13", "1"]]
 
     return (
         <Grid container sx = {{ flexDirection: 'column' }}>
@@ -62,7 +24,6 @@ function HomeScreen() {
 
                 <Grid item pt={5} pb={5}  xs={12} sx={{ height: '30vh', justifyContent: 'center', display: 'flex', minHeight: '400px' }}>
                     <Box sx = {{ position: 'relative', backgroundColor: '#3d3d3d', width: '70%', height: '100%', borderRadius: '15px', display: 'flex', minWidth: '1800px' }}>
-
                         <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '3%', height: '90%', top: '5%', minWidth: '180px', minHeight: '290px' }}>
                             <img src={batePic} className = "image-contain" alt="Pic" onClick = {() => navigate('/comic/')}/>
                         </Box>
@@ -87,7 +48,6 @@ function HomeScreen() {
                         <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '17%', height: '90%', top: '5%', minWidth: '180px', minHeight: '290px' }}>
                             <img src={sao} className = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
                         </Box>
-
                     </Box>
                 </Grid>
 
@@ -97,15 +57,40 @@ function HomeScreen() {
                     </Typography>
                 </Grid>
 
-                <Grid item xs={12} sx={{ height: '50vh', justifyContent: 'center', display: 'flex', p: 1}}>
-                    <Box xs={12} sx = {{ position: 'relative', border: 1 , borderColor: '#4e4e4e',  width: '80%', height: '100%', borderRadius: '15px', p: 1, maxWidth: '1780px' }}>
-
-                        <Grid item container sx = {{ display: 'flex', p: 1}}>
-                            <Grid item xs = {6} sx={{p: 1}}>
-                                {firstCol}
+                <Grid item xs={12} sx={{ maxHeight: '50vh', justifyContent: 'center', display: 'flex' }}>
+                    <Box xs={12} sx = {{ position: 'relative', border: 1 , borderColor: '#4e4e4e',  width: '80%', height: '100%', borderRadius: '15px', maxWidth: '1780px' }}>
+                        <Grid item container sx = {{ display: 'flex' }}>
+                            <Grid item xs = {6} sx={{ p: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <List sx={{ width: '100%', height: '100%' }}>
+                                {
+                                    latestUpdates.map((work, index) => (
+                                        <ListItem sx={{ height: '36px' }}>
+                                            <Box sx={{ borderRadius: 1, width: '100%', display: 'flex', alignItems: 'center', backgroundColor: (index % 2 === 0) ? '#2d2d2d' : 'none' } }>
+                                                <Box sx={{ flexGrow: 1 }}>
+                                                    <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work[0] }</Button>
+                                                </Box>
+                                                <Button onClick = {() => navigate('/chapter/')} sx={{ color: 'white', height: '100%' }}>Chapter { work[1] }</Button>
+                                            </Box>
+                                        </ListItem>
+                                    ))
+                                }
+                                </List>
                             </Grid>
-                            <Grid item xs = {6} sx={{p: 1}}> 
-                                {secondCol}
+                            <Grid item xs = {6} sx={{ p: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <List sx={{ width: '100%', height: '100%' }}>
+                                {
+                                    latestUpdates.map((work, index) => (
+                                        <ListItem key={"latest" + index} sx={{ height: '36px' }}>
+                                            <Box sx={{ borderRadius: 1, width: '100%', display: 'flex', alignItems: 'center', backgroundColor: (index % 2 === 0) ? '#2d2d2d' : 'none' } }>
+                                                <Box sx={{ flexGrow: 1 }}>
+                                                    <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work[0] }</Button>
+                                                </Box>
+                                                <Button onClick = {() => navigate('/chapter/')} sx={{ color: 'white', height: '100%' }}>Chapter { work[1] }</Button>
+                                            </Box>
+                                        </ListItem>
+                                    ))
+                                }
+                                </List>
                             </Grid>
                         </Grid>
 
