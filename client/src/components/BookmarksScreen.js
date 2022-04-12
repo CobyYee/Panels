@@ -22,17 +22,17 @@ export default function BookmarksScreen() {
                 <SortBar />
             </div>  
             <Box xs={12} sx = {{ position: 'relative', width: '80%', height: '100%', left: '10%', maxWidth: '1780px' }}>
-            <Grid pt={4} container xs={12} sx={{ width: '100%', borderRadius: 1, display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', position: 'relative', left: '1.5%' }}>
-                <Grid item xs={4.9}>
-                    <Typography sx={{ color: 'white', fontSize: 20 }}>Name</Typography>
+                <Grid pt={4} container xs={12} sx={{ width: '100%', borderRadius: 1, display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', position: 'relative', left: '1.5%' }}>
+                    <Grid item xs={4.9}>
+                        <Typography sx={{ color: 'white', fontSize: 20 }}>Name</Typography>
+                    </Grid>
+                    <Grid item xs={1}>
+                        <Typography sx={{ color: 'white', fontSize: 20 }}>Latest</Typography>
+                    </Grid>
                 </Grid>
-                <Grid item xs={1}>
-                    <Typography sx={{ color: 'white', fontSize: 20 }}>Latest</Typography>
-                </Grid>
-            </Grid>
-            <Divider pt={4} sx={{ backgroundColor: '#4e4e4e', width: '98%', position: 'relative', left: '1%' }}/>
-            <Grid item xs = {12}>
-                <List sx={{ width: '100%', height: '100%' }}>
+                <Divider pt={4} sx={{ backgroundColor: '#4e4e4e', width: '98%', position: 'relative', left: '1%' }}/>
+                <Grid item xs = {12}>
+                    <List sx={{ width: '100%', height: '100%' }}>
                     {
                         latestUpdates.map((work, index) => (
                             <ListItem key={ "bookmark" + index } sx={{ height: '36px' }}>
