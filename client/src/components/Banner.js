@@ -125,21 +125,20 @@ export default function Banner() {
         <Box sx = {{ flexGrow: 1}}>
             <AppBar position="static" style={{ background: '#3d3d3d' }}>
                 <Toolbar>
-                    <Grid item={true} xs={12} container>
+                    <Grid item={true} xs={12} container sx={{ width: '100%' }}>
                         <Grid item xs={1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <Typography 
-                                onClick={() => navigate('/')} 
-                                variant="h4" 
-                                component="div" 
-                                sx={{ color: '#9c4247' }}>
+                            <Button 
+                                onClick={() => navigate('/')}  
+                                disableRipple
+                                sx={{ color: '#9c4247', fontSize: 32, fontFamily: 'Poppins', "&.MuiButtonBase-root:hover": { bgcolor: "transparent" } }}>
                                     PANELS 
-                            </Typography>
+                            </Button>
                         </Grid>
-                        <Grid item xs={1} container sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <Grid item xs={1} container sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                             <Button
-                                fullWidth
                                 onClick={() => navigate('/listscreen/')} 
-                                sx={{ color: 'white', fontSize: 15 }}>
+                                disableRipple
+                                sx={{ color: 'white', fontSize: 15, "&.MuiButtonBase-root:hover": { bgcolor: "transparent" } }}>
                                     All Comics 
                             </Button>
                         </Grid>
