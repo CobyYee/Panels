@@ -128,11 +128,10 @@ export default function RegisterScreen() {
                   fullWidth
                   name="password"
                   placeholder="Password"
-                  type="password"
+                  type={values.showPassword ? 'text' : 'password'}
                   id="password"
                   autoComplete="new-password"
 
-                  type={values.showPassword ? 'text' : 'password'}
                   onChange={handleChange('password')}
                   InputProps={{
                     endAdornment: (
@@ -158,11 +157,10 @@ export default function RegisterScreen() {
                   fullWidth
                   name="confirm"
                   placeholder="Confirm Password"
-                  type="password"
+                  type={values.showPassword ? 'text' : 'password'}
                   id="confirm-password"
                   autoComplete="confirm-password"
 
-                  type={values.showPassword ? 'text' : 'password'}
                   onChange={handleChange('password')}
                   InputProps={{
                     endAdornment: (
