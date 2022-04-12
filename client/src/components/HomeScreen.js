@@ -18,36 +18,20 @@ function HomeScreen() {
     let latestUpdates = [["Work 1", "1"], ["Work 2", "21"], ["Work 3", "14"], ["Work 4", "1123"], ["Work 5", "41"], ["Work 6", "11"], ["Work 7", "12"], ["Work 8", "1"], 
         ["Work 9", "1"], ["Work 10", "1"], ["Work 11", "1"], ["Work 12", "1"], ["Work 13", "1"]]
 
+    let featuredWorks = [batePic, naruto, bleach, lookism, mha, onepiece, sao, rezero]
+
     return (
         <Grid container sx = {{ flexDirection: 'column' }}>
             <Grid item xs = {12} sx={{ height: '100vh' }}>
-
-                <Grid item pt={5} pb={5}  xs={12} sx={{ height: '30vh', justifyContent: 'center', display: 'flex', minHeight: '400px' }}>
-                    <Box sx = {{ position: 'relative', backgroundColor: '#3d3d3d', width: '70%', height: '100%', borderRadius: '15px', display: 'flex', minWidth: '1800px' }}>
-                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '3%', height: '90%', top: '5%', minWidth: '180px', minHeight: '290px' }}>
-                            <img src={batePic} className = "image-contain" alt="Pic" onClick = {() => navigate('/comic/')}/>
-                        </Box>
-                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '5%', height: '90%', top: '5%', minWidth: '180px', minHeight: '290px' }}>
-                            <img src={naruto} className = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
-                        </Box>
-                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '7%', height: '90%', top: '5%', minWidth: '180px', minHeight: '290px' }}>
-                            <img src={bleach} className = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
-                        </Box>
-                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '9%', height: '90%', top: '5%', minWidth: '180px', minHeight: '290px' }}>
-                            <img src={lookism} className = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
-                        </Box>
-                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '11%', height: '90%', top: '5%', minWidth: '180px', minHeight: '290px' }}>
-                            <img src={mha} className = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
-                        </Box>
-                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '13%', height: '90%', top: '5%', minWidth: '180px', minHeight: '290px' }}>
-                            <img src={onepiece} className = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
-                        </Box>
-                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '15%', height: '90%', top: '5%', minWidth: '180px', minHeight: '290px' }}>
-                            <img src={rezero} className = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
-                        </Box>
-                        <Box sx = {{position: 'relative', backgroundColor: 'black', width: '10%', left: '17%', height: '90%', top: '5%', minWidth: '180px', minHeight: '290px' }}>
-                            <img src={sao} className = "image-contain" alt="Pic"  onClick = {() => navigate('/comic/')}/>
-                        </Box>
+                <Grid item pt={5} pb={5} xs={12} sx={{ height: '30vh', justifyContent: 'center', display: 'flex', minHeight: '400px' }}>
+                    <Box sx = {{ backgroundColor: '#3d3d3d', width: '60%', borderRadius: '6px', minWidth: '1780px', display: 'flex', justifyContent: 'space-around', verticalAlign: 'center' }}>
+                    {
+                        featuredWorks.map((image, index) => (
+                            <Button key={ "featured" + index } sx = {{ backgroundColor: 'transparent', position: 'relative' }}>
+                                <img src={image} className = "image-contain" alt="Pic" onClick = {() => navigate('/comic/')}/>
+                            </Button>
+                        ))
+                    }
                     </Box>
                 </Grid>
 
@@ -64,7 +48,7 @@ function HomeScreen() {
                                 <List sx={{ width: '100%', height: '100%' }}>
                                 {
                                     latestUpdates.map((work, index) => (
-                                        <ListItem sx={{ height: '36px' }}>
+                                        <ListItem key={"latest" + index} sx={{ height: '36px' }}>
                                             <Box sx={{ borderRadius: 1, width: '100%', display: 'flex', alignItems: 'center', backgroundColor: (index % 2 === 0) ? '#2d2d2d' : 'none' } }>
                                                 <Box sx={{ flexGrow: 1 }}>
                                                     <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work[0] }</Button>

@@ -72,7 +72,7 @@ export default function ProfileScreen() {
                             works.map((work, index) => {
                                 if (works.length - index > 1)
                                 return (
-                                <div>
+                                <div key={ "published" + index }>
                                     <ListItem>
                                         <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
                                             <Box sx={{ flexGrow: 1 }}>
@@ -84,7 +84,7 @@ export default function ProfileScreen() {
                                     <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                                 </div> )
                                 return (
-                                    <ListItem>
+                                    <ListItem key={ "published" + index }>
                                         <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
                                             <Box sx={{ flexGrow: 1 }}>
                                                 <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work[0] }</Button>
@@ -106,7 +106,7 @@ export default function ProfileScreen() {
                             works.map((work, index) => {
                                 if (works.length - index > 1)
                                 return (
-                                <div>
+                                <div key={ "draft" + index }>
                                     <ListItem>
                                         <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
                                             <Box sx={{ flexGrow: 1 }}>
@@ -120,7 +120,7 @@ export default function ProfileScreen() {
                                     <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                                 </div> )
                                 return (
-                                    <ListItem>
+                                    <ListItem key={ "draft" + index }>
                                         <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
                                             <Box sx={{ flexGrow: 1 }}>
                                                 <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work[0] }</Button>
