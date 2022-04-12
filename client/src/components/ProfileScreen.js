@@ -63,7 +63,7 @@ export default function ProfileScreen() {
                         </Grid>
                         <Grid item xs={4} sx={{display: 'flex', justifyContent: 'flex-end'}}>
                             <Button onClick = {() => navigate('/storyboard/')} sx={{ color: '#9c4247', "&:hover": { color: 'red' } }}>Create New</Button>
-                            <Button onClick = {() => navigate('/storyboard/')} sx={{ color: '#9c4247', "&:hover": { color: 'red' } }}>Upload New</Button>
+                            <Button onClick = {() => navigate('/uploadcomic/')} sx={{ color: '#9c4247', "&:hover": { color: 'red' } }}>Upload New</Button>
                         </Grid>
                     </Grid>
                     <Grid item xs={12} sx={{ border: 1, borderColor: '#4e4e4e' }}>
@@ -75,8 +75,11 @@ export default function ProfileScreen() {
                                 <div key={ "published" + index }>
                                     <ListItem>
                                         <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
-                                            <Box sx={{ flexGrow: 1 }}>
+                                            <Box sx={{ flexGrow: .99 }}>
                                                 <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work[0] }</Button>
+                                            </Box>
+                                            <Box sx={{ flexGrow: .01 }}>
+                                                <Button onClick = {() => navigate('/uploadchapter/')} sx={{ color: '#9c4247' }}>Add Chapter</Button>
                                             </Box>
                                             <Button sx={{ color: '#9c4247' }}>Delete</Button>
                                         </Box>
@@ -86,8 +89,11 @@ export default function ProfileScreen() {
                                 return (
                                     <ListItem key={ "published" + index }>
                                         <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
-                                            <Box sx={{ flexGrow: 1 }}>
+                                        <Box sx={{ flexGrow: .99 }}>
                                                 <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work[0] }</Button>
+                                            </Box>
+                                            <Box sx={{ flexGrow: .01 }}>
+                                                <Button onClick = {() => navigate('/uploadchapter/')} sx={{ color: '#9c4247' }}>Add Chapter</Button>
                                             </Box>
                                             <Button sx={{ color: '#9c4247' }}>Delete</Button>
                                         </Box>
