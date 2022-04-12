@@ -23,7 +23,7 @@ export default function BookmarksScreen() {
             </div>  
             <Box xs={12} sx = {{ position: 'relative', width: '80%', height: '100%', left: '10%', maxWidth: '1780px' }}>
             <Grid pt={4} container xs={12} sx={{ width: '100%', borderRadius: 1, display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', position: 'relative', left: '1.5%' }}>
-                <Grid item xs={3.9}>
+                <Grid item xs={4.9}>
                     <Typography sx={{ color: 'white', fontSize: 20 }}>Name</Typography>
                 </Grid>
                 <Grid item xs={1}>
@@ -43,10 +43,10 @@ export default function BookmarksScreen() {
                                             justifyContent: 'flex-start', backgroundColor: (index % 2 === 0) ? '#2d2d2d' : 'none' 
                                           }}
                                 >
-                                    <Grid item xs={4}>
+                                    <Grid item xs={5}>
                                         <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work[0] }</Button>
                                     </Grid>
-                                    <Grid item xs={7.5}>
+                                    <Grid item xs={6.5}>
                                         <Button onClick = {() => navigate('/chapter/')} sx={{ color: 'white', height: '100%' }}>Chapter { work[1] }</Button>
                                     </Grid>
                                     <Grid item xs={0.5}>
