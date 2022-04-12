@@ -22,7 +22,7 @@ export default function BookmarksScreen() {
                 <SortBar />
             </div>  
             <Box xs={12} sx = {{ position: 'relative', width: '80%', height: '100%', left: '10%', maxWidth: '1780px' }}>
-                <Grid pt={4} container xs={12} sx={{ width: '100%', borderRadius: 1, display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', position: 'relative', left: '1.5%' }}>
+                <Grid pt={4} container item xs={12} sx={{ width: '100%', borderRadius: 1, display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', position: 'relative', left: '1.5%' }}>
                     <Grid item xs={4.9}>
                         <Typography sx={{ color: 'white', fontSize: 20 }}>Name</Typography>
                     </Grid>
