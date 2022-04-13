@@ -95,11 +95,10 @@ export default function SignIn() {
               fullWidth
               name="password"
               placeholder="Password"
-              type="password"
+              type={values.showPassword ? 'text' : 'password'}
               id="password"
               autoComplete="current-password"
-
-              type={values.showPassword ? 'text' : 'password'}
+ 
               onChange={handleChange('password')}
               InputProps={{
                 endAdornment: (

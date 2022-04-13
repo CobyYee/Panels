@@ -12,12 +12,12 @@ function StoryBoard() {
     let editor = ""
     if(content.contentType === "Comic") {
         editor = <Box sx={{ height: '80vh', position: 'relative', backgroundColor: 'white', borderRadius: '10px', width: '90%', left: '5%'}}>
-            <img src={exComic} class = "image-contain" alt="Pic"/>
+            <img src={exComic} alt="Pic" style={{ width: '100%', height: '100%' }}/>
         </Box>
     }
     else {
         editor = <Box sx={{ height: '80vh', position: 'relative', backgroundColor: 'black', borderRadius: '10px', width: '90%', left: '5%'}}>
-            <img src={exStory} class = "image-contain" alt="Pic"/>
+            <img src={exStory} style={{ width: '100%', height: '100%' }} alt="Pic"/>
         </Box>
     }
 
