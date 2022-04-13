@@ -11,18 +11,18 @@ function ListScreen(props) {
         genres: ["Action", "Fantasy", "Romance"]
     }, 
     {
-        filename: "bate.jpg",
-        title: "The Beginning After The End",
+        filename: "bleach.jpg",
+        title: "Bleach",
         author: "TurtleMe",
         description: "good shit",
-        genres: ["Action", "Fantasy", "Romance"]
+        genres: ["Action", "Fantasy"]
     },
     {
-        filename: "bate.jpg",
-        title: "The Beginning After The End",
+        filename: "naruto.jpg",
+        title: "Naruto",
         author: "TurtleMe",
         description: "good shit",
-        genres: ["Action", "Fantasy", "Romance"]
+        genres: ["Action", "Fantasy"]
     }
     ];
 
