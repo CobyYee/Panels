@@ -15,8 +15,11 @@ import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import AuthContextProvider from '../auth'
+import {useContext} from 'react'
 
 function Copyright(props) {
+
   return (
     <Typography variant="body2" color="white" align="center" {...props}>
       {'Copyright © '}
@@ -30,13 +33,14 @@ function Copyright(props) {
 }
 
 export default function SignIn() {
+  const {auth} = useContext(AuthContextProvider)
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    auth.loginUser({
       email: data.get('email'),
-      password: data.get('password'),
-    });
+      password: data.get('password')
+    })
   };
 
   const[values, setValues] = React.useState({

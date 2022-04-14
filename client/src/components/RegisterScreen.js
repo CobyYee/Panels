@@ -31,11 +31,14 @@ export default function RegisterScreen() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    auth.registerUser({
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName'),
       email: data.get('email'),
       password: data.get('password'),
-    });
-  };
+      passwordVerify: data.get('confirm-password')
+    })
+  }
 
   const[values, setValues] = React.useState({
       password: '',
