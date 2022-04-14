@@ -121,6 +121,36 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    store.loadComic = async function(id) {
+        let response = await api.getComicById(id);
+        if (response.status === 200) {
+            let currentWork = response.data.comic;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_WORK,
+                payload: currentWork
+            });
+            navigate("/comic/" + currentWork._id)
+        }
+        else {
+            console.log("Failed to load comic: " + id);
+        }
+    }
+
+    store.loadStory = async function(id) {
+        let response = await api.getStoryById(id);
+        if (response.status === 200) {
+            let currentWork = response.data.story;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_WORK,
+                payload: currentWork
+            });
+            navigate("/story/" + currentWork._id)
+        }
+        else {
+            console.log("Failed to load story: " + id);
+        }
+    }
+
     store.loadChapter = async function(id) {
         let response = null;
         if (store.mode === "comic") {
@@ -138,7 +168,37 @@ function GlobalStoreContextProvider(props) {
             navigate("/chapter/" + currentChapter._id)
         }
         else {
-            console.log("Failed to load comic: " + id);
+            console.log("Failed to load chapter: " + id);
+        }
+    }
+
+    store.loadComicChapter = async function(id) {
+        let response = await api.getComicChapterById(id);
+        if (response.status === 200) {
+            let currentChapter = response.data.chapter;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_CHAPTER,
+                payload: currentChapter
+            });
+            navigate("/chapter/" + currentChapter._id)
+        }
+        else {
+            console.log("Failed to load comic chapter: " + id);
+        }
+    }
+
+    store.loadStoryChapter = async function(id) {
+        let response = await api.getStoryChapterById(id);
+        if (response.status === 200) {
+            let currentChapter = response.data.chapter;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_CHAPTER,
+                payload: currentChapter
+            });
+            navigate("/chapter/" + currentChapter._id)
+        }
+        else {
+            console.log("Failed to load story chapter: " + id);
         }
     }
 
