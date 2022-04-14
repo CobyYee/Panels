@@ -84,6 +84,7 @@ function GlobalStoreContextProvider(props) {
                })
                let hotest = sorted.subString(0, 56);
            }
+        }
     }
 
     store.loadComic = async function(id) {
