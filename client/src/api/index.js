@@ -71,3 +71,5 @@ const apis = {
     ban,
     unban,
 }
+
+export default apis;

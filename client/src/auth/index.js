@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import api from '../api'
+import api from './auth-request-api'
 
 export const AuthContext = createContext();
 
@@ -14,13 +14,19 @@ function AuthContextProvider(props) {
     const authReducer = (action) => {
         const {type, payload} = action
         switch(type) {
-            case "LOGIN": {
+            case "REGISTER_USER": {
+                return setAuth({
+                    user: null,
+                    error: null
+                })
+            }
+            case "LOGIN_USER": {
                 return setAuth({
                     user: payload,
                     error: null
                 })
             }
-            case "LOGOUT": {
+            case "LOGOUT_USER": {
                 return setAuth({
                     user: null,
                     error: null
