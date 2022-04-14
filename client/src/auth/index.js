@@ -4,9 +4,19 @@ import api from './auth-request-api'
 
 export const AuthContext = createContext();
 
+// THESE ARE ALL THE TYPES OF UPDATES TO OUR AUTH STATE THAT CAN BE PROCESSED
+export const AuthActionType = {
+    GET_LOGGED_IN: "GET_LOGGED_IN",
+    LOGIN_USER: "LOGIN_USER",
+    LOGOUT_USER: "LOGOUT_USER",
+    REGISTER_USER: "REGISTER_USER",
+    ALERT_ERROR: "ALERT_ERROR"
+}
+
 function AuthContextProvider(props) {
     const [auth, setAuth] = useState({
         user: null,
+        loggedIn: false,
         error: null
     });
     const navigate = useNavigate();
@@ -14,37 +24,63 @@ function AuthContextProvider(props) {
     const authReducer = (action) => {
         const {type, payload} = action
         switch(type) {
+            case AuthActionType.GET_LOGGED_IN: {
+                return setAuth({
+                    loggedIn: payload.loggedIn,
+                    user: payload.user,
+                    error: null
+                });
+            }
             case "REGISTER_USER": {
                 return setAuth({
+                    loggedIn: false,
                     user: null,
                     error: null
                 })
             }
             case "LOGIN_USER": {
                 return setAuth({
+                    loggedIn: true,
                     user: payload,
                     error: null
                 })
             }
             case "LOGOUT_USER": {
                 return setAuth({
+                    loggedIn: false,
                     user: null,
                     error: null
                 })
             }
-            case "ERROR": {
+            case "ALERT_ERROR": {
                 return setAuth({
+                    loggedIn: auth.loggedIn,
                     user: auth.user,
                     error: payload
                 })
             }
+            default:
+                return auth;
         }
     }
 
-    auth.isLoggedIn = async function () {
-        if(auth.user !== null)
-            return true
-        return false
+    auth.getLoggedIn = async function () {
+        try {
+            const response = await api.getSession();
+            if (response.status === 200) {
+                authReducer({
+                    type: AuthActionType.GET_LOGGED_IN,
+                    payload: {
+                        loggedIn: true,
+                        user: response.data.user
+                    }
+                });
+            }
+        } catch (err) {
+            if (err.response) {
+                console.log(err.response.data.errorMessage)
+            }
+        }
     }
 
     auth.loginUser = async function (userData) {
@@ -52,15 +88,15 @@ function AuthContextProvider(props) {
             const response = await api.loginUser(userData);
             if(response.status === 200) {
                 authReducer({
-                    type: "LOGIN",
+                    type: "LOGIN_USER",
                     payload: response.data.user 
                 })
                 navigate("/")
             }
         } catch (err) {
             authReducer({
-                type: "ERROR",
-                payload: err
+                type: "ALERT_ERROR",
+                payload: err.response.data.errorMessage
             })
         }
     }
@@ -69,29 +105,29 @@ function AuthContextProvider(props) {
         try {
             const response = await api.registerUser(userData);
             if(response.status === 200) {
-                navigate("/")
+                authReducer({
+                    type: "REGISTER_USER",
+                    payload: null
+                })
+                navigate("/login")
             }
         }
         catch (err) {
             authReducer({
-                type: "ERROR",
-                payload: err
+                type: "ALERT_ERROR",
+                payload: err.response.data.errorMessage
             })
         }
     }
 
     auth.logoutUser = async function () {
-        try {
-            const response = await api.logoutUser();
-            if(response.status === 200) {
-                navigate('/');
-            }
-        }
-        catch (err) {
-            authReducer({
-                type: "LOGOUT",
+        const response = await api.logoutUser();
+        if (response.status === 200) {
+            authReducer( {
+                type: AuthActionType.LOGOUT_USER,
                 payload: null
             })
+            navigate("/");
         }
     }
 
