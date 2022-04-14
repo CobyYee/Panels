@@ -87,15 +87,48 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    store.loadComic = async function(id) {
-        const response = await api.getComicById(id);
+    store.loadWork = async function(id) {
+        let response = null;
+        if (store.mode === "comic") {
+            response = await api.getComicById(id);
+        }
+        else {
+            response = await api.getStoryById(id);
+        }
         if (response.status === 200) {
-            let currentComic = response.data.comic;
+            let currentWork = null;
+            if (store.mode === "comic") {
+                currentWork = response.data.comic;
+            }
+            else {
+                currentWork = response.data.story;
+            }
             storeReducer({
                 type: GlobalStoreActionType.LOAD_WORK,
-                payload: currentComic
+                payload: currentWork
             });
-            navigate("/comic/" + currentComic._id)
+            navigate("/" + store.mode + "/" + currentWork._id)
+        }
+        else {
+            console.log("Failed to load " + store.mode + ": " + id);
+        }
+    }
+
+    store.loadChapter = async function(id) {
+        let response = null;
+        if (store.mode === "comic") {
+            response = await api.getComicChapterById(id);
+        }
+        else {
+            response = await api.getStoryChapterById(id);
+        }
+        if (response.status === 200) {
+            let currentChapter = response.data.chapter;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_CHAPTER,
+                payload: currentChapter
+            });
+            navigate("/chapter/" + currentChapter._id)
         }
         else {
             console.log("Failed to load comic: " + id);
