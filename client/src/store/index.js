@@ -18,7 +18,7 @@ function GlobalStoreContextProvider(props) {
     const auth = useContext(AuthContext)
 
     const [store, setStore] = useState({
-        mode: 0,
+        mode: "comic",
         works: [],
         work: null,
         chapter: null,
@@ -30,7 +30,8 @@ function GlobalStoreContextProvider(props) {
         switch (type) {
             case GlobalStoreActionType.SWITCH_MODE: {
                 return setStore({
-                    works: payload,
+                    mode: payload.mode,
+                    works: payload.works,
                     work: null,
                     chapter: null,
                     searchField: ""
@@ -74,8 +75,23 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.home = async function() {
-        if (store.mode === 0) {
+        if (store.mode === "comic") {
            
+        }
+    }
+
+    store.loadComic = async function(id) {
+        const response = await api.getComicById(id);
+        if (response.status === 200) {
+            let currentComic = response.data.comic;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_WORK,
+                payload: currentComic
+            });
+            navigate("/comic/" + currentComic._id)
+        }
+        else {
+            console.log("Failed to load comic: " + id);
         }
     }
 
