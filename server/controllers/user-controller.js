@@ -40,7 +40,7 @@ getSession = async(req, res) => {
                 drafts: existingUser.drafts,
                 bookmarks: existingUser.bookmarks
             }
-        }).send();
+        })
     })
 }
 
@@ -78,7 +78,7 @@ registerUser = async(req, res) => {
         })
 
         await newUser.save();
-        return res.status(200).send();
+        return res.status(200)
     }
     catch (err) {
         console.error("User registration failed: " + err);
@@ -123,7 +123,7 @@ loginUser = async (req, res) => {
                     drafts: existingUser.drafts,
                     bookmarks: existingUser.bookmarks
                 }
-            }).send()
+            })
         }
         else {
             console.log("User login failed: wrong password")
@@ -143,7 +143,7 @@ logoutUser = async (req, res) => {
             httpOnly: true,
             secure: true,
             sameSite: "lax"
-        }).status(200).send();
+        }).status(200)
     }
     catch (err) {
         console.error("User logout failed: " + err);
@@ -177,7 +177,7 @@ passwordRecovery = async (req, res) => {
 
         await sendEmail(user.email, "Panels Password Recovery", text);
         
-        return res.status(200).send();
+        return res.status(200)
     }
     catch(err) {
         console.error("Password recovery iniation process failed: " + err);
@@ -215,7 +215,7 @@ saveNewPassword = async (req, res) => {
         const text = "Your account password has been updated.\n\nPanels Support Team";
         await sendEmail(user.email, "Panels Account Password Changed", text);
 
-        return res.status(200).send();
+        return res.status(200)
     }
     catch (err) {
         console.error("Save new password failed: " + err);
@@ -249,7 +249,7 @@ ban = async (req, res) => {
             await target.save();
 
             console.log("User " + target._id + " has been banned.");
-            return res.status(200).send();
+            return res.status(200)
         }
         catch (err) {
             console.error("User ban failed: " + err);
@@ -283,7 +283,7 @@ unban = async (req, res) => {
             await target.save();
 
             console.log("User " + target._id + " has been unbanned.");
-            return res.status(200).send();
+            return res.status(200)
         }
         catch (err) {
             console.error("User unban failed: " + err);
