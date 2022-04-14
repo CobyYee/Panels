@@ -161,8 +161,28 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    store.search = async function() {
+    store.setSearch = function(field) {         // this function will update search field onchange
+        storeReducer({
+            type: GlobalStoreActionType.SEARCH,
+            payload: field
+        })
+    }
+
+    store.search = async function() {           // this function will get an updated copy of all works and redirect to listscreen
+        let response;
+        if (store.mode === 0) 
+            response = await api.getAllComics();
+        else 
+            response = await api.getAllStories();
         
+        if (response.status === 200) {
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_WORKS,
+                payload: response.data.data
+            }, () => {
+                navigate("/listscreen")
+            })
+        }
     }
 
     return (
