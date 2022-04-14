@@ -145,6 +145,9 @@ function GlobalStoreContextProvider(props) {
                 }  
             )
         }
+        else {
+            console.log("Load comic chapter failed")
+        }
     }
 
     store.loadStoryChapter = async function(id) {
@@ -158,6 +161,9 @@ function GlobalStoreContextProvider(props) {
                 navigate("/chapter/" + chapter._id);
                 }  
             )
+        }
+        else {
+            console.log("Load story chapter failed");
         }
     }
 
@@ -182,6 +188,22 @@ function GlobalStoreContextProvider(props) {
             }, () => {
                 navigate("/listscreen")
             })
+        }
+        else {
+            console.log("Search work failed")
+        }
+    }
+
+    store.bookmark = async function(id) {
+        if (auth.user) {
+            auth.user.bookmarks.push(id);
+            const response = await api.updateUser(auth.user);
+            if (response.status === 200) {
+                console.log("Bookmark success")
+            }
+            else {
+                console.log("Bookmark failed")
+            }
         }
     }
 

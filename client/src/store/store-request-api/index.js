@@ -27,7 +27,11 @@ export const getStoriesByGenres = (payload) => api.get(`/storiesbygenres`, paylo
 export const getStoriesByName = (payload) => api.get(`/storiesbyname/`, payload)      // change backend, name parameter in body, not params
 export const deleteStoryChapter = (id) => api.delete(`/storychapter/${id}`)
 export const getStoryChapterById = (id) => api.get(`/storychapter/${id}`)
-export const createStoryChapter = (payload) => api.post(`/storychapter/`, payload) 
+export const createStoryChapter = (payload) => api.post(`/storychapter/`, payload)
+
+export const updateUser = (payload) => api.put(`/user/`, payload)
+export const getUserById = (id) => api.get(`/user/${id}`)
+
 
 const apis = {
     getComicById,
@@ -51,6 +55,9 @@ const apis = {
     deleteStoryChapter,
     getStoryChapterById,
     createStoryChapter,
+
+    updateUser,
+    getUserById,
 }
 
 export default apis;
