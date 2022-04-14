@@ -49,8 +49,13 @@ export default function Banner() {
         setAnchorEl(null)
     }
 
+    const handleLogout = () => {
+        handleClose();
+        auth.logoutUser();
+    }
+
     let profileOption, bookmarksOption, loginOption, logoutOption, registerOption = ""
-    if(auth.getLoggedIn()) {
+    if(auth.loggedIn) {
         profileOption = 
             <MenuItem onClick={() => navigate('/profile/')}>
                 Profile
@@ -60,7 +65,7 @@ export default function Banner() {
                 Bookmarks
             </MenuItem>
         logoutOption = 
-            <MenuItem>
+            <MenuItem onClick={handleLogout}>
                 Logout
             </MenuItem>
     }
