@@ -120,12 +120,12 @@ function GlobalStoreContextProvider(props) {
     store.loadStory = async function(id) {
         const response = await api.getStoryById(id);
         if (response.status === 200) {
-            let story = response.data.story;
+            let currentStory = response.data.story;
             storeReducer({
                 type: GlobalStoreActionType.LOAD_WORK,
-                payload: story
+                payload: currentStory
             }, () => {
-                navigate("/comic");
+                navigate("/story/" + currentStory._id);
             })
         }
         else {
@@ -141,7 +141,7 @@ function GlobalStoreContextProvider(props) {
                 type: GlobalStoreActionType.LOAD_CHAPTER,
                 payload: chapter
             }, () => {
-                navigate("/chapter");
+                navigate("/chapter/" + chapter._id);
                 }  
             )
         }
@@ -155,7 +155,7 @@ function GlobalStoreContextProvider(props) {
                 type: GlobalStoreActionType.LOAD_CHAPTER,
                 payload: chapter
             }, () => {
-                navigate("/chapter");
+                navigate("/chapter/" + chapter._id);
                 }  
             )
         }
