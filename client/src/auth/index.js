@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import api from './auth-request-api'
+import api from '../api'
 
 export const AuthContext = createContext();
 
@@ -84,6 +84,7 @@ function AuthContextProvider(props) {
     }
 
     auth.loginUser = async function (userData) {
+        console.log("hello")
         try {
             const response = await api.loginUser(userData);
             if(response.status === 200) {

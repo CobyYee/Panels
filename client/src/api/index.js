@@ -4,9 +4,8 @@
 import axios from 'axios'
 axios.defaults.withCredentials = true;
 const api = axios.create({
-    baseURL: 'https://panelsfrontend.herokuapp.com/api'
+    baseURL: 'http://localhost:4000/api'
 })
-
 
 export const getComic = (id) => api.get(`/comic/${id}`)
 export const createComic = (payload) => api.post(`/comic/`, payload)
@@ -49,6 +48,17 @@ const apis = {
     getComicsByGenres,
     getComicsByName,
     deleteComicChapter,
+    getComicChapterById,
+    createComicChapter,
+
+    getStory,
+    createStory,
+    updateStory,
+    deleteStory,
+    getAllStories,
+    getStoriesByGenres,
+    getStoriesByName,
+    deleteStoryChapter,
     getStoryChapterById,
     createStoryChapter,
 
@@ -59,7 +69,7 @@ const apis = {
     passwordRecovery,
     saveNewPassword,
     ban,
-    unban
+    unban,
 }
 
 export default apis;
