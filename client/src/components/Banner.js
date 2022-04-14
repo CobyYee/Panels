@@ -54,30 +54,35 @@ export default function Banner() {
         auth.logoutUser();
     }
 
-    let profileOption, bookmarksOption, loginOption, logoutOption, registerOption = ""
-    if(auth.loggedIn) {
-        profileOption = 
-            <MenuItem onClick={() => navigate('/profile/')}>
-                Profile
-            </MenuItem>
-        bookmarksOption = 
-            <MenuItem onClick={() => navigate('/bookmarks/')}>
-                Bookmarks
-            </MenuItem>
-        logoutOption = 
-            <MenuItem onClick={handleLogout}>
-                Logout
-            </MenuItem>
-    }
-    else {
-        loginOption = 
+    let options =
+        <div>
             <MenuItem onClick={() => navigate('/login/')}>
                 Login
             </MenuItem>
-        registerOption =
             <MenuItem onClick={() => navigate('/register/')}>
-                Register
+                Create New Account
             </MenuItem>
+            <MenuItem>
+                Continue as Guest
+            </MenuItem>
+        </div>
+
+    if (auth.loggedIn) {
+        options =
+        <div>
+            <MenuItem onClick={() => navigate('/profile/')}>
+                Profile
+            </MenuItem>
+            <MenuItem onClick={() => navigate('/bookmarks/')}>
+                Bookmarks
+            </MenuItem>
+            <MenuItem onClick={() => navigate('/settings/')}>
+                Settings
+            </MenuItem>
+            <MenuItem onClick={handleLogout}>
+                Logout
+            </MenuItem>
+        </div>
     }
     
     let icon = <IconButton
@@ -96,7 +101,12 @@ export default function Banner() {
                         vertical: 'top',
                         horizontal: 'right',
                     }}
-                    id="account-menu"
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    keepMounted
+                    id="primary-search-account-menu"
                     open={open}
                     onClose={handleClose}
                     onClick={handleClose}
@@ -105,37 +115,10 @@ export default function Banner() {
                     sx: {
                         overflow: 'visible',
                         filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                        mt: 1.5,
-                        '& .MuiAvatar-root': {
-                        width: 32,
-                        height: 32,
-                        ml: -0.5,
-                        mr: 1,
-                        },
-                        '&:before': {
-                        content: '""',
-                        display: 'block',
-                        position: 'absolute',
-                        top: 0,
-                        right: 14,
-                        width: 10,
-                        height: 10,
-                        bgcolor: 'background.paper',
-                        transform: 'translateY(-50%) rotate(45deg)',
-                        zIndex: 0,
-                        },
                     },
                     }}
-                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 >
-                    {profileOption}
-                    {bookmarksOption}
-                    {loginOption}
-                    {registerOption}
-                    {logoutOption}
-                    <MenuItem onClick={() => navigate('/settings/')}>
-                        Settings
-                    </MenuItem>
+                    { options }
                 </Menu>
     let iconMenu = 
         <Box>
