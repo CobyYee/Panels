@@ -1,4 +1,4 @@
-import { Typography, Box, TextField, Menu, MenuItem, IconButton, Avatar, AppBar, Toolbar, Button, Grid } from '@mui/material';
+import { Box, TextField, Menu, MenuItem, IconButton, Avatar, AppBar, Toolbar, Button, Grid } from '@mui/material';
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import ContentContext from '../content'
@@ -50,7 +50,7 @@ export default function Banner() {
     }
 
     let profileOption, bookmarksOption, loginOption, logoutOption, registerOption = ""
-    if(!auth.isLoggedIn()) {
+    if(!auth.getLoggedIn()) {
         profileOption = 
             <MenuItem onClick={() => navigate('/profile/')}>
                 Profile
