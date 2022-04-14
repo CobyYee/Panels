@@ -30,7 +30,7 @@ function GlobalStoreContextProvider(props) {
         switch (type) {
             case GlobalStoreActionType.SWITCH_MODE: {
                 return setStore({
-                    mode: payload.mode,
+                    mode: (store.mode === "comic") ? "story" : "comic",
                     works: payload.works,
                     work: null,
                     chapter: null,
@@ -74,15 +74,22 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    store.mode = function() {
+        storeReducer({
+            type: GlobalStoreActionType.SWITCH_MODE,
+            payload: null
+        })
+    }
+
     store.home = async function() {
         if (store.mode === "comic") {
            const res = await api.getAllComics();
            if (res.status === 200) {
                let comics = res.data.data;
-               let sorted = comics.sort((a, b) => {
-                    return b.views - a.views;
+               storeReducer({
+                   type: GlobalStoreActionType.LOAD_WORKS,
+                   payload: comics
                })
-               let hotest = sorted.subString(0, 56);
            }
         }
     }
