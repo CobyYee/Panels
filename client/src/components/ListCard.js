@@ -13,7 +13,7 @@ function ListCard(props) {
 
     return (
         <div class="listcard">
-            <img class="listcard_image" src={batePic} alt="" onClick={handleClick}></img>
+            <img class="listcard_image" src={batePic} onClick={handleClick}></img>
             <div style={{paddingLeft: '10px'}}>
                 <div class="list_card_title" onClick={handleClick}>
                     {props.comic.title}

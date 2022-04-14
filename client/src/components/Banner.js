@@ -2,10 +2,12 @@ import { Typography, Box, TextField, Menu, MenuItem, IconButton, Avatar, AppBar,
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import ContentContext from '../content'
+import AuthContextProvider from '../auth'
 import { useContext, useState } from 'react';
 
 export default function Banner() {
     const {content} = useContext(ContentContext)
+    const {auth} = useContext(AuthContextProvider)
     let navigate = useNavigate();
     
     // START CREATING COMPONENTS FOR HANDLING THE CONTENT CHANGER
@@ -43,6 +45,32 @@ export default function Banner() {
     }
     const handleClose = () => {
         setAnchorEl(null)
+    }
+
+    let profileOption, bookmarksOption, loginOption, logoutOption, registerOption = ""
+    if(!auth.isLoggedIn()) {
+        profileOption = 
+            <MenuItem onClick={() => navigate('/profile/')}>
+                Profile
+            </MenuItem>
+        bookmarksOption = 
+            <MenuItem onClick={() => navigate('/bookmarks/')}>
+                Bookmarks
+            </MenuItem>
+        logoutOption = 
+            <MenuItem>
+                Logout
+            </MenuItem>
+    }
+    else {
+        loginOption = 
+            <MenuItem onClick={() => navigate('/login/')}>
+                Login
+            </MenuItem>
+        registerOption =
+            <MenuItem onClick={() => navigate('/register/')}>
+                Register
+            </MenuItem>
     }
     
     let icon = <IconButton
@@ -93,23 +121,13 @@ export default function Banner() {
                     }}
                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 >
-                    <MenuItem onClick={() => navigate('/profile/')}>
-                        Profile
-                    </MenuItem>
-                    <MenuItem onClick={() => navigate('/bookmarks/')}>
-                        Bookmarks
-                    </MenuItem>
+                    {profileOption}
+                    {bookmarksOption}
+                    {loginOption}
+                    {registerOption}
+                    {logoutOption}
                     <MenuItem onClick={() => navigate('/settings/')}>
                         Settings
-                    </MenuItem>
-                    <MenuItem onClick={() => navigate('/login/')}>
-                        Login
-                    </MenuItem>
-                    <MenuItem onClick={() => navigate('/register/')}>
-                        Register
-                    </MenuItem>
-                    <MenuItem>
-                        Logout
                     </MenuItem>
                 </Menu>
     let iconMenu = 
