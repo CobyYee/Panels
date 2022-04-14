@@ -49,8 +49,8 @@ const apis = {
     getComicsByGenres,
     getComicsByName,
     deleteComicChapter,
-    getChapterById,
-    createChapter,
+    getStoryChapterById,
+    createStoryChapter,
 
     getSession,
     registerUser,
