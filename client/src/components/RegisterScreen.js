@@ -13,6 +13,8 @@ import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import AuthContextProvider from '../auth'
+import {useContext} from 'react'
 
 function Copyright(props) {
   return (
@@ -28,6 +30,8 @@ function Copyright(props) {
 }
 
 export default function RegisterScreen() {
+  const {auth} = useContext(AuthContextProvider)
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
