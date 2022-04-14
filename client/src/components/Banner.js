@@ -38,19 +38,19 @@ export default function Banner() {
     </div> 
     // FINISH CREATING COMPONENTS FOR HANDLING THE CONTENT CHANGER
 
-
-    // START CREATING THE MENU ICON
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget)
     }
+
     const handleClose = () => {
         setAnchorEl(null)
     }
 
     const handleLogout = () => {
-        handleClose();
+        handleClose(); //not sure if necessary
         auth.logoutUser();
     }
 
@@ -85,16 +85,6 @@ export default function Banner() {
         </div>
     }
     
-    let icon = <IconButton
-                    onClick={handleClick}
-                    size="large"
-                    sx={{ ml: 2 }}
-                    aria-controls={open ? 'account-menu' : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? 'true' : undefined}
-                >
-                    <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
-                </IconButton>
     let menu = <Menu
                     anchorEl={anchorEl}
                     anchorOrigin={{
@@ -110,44 +100,10 @@ export default function Banner() {
                     open={open}
                     onClose={handleClose}
                     onClick={handleClose}
-                    PaperProps={{
-                    elevation: 0,
-                    sx: {
-                        overflow: 'visible',
-                        filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                        mt: 1.5,
-                        '& .MuiAvatar-root': {
-                        width: 32,
-                        height: 32,
-                        ml: -0.5,
-                        mr: 1,
-                        },
-                        '&:before': {
-                        content: '""',
-                        display: 'block',
-                        position: 'absolute',
-                        top: 0,
-                        right: 14,
-                        width: 10,
-                        height: 10,
-                        bgcolor: 'background.paper',
-                        transform: 'translateY(-50%) rotate(45deg)',
-                        zIndex: 0,
-                        },
-                    },
-                    }}
                 >
                     { options }
                 </Menu>
-    let iconMenu = 
-        <Box>
-            {icon}
-            {menu}
-        </Box>
-    // FINISH CREATING THE MENU ICON
 
-
-    // START RENDERING
     return (
         <Box sx = {{ flexGrow: 1}}>
             <AppBar position="static" style={{ background: '#3d3d3d' }}>
@@ -183,17 +139,24 @@ export default function Banner() {
                         </Grid>
                         <Grid item xs = {1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             <Box>
-                            { 
-                                contentButton 
-                            }
+                            { contentButton }
                             </Box>
                         </Grid>
                         <Grid item xs = {1} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                            { iconMenu }
+                            <IconButton
+                                onClick={handleClick}
+                                size="large"
+                                edge="end"
+                                aria-controls="primary-search-account-menu"
+                                aria-haspopup="true"
+                            >
+                                <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                            </IconButton>
                         </Grid>
                     </Grid>
                 </Toolbar>
             </AppBar>
+            { menu }
         </Box>
     )
 }
