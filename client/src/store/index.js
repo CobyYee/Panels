@@ -1,3 +1,4 @@
+import { Global } from '@emotion/react';
 import { createContext, useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AuthContext from '../auth'
@@ -7,7 +8,7 @@ export const GlobalStoreContext = createContext({});
 
 export const GlobalStoreActionType = {
     SWITCH_MODE: "SWITCH_MODE",
-    LOAD_WORKS: "LOAD_WORKS",
+    HOME: "HOME",
     LOAD_WORK: "LOAD_WORK",
     LOAD_CHAPTER: "LOAD_CHAPTER",
     SEARCH: "SEARCH"
@@ -22,7 +23,7 @@ function GlobalStoreContextProvider(props) {
         works: [],
         work: null,
         chapter: null,
-        searchField: ""
+        searchField: "",
     });
 
     const storeReducer = (action) => {
@@ -34,39 +35,43 @@ function GlobalStoreContextProvider(props) {
                     works: payload.works,
                     work: null,
                     chapter: null,
-                    searchField: ""
+                    searchField: "",
                 })
             }
-            case GlobalStoreActionType.LOAD_WORKS: {
+            case GlobalStoreActionType.HOME: {
                 return setStore({
+                    mode: store.mode,
                     works: payload,
                     work: null,
                     chapter: null,
-                    searchField: ""
+                    searchField: "",
                 })
             }
             case GlobalStoreActionType.LOAD_WORK: {
                 return setStore({
+                    mode: store.mode,
                     works: store.works,
                     work: payload,
                     chapter: null,
-                    searchField: ""
+                    searchField: "",
                 })
             }
             case GlobalStoreActionType.LOAD_CHAPTER: {
                 return setStore({
+                    mode: store.mode,
                     works: store.works,
                     work: store.work,
                     chapter: payload,
-                    searchField: ""
+                    searchField: "",
                 })
             }
             case GlobalStoreActionType.SEARCH: {
                 return setStore({
+                    mode: store.mode,
                     works: store.works,
                     work: store.work,
                     chapter: store.chapter,
-                    searchField: payload
+                    searchField: payload,
                 })
             }
             default:
@@ -89,6 +94,8 @@ function GlobalStoreContextProvider(props) {
                storeReducer({
                    type: GlobalStoreActionType.LOAD_WORKS,
                    payload: comics
+               }, () => {
+                   navigate("/")
                })
            }
         }
@@ -101,12 +108,61 @@ function GlobalStoreContextProvider(props) {
             storeReducer({
                 type: GlobalStoreActionType.LOAD_WORK,
                 payload: currentComic
+            }, () => {
+                navigate("/comic/" + currentComic._id)      // don't really need to attach the comic id
             });
-            navigate("/comic/" + currentComic._id)
         }
         else {
             console.log("Failed to load comic: " + id);
         }
+    }
+
+    store.loadStory = async function(id) {
+        const response = await api.getStoryById(id);
+        if (response.status === 200) {
+            let story = response.data.story;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_WORK,
+                payload: story
+            }, () => {
+                navigate("/comic");
+            })
+        }
+        else {
+            console.log("Failed to load story: " + id);
+        }
+    }
+
+    store.loadComicChapter = async function(id) {
+        const response = await api.getComicChapterById(id);
+        if (response.status === 200) {
+            let chapter = response.data.data;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_CHAPTER,
+                payload: chapter
+            }, () => {
+                navigate("/chapter");
+                }  
+            )
+        }
+    }
+
+    store.loadStoryChapter = async function(id) {
+        const response = await api.getStoryChapterById(id);
+        if (response.status === 200) {
+            let chapter = response.data.data;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_CHAPTER,
+                payload: chapter
+            }, () => {
+                navigate("/chapter");
+                }  
+            )
+        }
+    }
+
+    store.search = async function() {
+        
     }
 
     return (
