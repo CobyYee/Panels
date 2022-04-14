@@ -76,6 +76,9 @@ function AuthContextProvider(props) {
                     }
                 });
             }
+            else {
+                console.log(response.data.errorMessage)
+            }
         } catch (err) {
             if (err.response) {
                 console.log(err.response.data.errorMessage)
@@ -122,13 +125,24 @@ function AuthContextProvider(props) {
     }
 
     auth.logoutUser = async function () {
-        const response = await api.logoutUser();
-        if (response.status === 200) {
-            authReducer( {
-                type: AuthActionType.LOGOUT_USER,
-                payload: null
-            })
-            navigate("/");
+        console.log("logging out user");
+        try {
+            const response = await api.logoutUser();
+            if (response.status === 200) {
+                authReducer( {
+                    type: AuthActionType.LOGOUT_USER,
+                    payload: null
+                })
+                navigate("/");
+            }
+            else {
+                console.log(response.data.errorMessage);
+            }
+        }
+        catch (err) {
+            if (err.response) {
+                console.log(err.response.data.errorMessage);
+            }
         }
     }
 

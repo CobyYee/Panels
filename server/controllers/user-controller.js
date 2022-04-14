@@ -207,7 +207,7 @@ logoutUser = async (req, res) => {
             httpOnly: true,
             secure: true,
             sameSite: "lax"
-        }).status(200)
+        }).status(200).send();
     }
     catch (err) {
         console.error("User logout failed: " + err);
