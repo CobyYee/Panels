@@ -40,7 +40,7 @@ getSession = async(req, res) => {
                 drafts: existingUser.drafts,
                 bookmarks: existingUser.bookmarks
             }
-        }).send();
+        });
     })
 }
 
