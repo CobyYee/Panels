@@ -76,7 +76,14 @@ function GlobalStoreContextProvider(props) {
 
     store.home = async function() {
         if (store.mode === "comic") {
-           
+           const res = await api.getAllComics();
+           if (res.status === 200) {
+               let comics = res.data.data;
+               let sorted = comics.sort((a, b) => {
+                    return b.views - a.views;
+               })
+               let hotest = sorted.subString(0, 56);
+           }
         }
     }
 

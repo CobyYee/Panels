@@ -4,10 +4,12 @@ import { useNavigate } from "react-router-dom";
 import ContentContext from '../content'
 import AuthContextProvider from '../auth'
 import { useContext, useState } from 'react';
+import GlobalStoreContext from '../store';
 
 export default function Banner() {
     const {content} = useContext(ContentContext)
     const {auth} = useContext(AuthContextProvider)
+    const {store} = useContext(GlobalStoreContext)
     let navigate = useNavigate();
     
     // START CREATING COMPONENTS FOR HANDLING THE CONTENT CHANGER
@@ -146,7 +148,7 @@ export default function Banner() {
                     <Grid item={true} xs={12} container sx={{ width: '100%' }}>
                         <Grid item xs={1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             <Button 
-                                onClick={() => navigate('/')}  
+                                onClick={() => store.home()}  
                                 disableRipple
                                 sx={{ color: '#9c4247', fontSize: 32, fontFamily: 'Poppins', "&.MuiButtonBase-root:hover": { bgcolor: "transparent" } }}>
                                     PANELS 
