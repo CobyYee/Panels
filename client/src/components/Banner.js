@@ -48,7 +48,7 @@ export default function Banner() {
     }
 
     let profileOption, bookmarksOption, loginOption, logoutOption, registerOption = ""
-    if(!auth.isLoggedIn()) {
+    if(!auth.getLoggedIn()) {
         profileOption = 
             <MenuItem onClick={() => navigate('/profile/')}>
                 Profile
