@@ -28,3 +28,27 @@ export const passwordRecovery = (payload) => api.post(`/passwordRecovery/`, payl
 export const saveNewPassword = (payload) => api.post(`/saveNewPassword/`, payload)
 export const ban = (payload) => api.post(`/ban/`, payload)
 export const unban = (payload) => api.post(`/unban`, payload)
+
+const apis = {
+    getComic,
+    createComic,
+    updateComic,
+    deleteComic,
+    getAllComics,
+    getComicsByGenres,
+    getComicsByName,
+    deleteComicChapter,
+    getChapterById,
+    createChapter,
+
+    getSession,
+    registerUser,
+    loginUser,
+    logoutUser,
+    passwordRecovery,
+    saveNewPassword,
+    ban,
+    unban
+}
+
+export default apis;
