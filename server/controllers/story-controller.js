@@ -202,7 +202,7 @@ getStories = async (req, res) => {
         if (!found)
             return res.status(400).json({success: false, message: "Stories not found"});
         
-        return res.status(200).json({success: true, stories: found});
+        return res.status(200).json({success: true, data: found});
     }
     catch (err) {
         console.error("getStories failed: " + err);
