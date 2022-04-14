@@ -32,6 +32,8 @@ router.get('/storychapter/:id', auth.verifyJWT, StoryController.getStoryChapterB
 router.post('/register', UserController.registerUser)
 router.get('/getSession', UserController.getSession)
 router.post('/login', UserController.loginUser)
+router.get('/user/:id', auth.verifyJWT, UserController.getUserById)
+router.put('/user', auth.verifyJWT, UserController.updateUser)
 router.get('/logout', UserController.logoutUser)
 router.post('/passwordRecovery', UserController.passwordRecovery)
 router.post('/saveNewPassword', UserController.saveNewPassword)

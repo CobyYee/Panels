@@ -33,6 +33,8 @@ export const createStoryChapter = (payload) => api.post(`/storychapter/`, payloa
 export const getSession = () => api.get(`/getSession/`);
 export const registerUser = (payload) => api.post(`/register/`, payload)
 export const loginUser = (payload) => api.post(`/login/`, payload)
+export const getUserById = (id) => api.get(`/user/${id}`)
+export const updateUser = (payload) => api.put(`/user/`, payload)
 export const logoutUser = () => api.get(`/logout/`)
 export const passwordRecovery = (payload) => api.post(`/passwordRecovery/`, payload)
 export const saveNewPassword = (payload) => api.post(`/saveNewPassword/`, payload)
@@ -65,6 +67,8 @@ const apis = {
     getSession,
     registerUser,
     loginUser,
+    getUserById,
+    updateUser,
     logoutUser,
     passwordRecovery,
     saveNewPassword,

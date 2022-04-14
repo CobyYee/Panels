@@ -136,6 +136,70 @@ loginUser = async (req, res) => {
     }
 }
 
+// get a user
+getUserById = async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        if (!id)
+            return res.status(400).json({ errorMessage: "Missing user id"});
+
+        const existingUser = await User.findById(id);
+        if (!existingUser) 
+            return res.status(400).json({ errorMessage: "This user does not exist!" });
+
+        return res.status(200).json({ 
+            user: {
+                _id: existingUser._id,
+                admin: existingUser.admin,
+                firstName: existingUser.firstName,
+                lastName: existingUser.lastName,
+                username: existingUser.username,
+                email: existingUser.email,
+                profilePicture: existingUser.profilePicture,
+                follows: existingUser.follows,
+                works: existingUser.works,
+                drafts: existingUser.drafts,
+                bookmarks: existingUser.bookmark,
+            } 
+        });
+    }
+    catch (err) {
+        console.error("Get user by id failed: " + err);
+        return res.status(500);
+    }
+}
+
+// update user, certain fields are unchangeable
+updateUser = async (req, res) => {
+    try {
+        const user = req.body;
+
+        if (!user) {
+            return res.status(400).json({ errorMessage: "Missing user to update"})
+        }
+
+        const existingUser = await User.findById(req.body.id);
+        if (!existingUser)
+            return res.status(400).json({ errorMessage: "This user does not exist!"});
+
+        existingUser.username = user.username;
+        existingUser.email = user.email;
+        existingUser.profilePicture = user.profilePicture;
+        existingUser.follows = user.follows;
+        existingUser.works = user.works;
+        existingUser.drafts = user.drafts;
+        existingUser.bookmarks = user.bookmarks;
+
+        await existingUser.save();
+        return res.status(200);
+    }
+    catch (err) {
+        console.error("User update failed: " + err);
+        return res.status(500).send();
+    }
+}
+
 // log user out
 logoutUser = async (req, res) => {
     try {
@@ -296,6 +360,7 @@ module.exports = {
     getSession,
     registerUser,
     loginUser,
+    updateUser,
     logoutUser,
     passwordRecovery,
     saveNewPassword,
