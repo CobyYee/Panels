@@ -8,18 +8,6 @@ const api = axios.create({
 })
 
 
-export const getComic = (id) => api.get(`/comic/${id}`)
-export const createComic = (payload) => api.post(`/comic/`, payload)
-export const updateComic = (id, payload) => api.put(`/comic/${id}`, payload)
-export const deleteComic = (id) => api.delete(`/comic/${id}`)
-export const getAllComics = () => api.get(`/comics/`);
-export const getComicsByGenres = (payload) => api.get(`/comicsbygenres`)
-export const getComicsByName = (payload) => api.get(`/comicsbyname/`, payload)      // change backend, name parameter in body not params
-export const deleteComicChapter = (id) => api.delete(`/comicchapter/${id}`)
-export const getChapterById = (id) => api.get(`/comicchapter/${id}`)
-export const createChapter = (payload) => api.post(`/comicchapter/`, payload)
-
-
 export const getSession = () => api.get(`/getSession/`);
 export const registerUser = (payload) => api.post(`/register/`, payload)
 export const loginUser = (payload) => api.post(`/login/`, payload)
@@ -29,7 +17,7 @@ export const saveNewPassword = (payload) => api.post(`/saveNewPassword/`, payloa
 export const ban = (payload) => api.post(`/ban/`, payload)
 export const unban = (payload) => api.post(`/unban`, payload)
 
-const auth_apis = {
+const apis = {
     getSession,
     registerUser,
     loginUser,
@@ -40,4 +28,4 @@ const auth_apis = {
     unban
 }
 
-export default auth_apis
+export default apis

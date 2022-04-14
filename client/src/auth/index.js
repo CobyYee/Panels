@@ -1,5 +1,7 @@
 import { Global } from '@emotion/react';
 import { createContext, useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import api from '../src/api'
 
 export const AuthContext = createContext({});
 
