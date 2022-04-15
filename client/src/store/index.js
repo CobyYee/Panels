@@ -137,6 +137,7 @@ function GlobalStoreContextProvider(props) {
         console.log(response);
         if (response.status === 200) {
             let works = response.data.data;
+            console.log("OK");
             storeReducer({
                 type: GlobalStoreActionType.LOAD_WORKS,
                 payload: works

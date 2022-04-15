@@ -62,6 +62,7 @@ export default function Banner() {
     const handleListScreen = () => {
         handleClose(); //not sure if necessary
         store.listScreen();
+        navigate("/listscreen/")
     }
 
     let options =
