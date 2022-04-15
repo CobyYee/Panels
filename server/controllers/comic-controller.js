@@ -94,6 +94,28 @@ getComics = async(req, res) => {        // tested 200
     }
 }
 
+getImagesById = async (req, res) => {
+    try {
+        const ids = req.body;
+        if (!ids)
+            return res.status(400).json({ success: false, errorMessage: "Missing image ids"});
+        let arr = [];
+        for (let i = 0; i < ids.length; i++) {
+            let found = await Image.findById(ids[i]);
+            if (!found)
+                return res.status(400).json({ success: false, errorMessage: "Image " + ids[i] + " not found!"})
+            arr.push(found.data.toString())
+        
+        }
+        console.log(arr[2].slice(0,10))
+        
+        return res.status(200).json({ success: true, data: arr });
+    }
+    catch (err) {
+        return res.status(500);
+    }
+}
+
 updateComic = async (req, res) => {     // tested 200
     try {
         const body = req.body;
@@ -232,6 +254,7 @@ module.exports = {
     getComicsByGenres,
     getComicsByName,
     getComics,
+    getImagesById,
     updateComic,
     createChapter,
     getChapterById,

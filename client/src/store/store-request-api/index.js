@@ -18,6 +18,8 @@ export const deleteComicChapter = (id) => api.delete(`/comicchapter/${id}`)
 export const getComicChapterById = (id) => api.get(`/comicchapter/${id}`)
 export const createComicChapter = (payload) => api.post(`/comicchapter/`, payload)
 
+export const getImagesById = (payload) => api.post(`/images/`, payload)
+
 export const getStoryById = (id) => api.get(`/story/${id}`)
 export const createStory = (payload) => api.post(`/story/`, payload)
 export const updateStory = (id, payload) => api.put(`/story/${id}`, payload)
@@ -45,6 +47,8 @@ const apis = {
     deleteComicChapter,
     getComicChapterById,
     createComicChapter,
+
+    getImagesById,
 
     getStoryById,
     createStory,
