@@ -56,6 +56,7 @@ export default function Banner() {
 
     const handleProfile = () => {
         auth.loadProfile(auth.session._id);
+        store.loadProfileStories(auth.session._id);
     }
 
     let options =

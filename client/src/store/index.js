@@ -9,6 +9,7 @@ export const GlobalStoreContext = createContext({});
 export const GlobalStoreActionType = {
     SWITCH_MODE: "SWITCH_MODE",
     HOME: "HOME",
+    LOAD_WORKS: "LOAD_WORKS",
     LOAD_WORK: "LOAD_WORK",
     LOAD_CHAPTER: "LOAD_CHAPTER",
     SEARCH: "SEARCH"
@@ -43,6 +44,15 @@ function GlobalStoreContextProvider(props) {
                     mode: store.mode,
                     works: payload,
                     work: null,
+                    chapter: null,
+                    searchField: "",
+                })
+            }
+            case GlobalStoreActionType.LOAD_WORKS: {
+                return setStore({
+                    mode: store.mode,
+                    works: payload,
+                    work: store.work,
                     chapter: null,
                     searchField: "",
                 })
@@ -158,6 +168,21 @@ function GlobalStoreContextProvider(props) {
                 navigate("/chapter/" + chapter._id);
                 }  
             )
+        }
+    }
+
+    store.loadProfileStories = async function(id) {
+        const response = await api.getStoriesByCreator(id);
+        if (response.status === 200) {
+            let stories = response.data.stories;
+            console.log(stories);
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_WORKS,
+                payload: stories
+            })
+        }
+        else {
+            console.log("Failed to load stories by creator_id: " + id);
         }
     }
 

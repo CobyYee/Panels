@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { createContext, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from './auth-request-api'
 
@@ -21,6 +21,10 @@ function AuthContextProvider(props) {
         error: null
     });
     const navigate = useNavigate();
+
+    useEffect(() => {
+        auth.getLoggedIn();
+    }, []);
 
     const authReducer = (action) => {
         const {type, payload} = action
@@ -73,6 +77,7 @@ function AuthContextProvider(props) {
     }
 
     auth.getLoggedIn = async function () {
+        console.log("getLoggedIn");
         try {
             const response = await api.getSession();
             if (response.status === 200) {
@@ -93,7 +98,7 @@ function AuthContextProvider(props) {
     }
 
     auth.loginUser = async function (userData) {
-        console.log("hello")
+        console.log("loginUser")
         try {
             const response = await api.loginUser(userData);
             if(response.status === 200) {
@@ -112,6 +117,7 @@ function AuthContextProvider(props) {
     }
     
     auth.registerUser = async function (userData) {
+        console.log("registerUser")
         try {
             const response = await api.registerUser(userData);
             if(response.status === 200) {
@@ -131,7 +137,7 @@ function AuthContextProvider(props) {
     }
 
     auth.logoutUser = async function () {
-        console.log("logging out user");
+        console.log("logoutUser");
         try {
             const response = await api.logoutUser();
             if (response.status === 200) {
@@ -153,8 +159,8 @@ function AuthContextProvider(props) {
     }
 
     auth.loadProfile = async function (id) {
+        console.log("loadProfile: " + id);
         try {
-            console.log(id);
             const response = await api.getUserById(id);
             if (response.status === 200) {
                 let profile_user = response.data.user

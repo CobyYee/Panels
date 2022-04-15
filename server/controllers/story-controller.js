@@ -315,6 +315,7 @@ module.exports = {
     getStoryById,
     getStoriesByName,
     getStoriesByGenre,
+    getStoriesByCreator,
     getStories,
     createStoryChapter,
     updateStoryChapter,

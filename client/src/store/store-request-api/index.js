@@ -25,6 +25,7 @@ export const deleteStory = (id) => api.delete(`/story/${id}`)
 export const getAllStories = () => api.get(`/stories/`);
 export const getStoriesByGenres = (payload) => api.get(`/storiesbygenres`, payload)
 export const getStoriesByName = (payload) => api.get(`/storiesbyname/`, payload)      // change backend, name parameter in body, not params
+export const getStoriesByCreator = (id) => api.get(`/stories/${id}`)
 export const deleteStoryChapter = (id) => api.delete(`/storychapter/${id}`)
 export const getStoryChapterById = (id) => api.get(`/storychapter/${id}`)
 export const createStoryChapter = (payload) => api.post(`/storychapter/`, payload)
@@ -52,6 +53,7 @@ const apis = {
     getAllStories,
     getStoriesByGenres,
     getStoriesByName,
+    getStoriesByCreator,
     deleteStoryChapter,
     getStoryChapterById,
     createStoryChapter,
