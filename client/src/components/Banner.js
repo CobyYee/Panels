@@ -59,6 +59,11 @@ export default function Banner() {
         store.loadProfileStories(auth.session._id);
     }
 
+    const handleListScreen = () => {
+        handleClose(); //not sure if necessary
+        store.listScreen();
+    }
+
     let options =
         <div>
             <MenuItem onClick={() => navigate('/login/')}>
@@ -124,7 +129,7 @@ export default function Banner() {
                         </Grid>
                         <Grid item xs={1} container sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                             <Button
-                                onClick={() => navigate('/listscreen/')} 
+                                onClick={handleListScreen} 
                                 disableRipple
                                 sx={{ color: 'white', fontSize: 15, "&.MuiButtonBase-root:hover": { bgcolor: "transparent" } }}>
                                     All Comics 

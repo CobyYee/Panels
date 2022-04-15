@@ -111,6 +111,27 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    store.listScreen = async function() {
+        let response = null;
+        if (store.mode === "comic") {
+            response = await api.getAllComics();
+            
+        }
+        else {
+            response = await api.getAllStories();
+        }
+        console.log(response);
+        if (response.status === 200) {
+            let works = response.data.data;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_WORKS,
+                payload: works
+            }, () => {
+                navigate("/listscreen")
+            })
+        }
+    }
+
     store.loadComic = async function(id) {
         const response = await api.getComicById(id);
         if (response.status === 200) {
