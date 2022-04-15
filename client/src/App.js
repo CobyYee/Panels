@@ -27,8 +27,8 @@ import {
 const App = () => {
     return (
         <BrowserRouter> 
-            <GlobalStoreContextProvider>  
-                <AuthContextProvider>
+            <AuthContextProvider>
+                <GlobalStoreContextProvider>  
                     <ContentContextProvider>   
                         <Banner />
                         <Routes>
@@ -49,8 +49,8 @@ const App = () => {
                             <Route exact path="/editcomic/" element={< EditComicScreen />}/>
                         </Routes>
                     </ContentContextProvider>
-                </AuthContextProvider>
-            </GlobalStoreContextProvider>
+             </GlobalStoreContextProvider>
+            </AuthContextProvider>
         </BrowserRouter>
     )
 }

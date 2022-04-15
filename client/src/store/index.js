@@ -12,7 +12,8 @@ export const GlobalStoreActionType = {
     LOAD_WORKS: "LOAD_WORKS",
     LOAD_WORK: "LOAD_WORK",
     LOAD_CHAPTER: "LOAD_CHAPTER",
-    SEARCH: "SEARCH"
+    SEARCH: "SEARCH",
+    LOAD_IMAGES: "LOAD_IMAGES",
 }
 
 function GlobalStoreContextProvider(props) {
@@ -23,6 +24,7 @@ function GlobalStoreContextProvider(props) {
         mode: "comic",
         works: [],
         work: null,
+        images: [],
         chapter: null,
         searchField: "",
     });
@@ -33,17 +35,9 @@ function GlobalStoreContextProvider(props) {
             case GlobalStoreActionType.SWITCH_MODE: {
                 return setStore({
                     mode: (store.mode === "comic") ? "story" : "comic",
-                    works: payload.works,
+                    works: null,
                     work: null,
-                    chapter: null,
-                    searchField: "",
-                })
-            }
-            case GlobalStoreActionType.HOME: {
-                return setStore({
-                    mode: store.mode,
-                    works: payload,
-                    work: null,
+                    images: null,
                     chapter: null,
                     searchField: "",
                 })
@@ -53,6 +47,7 @@ function GlobalStoreContextProvider(props) {
                     mode: store.mode,
                     works: payload,
                     work: store.work,
+                    images: store.images,
                     chapter: null,
                     searchField: "",
                 })
@@ -62,6 +57,7 @@ function GlobalStoreContextProvider(props) {
                     mode: store.mode,
                     works: store.works,
                     work: payload,
+                    images: store.images,
                     chapter: null,
                     searchField: "",
                 })
@@ -71,17 +67,19 @@ function GlobalStoreContextProvider(props) {
                     mode: store.mode,
                     works: store.works,
                     work: store.work,
-                    chapter: payload,
+                    images: store.images,
+                    chapter: payload.chapter,
                     searchField: "",
                 })
             }
-            case GlobalStoreActionType.SEARCH: {
+            case GlobalStoreActionType.LOAD_IMAGES: {
                 return setStore({
                     mode: store.mode,
                     works: store.works,
                     work: store.work,
+                    images: payload,
                     chapter: store.chapter,
-                    searchField: payload,
+                    searchField: store.searchField,
                 })
             }
             default:
@@ -89,7 +87,7 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    store.mode = function() {
+    store.switchMode = function() {
         storeReducer({
             type: GlobalStoreActionType.SWITCH_MODE,
             payload: null
@@ -97,17 +95,33 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.home = async function() {
-        if (store.mode === "comic") {
-           const res = await api.getAllComics();
-           if (res.status === 200) {
-               let comics = res.data.data;
-               storeReducer({
-                   type: GlobalStoreActionType.LOAD_WORKS,
-                   payload: comics
-               }, () => {
-                   navigate("/")
-               })
-           }
+        try {
+            if (store.mode === "comic") {
+                let res = await api.getAllComics();
+                if (res.status === 200) {
+                    let comics = res.data.data;
+                    storeReducer({
+                        type: GlobalStoreActionType.LOAD_WORKS,
+                        payload: comics
+                    }, () => {
+                    })
+                    let works = comics.slice();
+                    let featuredWorks = works.sort((a, b) => { return b.views - a.views}).slice(0, 8);
+                    let imageIds = [];
+                    for (let i = 0; i < featuredWorks.length && i < 8; i++) {
+                        imageIds.push(featuredWorks[i].cover);
+                    }
+                    await this.getImagesById(imageIds);
+                    navigate("/")
+
+
+                }
+                else {
+                }
+            }
+        }
+        catch (err) {
+            console.error("Store.home failed: " + err)
         }
     }
 
@@ -186,23 +200,16 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    store.setSearch = function(field) {         // this function will update search field onchange
-        storeReducer({
-            type: GlobalStoreActionType.SEARCH,
-            payload: field
-        })
-    }
-
-    store.search = async function() {           // this function will get an updated copy of all works and redirect to listscreen
+    store.search = async function(parameter) { 
         let response;
         if (store.mode === 0) 
-            response = await api.getAllComics();
+            response = await api.getComicsByName(parameter)
         else 
-            response = await api.getAllStories();
+            response = await api.getStoriesByName(parameter);
         
         if (response.status === 200) {
             storeReducer({
-                type: GlobalStoreActionType.LOAD_WORKS,
+                type: GlobalStoreActionType.HOME,
                 payload: response.data.data
             }, () => {
                 navigate("/listscreen")
@@ -210,8 +217,41 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    store.getImagesById = async function(ids) {
+        console.log(ids)
+        const response = await api.getImagesById(ids);
+        if (response.status === 200) {
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_IMAGES,
+                payload: response.data.data
+            }, () => {
+                
+            })
+            // console.log(response.data.data[0].data)
+            // let data = response.data.data[1].data;
+            // console.loga))(atob(dat
+
+            
+            let img = new Image();
+            img.src = "data:image/png;base64," + response.data.data[2];
+            let canvas = document.createElement("canvas");
+            img.onload = function () {
+                canvas.width=img.width;
+                canvas.height=img.height;
+                let context = canvas.getContext("2d");
+                context.drawImage(img, 0, 0)
+                console.log(canvas.toDataURL("image/png"))
+            }
+            document.getElementById('root').appendChild(img)
+
+            // let context = canvas.getContext("2d");
+            // context.drawImage(img, 0, 0)
+            // console.log(canvas.toDataURL("image/png"))
+        }
+    }
+
     return (
-        <GlobalStoreContext.Provider  value = {{store}}>
+        <GlobalStoreContext.Provider  value={{store}}>
             {props.children}
         </GlobalStoreContext.Provider>
     );
