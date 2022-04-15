@@ -15,6 +15,7 @@ export default function Banner() {
     // START CREATING COMPONENTS FOR HANDLING THE CONTENT CHANGER
     let changeContent = (contentType) => {
         content.setContentType(contentType)
+        store.switchMode();
     }
     
     let storyBgColor = '#4E4E4E'

@@ -1,5 +1,5 @@
 import { Box, Typography, Grid, List, ListItem, Button } from '@mui/material'
-import ContentContext from '../content'
+//import ContentContext from '../content'
 import { useContext, useEffect } from 'react'
 // import batePic from '../testimgs/bate.jpg'
 // import naruto from '../testimgs/naruto.jpg'
@@ -13,8 +13,8 @@ import { useNavigate } from 'react-router-dom'
 import { GlobalStoreContext}  from '../store';
 
 function HomeScreen() {
-    const {content} = useContext(ContentContext)
-    const store = useContext(GlobalStoreContext)
+    //const {content} = useContext(ContentContext)
+    const {store} = useContext(GlobalStoreContext)
     let navigate = useNavigate();
 
     let latestUpdates = [["Work 1", "1"], ["Work 2", "21"], ["Work 3", "14"], ["Work 4", "1123"], ["Work 5", "41"], ["Work 6", "11"], ["Work 7", "12"], ["Work 8", "1"], 
@@ -23,10 +23,10 @@ function HomeScreen() {
     // let featuredWorks = [batePic, naruto, bleach, lookism, mha, onepiece, sao, rezero]
 
     useEffect(() => {
-        store.store.home();
+        store.home();
     }, [])
 
-    let images = store.images;
+    //let images = store.images;
     let featuredWorks = [];
     // for (let i = 0; i < images.length && i < 8; i++) {
     //     let img = new Image();

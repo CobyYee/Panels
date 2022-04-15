@@ -2,7 +2,8 @@ import SortBar from './SortBar';
 import GenreBar from './GenreBar';
 import SearchList from './SearchList';
 
-function ListScreen(props) {
+function ListScreen() {
+
     return (
         <div class="search_list">
             <SortBar></SortBar>

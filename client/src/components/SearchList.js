@@ -1,9 +1,13 @@
 import ListCard from "./ListCard";
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import GlobalStoreContext from '../store';
 
 function SearchList() {
     const {store} = useContext(GlobalStoreContext)
+
+    useEffect(() => {
+        store.listScreen();
+    }, [store.mode]);
 
     return ( 
        <ul id="comic_list">

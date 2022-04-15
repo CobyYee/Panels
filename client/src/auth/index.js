@@ -23,7 +23,7 @@ function AuthContextProvider(props) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        //auth.getLoggedIn();
+        auth.getLoggedIn();
     }, []);
 
     const authReducer = (action) => {

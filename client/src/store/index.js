@@ -1,7 +1,7 @@
-import { Global } from '@emotion/react';
+//import { Global } from '@emotion/react';
 import { createContext, useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import AuthContext from '../auth'
+//import AuthContext from '../auth'
 import api from './store-request-api'
 
 export const GlobalStoreContext = createContext({});
@@ -18,7 +18,7 @@ export const GlobalStoreActionType = {
 
 function GlobalStoreContextProvider(props) {
     const navigate = useNavigate();
-    const auth = useContext(AuthContext)
+    //const auth = useContext(AuthContext)
 
     const [store, setStore] = useState({
         mode: "comic",
@@ -35,7 +35,7 @@ function GlobalStoreContextProvider(props) {
             case GlobalStoreActionType.SWITCH_MODE: {
                 return setStore({
                     mode: (store.mode === "comic") ? "story" : "comic",
-                    works: null,
+                    works: [],
                     work: null,
                     images: null,
                     chapter: null,
@@ -92,6 +92,7 @@ function GlobalStoreContextProvider(props) {
             type: GlobalStoreActionType.SWITCH_MODE,
             payload: null
         })
+        console.log("Switching modes to: " + ((store.mode === "comic") ? "story" : "comic"));
     }
 
     store.home = async function() {
