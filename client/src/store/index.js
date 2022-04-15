@@ -134,10 +134,8 @@ function GlobalStoreContextProvider(props) {
         else {
             response = await api.getAllStories();
         }
-        console.log(response);
         if (response.status === 200) {
             let works = response.data.data;
-            console.log("OK");
             storeReducer({
                 type: GlobalStoreActionType.LOAD_WORKS,
                 payload: works
@@ -207,6 +205,7 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    //I don't think this works. May have to check later
     store.loadProfileStories = async function(id) {
         const response = await api.getStoriesByCreator(id);
         if (response.status === 200) {
@@ -240,7 +239,7 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.getImagesById = async function(ids) {
-        console.log(ids)
+        //console.log(ids)
         const response = await api.getImagesById(ids);
         if (response.status === 200) {
             storeReducer({
@@ -262,9 +261,10 @@ function GlobalStoreContextProvider(props) {
                 canvas.height=img.height;
                 let context = canvas.getContext("2d");
                 context.drawImage(img, 0, 0)
-                console.log(canvas.toDataURL("image/png"))
+                //console.log(canvas.toDataURL("image/png"))
             }
-            document.getElementById('root').appendChild(img)
+            //RESTORE LATER DAVID?
+            //document.getElementById('root').appendChild(img)
 
             // let context = canvas.getContext("2d");
             // context.drawImage(img, 0, 0)

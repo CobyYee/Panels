@@ -122,7 +122,7 @@ export default function Banner() {
                     <Grid item={true} xs={12} container sx={{ width: '100%' }}>
                         <Grid item xs={1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             <Button 
-                                onClick={() => store.home()}  
+                                onClick={() => navigate("/")}  
                                 disableRipple
                                 sx={{ color: '#9c4247', fontSize: 32, fontFamily: 'Poppins', "&.MuiButtonBase-root:hover": { bgcolor: "transparent" } }}>
                                     PANELS 
