@@ -10,13 +10,14 @@ export const AuthActionType = {
     LOGIN_USER: "LOGIN_USER",
     LOGOUT_USER: "LOGOUT_USER",
     REGISTER_USER: "REGISTER_USER",
-    ALERT_ERROR: "ALERT_ERROR"
+    ALERT_ERROR: "ALERT_ERROR",
+    LOAD_PROFILE: "LOAD_PROFILE"
 }
 
 function AuthContextProvider(props) {
     const [auth, setAuth] = useState({
+        session: null,
         user: null,
-        loggedIn: false,
         error: null
     });
     const navigate = useNavigate();
@@ -26,37 +27,44 @@ function AuthContextProvider(props) {
         switch(type) {
             case AuthActionType.GET_LOGGED_IN: {
                 return setAuth({
-                    loggedIn: payload.loggedIn,
-                    user: payload.user,
+                    session: payload,
+                    user: auth.user,
                     error: null
                 });
             }
             case "REGISTER_USER": {
                 return setAuth({
-                    loggedIn: false,
-                    user: null,
+                    session: null,
+                    user: auth.user,
                     error: null
                 })
             }
             case "LOGIN_USER": {
                 return setAuth({
-                    loggedIn: true,
-                    user: payload,
+                    session: payload,
+                    user: auth.user,
                     error: null
                 })
             }
             case "LOGOUT_USER": {
                 return setAuth({
-                    loggedIn: false,
+                    session: null,
                     user: null,
                     error: null
                 })
             }
             case "ALERT_ERROR": {
                 return setAuth({
-                    loggedIn: auth.loggedIn,
+                    session: auth.session,
                     user: auth.user,
                     error: payload
+                })
+            }
+            case "LOAD_PROFILE": {
+                return setAuth({
+                    session: auth.session,
+                    user: payload,
+                    error: null
                 })
             }
             default:
@@ -68,12 +76,10 @@ function AuthContextProvider(props) {
         try {
             const response = await api.getSession();
             if (response.status === 200) {
+                console.log("seesion found")
                 authReducer({
                     type: AuthActionType.GET_LOGGED_IN,
-                    payload: {
-                        loggedIn: true,
-                        user: response.data.user
-                    }
+                    payload: response.data.user
                 });
             }
             else {
@@ -143,6 +149,27 @@ function AuthContextProvider(props) {
             if (err.response) {
                 console.log(err.response.data.errorMessage);
             }
+        }
+    }
+
+    auth.loadProfile = async function (id) {
+        try {
+            console.log(id);
+            const response = await api.getUserById(id);
+            if (response.status === 200) {
+                let profile_user = response.data.user
+                authReducer( {
+                    type: AuthActionType.LOAD_PROFILE,
+                    payload: profile_user
+                })
+                navigate("/profile/") 
+            }
+            else {
+                console.log(response)
+            }
+        }
+        catch (err) {
+            console.log(err)
         }
     }
 

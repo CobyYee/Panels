@@ -360,6 +360,7 @@ module.exports = {
     getSession,
     registerUser,
     loginUser,
+    getUserById,
     updateUser,
     logoutUser,
     passwordRecovery,

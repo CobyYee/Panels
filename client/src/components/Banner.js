@@ -54,6 +54,10 @@ export default function Banner() {
         auth.logoutUser();
     }
 
+    const handleProfile = () => {
+        auth.loadProfile(auth.session._id);
+    }
+
     let options =
         <div>
             <MenuItem onClick={() => navigate('/login/')}>
@@ -67,10 +71,10 @@ export default function Banner() {
             </MenuItem>
         </div>
 
-    if (auth.loggedIn) {
+    if (auth.session !== null) {
         options =
         <div>
-            <MenuItem onClick={() => navigate('/profile/')}>
+            <MenuItem onClick={handleProfile}>
                 Profile
             </MenuItem>
             <MenuItem onClick={() => navigate('/bookmarks/')}>

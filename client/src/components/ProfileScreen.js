@@ -2,11 +2,14 @@
 import { Typography, Box, Grid, Button, List, ListItem, Divider } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import { useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
+import AuthContextProvider from '../auth'
 
 export default function ProfileScreen() {
     //get user from url. if user is self, we can display the Drafts section and enable the createNew button. Otherwise, don't
     //current user and their works should be stored in store? so we can retrieve and filter and place in Box
     let navigate = useNavigate()
+    const {auth} = useContext(AuthContextProvider)
 
     let works = [["Work 1", "1"], ["Work 2", "21"], ["Work 3", "14"], ["Work 4", "1123"], ["Work 5", "41"], ["Work 6", "11"], ["Work 7", "12"], ["Work 8", "1"], 
         ["Work 9", "1"], ["Work 10", "1"], ["Work 11", "1"], ["Work 12", "1"], ["Work 13", "1"], ["Work 14", "1"], ["Work 15", "1"], ["Work 16", "1"], ["Work 17", "1"], 
@@ -52,10 +55,10 @@ export default function ProfileScreen() {
                 </Grid>
                 <Grid item xs={7}>
                     <Grid item pt={14} xs={12} sx={{ display: 'flex', verticalAlign: 'center' }}>
-                        <Typography sx={{ color: 'white', fontSize: 40 }}>Username</Typography>
+                        <Typography sx={{ color: 'white', fontSize: 40 }}>{auth.user.username}</Typography>
                     </Grid>
                     <Grid item xs={12} sx={{ display: 'flex', verticalAlign: 'center' }}>
-                        <Typography sx={{ color: 'white', fontSize: 15 }}>admin</Typography>
+                        <Typography sx={{ color: 'white', fontSize: 15 }}>{(auth.user.admin) ? "admin" : "user"}</Typography>
                     </Grid>
                     <Grid item pt={6} pb={1} xs={12} sx={{ display: 'flex', verticalAlign: 'center', maxHeight: '30vh' }}>
                         <Grid item xs={8}>

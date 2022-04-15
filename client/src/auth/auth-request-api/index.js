@@ -14,7 +14,8 @@ export const logoutUser = () => api.get(`/logout/`)
 export const passwordRecovery = (payload) => api.post(`/passwordRecovery/`, payload)
 export const saveNewPassword = (payload) => api.post(`/saveNewPassword/`, payload)
 export const ban = (payload) => api.post(`/ban/`, payload)
-export const unban = (payload) => api.post(`/unban`, payload)
+export const unban = (payload) => api.post(`/unban/`, payload)
+export const getUserById = (id) => api.get(`/user/${id}`)
 
 const apis = {
     getSession,
@@ -24,7 +25,8 @@ const apis = {
     passwordRecovery,
     saveNewPassword,
     ban,
-    unban
+    unban,
+    getUserById
 }
 
 export default apis;
