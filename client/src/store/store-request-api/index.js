@@ -14,6 +14,7 @@ export const deleteComic = (id) => api.delete(`/comic/${id}`)
 export const getAllComics = () => api.get(`/comics/`);
 export const getComicsByGenres = (payload) => api.get(`/comicsbygenres`, payload)
 export const getComicsByName = (name) => api.get(`/comicsbyname/${name}`, name)      // change backend, name parameter in body, not params
+export const getComicsByCreator = (id) => api.get(`/comics/${id}`)
 export const deleteComicChapter = (id) => api.delete(`/comicchapter/${id}`)
 export const getComicChapterById = (id) => api.get(`/comicchapter/${id}`)
 export const createComicChapter = (payload) => api.post(`/comicchapter/`, payload)
@@ -44,6 +45,7 @@ const apis = {
     getAllComics,
     getComicsByGenres,
     getComicsByName,
+    getComicsByCreator,
     deleteComicChapter,
     getComicChapterById,
     createComicChapter,
