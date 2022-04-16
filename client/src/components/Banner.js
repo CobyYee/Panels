@@ -1,13 +1,11 @@
 import { Box, TextField, Menu, MenuItem, IconButton, Avatar, AppBar, Toolbar, Button, Grid } from '@mui/material';
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-import ContentContext from '../content'
 import AuthContextProvider from '../auth'
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import GlobalStoreContext from '../store';
 
 export default function Banner() {
-    const {content} = useContext(ContentContext)
     const {auth} = useContext(AuthContextProvider)
     const {store} = useContext(GlobalStoreContext)
     let navigate = useNavigate();
@@ -25,15 +23,14 @@ export default function Banner() {
         }
     }
     
-    let changeContent = (contentType) => {
-        content.setContentType(contentType)
+    let changeContent = () => {
         store.switchMode();
         setSearchStatus("");
     }
     
     let storyBgColor = '#4E4E4E'
     let comicBgColor = '#4E4E4E'
-    if(content.contentType === "Story")
+    if(store.mode === "story")
         storyBgColor = '#B8434B'
     else 
         comicBgColor = '#B8434B'
@@ -70,7 +67,7 @@ export default function Banner() {
 
     const handleProfile = () => {
         auth.loadProfile(auth.session._id);
-        store.loadProfileStories(auth.session._id);
+        //store.loadProfileStories(auth.session._id);
     }
 
     const handleListScreen = () => {
