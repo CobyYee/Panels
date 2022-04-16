@@ -105,9 +105,7 @@ getImagesById = async (req, res) => {
             if (!found)
                 return res.status(400).json({ success: false, errorMessage: "Image " + ids[i] + " not found!"})
             arr.push(found.data.toString())
-        
         }
-        console.log(arr[2].slice(0,10))
         
         return res.status(200).json({ success: true, data: arr });
     }

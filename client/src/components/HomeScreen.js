@@ -1,14 +1,6 @@
 import { Box, Typography, Grid, List, ListItem, Button } from '@mui/material'
 import ContentContext from '../content'
 import { useContext, useEffect } from 'react'
-// import batePic from '../testimgs/bate.jpg'
-// import naruto from '../testimgs/naruto.jpg'
-// import bleach from '../testimgs/bleach.jpg'
-// import lookism from '../testimgs/lookism.jpg'
-// import mha from '../testimgs/mha.jpg'
-// import onepiece from '../testimgs/onepiece.jpg'
-// import sao from '../testimgs/sao.jpg'
-// import rezero from '../testimgs/rezero.jpg'
 import { useNavigate } from 'react-router-dom'
 import { GlobalStoreContext}  from '../store';
 
@@ -26,13 +18,17 @@ function HomeScreen() {
         store.store.home();
     }, [])
 
-    let images = store.images;
-    let featuredWorks = [];
-    // for (let i = 0; i < images.length && i < 8; i++) {
-    //     let img = new Image();
-    //     img.src = images[i].data;
-    //     featuredWorks.push(img);
+    // let img = new Image();
+    // img.src = store.store.images[1];
+    // let canvas = document.createElement("canvas");
+    // let img1 = document.createElement("img");
+    // img.onload = function () {
+    //     let context = canvas.getContext("2d");
+    //     context.drawImage(img, 0, 0 )
+    //     let dataURL = canvas.toDataURL(img.type)
+    //     img1.src = dataURL;
     // }
+    // document.getElementById('root').appendChild(img1)
     
     return (
         <Grid container sx = {{ flexDirection: 'column' }}>
@@ -40,11 +36,11 @@ function HomeScreen() {
                 <Grid item pt={5} pb={5} xs={12} sx={{ height: '30vh', justifyContent: 'center', display: 'flex', minHeight: '400px' }}>
                     <Box sx = {{ backgroundColor: '#3d3d3d', width: '60%', borderRadius: '6px', minWidth: '1780px', display: 'flex', justifyContent: 'space-around', verticalAlign: 'center' }}>
                     {
-                        featuredWorks.map((image, index) => (
+                        store.store.images ? store.store.images.map((image, index) => (
                             <Button key={ "featured" + index } sx = {{ backgroundColor: 'transparent', position: 'relative' }}>
                                 <img src={image} className = "image-contain" alt="Pic" onClick = {() => navigate('/comic/')}/>
                             </Button>
-                        ))
+                        )) : ""
                     }
                     </Box>
                 </Grid>

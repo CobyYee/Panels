@@ -111,7 +111,7 @@ function GlobalStoreContextProvider(props) {
                     for (let i = 0; i < featuredWorks.length && i < 8; i++) {
                         imageIds.push(featuredWorks[i].cover);
                     }
-                    await this.getImagesById(imageIds);
+                     this.getImagesById(imageIds);
                     navigate("/")
 
 
@@ -218,7 +218,6 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.getImagesById = async function(ids) {
-        console.log(ids)
         const response = await api.getImagesById(ids);
         if (response.status === 200) {
             storeReducer({
@@ -227,26 +226,6 @@ function GlobalStoreContextProvider(props) {
             }, () => {
                 
             })
-            // console.log(response.data.data[0].data)
-            // let data = response.data.data[1].data;
-            // console.loga))(atob(dat
-
-            
-            let img = new Image();
-            img.src = "data:image/png;base64," + response.data.data[2];
-            let canvas = document.createElement("canvas");
-            img.onload = function () {
-                canvas.width=img.width;
-                canvas.height=img.height;
-                let context = canvas.getContext("2d");
-                context.drawImage(img, 0, 0)
-                console.log(canvas.toDataURL("image/png"))
-            }
-            document.getElementById('root').appendChild(img)
-
-            // let context = canvas.getContext("2d");
-            // context.drawImage(img, 0, 0)
-            // console.log(canvas.toDataURL("image/png"))
         }
     }
 
