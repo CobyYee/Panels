@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { Typography, Box, Grid, Button, MenuList, MenuItem, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import batePic from '../testimgs/bate.jpg'
 import { useNavigate } from 'react-router-dom'
+import GlobalStoreContext from '../store'
 
 export default function ComicScreen() {
+    const {store} = useContext(GlobalStoreContext)
     let navigate = useNavigate()
     
     const [status, setStatus] = useState("chapters");
@@ -68,29 +70,30 @@ export default function ComicScreen() {
         <Box sx={{ paddingTop: 10, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <Grid item={true} xs={11} container sx={{ display: 'flex', justifyContent: 'center', minWidth: '2300px' }} pb={4}>
                 <Grid item xs={4} sx={{ display: 'flex', justifyContent: 'flex-end' }} pr={10}>
-                    <Box sx={{ border: 1, borderColor: '#4e4e4e', height: '100%', width: '35%' }}>
-                            <img src={batePic} className = "image-contain" alt="Pic"/>
+                    <Box sx={{ border: 1, borderColor: '#4e4e4e', height: '352px', width: '256px' }}>
+                            <img src={batePic} sx={{ width: '100%', height: '100%' }} className = "image-contain" alt="Pic"/>
                     </Box>
                 </Grid>
                 <Grid item xs={8} container spacing={2}>
-                    <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'start' }}>
-                        <Typography color='white' sx={{ fontSize: 50 }}>Title</Typography>
+                    <Grid item xs={12}>
+                        <Typography color='white' sx={{ fontSize: 50 }}>{(store.work !== null) ? store.work.title : ""}</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography color='white' sx={{ fontSize: 20, position: 'relative', bottom: '50%' }}>{(store.work !== null) ? store.work.creatorName : ""}</Typography>
+                    </Grid>
+                    <Grid item xs={1}>
+                        <Typography color='white'>Views: {(store.work !== null) ? store.work.views : ""}</Typography>
+                    </Grid>
+                    <Grid item xs={11}>
+                        <Typography color='white'>Rating: #/5</Typography>
+                    </Grid>
+                    <Grid item xs={3.3} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Button variant='contained' onClick = {() => navigate('/chapter/')} sx={{ backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' }, minWidth:'200px', maxWidth: '8vw', height: '38px' }}>Continue Reading</Button>
+                        <Button variant='contained' sx={{ backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' }, minWidth:'200px', maxWidth: '8vw', height: '38px' }}>Bookmark</Button>
                     </Grid>
                     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'start' }}>
-                        <Typography color='white' sx={{ fontSize: 20 }}>Author name</Typography>
-                    </Grid>
-                    <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'start' }}>
-                        <Typography color='white'>Views: #        Rating: #/5</Typography>
-                    </Grid>
-                    <Grid item xs={3.4} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Button variant='contained' onClick = {() => navigate('/chapter/')} sx={{ backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' }, minWidth:'200px', maxWidth: '8vw' }}>Continue Reading</Button>
-                        <Button variant='contained' sx={{ backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' }, minWidth:'200px', maxWidth: '8vw' }}>Bookmark</Button>
-                    </Grid>
-                    <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'start' }}>
-                        <Box sx={{ width: '70%' }}>
-                        <Typography color='white'>A long description is a way to provide long alternative text for non-text elements, such as images. Generally, alternative text exceeding 250 characters, which cannot be made more concise without making it 
-                            less descriptive or meaningful, should have a long description. Examples of suitable use of long description are charts, graphs, maps, infographics, and other complex images. Like alternative text, long description should be 
-                            descriptive and meaningful. It should also include all text that is incorporated into the image. A long description should provide visually-impaired users with as much information as sighted users would understand from the image.
+                        <Box sx={{ width: '70%', height: '137px' }}>
+                        <Typography color='white'>{(store.work !== null) ? store.work.description : ""}
                         </Typography>
                         </Box>
                     </Grid>
