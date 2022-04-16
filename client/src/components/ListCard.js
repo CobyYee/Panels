@@ -28,7 +28,7 @@ function ListCard(props) {
                     ))}
                 </div>
                 <div class="list_card_author">
-                    {props.work.creatorName}
+                    {"Author: " + props.work.creatorName}
                 </div>
                 <div class="list_card_description">
                     {props.work.description}

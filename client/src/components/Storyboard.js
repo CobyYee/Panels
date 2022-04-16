@@ -1,4 +1,4 @@
-import ContentContext from '../content'
+import { GlobalStoreContext }  from '../store';
 import { useContext } from 'react'
 import { Grid, Button, TextField, Box } from '@mui/material'
 import { useNavigate } from "react-router-dom";
@@ -6,11 +6,11 @@ import exStory from '../testimgs/exStory.jpg';
 import exComic from '../testimgs/exComic.jpg';
 
 function StoryBoard() {
-    const { content } = useContext(ContentContext)
+    const { store } = useContext(GlobalStoreContext)
     let navigate = useNavigate();
 
     let editor = ""
-    if(content.contentType === "Comic") {
+    if(store.mode === "comic") {
         editor = <Box sx={{ height: '80vh', position: 'relative', backgroundColor: 'white', borderRadius: '10px', width: '90%', left: '5%'}}>
             <img src={exComic} alt="Pic" style={{ width: '100%', height: '100%' }}/>
         </Box>

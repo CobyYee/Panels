@@ -1,18 +1,15 @@
 import { Box, Typography, Grid, List, ListItem, Button } from '@mui/material'
-//import ContentContext from '../content'
 import { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { GlobalStoreContext}  from '../store';
+import { GlobalStoreContext }  from '../store';
 
 function HomeScreen() {
-    //const {content} = useContext(ContentContext)
     const {store} = useContext(GlobalStoreContext)
     let navigate = useNavigate();
 
     // let featuredWorks = [batePic, naruto, bleach, lookism, mha, onepiece, sao, rezero]
 
     useEffect(() => {
-        console.log("HOME")
         store.home();
     }, [])
 

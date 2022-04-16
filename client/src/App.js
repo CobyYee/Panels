@@ -3,7 +3,6 @@ import { React } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { AuthContextProvider } from './auth';
 import { GlobalStoreContextProvider } from './store'
-import { ContentContextProvider } from './content'
 
 import {
     Banner,
@@ -28,14 +27,13 @@ const App = () => {
     return (
         <BrowserRouter> 
             <AuthContextProvider>
-                <GlobalStoreContextProvider>  
-                    <ContentContextProvider>   
+                <GlobalStoreContextProvider>   
                         <Banner />
                         <Routes>
                             <Route exact path="/" element={< HomeScreen />} />
                             <Route exact path="/register/" element={< RegisterScreen />} />
                             <Route exact path="/login/" element={< LoginScreen />} />
-                            <Route exact path="/passwordrecovery/:id/:token" element={< PasswordRecoveryScreen />} />
+                            <Route exact path="/passwordrecovery/" element={< PasswordRecoveryScreen />} />
                             <Route exact path="/passwordreset/" element={< PasswordResetScreen />} /> 
                             <Route exact path="/listscreen/" element={< ListScreen/>} />
                             <Route exact path="/bookmarks/" element={< BookmarksScreen />} />
@@ -48,7 +46,6 @@ const App = () => {
                             <Route exact path="/chapter/" element={< ChapterScreen />}/>
                             <Route exact path="/editcomic/" element={< EditComicScreen />}/>
                         </Routes>
-                    </ContentContextProvider>
              </GlobalStoreContextProvider>
             </AuthContextProvider>
         </BrowserRouter>

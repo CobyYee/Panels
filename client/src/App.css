@@ -172,11 +172,12 @@ html, body {
 }
 
 .list_card_author {
-  font-size: 15px;
+    font-size: 12px;
+    padding-bottom: 10px;
 }
 
 .list_card_description {
-  font-size: 15px;
+  font-size: 14px;
 }
 
 

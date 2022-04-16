@@ -1,11 +1,9 @@
 import { Typography, Box, Grid, List, ListItem, Button, Divider } from '@mui/material';
-import ContentContext from '../content'
 import { useContext } from 'react'
 import SortBar from './SortBar'
 import { useNavigate } from 'react-router-dom'
 
 export default function BookmarksScreen() {
-    const {content} = useContext(ContentContext)
     let navigate = useNavigate();
 
     let latestUpdates = [["Work 1", "1"], ["Work 2", "21"], ["Work 3", "14"], ["Work 4", "1123"], ["Work 5", "41"], ["Work 6", "11"], ["Work 7", "12"], ["Work 8", "1"], 
