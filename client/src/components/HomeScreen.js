@@ -12,6 +12,7 @@ function HomeScreen() {
     // let featuredWorks = [batePic, naruto, bleach, lookism, mha, onepiece, sao, rezero]
 
     useEffect(() => {
+        console.log("HOME")
         store.home();
     }, [])
 
@@ -52,7 +53,7 @@ function HomeScreen() {
                     <Box xs={12} sx = {{ position: 'relative', border: 1 , borderColor: '#4e4e4e',  width: '80%', height: '100%', borderRadius: '15px', maxWidth: '1780px' }}>
                         <Grid item container sx = {{ display: 'flex' }}>
                             <Grid item xs = {12} sx={{ p: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                <List container sx={{ width: '100%', height: '100%', columns: 2 }}>
+                                <List container="true" sx={{ width: '100%', height: '100%', columns: 2 }}>
                                 {
                                     store.works.map((work, index) => (
                                         <ListItem key={"latest" + index} sx={{ height: '36px' }}>

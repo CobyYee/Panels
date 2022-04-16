@@ -14,6 +14,7 @@ export const GlobalStoreActionType = {
     LOAD_CHAPTER: "LOAD_CHAPTER",
     SEARCH: "SEARCH",
     LOAD_IMAGES: "LOAD_IMAGES",
+    LOAD_HOME: "LOAD_HOME"
 }
 
 function GlobalStoreContextProvider(props) {
@@ -76,6 +77,15 @@ function GlobalStoreContextProvider(props) {
                     chapter: store.chapter
                 })
             }
+            case GlobalStoreActionType.LOAD_HOME: {
+                return setStore({
+                    mode: store.mode,
+                    works: payload.works,
+                    work: store.work,
+                    images: payload.images,
+                    chapter: store.chapter
+                })
+            }
             default:
                 return store;
         }
@@ -95,12 +105,24 @@ function GlobalStoreContextProvider(props) {
                 let res = await api.getAllComics();
                 if (res.status === 200) {
                     let comics = res.data.data;
-                    storeReducer({
-                        type: GlobalStoreActionType.LOAD_WORKS,
-                        payload: comics
-                    }, () => {
-
-                    })    
+                    let works = comics.slice();
+                    let featuredWorks = works.sort((a, b) => { return b.views - a.views}).slice(0, 8);
+                    let imageIds = [];
+                    for (let i = 0; i < featuredWorks.length && i < 8; i++) {
+                        imageIds.push(featuredWorks[i].cover);
+                    }
+                    const response = await api.getImagesById(imageIds);
+                    if (response.status === 200) {
+                        let images = response.data.data;
+                        storeReducer({
+                            type: GlobalStoreActionType.LOAD_HOME,
+                            payload: {
+                                works: comics,
+                                images: images
+                            }
+                        })
+                    }
+                    navigate("/")
                 }
                 else {
                 }
