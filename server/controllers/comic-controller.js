@@ -1,6 +1,7 @@
 const Comic = require('../models/comic-model');
 const Image = require('../models/image-model');
 const ComicChapter = require('../models/comicChapter-model.js');
+const Story = require("../models/story-model");
 
 createComic = (req, res) => {   // tested 200
     try {
@@ -189,6 +190,20 @@ getComicsByName = async(req, res) => {      // tested 200
     }
 }
 
+getComicsByCreator = async (req, res) => {
+    try {
+        const found = await Comic.find({ creatorId: req.params.creatorId });
+        if (!found)
+            return res.status(400).json({success: false, message: "Comics not found"});
+
+        return res.status(200).json({success: true, comics: found});
+    }
+    catch (err) {
+        console.error("getComicsByCreator failed: " + err);
+        return res.status(500).send();
+    }
+}
+
 createChapter = async (req, res) => {       // tested 200
     try {
         const { name, images } = req.body;
@@ -251,6 +266,7 @@ module.exports = {
     getComicById,
     getComicsByGenres,
     getComicsByName,
+    getComicsByCreator,
     getComics,
     getImagesById,
     updateComic,

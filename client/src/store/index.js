@@ -213,6 +213,22 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    //added the same for comics based on the above code
+    store.loadProfileComics = async function(id) {
+        const response = await api.getComicsByCreator(id);
+        if (response.status === 200) {
+            let comics = response.data.comics;
+            console.log(comics);
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_WORKS,
+                payload: comics
+            })
+        }
+        else {
+            console.log("Failed to load comics by creator_id: " + id);
+        }
+    }
+
     store.search = async function(parameter) { 
         let response = null;
         if (parameter === "") {

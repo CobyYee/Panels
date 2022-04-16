@@ -190,7 +190,7 @@ getStoriesByCreator = async (req, res) => {
         return res.status(200).json({success: true, stories: found});
     }
     catch (err) {
-        console.error("getStoriesByGenre failed: " + err);
+        console.error("getStoriesByCreator failed: " + err);
         return res.status(500).send();
     }
 }
