@@ -54,8 +54,8 @@ function HomeScreen() {
                 <Grid item xs={12} sx={{ maxHeight: '50vh', justifyContent: 'center', display: 'flex' }}>
                     <Box xs={12} sx = {{ position: 'relative', border: 1 , borderColor: '#4e4e4e',  width: '80%', height: '100%', borderRadius: '15px', maxWidth: '1780px' }}>
                         <Grid item container sx = {{ display: 'flex' }}>
-                            <Grid item xs = {6} sx={{ p: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                <List sx={{ width: '100%', height: '100%' }}>
+                            <Grid item xs = {12} sx={{ p: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <List container sx={{ width: '100%', height: '100%', columns: 2 }}>
                                 {
                                     latestUpdates.map((work, index) => (
                                         <ListItem key={"latest" + index} sx={{ height: '36px' }}>
@@ -63,23 +63,7 @@ function HomeScreen() {
                                                 <Box sx={{ flexGrow: 1 }}>
                                                     <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work[0] }</Button>
                                                 </Box>
-                                                <Button onClick = {() => navigate('/chapter/')} sx={{ color: 'white', height: '100%' }}>Chapter { work[1] }</Button>
-                                            </Box>
-                                        </ListItem>
-                                    ))
-                                }
-                                </List>
-                            </Grid>
-                            <Grid item xs = {6} sx={{ p: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                <List sx={{ width: '100%', height: '100%' }}>
-                                {
-                                    latestUpdates.map((work, index) => (
-                                        <ListItem key={"latest" + index} sx={{ height: '36px' }}>
-                                            <Box sx={{ borderRadius: 1, width: '100%', display: 'flex', alignItems: 'center', backgroundColor: (index % 2 === 0) ? '#2d2d2d' : 'none' } }>
-                                                <Box sx={{ flexGrow: 1 }}>
-                                                    <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work[0] }</Button>
-                                                </Box>
-                                                <Button onClick = {() => navigate('/chapter/')} sx={{ color: 'white', height: '100%' }}>Chapter { work[1] }</Button>
+                                                <Button onClick = {() => navigate('/chapter/')} sx={{ color: 'white', height: '100%' }}>{"Chapter " + work[1] }</Button>
                                             </Box>
                                         </ListItem>
                                     ))
