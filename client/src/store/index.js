@@ -146,9 +146,8 @@ function GlobalStoreContextProvider(props) {
             storeReducer({
                 type: GlobalStoreActionType.LOAD_WORK,
                 payload: currentComic
-            }, () => {
-                navigate("/comic/" + currentComic._id)
-            });
+            })
+            //console.log(currentComic);
         }
         else {
             console.log("Failed to load comic: " + id);

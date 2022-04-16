@@ -1,14 +1,18 @@
-//import { Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import batePic from '../testimgs/bate.jpg';
+import { useContext } from 'react';
+import GlobalStoreContext from '../store';
 import {useNavigate} from 'react-router-dom'
 
 function ListCard(props) {
+    const {store} = useContext(GlobalStoreContext)
     let navigate = useNavigate();
 
     function handleClick(event) {
         event.stopPropagation();
-        console.log("comic clicked");
-        navigate('/comic/')
+        console.log(props.work._id);
+        store.loadComic(props.work._id);
+        navigate('/comic/');
     }
 
     return (
