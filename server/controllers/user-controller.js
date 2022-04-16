@@ -47,7 +47,15 @@ getSession = async(req, res) => {
 // register new user
 registerUser = async(req, res) => {
     try {
-        const { firstName, lastName, email, username, password } = req.body;
+        const { firstName, lastName, email, username, password, passwordVerify } = req.body;
+
+        if (!firstName || !lastName || !email || !username || !password || !passwordVerify) 
+            return res.status(400).json({ errorMessage: "Missing fields!"});
+
+        if (password !== passwordVerify)
+            return res.status(400).json({ errorMessage: "Passwords do not match!"});
+
+        // add password requirements here
 
         const existingEmail = await User.findOne({ email: email });
         if (existingEmail) {

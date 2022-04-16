@@ -29,6 +29,7 @@ export default function Banner() {
         content.setContentType(contentType)
         store.switchMode();
         setSearchStatus("");
+        navigate("/")
     }
     
     let storyBgColor = '#4E4E4E'
@@ -66,6 +67,7 @@ export default function Banner() {
     const handleLogout = () => {
         handleClose(); //not sure if necessary
         auth.logoutUser();
+        navigate("/")
     }
 
     const handleProfile = () => {

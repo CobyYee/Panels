@@ -109,6 +109,7 @@ function AuthContextProvider(props) {
                 navigate("/")
             }
         } catch (err) {
+            console.log(err.response.data.errorMessage)
             authReducer({
                 type: "ALERT_ERROR",
                 payload: err.response.data.errorMessage
@@ -126,6 +127,10 @@ function AuthContextProvider(props) {
                     payload: null
                 })
                 navigate("/login")
+                return true;
+            }
+            else {
+                return false;
             }
         }
         catch (err) {
