@@ -224,10 +224,7 @@ passwordRecovery = async (req, res) => {
             return res.status(400).json({ errorMessage: "An account with this email does not exist!"})
         }
 
-        const token = Token.findOne({ userId: user._id });
-        if (token) {
-            Token.findOneAndDelete({ _id: token._id });
-        }
+        await Token.findOneAndDelete({ userId: user._id });
         const newToken = new Token({
             userId: user._id,
             token: crypto.randomBytes(32).toString("hex")
@@ -242,7 +239,7 @@ passwordRecovery = async (req, res) => {
 
         await sendEmail(user.email, "Panels Password Recovery", text);
         
-        return res.status(200)
+        return res.status(200).json({ success: true })
     }
     catch(err) {
         console.error("Password recovery iniation process failed: " + err);
@@ -277,10 +274,12 @@ saveNewPassword = async (req, res) => {
         user.passwordHash = passwordHash;
         await user.save();
 
+        await Token.findOneAndDelete({ token: token });
+
         const text = "Your account password has been updated.\n\nPanels Support Team";
         await sendEmail(user.email, "Panels Account Password Changed", text);
 
-        return res.status(200)
+        return res.status(200).json({ success: true });
     }
     catch (err) {
         console.error("Save new password failed: " + err);

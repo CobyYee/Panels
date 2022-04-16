@@ -184,13 +184,16 @@ function AuthContextProvider(props) {
             const response = await api.passwordRecovery(email);
             if (response.status === 200) {
                 console.log("password reset email sent!")
+                return true;
             }
             else {
                 console.log("password reset 400");
+                return false
             }
         }
         catch (e) {
             console.error("password reset failed")
+            return false;
         }
     }
 
@@ -199,13 +202,16 @@ function AuthContextProvider(props) {
             const response = await api.saveNewPassword(password);
             if (response.status === 200) {
                 console.log("save new password success")
+                return true;
             }
             else {
                 console.log("save new password 400")
+                return false;
             }
         }
         catch (e) {
             console.error("save new password failed")
+            return false;
         }
     }
 

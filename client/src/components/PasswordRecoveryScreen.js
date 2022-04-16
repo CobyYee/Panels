@@ -12,11 +12,12 @@ import IconButton from '@mui/material/IconButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import AuthContextProvider from '../auth'
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 export default function PasswordRecoveryScreen() {
     const {auth} = useContext(AuthContextProvider)
+    const [saved, setSaved] = useState(false);
 
     const { id, token } = useParams();
     const handleSubmit = (event) => {
@@ -26,7 +27,9 @@ export default function PasswordRecoveryScreen() {
             userId: id,
             token: token,
             newPassword: data.get('password')
-        })
+        }).then(value => {
+            if (value) { setSaved(true)}
+        });
     };
 
     const[values, setValues] = React.useState({
@@ -96,11 +99,12 @@ export default function PasswordRecoveryScreen() {
 
                             sx={{ input: { color: 'white' } }}
                         />
+                        <Typography style={{textAlign: 'center', fontSize: 10, color: 'white' }}>{saved ? "Password Updated" : ""}</Typography>
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2, backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' } }}
+                            sx={{ mt: 2, mb: 2, backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' } }}
                         >
                             Change Password
                         </Button>

@@ -10,17 +10,18 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import AuthContextProvider from '../auth'
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
 export default function PasswordResetScreen() {
     const {auth} = useContext(AuthContextProvider)
+    const [sent, setSent] = useState(false);
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         auth.passwordReset({
             email: data.get('email')
-        });
+        }).then(value => {if (value) {setSent(true)}});
     };
 
     return (
@@ -52,7 +53,8 @@ export default function PasswordResetScreen() {
                             autoComplete="email"
                             autoFocus
                             sx={{ input: { color: 'white' } }}
-                        />
+                        />  
+                        <Typography sx={{color: 'white', fontSize: 10, textAlign: 'center'}}>{sent ? "Password reset sent to email" : ""} </Typography>
                         <Button
                             type="submit"
                             name="submit"
@@ -60,7 +62,7 @@ export default function PasswordResetScreen() {
                             fullWidth
                             variant="contained"
                             // NEED A SCRIPT TO GO WITH THIS, ENABLE BUTTON ONCE A VALID EMAIL IS INPUTTED
-                            sx={{ mt: 3, mb: 2, backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' } }}
+                            sx={{ mt: 1, mb: 2, backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' } }}
                         >
                             Send Password Reset Email
                         </Button>
