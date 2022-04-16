@@ -14,22 +14,13 @@ export default function ComicScreen() {
     let chapter =
         <MenuItem sx={{ p: '2px' }}>
             <Box sx={{ width: '100%', border: 1, borderColor: '#3d3d3d', display: 'flex', alignItems: 'flex-start', verticalAlign: 'center', p: 1 }}>
-                <Typography color='white' sx={{ flexGrow: .8 }}>Chapter Name</Typography>
-                <Typography color='white' sx={{ flexGrow: .2, fontSize: 12 }}>Date Released</Typography>
-                <Typography color='white' sx={{ fontSize: 12 }}>Likes</Typography>
+                <Typography color='white' sx={{ flexGrow: .94 }}>Chapter Name</Typography>
+                <Typography color='white' sx={{ flexGrow: .06, fontSize: 12 }}>Date Released</Typography>
             </Box>
         </MenuItem>
 
     let display =   
         <MenuList>
-            { chapter }
-            { chapter }
-            { chapter }
-            { chapter }
-            { chapter }
-            { chapter }
-            { chapter }
-            { chapter }
             { chapter }
             { chapter }
             { chapter }
@@ -82,19 +73,20 @@ export default function ComicScreen() {
                         <Typography color='white' sx={{ fontSize: 20, position: 'relative', bottom: '50%' }}>{(store.work !== null) ? store.work.creatorName : ""}</Typography>
                     </Grid>
                     <Grid item xs={1}>
-                        <Typography color='white'>Views: {(store.work !== null) ? store.work.views : ""}</Typography>
+                        <Typography color='white'>Views: {(store.work !== null) ? store.work.views : "0"}</Typography>
                     </Grid>
                     <Grid item xs={11}>
-                        <Typography color='white'>Rating: #/5</Typography>
+                        <Typography color='white'>
+                            Rating: {(store.work !== null && store.work.ratings.length > 0) ? store.work.ratings.reduce((total, rating) => total += rating.value, 0)/store.work.ratings.length : "0"}/5
+                        </Typography>
                     </Grid>
                     <Grid item xs={3.3} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Button variant='contained' onClick = {() => navigate('/chapter/')} sx={{ backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' }, minWidth:'200px', maxWidth: '8vw', height: '38px' }}>Continue Reading</Button>
                         <Button variant='contained' sx={{ backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' }, minWidth:'200px', maxWidth: '8vw', height: '38px' }}>Bookmark</Button>
                     </Grid>
-                    <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'start' }}>
+                    <Grid item xs={12}>
                         <Box sx={{ width: '70%', height: '137px' }}>
-                        <Typography color='white'>{(store.work !== null) ? store.work.description : ""}
-                        </Typography>
+                            <Typography color='white'>{(store.work !== null) ? store.work.description : ""}</Typography>
                         </Box>
                     </Grid>
                 </Grid>
