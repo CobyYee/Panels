@@ -1,7 +1,7 @@
-import { Global } from '@emotion/react';
+//import { Global } from '@emotion/react';
 import { createContext, useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import AuthContext from '../auth'
+//import AuthContext from '../auth'
 import api from './store-request-api'
 
 export const GlobalStoreContext = createContext({});
@@ -18,15 +18,14 @@ export const GlobalStoreActionType = {
 
 function GlobalStoreContextProvider(props) {
     const navigate = useNavigate();
-    const auth = useContext(AuthContext)
+    //const auth = useContext(AuthContext)
 
     const [store, setStore] = useState({
         mode: "comic",
         works: [],
         work: null,
         images: [],
-        chapter: null,
-        searchField: "",
+        chapter: null
     });
 
     const storeReducer = (action) => {
@@ -35,11 +34,10 @@ function GlobalStoreContextProvider(props) {
             case GlobalStoreActionType.SWITCH_MODE: {
                 return setStore({
                     mode: (store.mode === "comic") ? "story" : "comic",
-                    works: null,
+                    works: [],
                     work: null,
                     images: null,
-                    chapter: null,
-                    searchField: "",
+                    chapter: null
                 })
             }
             case GlobalStoreActionType.LOAD_WORKS: {
@@ -48,8 +46,7 @@ function GlobalStoreContextProvider(props) {
                     works: payload,
                     work: store.work,
                     images: store.images,
-                    chapter: null,
-                    searchField: "",
+                    chapter: null
                 })
             }
             case GlobalStoreActionType.LOAD_WORK: {
@@ -58,8 +55,7 @@ function GlobalStoreContextProvider(props) {
                     works: store.works,
                     work: payload,
                     images: store.images,
-                    chapter: null,
-                    searchField: "",
+                    chapter: null
                 })
             }
             case GlobalStoreActionType.LOAD_CHAPTER: {
@@ -68,8 +64,7 @@ function GlobalStoreContextProvider(props) {
                     works: store.works,
                     work: store.work,
                     images: store.images,
-                    chapter: payload.chapter,
-                    searchField: "",
+                    chapter: payload.chapter
                 })
             }
             case GlobalStoreActionType.LOAD_IMAGES: {
@@ -78,8 +73,7 @@ function GlobalStoreContextProvider(props) {
                     works: store.works,
                     work: store.work,
                     images: payload,
-                    chapter: store.chapter,
-                    searchField: store.searchField,
+                    chapter: store.chapter
                 })
             }
             default:
@@ -92,6 +86,7 @@ function GlobalStoreContextProvider(props) {
             type: GlobalStoreActionType.SWITCH_MODE,
             payload: null
         })
+        console.log("Switching modes to: " + ((store.mode === "comic") ? "story" : "comic"));
     }
 
     store.home = async function() {
@@ -105,16 +100,15 @@ function GlobalStoreContextProvider(props) {
                         payload: comics
                     }, () => {
                     })
+                    
                     let works = comics.slice();
                     let featuredWorks = works.sort((a, b) => { return b.views - a.views}).slice(0, 8);
                     let imageIds = [];
                     for (let i = 0; i < featuredWorks.length && i < 8; i++) {
                         imageIds.push(featuredWorks[i].cover);
                     }
-                     this.getImagesById(imageIds);
+                    this.getImagesById(imageIds);
                     navigate("/")
-
-
                 }
                 else {
                 }
@@ -122,6 +116,25 @@ function GlobalStoreContextProvider(props) {
         }
         catch (err) {
             console.error("Store.home failed: " + err)
+        }
+    }
+
+    store.listScreen = async function() {
+        let response = null;
+        if (store.mode === "comic") {
+            response = await api.getAllComics();            
+        }
+        else {
+            response = await api.getAllStories();
+        }
+        if (response.status === 200) {
+            let works = response.data.data;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_WORKS,
+                payload: works
+            }, () => {
+                navigate("/listscreen")
+            })
         }
     }
 
@@ -185,6 +198,7 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    //I don't think this works. May have to check later
     store.loadProfileStories = async function(id) {
         const response = await api.getStoriesByCreator(id);
         if (response.status === 200) {
@@ -201,19 +215,23 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.search = async function(parameter) { 
-        let response;
-        if (store.mode === 0) 
-            response = await api.getComicsByName(parameter)
-        else 
-            response = await api.getStoriesByName(parameter);
-        
-        if (response.status === 200) {
-            storeReducer({
-                type: GlobalStoreActionType.HOME,
-                payload: response.data.data
-            }, () => {
-                navigate("/listscreen")
-            })
+        let response = null;
+        if (parameter === "") {
+            store.listScreen();
+        }
+        else {
+            if (store.mode === "comic") {
+                response = await api.getComicsByName(parameter)
+            }
+            else {
+                response = await api.getStoriesByName(parameter);
+            }        
+            if (response.status === 200) {
+                storeReducer({
+                    type: GlobalStoreActionType.LOAD_WORKS,
+                    payload: response.data.data
+                })
+            }
         }
     }
 

@@ -1,12 +1,12 @@
 import { Box, Typography, Grid, List, ListItem, Button } from '@mui/material'
-import ContentContext from '../content'
+//import ContentContext from '../content'
 import { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { GlobalStoreContext}  from '../store';
 
 function HomeScreen() {
-    const {content} = useContext(ContentContext)
-    const store = useContext(GlobalStoreContext)
+    //const {content} = useContext(ContentContext)
+    const {store} = useContext(GlobalStoreContext)
     let navigate = useNavigate();
 
     let latestUpdates = [["Work 1", "1"], ["Work 2", "21"], ["Work 3", "14"], ["Work 4", "1123"], ["Work 5", "41"], ["Work 6", "11"], ["Work 7", "12"], ["Work 8", "1"], 
@@ -15,7 +15,7 @@ function HomeScreen() {
     // let featuredWorks = [batePic, naruto, bleach, lookism, mha, onepiece, sao, rezero]
 
     useEffect(() => {
-        store.store.home();
+        store.home();
     }, [])
 
     // let img = new Image();
@@ -36,7 +36,7 @@ function HomeScreen() {
                 <Grid item pt={5} pb={5} xs={12} sx={{ height: '30vh', justifyContent: 'center', display: 'flex', minHeight: '400px' }}>
                     <Box sx = {{ backgroundColor: '#3d3d3d', width: '60%', borderRadius: '6px', minWidth: '1780px', display: 'flex', justifyContent: 'space-around', verticalAlign: 'center' }}>
                     {
-                        store.store.images ? store.store.images.map((image, index) => (
+                        store.images ? store.images.map((image, index) => (
                             <Button key={ "featured" + index } sx = {{ backgroundColor: 'transparent', position: 'relative' }}>
                                 <img src={image} className = "image-contain" alt="Pic" onClick = {() => navigate('/comic/')}/>
                             </Button>

@@ -129,7 +129,7 @@ updateComic = async (req, res) => {     // tested 200
             return res.status(400).json({success: false, message: "This comic does not exist!"});
 
         if (body.cover !== old.cover.toString()) {
-            console.log("HERE");
+            //console.log("HERE");
             const oldCover = await Image.findById(old.cover);
             oldCover.data = body.cover;
             await oldCover.save();
@@ -157,7 +157,7 @@ getComicsByGenres = async(req, res) => {    // tested 200
         for(let i = 0; i < allComics.length; i++) {
             let good = true;
             for (let j = 0; j < genres.length; j++) {
-                console.log(genres[j])
+                //console.log(genres[j])
                 if (!allComics[i].genres.includes(genres[j])) {
                     good = false;
                     break;

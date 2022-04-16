@@ -3,7 +3,7 @@ import React from 'react';
 import { useNavigate } from "react-router-dom";
 import ContentContext from '../content'
 import AuthContextProvider from '../auth'
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import GlobalStoreContext from '../store';
 
 export default function Banner() {
@@ -11,10 +11,24 @@ export default function Banner() {
     const {auth} = useContext(AuthContextProvider)
     const {store} = useContext(GlobalStoreContext)
     let navigate = useNavigate();
+
+    const [searchStatus, setSearchStatus] = useState("")
+
+    const handleSearchChange = (event) => {
+        setSearchStatus(event.target.value);
+    }
+
+    const searchWorks = (event) => {
+        if (event.key === 'Enter') {
+            store.search(searchStatus);
+            navigate("/listscreen/");
+        }
+    }
     
-    // START CREATING COMPONENTS FOR HANDLING THE CONTENT CHANGER
     let changeContent = (contentType) => {
         content.setContentType(contentType)
+        store.switchMode();
+        setSearchStatus("");
     }
     
     let storyBgColor = '#4E4E4E'
@@ -57,6 +71,12 @@ export default function Banner() {
     const handleProfile = () => {
         auth.loadProfile(auth.session._id);
         store.loadProfileStories(auth.session._id);
+    }
+
+    const handleListScreen = () => {
+        handleClose(); //not sure if necessary
+        store.listScreen();
+        navigate("/listscreen/")
     }
 
     let options =
@@ -116,7 +136,7 @@ export default function Banner() {
                     <Grid item={true} xs={12} container sx={{ width: '100%' }}>
                         <Grid item xs={1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             <Button 
-                                onClick={() => store.home()}  
+                                onClick={() => navigate("/")}  
                                 disableRipple
                                 sx={{ color: '#9c4247', fontSize: 32, fontFamily: 'Poppins', "&.MuiButtonBase-root:hover": { bgcolor: "transparent" } }}>
                                     PANELS 
@@ -124,7 +144,7 @@ export default function Banner() {
                         </Grid>
                         <Grid item xs={1} container sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                             <Button
-                                onClick={() => navigate('/listscreen/')} 
+                                onClick={handleListScreen} 
                                 disableRipple
                                 sx={{ color: 'white', fontSize: 15, "&.MuiButtonBase-root:hover": { bgcolor: "transparent" } }}>
                                     All Comics 
@@ -139,7 +159,10 @@ export default function Banner() {
                                     bgcolor: '#4E4E4E', 
                                     border: 'none', 
                                     input: {color: 'white'} 
-                                }}>
+                                }}
+                                value={ searchStatus }
+                                onChange={handleSearchChange}
+                                onKeyDown={searchWorks}>
                             </TextField>
                         </Grid>
                         <Grid item xs = {1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

@@ -141,17 +141,16 @@ getStoryById = async (req, res) => {
     }
 }
 
-getStoriesByName = async (req, res) => {
+getStoriesByName = async(req, res) => {      // tested 200
     try {
-        const found = await Story.find({ title: req.params.title });
-        if (!found)
-            return res.status(400).json({success: false, message: "Stories not found"});
-        
-        return res.status(200).json({success: true, stories: found});
+        const allStories = await Story.find({title: new RegExp(req.params.name, "i")});
+        return res.status(200).json({
+            success: true,
+            data: allStories
+        });
     }
     catch (err) {
-        console.error("getStoriesByName failed: " + err);
-        return res.status(500).send();
+        return res.status(500);
     }
 }
 
