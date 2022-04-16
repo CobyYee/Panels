@@ -16,28 +16,6 @@ export default function ProfileScreen() {
         ["Work 18", "1"], ["Work 19", "1"], ["Work 21", "1"], ["Work 21", "1"], ["Work 22", "1"], ["Work 23", "1"], ["Work 24", "1"], ["Work 24", "1"], ["Work 26", "1"], 
         ["Work 27", "1"], ["Work 28", "1"]]
 
-    let publishedWork =
-        <ListItem>
-            <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
-                <Box sx={{ flexGrow: 1 }}>
-                    <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>Work 1</Button>
-                </Box>
-                <Button sx={{ color: '#9c4247' }}>Delete</Button>
-            </Box>
-        </ListItem>
-
-    let draft =
-        <ListItem>
-            <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
-                <Box sx={{ flexGrow: 1 }}>
-                    <Button sx={{ color: '#9c4247', flexGrow: 1 }}>Work 1</Button>
-                </Box>
-                <Button sx={{ color: '#9c4247' }}>Publish</Button>
-                <Button onClick = {() => navigate('/editcomic/')} sx={{ color: '#9c4247' }}>Edit</Button>
-                <Button sx={{ color: '#9c4247' }}>Delete</Button>
-            </Box>
-        </ListItem>
-
     let profile_image = <AccountCircle sx={{ color: '#4e4e4e', position: 'relative', top: '15%', fontSize: 280 }}/>
     return (
         <Box sx={{ paddingTop: 10, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -55,10 +33,10 @@ export default function ProfileScreen() {
                 </Grid>
                 <Grid item xs={7}>
                     <Grid item pt={14} xs={12} sx={{ display: 'flex', verticalAlign: 'center' }}>
-                        <Typography sx={{ color: 'white', fontSize: 40 }}>{auth.user.username}</Typography>
+                        <Typography sx={{ color: 'white', fontSize: 40 }}>{(auth.session !== null) ? auth.session.username : ""}</Typography>
                     </Grid>
                     <Grid item xs={12} sx={{ display: 'flex', verticalAlign: 'center' }}>
-                        <Typography sx={{ color: 'white', fontSize: 15 }}>{(auth.user.admin) ? "admin" : "user"}</Typography>
+                        <Typography sx={{ color: 'white', fontSize: 15 }}>{(auth.session !== null && auth.session.admin) ? "admin" : "user"}</Typography>
                     </Grid>
                     <Grid item pt={6} pb={1} xs={12} sx={{ display: 'flex', verticalAlign: 'center', maxHeight: '30vh' }}>
                         <Grid item xs={8}>
