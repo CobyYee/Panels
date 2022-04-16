@@ -9,9 +9,6 @@ function HomeScreen() {
     const {store} = useContext(GlobalStoreContext)
     let navigate = useNavigate();
 
-    let latestUpdates = [["Work 1", "1"], ["Work 2", "21"], ["Work 3", "14"], ["Work 4", "1123"], ["Work 5", "41"], ["Work 6", "11"], ["Work 7", "12"], ["Work 8", "1"], 
-        ["Work 9", "1"], ["Work 10", "1"], ["Work 11", "1"], ["Work 12", "1"], ["Work 13", "1"]]
-
     // let featuredWorks = [batePic, naruto, bleach, lookism, mha, onepiece, sao, rezero]
 
     useEffect(() => {
@@ -57,13 +54,13 @@ function HomeScreen() {
                             <Grid item xs = {12} sx={{ p: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                 <List container sx={{ width: '100%', height: '100%', columns: 2 }}>
                                 {
-                                    latestUpdates.map((work, index) => (
+                                    store.works.map((work, index) => (
                                         <ListItem key={"latest" + index} sx={{ height: '36px' }}>
                                             <Box sx={{ borderRadius: 1, width: '100%', display: 'flex', alignItems: 'center', backgroundColor: (index % 2 === 0) ? '#2d2d2d' : 'none' } }>
                                                 <Box sx={{ flexGrow: 1 }}>
-                                                    <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work[0] }</Button>
+                                                    <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
                                                 </Box>
-                                                <Button onClick = {() => navigate('/chapter/')} sx={{ color: 'white', height: '100%' }}>{"Chapter " + work[1] }</Button>
+                                                <Button onClick = {() => navigate('/chapter/')} sx={{ color: 'white', height: '100%' }}>{"Chapter " + index }</Button>
                                             </Box>
                                         </ListItem>
                                     ))
