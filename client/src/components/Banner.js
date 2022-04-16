@@ -3,7 +3,7 @@ import React from 'react';
 import { useNavigate } from "react-router-dom";
 import ContentContext from '../content'
 import AuthContextProvider from '../auth'
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import GlobalStoreContext from '../store';
 
 export default function Banner() {
@@ -11,11 +11,24 @@ export default function Banner() {
     const {auth} = useContext(AuthContextProvider)
     const {store} = useContext(GlobalStoreContext)
     let navigate = useNavigate();
+
+    const [searchStatus, setSearchStatus] = useState("")
+
+    const handleSearchChange = (event) => {
+        setSearchStatus(event.target.value);
+    }
+
+    const searchWorks = (event) => {
+        if (event.key === 'Enter') {
+            store.search(searchStatus);
+            navigate("/listscreen/");
+        }
+    }
     
-    // START CREATING COMPONENTS FOR HANDLING THE CONTENT CHANGER
     let changeContent = (contentType) => {
         content.setContentType(contentType)
         store.switchMode();
+        setSearchStatus("");
     }
     
     let storyBgColor = '#4E4E4E'
@@ -146,7 +159,10 @@ export default function Banner() {
                                     bgcolor: '#4E4E4E', 
                                     border: 'none', 
                                     input: {color: 'white'} 
-                                }}>
+                                }}
+                                value={ searchStatus }
+                                onChange={handleSearchChange}
+                                onKeyDown={searchWorks}>
                             </TextField>
                         </Grid>
                         <Grid item xs = {1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

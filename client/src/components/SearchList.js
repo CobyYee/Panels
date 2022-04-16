@@ -1,12 +1,16 @@
 import ListCard from "./ListCard";
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState, useRef } from 'react';
 import GlobalStoreContext from '../store';
 
 function SearchList() {
+    const firstRender = useRef(false);
     const {store} = useContext(GlobalStoreContext)
 
     useEffect(() => {
-        store.listScreen();
+        if (firstRender.current) {
+            store.listScreen();
+        }
+        firstRender.current = true;
     }, [store.mode]);
 
     return ( 

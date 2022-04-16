@@ -25,8 +25,7 @@ function GlobalStoreContextProvider(props) {
         works: [],
         work: null,
         images: [],
-        chapter: null,
-        searchField: "",
+        chapter: null
     });
 
     const storeReducer = (action) => {
@@ -38,8 +37,7 @@ function GlobalStoreContextProvider(props) {
                     works: [],
                     work: null,
                     images: null,
-                    chapter: null,
-                    searchField: "",
+                    chapter: null
                 })
             }
             case GlobalStoreActionType.LOAD_WORKS: {
@@ -48,8 +46,7 @@ function GlobalStoreContextProvider(props) {
                     works: payload,
                     work: store.work,
                     images: store.images,
-                    chapter: null,
-                    searchField: "",
+                    chapter: null
                 })
             }
             case GlobalStoreActionType.LOAD_WORK: {
@@ -58,8 +55,7 @@ function GlobalStoreContextProvider(props) {
                     works: store.works,
                     work: payload,
                     images: store.images,
-                    chapter: null,
-                    searchField: "",
+                    chapter: null
                 })
             }
             case GlobalStoreActionType.LOAD_CHAPTER: {
@@ -68,8 +64,7 @@ function GlobalStoreContextProvider(props) {
                     works: store.works,
                     work: store.work,
                     images: store.images,
-                    chapter: payload.chapter,
-                    searchField: "",
+                    chapter: payload.chapter
                 })
             }
             case GlobalStoreActionType.LOAD_IMAGES: {
@@ -78,8 +73,7 @@ function GlobalStoreContextProvider(props) {
                     works: store.works,
                     work: store.work,
                     images: payload,
-                    chapter: store.chapter,
-                    searchField: store.searchField,
+                    chapter: store.chapter
                 })
             }
             default:
@@ -106,6 +100,7 @@ function GlobalStoreContextProvider(props) {
                         payload: comics
                     }, () => {
                     })
+                    /*
                     let works = comics.slice();
                     let featuredWorks = works.sort((a, b) => { return b.views - a.views}).slice(0, 8);
                     let imageIds = [];
@@ -113,9 +108,8 @@ function GlobalStoreContextProvider(props) {
                         imageIds.push(featuredWorks[i].cover);
                     }
                     await this.getImagesById(imageIds);
+                    */
                     navigate("/")
-
-
                 }
                 else {
                 }
@@ -129,8 +123,7 @@ function GlobalStoreContextProvider(props) {
     store.listScreen = async function() {
         let response = null;
         if (store.mode === "comic") {
-            response = await api.getAllComics();
-            
+            response = await api.getAllComics();            
         }
         else {
             response = await api.getAllStories();
@@ -223,19 +216,23 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.search = async function(parameter) { 
-        let response;
-        if (store.mode === 0) 
-            response = await api.getComicsByName(parameter)
-        else 
-            response = await api.getStoriesByName(parameter);
-        
-        if (response.status === 200) {
-            storeReducer({
-                type: GlobalStoreActionType.HOME,
-                payload: response.data.data
-            }, () => {
-                navigate("/listscreen")
-            })
+        let response = null;
+        if (parameter === "") {
+            store.listScreen();
+        }
+        else {
+            if (store.mode === "comic") {
+                response = await api.getComicsByName(parameter)
+            }
+            else {
+                response = await api.getStoriesByName(parameter);
+            }        
+            if (response.status === 200) {
+                storeReducer({
+                    type: GlobalStoreActionType.LOAD_WORKS,
+                    payload: response.data.data
+                })
+            }
         }
     }
 
