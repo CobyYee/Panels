@@ -1,5 +1,5 @@
 import ListCard from "./ListCard";
-import { useContext, useEffect, useState, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import GlobalStoreContext from '../store';
 
 function SearchList() {
