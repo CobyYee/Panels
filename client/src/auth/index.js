@@ -179,6 +179,36 @@ function AuthContextProvider(props) {
         }
     }
 
+    auth.passwordReset = async function(email) {
+        try {
+            const response = await api.passwordRecovery(email);
+            if (response.status === 200) {
+                console.log("password reset email sent!")
+            }
+            else {
+                console.log("password reset 400");
+            }
+        }
+        catch (e) {
+            console.error("password reset failed")
+        }
+    }
+
+    auth.saveNewPassword = async function(password) {
+        try {
+            const response = await api.saveNewPassword(password);
+            if (response.status === 200) {
+                console.log("save new password success")
+            }
+            else {
+                console.log("save new password 400")
+            }
+        }
+        catch (e) {
+            console.error("save new password failed")
+        }
+    }
+
     return (
         <AuthContext.Provider  value = {{auth}}>
             {props.children}

@@ -35,7 +35,7 @@ const App = () => {
                             <Route exact path="/" element={< HomeScreen />} />
                             <Route exact path="/register/" element={< RegisterScreen />} />
                             <Route exact path="/login/" element={< LoginScreen />} />
-                            <Route exact path="/passwordrecovery/" element={< PasswordRecoveryScreen />} />
+                            <Route exact path="/passwordrecovery/:id/:token" element={< PasswordRecoveryScreen />} />
                             <Route exact path="/passwordreset/" element={< PasswordResetScreen />} /> 
                             <Route exact path="/listscreen/" element={< ListScreen/>} />
                             <Route exact path="/bookmarks/" element={< BookmarksScreen />} />

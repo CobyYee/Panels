@@ -218,6 +218,7 @@ logoutUser = async (req, res) => {
 // start password recovery process
 passwordRecovery = async (req, res) => {
     try {
+        console.log(req.body)
         const user = await User.findOne({ email: req.body.email });
         if (!user) {
             return res.status(400).json({ errorMessage: "An account with this email does not exist!"})
@@ -235,7 +236,7 @@ passwordRecovery = async (req, res) => {
         await newToken.save();
 
         //encryptedUserId = auth.encryptUser(user._id);
-        const link = `localhost:4000/password_recovery/${user._id}/${newToken.token}`;       // need to update baseURL
+        const link = `http://localhost:3000/passwordrecovery/${user._id}/${newToken.token}`;       // need to update baseURL
 
         const text = "You have requested for a password reset. Please click on the link below to set a new password. The link will expire in 1 hour.\n\n" + link + "\n\n DO NOT share the link with anyone else!\n\nPanels Support Team";
 

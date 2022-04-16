@@ -11,14 +11,22 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import AuthContextProvider from '../auth'
+import { useContext } from 'react';
+import { useParams } from 'react-router-dom';
 
 export default function PasswordRecoveryScreen() {
+    const {auth} = useContext(AuthContextProvider)
+
+    const { id, token } = useParams();
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            password: data.get('password'),
-        });
+        auth.saveNewPassword({
+            userId: id,
+            token: token,
+            newPassword: data.get('password')
+        })
     };
 
     const[values, setValues] = React.useState({

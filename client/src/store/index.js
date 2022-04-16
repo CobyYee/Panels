@@ -99,16 +99,8 @@ function GlobalStoreContextProvider(props) {
                         type: GlobalStoreActionType.LOAD_WORKS,
                         payload: comics
                     }, () => {
-                    })
-                    
-                    let works = comics.slice();
-                    let featuredWorks = works.sort((a, b) => { return b.views - a.views}).slice(0, 8);
-                    let imageIds = [];
-                    for (let i = 0; i < featuredWorks.length && i < 8; i++) {
-                        imageIds.push(featuredWorks[i].cover);
-                    }
-                    this.getImagesById(imageIds);
-                    navigate("/")
+
+                    })    
                 }
                 else {
                 }

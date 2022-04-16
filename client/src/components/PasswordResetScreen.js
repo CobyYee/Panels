@@ -9,13 +9,17 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import AuthContextProvider from '../auth'
+import { useContext } from 'react';
 
 export default function PasswordResetScreen() {
+    const {auth} = useContext(AuthContextProvider)
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
+        auth.passwordReset({
+            email: data.get('email')
         });
     };
 
@@ -55,7 +59,6 @@ export default function PasswordResetScreen() {
                             id="submit"
                             fullWidth
                             variant="contained"
-                            disabled="disabled"
                             // NEED A SCRIPT TO GO WITH THIS, ENABLE BUTTON ONCE A VALID EMAIL IS INPUTTED
                             sx={{ mt: 3, mb: 2, backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' } }}
                         >
