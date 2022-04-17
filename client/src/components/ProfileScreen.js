@@ -23,8 +23,15 @@ export default function ProfileScreen() {
     }, [store.mode]);
 
     function handleFollow(event) {
-        console.log(auth.session)
-        console.log(auth.user)
+        let user = auth.user;
+        user.follows.push(auth.session._id);
+        auth.updateUser(user);
+    }
+
+    function handleUnfollow(event) {
+        let user = auth.user;
+        user.follows.splice(user.follows.indexOf(auth.session._id), 1)
+        auth.updateUser(user);
     }
 
     let profile_image = <AccountCircle sx={{ color: '#4e4e4e', position: 'relative', top: '15%', fontSize: 280 }}/>
@@ -36,7 +43,10 @@ export default function ProfileScreen() {
                         { profile_image }
                     </Grid>
                     <Grid item xs={12} pb={2} sx={{ display: 'flex', justifyContent: 'center' }}>
-                        {(auth.session._id !== auth.user._id) ? <Button variant="contained" onClick={handleFollow} sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>Follow User</Button> : ""}
+                        {(auth.session._id !== auth.user._id) ? ((auth.user.follows.includes(auth.session._id) ? 
+                        <Button variant="contained" onClick={handleUnfollow} sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>Unfollow User</Button> 
+                        : 
+                        <Button variant="contained" onClick={handleFollow} sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>Follow User</Button>)) : ""}
                     </Grid>
                     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
                         <Button variant="contained" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>Message User</Button>

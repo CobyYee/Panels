@@ -168,7 +168,7 @@ getUserById = async (req, res) => {
                 follows: existingUser.follows,
                 works: existingUser.works,
                 drafts: existingUser.drafts,
-                bookmarks: existingUser.bookmark,
+                bookmarks: existingUser.bookmarks,
             } 
         });
     }
@@ -182,12 +182,12 @@ getUserById = async (req, res) => {
 updateUser = async (req, res) => {
     try {
         const user = req.body;
-
+        console.log(user)
         if (!user) {
             return res.status(400).json({ errorMessage: "Missing user to update"})
         }
 
-        const existingUser = await User.findById(req.body.id);
+        const existingUser = await User.findById(req.body._id);
         if (!existingUser)
             return res.status(400).json({ errorMessage: "This user does not exist!"});
 
