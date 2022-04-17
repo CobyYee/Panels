@@ -50,7 +50,7 @@ export default function ProfileScreen() {
         <Grid item xs={12} sx={{ border: 1, borderColor: '#4e4e4e' }}>
             <List sx={{ width: '100%', overflowY: 'scroll', maxHeight: '25vh' }}>
             {
-                store.works.map((work, index) => {
+                store.works.filter(work => work.published === null).map((work, index) => {
                     if (store.works.length - index > 1)
                         return (
                             <div key={ "draft" + index }>
@@ -119,7 +119,7 @@ export default function ProfileScreen() {
                     <Grid item xs={12} sx={{ border: 1, borderColor: '#4e4e4e' }}>
                         <List sx={{ width: '100%', overflowY: 'scroll', maxHeight: '25vh' }}>
                         {
-                            store.works.map((work, index) => {
+                            store.works.filter(work => work.published !== null).map((work, index) => {
                                 if (store.works.length - index > 1)
                                 return (
                                 <div key={ "published" + index }>
