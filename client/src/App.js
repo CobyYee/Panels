@@ -28,24 +28,24 @@ const App = () => {
         <BrowserRouter> 
             <AuthContextProvider>
                 <GlobalStoreContextProvider>   
-                        <Banner />
-                        <Routes>
-                            <Route exact path="/" element={< HomeScreen />} />
-                            <Route exact path="/register/" element={< RegisterScreen />} />
-                            <Route exact path="/login/" element={< LoginScreen />} />
-                            <Route exact path="/passwordrecovery/" element={< PasswordRecoveryScreen />} />
-                            <Route exact path="/passwordreset/" element={< PasswordResetScreen />} /> 
-                            <Route exact path="/listscreen/" element={< ListScreen/>} />
-                            <Route exact path="/bookmarks/" element={< BookmarksScreen />} />
-                            <Route exact path="/settings/" element={< SettingsScreen />} />
-                            <Route exact path="/profile/" element={< ProfileScreen />} />
-                            <Route exact path="/comic/" element={< ComicScreen />} />
-                            <Route exact path="/uploadcomic" element={< UploadComic />} />
-                            <Route exact path="/uploadchapter" element={< UploadChapter />} />
-                            <Route exact path="/storyboard/" element={< Storyboard />} />
-                            <Route exact path="/chapter/" element={< ChapterScreen />}/>
-                            <Route exact path="/editcomic/" element={< EditComicScreen />}/>
-                        </Routes>
+                    <Banner />
+                    <Routes>
+                        <Route exact path="/" element={< HomeScreen />} />
+                        <Route exact path="/register/" element={< RegisterScreen />} />
+                        <Route exact path="/login/" element={< LoginScreen />} />
+                        <Route exact path="/passwordrecovery/" element={< PasswordRecoveryScreen />} />
+                        <Route exact path="/passwordreset/" element={< PasswordResetScreen />} /> 
+                        <Route exact path="/listscreen/" element={< ListScreen/>} />
+                        <Route exact path="/bookmarks/" element={< BookmarksScreen />} />
+                        <Route exact path="/settings/" element={< SettingsScreen />} />
+                        <Route exact path="/profile/" element={< ProfileScreen />} />
+                        <Route exact path="/comic/" element={< ComicScreen />} />
+                        <Route exact path="/uploadcomic" element={< UploadComic />} />
+                        <Route exact path="/uploadchapter" element={< UploadChapter />} />
+                        <Route exact path="/storyboard/" element={< Storyboard />} />
+                        <Route exact path="/chapter/" element={< ChapterScreen />}/>
+                        <Route exact path="/editcomic/" element={< EditComicScreen />}/>
+                    </Routes>
              </GlobalStoreContextProvider>
             </AuthContextProvider>
         </BrowserRouter>

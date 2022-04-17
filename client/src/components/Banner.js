@@ -67,7 +67,7 @@ export default function Banner() {
 
     const handleProfile = () => {
         auth.loadProfile(auth.session._id);
-        //store.loadProfileStories(auth.session._id);
+        store.loadProfileWorks(auth.session._id);
     }
 
     const handleListScreen = () => {

@@ -183,7 +183,7 @@ getStoriesByGenre = async (req, res) => {
 
 getStoriesByCreator = async (req, res) => {
     try {
-        const found = await Story.find({ creatorId: req.params.creatorId });
+        const found = await Story.find({ creatorId: req.params.id });
         if (!found)
             return res.status(400).json({success: false, message: "Stories not found"});
         

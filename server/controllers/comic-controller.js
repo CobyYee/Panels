@@ -192,7 +192,7 @@ getComicsByName = async(req, res) => {      // tested 200
 
 getComicsByCreator = async (req, res) => {
     try {
-        const found = await Comic.find({ creatorId: req.params.creatorId });
+        const found = await Comic.find({ creatorId: req.params.id });
         if (!found)
             return res.status(400).json({success: false, message: "Comics not found"});
 

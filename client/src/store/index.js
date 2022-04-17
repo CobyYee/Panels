@@ -216,7 +216,7 @@ function GlobalStoreContextProvider(props) {
         const response = await api.getStoriesByCreator(id);
         if (response.status === 200) {
             let stories = response.data.stories;
-            console.log(stories);
+            //console.log(stories);
             storeReducer({
                 type: GlobalStoreActionType.LOAD_WORKS,
                 payload: stories
@@ -232,7 +232,7 @@ function GlobalStoreContextProvider(props) {
         const response = await api.getComicsByCreator(id);
         if (response.status === 200) {
             let comics = response.data.comics;
-            console.log(comics);
+            //console.log(comics);
             storeReducer({
                 type: GlobalStoreActionType.LOAD_WORKS,
                 payload: comics
@@ -240,6 +240,32 @@ function GlobalStoreContextProvider(props) {
         }
         else {
             console.log("Failed to load comics by creator_id: " + id);
+        }
+    }
+
+    store.loadProfileWorks = async function(id) {
+        let response = null;
+        if (store.mode === "comic") {
+            response = await api.getComicsByCreator(id);
+        }
+        else {
+            response = await api.getStoriesByCreator(id);
+        }
+        if (response.status === 200) {
+            let works = null;
+            if (store.mode === "comic") {
+                works = response.data.comics;
+            }
+            else {
+                works = response.data.stories;
+            }
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_WORKS,
+                payload: works
+            })
+        }
+        else {
+            console.log("Failed to load works by creator_id: " + id);
         }
     }
 
