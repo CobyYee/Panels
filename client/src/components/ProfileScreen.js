@@ -40,6 +40,7 @@ export default function ProfileScreen() {
     }
 
     let drafts = ""
+    let profileButtons = ""
 
     if (auth.session._id === auth.user._id) {
         drafts = 
@@ -83,6 +84,11 @@ export default function ProfileScreen() {
             </List>
         </Grid>
         </div>
+        profileButtons =
+            <Grid item xs={4} sx={{display: 'flex', justifyContent: 'flex-end'}}>
+                <Button onClick = {() => navigate('/storyboard/')} sx={{ color: '#9c4247', "&:hover": { color: 'red' } }}>Create New</Button>
+                <Button onClick = {() => navigate('/uploadcomic/')} sx={{ color: '#9c4247', "&:hover": { color: 'red' } }}>Upload New</Button>
+            </Grid>
     }
 
     let profile_image = <AccountCircle sx={{ color: '#4e4e4e', position: 'relative', top: '15%', fontSize: 280 }}/>
@@ -111,10 +117,7 @@ export default function ProfileScreen() {
                         <Grid item xs={8}>
                             <Typography sx={{ color: 'white', fontSize: 25 }}>Uploaded Works</Typography>
                         </Grid>
-                        <Grid item xs={4} sx={{display: 'flex', justifyContent: 'flex-end'}}>
-                            <Button onClick = {() => navigate('/storyboard/')} sx={{ color: '#9c4247', "&:hover": { color: 'red' } }}>Create New</Button>
-                            <Button onClick = {() => navigate('/uploadcomic/')} sx={{ color: '#9c4247', "&:hover": { color: 'red' } }}>Upload New</Button>
-                        </Grid>
+                        { profileButtons }
                     </Grid>
                     <Grid item xs={12} sx={{ border: 1, borderColor: '#4e4e4e' }}>
                         <List sx={{ width: '100%', overflowY: 'scroll', maxHeight: '25vh' }}>
