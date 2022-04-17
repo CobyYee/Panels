@@ -26,7 +26,6 @@ export default function Banner() {
     let changeContent = () => {
         store.switchMode();
         setSearchStatus("");
-        navigate("/")
     }
     
     let storyBgColor = '#4E4E4E'
