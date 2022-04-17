@@ -14,7 +14,7 @@ import IconButton from "@mui/material/IconButton";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import AuthContextProvider from '../auth'
-import {useContext} from 'react'
+import {useContext } from 'react'
 
 function Copyright(props) {
   return (
@@ -35,12 +35,14 @@ export default function RegisterScreen() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    console.log(data.get('confirm'))
     auth.registerUser({
       firstName: data.get('firstName'),
       lastName: data.get('lastName'),
       email: data.get('email'),
+      username: data.get('username'),
       password: data.get('password'),
-      passwordVerify: data.get('confirm-password')
+      passwordVerify: data.get('confirm')
     })
   }
 
@@ -188,11 +190,12 @@ export default function RegisterScreen() {
                 />
               </Grid>
             </Grid>
+            <Typography style={{ mt: 1, color: 'white', textAlign: 'center', fontSize: 10}}>{(auth.error) ? auth.error : ""}</Typography>
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2, backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' } }}
+              sx={{ mt: 2, mb: 2, backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' } }}
             >
               Sign Up
             </Button>

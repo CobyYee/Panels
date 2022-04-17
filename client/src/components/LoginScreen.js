@@ -16,10 +16,9 @@ import IconButton from "@mui/material/IconButton";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import AuthContextProvider from '../auth'
-import {useContext} from 'react'
+import {useContext } from 'react'
 
 function Copyright(props) {
-
   return (
     <Typography variant="body2" color="white" align="center" {...props}>
       {'Copyright © '}
@@ -126,6 +125,7 @@ export default function SignIn() {
               label="Remember me"
               sx={{ color: 'white' }}
             />
+            <Typography style={{color: 'white', fontSize: 10, textAlign: 'center'}}>{(auth.error) ? auth.error : ""}</Typography>
             <Button
               type="submit"
               fullWidth
