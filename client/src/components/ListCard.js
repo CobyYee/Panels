@@ -16,6 +16,13 @@ function ListCard(props) {
         navigate('/comic/');
     }
 
+    function handleAuthor(event) {
+        event.stopPropagation();
+        auth.loadProfile(props.work.creatorId);
+        store.loadProfileWorks(props.work.creatorId);
+        navigate('/profilescreen/')
+    }
+
     return (
         <div class="listcard">
             <img class="listcard_image" src={batePic} alt="Pic" onClick={handleClick}></img>
@@ -28,7 +35,7 @@ function ListCard(props) {
                         <button key={ "genre-button-" + index + "-" + props.work._id } class={(index % 2 === 0) ? "genre_button_odd" : "genre_button_even"} value={index}>{genre}</button>
                     ))}
                 </div>
-                <div class="list_card_author">
+                <div class="list_card_author" onClick={handleAuthor}>
                     {"Author: " + props.work.creatorName}
                 </div>
                 <div class="list_card_description">
