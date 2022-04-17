@@ -42,7 +42,7 @@ export default function ProfileScreen() {
     let drafts = ""
     let profileButtons = ""
 
-    if (auth.session._id === auth.user._id) {
+    if (auth.session !== null && auth.session._id === auth.user._id) {
         drafts = 
         <div>
         <Grid item pt={2} pb={1} xs={12} sx={{ display: 'flex', verticalAlign: 'center' }}>
