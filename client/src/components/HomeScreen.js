@@ -4,17 +4,13 @@ import { useNavigate } from 'react-router-dom'
 import { GlobalStoreContext }  from '../store';
 
 function HomeScreen() {
-    const firstRender = useRef(false);
     const {store} = useContext(GlobalStoreContext)
     let navigate = useNavigate();
 
     // let featuredWorks = [batePic, naruto, bleach, lookism, mha, onepiece, sao, rezero]
 
     useEffect(() => {
-        if (firstRender.current) {
-            store.home();
-        }
-        firstRender.current = true;
+        store.home();
     }, [store.mode])
 
     // let img = new Image();

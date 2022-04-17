@@ -27,6 +27,11 @@ export default function ProfileScreen() {
         console.log(auth.user)
     }
 
+    function loadWork(cardId) {
+        store.loadWork(cardId);
+        //console.log(cardId);
+    }
+
     let profile_image = <AccountCircle sx={{ color: '#4e4e4e', position: 'relative', top: '15%', fontSize: 280 }}/>
     return (
         <Box sx={{ paddingTop: 10, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -37,9 +42,6 @@ export default function ProfileScreen() {
                     </Grid>
                     <Grid item xs={12} pb={2} sx={{ display: 'flex', justifyContent: 'center' }}>
                         {(auth.session._id !== auth.user._id) ? <Button variant="contained" onClick={handleFollow} sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>Follow User</Button> : ""}
-                    </Grid>
-                    <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-                        <Button variant="contained" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>Message User</Button>
                     </Grid>
                 </Grid>
                 <Grid item xs={7}>
@@ -68,7 +70,7 @@ export default function ProfileScreen() {
                                     <ListItem>
                                         <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
                                             <Box sx={{ flexGrow: .99 }}>
-                                                <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
+                                                <Button onClick = {() => loadWork(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
                                             </Box>
                                             <Box sx={{ flexGrow: .01 }}>
                                                 <Button onClick = {() => navigate('/uploadchapter/')} sx={{ color: '#9c4247' }}>Add Chapter</Button>
