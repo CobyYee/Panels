@@ -11,7 +11,8 @@ export const AuthActionType = {
     LOGOUT_USER: "LOGOUT_USER",
     REGISTER_USER: "REGISTER_USER",
     ALERT_ERROR: "ALERT_ERROR",
-    LOAD_PROFILE: "LOAD_PROFILE"
+    LOAD_PROFILE: "LOAD_PROFILE",
+    UPDATE_USER: "UPDATE_USER"
 }
 
 function AuthContextProvider(props) {
@@ -65,6 +66,13 @@ function AuthContextProvider(props) {
                 })
             }
             case "LOAD_PROFILE": {
+                return setAuth({
+                    session: auth.session,
+                    user: payload,
+                    error: null
+                })
+            }
+            case "UPDATE_USER": {
                 return setAuth({
                     session: auth.session,
                     user: payload,
@@ -169,6 +177,7 @@ function AuthContextProvider(props) {
             const response = await api.getUserById(id);
             if (response.status === 200) {
                 let profile_user = response.data.user
+                console.log(response.data.user)
                 authReducer( {
                     type: AuthActionType.LOAD_PROFILE,
                     payload: profile_user
@@ -224,6 +233,10 @@ function AuthContextProvider(props) {
         try {
             const response = await api.updateUser(user);
             if (response.status === 200) {
+                authReducer( {
+                    type: AuthActionType.UPDATE_USER,
+                    payload: user
+                })
                 console.log("update user success");
                 return true;
             }

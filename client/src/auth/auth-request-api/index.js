@@ -16,6 +16,7 @@ export const saveNewPassword = (payload) => api.post(`/saveNewPassword/`, payloa
 export const ban = (payload) => api.post(`/ban/`, payload)
 export const unban = (payload) => api.post(`/unban/`, payload)
 export const getUserById = (id) => api.get(`/user/${id}`)
+export const updateUser = (payload) => api.put(`/user/`, payload)
 
 const apis = {
     getSession,
@@ -26,7 +27,8 @@ const apis = {
     saveNewPassword,
     ban,
     unban,
-    getUserById
+    getUserById,
+    updateUser,
 }
 
 export default apis;
