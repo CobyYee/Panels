@@ -36,7 +36,59 @@ export default function ProfileScreen() {
 
     function loadWork(cardId) {
         store.loadWork(cardId);
-        //console.log(cardId);
+        console.log(cardId);
+    }
+
+    let drafts = ""
+    let profileButtons = ""
+
+    if (auth.session._id === auth.user._id) {
+        drafts = 
+        <div>
+        <Grid item pt={2} pb={1} xs={12} sx={{ display: 'flex', verticalAlign: 'center' }}>
+                        <Typography sx={{ color: 'white', fontSize: 25 }}>Drafts</Typography>
+        </Grid>
+        <Grid item xs={12} sx={{ border: 1, borderColor: '#4e4e4e' }}>
+            <List sx={{ width: '100%', overflowY: 'scroll', maxHeight: '25vh' }}>
+            {
+                store.works.filter(work => work.published === null).map((work, index) => {
+                    if (store.works.length - index > 1)
+                        return (
+                            <div key={ "draft" + index }>
+                                <ListItem>
+                                    <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
+                                        <Box sx={{ flexGrow: 1 }}>
+                                            <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
+                                        </Box>
+                                        <Button sx={{ color: '#9c4247' }}>Publish</Button>
+                                        <Button onClick = {() => navigate('/editcomic/')} sx={{ color: '#9c4247' }}>Edit</Button>
+                                        <Button sx={{ color: '#9c4247' }}>Delete</Button>
+                                    </Box>
+                                </ListItem>
+                                <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
+                            </div> )
+                    return (
+                        <ListItem key={ "draft" + index }>
+                            <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
+                                <Box sx={{ flexGrow: 1 }}>
+                                    <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
+                                </Box>
+                                <Button sx={{ color: '#9c4247' }}>Publish</Button>
+                                <Button onClick = {() => navigate('/editcomic/')} sx={{ color: '#9c4247' }}>Edit</Button>
+                                <Button sx={{ color: '#9c4247' }}>Delete</Button>
+                            </Box>
+                        </ListItem>
+                    )
+                })
+            }
+            </List>
+        </Grid>
+        </div>
+        profileButtons =
+            <Grid item xs={4} sx={{display: 'flex', justifyContent: 'flex-end'}}>
+                <Button onClick = {() => navigate('/storyboard/')} sx={{ color: '#9c4247', "&:hover": { color: 'red' } }}>Create New</Button>
+                <Button onClick = {() => navigate('/uploadcomic/')} sx={{ color: '#9c4247', "&:hover": { color: 'red' } }}>Upload New</Button>
+            </Grid>
     }
     console.log(auth.user)
 
@@ -66,15 +118,12 @@ export default function ProfileScreen() {
                         <Grid item xs={8}>
                             <Typography sx={{ color: 'white', fontSize: 25 }}>Uploaded Works</Typography>
                         </Grid>
-                        <Grid item xs={4} sx={{display: 'flex', justifyContent: 'flex-end'}}>
-                            <Button onClick = {() => navigate('/storyboard/')} sx={{ color: '#9c4247', "&:hover": { color: 'red' } }}>Create New</Button>
-                            <Button onClick = {() => navigate('/uploadcomic/')} sx={{ color: '#9c4247', "&:hover": { color: 'red' } }}>Upload New</Button>
-                        </Grid>
+                        { profileButtons }
                     </Grid>
                     <Grid item xs={12} sx={{ border: 1, borderColor: '#4e4e4e' }}>
                         <List sx={{ width: '100%', overflowY: 'scroll', maxHeight: '25vh' }}>
                         {
-                            store.works.map((work, index) => {
+                            store.works.filter(work => work.published !== null).map((work, index) => {
                                 if (store.works.length - index > 1)
                                 return (
                                 <div key={ "published" + index }>
@@ -108,44 +157,7 @@ export default function ProfileScreen() {
                         }
                         </List>
                     </Grid>
-                    <Grid item pt={2} pb={1} xs={12} sx={{ display: 'flex', verticalAlign: 'center' }}>
-                        <Typography sx={{ color: 'white', fontSize: 25 }}>Drafts</Typography>
-                    </Grid>
-                    <Grid item xs={12} sx={{ border: 1, borderColor: '#4e4e4e' }}>
-                    <List sx={{ width: '100%', overflowY: 'scroll', maxHeight: '25vh' }}>
-                        {
-                            store.works.map((work, index) => {
-                                if (store.works.length - index > 1)
-                                return (
-                                <div key={ "draft" + index }>
-                                    <ListItem>
-                                        <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
-                                            <Box sx={{ flexGrow: 1 }}>
-                                                <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
-                                            </Box>
-                                            <Button sx={{ color: '#9c4247' }}>Publish</Button>
-                                            <Button onClick = {() => navigate('/editcomic/')} sx={{ color: '#9c4247' }}>Edit</Button>
-                                            <Button sx={{ color: '#9c4247' }}>Delete</Button>
-                                        </Box>
-                                    </ListItem>
-                                    <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
-                                </div> )
-                                return (
-                                    <ListItem key={ "draft" + index }>
-                                        <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
-                                            <Box sx={{ flexGrow: 1 }}>
-                                                <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
-                                            </Box>
-                                            <Button sx={{ color: '#9c4247' }}>Publish</Button>
-                                            <Button onClick = {() => navigate('/editcomic/')} sx={{ color: '#9c4247' }}>Edit</Button>
-                                            <Button sx={{ color: '#9c4247' }}>Delete</Button>
-                                        </Box>
-                                    </ListItem>
-                                )
-                            })
-                        }
-                        </List>
-                    </Grid>
+                    { drafts }
                 </Grid>
             </Grid>
         </Box>

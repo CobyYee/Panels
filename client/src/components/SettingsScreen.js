@@ -1,9 +1,19 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+import AuthContextProvider from '../auth'
 import { Typography, Box, Grid, MenuList, MenuItem, TextField, Divider, List, ListItem, Button } from '@mui/material';
 
 export default function SettingsScreen() {
     const [setting, setSetting] = useState(0)
+    let navigate = useNavigate()
+    const {auth} = useContext(AuthContextProvider)
     //let settingsArray=["Reset settings", "Change Account Password", "Enable notifications for Updates", "a", "b", "c"]
+
+    function handleReset() {
+        if (auth.session !== null) {
+            navigate("/passwordreset/")
+        }
+    }
 
     return (
         <Box sx={{ paddingTop: 10, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -51,6 +61,10 @@ export default function SettingsScreen() {
                             <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
                             <ListItem>
                                 <Button sx={{ color: 'white' }}>Update Email</Button>
+                            </ListItem>
+                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
+                            <ListItem>
+                                <Button onClick={handleReset} sx={{ color: 'white' }}>Update Password</Button>
                             </ListItem>
                         </List>
                     </Box>
