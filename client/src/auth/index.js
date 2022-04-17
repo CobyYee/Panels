@@ -173,7 +173,7 @@ function AuthContextProvider(props) {
                     type: AuthActionType.LOAD_PROFILE,
                     payload: profile_user
                 })
-                navigate("/profile/") 
+                navigate(`/profile/${id}`) 
             }
             else {
                 console.log(response)
@@ -216,6 +216,24 @@ function AuthContextProvider(props) {
         }
         catch (e) {
             console.error("save new password failed")
+            return false;
+        }
+    }
+
+    auth.updateUser = async function(user) {
+        try {
+            const response = await api.updateUser(user);
+            if (response.status === 200) {
+                console.log("update user success");
+                return true;
+            }
+            else {
+                console.log("update user 400");
+                return false;
+            }
+        }
+        catch (e) {
+            console.error("update user failed");
             return false;
         }
     }

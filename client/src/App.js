@@ -33,12 +33,12 @@ const App = () => {
                         <Route exact path="/" element={< HomeScreen />} />
                         <Route exact path="/register/" element={< RegisterScreen />} />
                         <Route exact path="/login/" element={< LoginScreen />} />
-                        <Route exact path="/passwordrecovery/" element={< PasswordRecoveryScreen />} />
+                        <Route exact path="/passwordrecovery/:id/:token" element={< PasswordRecoveryScreen />} />
                         <Route exact path="/passwordreset/" element={< PasswordResetScreen />} /> 
                         <Route exact path="/listscreen/" element={< ListScreen/>} />
                         <Route exact path="/bookmarks/" element={< BookmarksScreen />} />
                         <Route exact path="/settings/" element={< SettingsScreen />} />
-                        <Route exact path="/profile/" element={< ProfileScreen />} />
+                        <Route exact path="/profile/:id" element={< ProfileScreen />} />
                         <Route exact path="/comic/" element={< ComicScreen />} />
                         <Route exact path="/uploadcomic" element={< UploadComic />} />
                         <Route exact path="/uploadchapter" element={< UploadChapter />} />

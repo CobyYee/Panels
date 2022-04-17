@@ -3,14 +3,15 @@ import batePic from '../testimgs/bate.jpg';
 import { useContext } from 'react';
 import GlobalStoreContext from '../store';
 import {useNavigate} from 'react-router-dom'
+import AuthContextProvider from '../auth'
 
 function ListCard(props) {
     const {store} = useContext(GlobalStoreContext)
+    const {auth} = useContext(AuthContextProvider)
     let navigate = useNavigate();
 
     function handleClick(event) {
         event.stopPropagation();
-        console.log(props.work._id);
         store.loadComic(props.work._id);
         navigate('/comic/');
     }

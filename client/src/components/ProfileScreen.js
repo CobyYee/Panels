@@ -15,11 +15,17 @@ export default function ProfileScreen() {
     const {store} = useContext(GlobalStoreContext)
 
     useEffect(() => {
+        console.log(firstRender)
         if (firstRender.current) {
-            store.loadProfileWorks(auth.session._id);
+            store.loadProfileWorks(auth.user._id);
         }
         firstRender.current = true;
     }, [store.mode]);
+
+    function handleFollow(event) {
+        console.log(auth.session)
+        console.log(auth.user)
+    }
 
     let profile_image = <AccountCircle sx={{ color: '#4e4e4e', position: 'relative', top: '15%', fontSize: 280 }}/>
     return (
@@ -30,7 +36,7 @@ export default function ProfileScreen() {
                         { profile_image }
                     </Grid>
                     <Grid item xs={12} pb={2} sx={{ display: 'flex', justifyContent: 'center' }}>
-                        <Button variant="contained" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>Follow User</Button>
+                        {(auth.session._id !== auth.user._id) ? <Button variant="contained" onClick={handleFollow} sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>Follow User</Button> : ""}
                     </Grid>
                     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
                         <Button variant="contained" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>Message User</Button>
@@ -38,10 +44,10 @@ export default function ProfileScreen() {
                 </Grid>
                 <Grid item xs={7}>
                     <Grid item pt={14} xs={12} sx={{ display: 'flex', verticalAlign: 'center' }}>
-                        <Typography sx={{ color: 'white', fontSize: 40 }}>{(auth.session !== null) ? auth.session.username : ""}</Typography>
+                        <Typography sx={{ color: 'white', fontSize: 40 }}>{(auth.user !== null) ? auth.user.username : ""}</Typography>
                     </Grid>
                     <Grid item xs={12} sx={{ display: 'flex', verticalAlign: 'center' }}>
-                        <Typography sx={{ color: 'white', fontSize: 15 }}>{(auth.session !== null && auth.session.admin) ? "admin" : "user"}</Typography>
+                        <Typography sx={{ color: 'white', fontSize: 15 }}>{(auth.user !== null && auth.user.admin) ? "admin" : "user"}</Typography>
                     </Grid>
                     <Grid item pt={6} pb={1} xs={12} sx={{ display: 'flex', verticalAlign: 'center', maxHeight: '30vh' }}>
                         <Grid item xs={8}>

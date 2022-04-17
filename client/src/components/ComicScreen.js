@@ -4,9 +4,11 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import batePic from '../testimgs/bate.jpg'
 import { useNavigate } from 'react-router-dom'
 import GlobalStoreContext from '../store'
+import AuthContextProvider from '../auth'
 
 export default function ComicScreen() {
     const {store} = useContext(GlobalStoreContext)
+    const {auth} = useContext(AuthContextProvider)
     let navigate = useNavigate()
     
     const [status, setStatus] = useState("chapters");
@@ -57,6 +59,11 @@ export default function ComicScreen() {
                     </List>
     }
 
+    function handleAuthor(event) {
+        auth.loadProfile(store.work.creatorId);
+        store.loadProfileWorks(store.work.creatorId);
+    }
+
     return (
         <Box sx={{ paddingTop: 10, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <Grid item={true} xs={11} container sx={{ display: 'flex', justifyContent: 'center', minWidth: '2300px' }} pb={4}>
@@ -70,7 +77,7 @@ export default function ComicScreen() {
                         <Typography color='white' sx={{ fontSize: 50 }}>{(store.work !== null) ? store.work.title : ""}</Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography color='white' sx={{ fontSize: 20, position: 'relative', bottom: '50%' }}>{(store.work !== null) ? store.work.creatorName : ""}</Typography>
+                        <Typography color='white' sx={{ fontSize: 20, position: 'relative', bottom: '50%' }} onClick={handleAuthor}>{(store.work !== null) ? store.work.creatorName : ""}</Typography>
                     </Grid>
                     <Grid item xs={1}>
                         <Typography color='white'>Views: {(store.work !== null) ? store.work.views : "0"}</Typography>

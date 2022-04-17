@@ -150,7 +150,7 @@ export default function Banner() {
                         </Grid>
                         <Grid item xs ={8} container sx={{display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <TextField 
-                                placeholder = "Search comic or author" 
+                                placeholder = "Search comic" 
                                 sx = {{
                                     width: '100%', 
                                     maxWidth: '50vw',
