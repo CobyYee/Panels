@@ -2,7 +2,7 @@
 import { Typography, Box, Grid, Button, List, ListItem, Divider } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import { useNavigate } from 'react-router-dom'
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import AuthContextProvider from '../auth'
 import GlobalStoreContext from '../store';
 
@@ -90,6 +90,7 @@ export default function ProfileScreen() {
                 <Button onClick = {() => navigate('/uploadcomic/')} sx={{ color: '#9c4247', "&:hover": { color: 'red' } }}>Upload New</Button>
             </Grid>
     }
+    console.log(auth.user)
 
     let profile_image = <AccountCircle sx={{ color: '#4e4e4e', position: 'relative', top: '15%', fontSize: 280 }}/>
     return (
@@ -100,10 +101,10 @@ export default function ProfileScreen() {
                         { profile_image }
                     </Grid>
                     <Grid item xs={12} pb={2} sx={{ display: 'flex', justifyContent: 'center' }}>
-                        {(auth.session._id !== auth.user._id) ? ((auth.user.follows.includes(auth.session._id) ? 
-                        <Button variant="contained" onClick={handleUnfollow} sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>Unfollow User</Button> 
+                        {(auth.session._id !== auth.user._id) ? ((auth.user.follows.includes(auth.session._id) ? (
+                        <Button variant="contained" onClick={handleUnfollow} sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>Unfollow User</Button> )
                         : 
-                        <Button variant="contained" onClick={handleFollow} sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>Follow User</Button>)) : ""}
+                        (<Button variant="contained" onClick={handleFollow} sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>Follow User</Button>))) : ""}
                     </Grid>
                 </Grid>
                 <Grid item xs={7}>

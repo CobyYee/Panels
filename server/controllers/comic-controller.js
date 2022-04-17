@@ -149,7 +149,7 @@ updateComic = async (req, res) => {     // tested 200
     }
     catch (err) {
         return res.status(500);
-    }
+    }   
 }
 
 getComicsByGenres = async(req, res) => {    // tested 200
