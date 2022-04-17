@@ -183,6 +183,33 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    store.loadWork = async function(id) {
+        let response = null;
+        if (store.mode === "comic") {
+            response = await api.getComicById(id);
+        }
+        else {
+            response = await api.getStoryById(id);
+        }
+        if (response.status === 200) {
+            let currentWork = null;
+            if (store.mode === "comic") {
+                currentWork = response.data.comic;
+            }
+            else {
+                currentWork = response.data.story;
+            }
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_WORK,
+                payload: currentWork
+            })
+            navigate("/comic/");
+        }
+        else {
+            console.log("Failed to load " + store.mode + ": " + id);
+        }
+    }
+
     store.loadComicChapter = async function(id) {
         const response = await api.getComicChapterById(id);
         if (response.status === 200) {
