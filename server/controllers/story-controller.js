@@ -132,7 +132,7 @@ getStoryById = async (req, res) => {
                 return res.status(400).json({success: false, message: "Story not found."});
             }
 
-            return res.status(200).json({ success: true, data: story });
+            return res.status(200).json({ success: true, story: story });
         })
     }
     catch (err) {

@@ -29,7 +29,7 @@ export default function ProfileScreen() {
 
     function loadWork(cardId) {
         store.loadWork(cardId);
-        //console.log(cardId);
+        console.log(cardId);
     }
 
     let profile_image = <AccountCircle sx={{ color: '#4e4e4e', position: 'relative', top: '15%', fontSize: 280 }}/>
