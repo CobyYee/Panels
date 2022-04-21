@@ -1,7 +1,6 @@
 const Comic = require('../models/comic-model');
 const Image = require('../models/image-model');
 const ComicChapter = require('../models/comicChapter-model.js');
-const Story = require("../models/story-model");
 
 createComic = (req, res) => {   // tested 200
     try {

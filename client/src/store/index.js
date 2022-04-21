@@ -19,7 +19,7 @@ export const GlobalStoreActionType = {
 
 function GlobalStoreContextProvider(props) {
     const navigate = useNavigate();
-    //const auth = useContext(AuthContext)
+    const auth = useContext(AuthContext)
 
     const [store, setStore] = useState({
         mode: "comic",
@@ -238,7 +238,77 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    //I don't think this works. May have to check later
+    store.createComic = async function(comicData) {
+        const response = api.createComic(comicData.title, auth.session._id, auth.session.userName, comicData.genres, comicData.description, comicData.cover);
+        if (response.status === 200) {
+            let newComic = response.comic;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_WORK,
+                payload: newComic
+            })
+        }
+        else {
+            console.log("Failed to create new comic" + response);
+        }
+    }
+
+    store.createStory = async function(storyData) {
+        const response = api.createStory(storyData.title, auth.session._id, auth.session.userName, storyData.genres, storyData.description, storyData.cover);
+        if (response.status === 200) {
+            let newStory = response.story;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_WORK,
+                payload: newStory
+            })
+        }
+        else {
+            console.log("Failed to create new story" + response);
+        }
+    }
+
+    store.deleteChapter = async function (id) {
+        let response = null;
+        if (store.mode === "comic") {
+            response = await api.deleteComicChapter(id);
+        }
+        else {
+            response = await api.deleteStoryChapter(id);
+        }
+        if (response.status === 200) {
+            console.log("Chapter delete success");
+        }
+        else {
+            console.log("Chapter delete failure" + response);
+        }
+    }
+
+    store.deleteWork = async function (id) {
+        let response = null;
+        if (store.mode === "comic") {
+            response = await api.deleteComic(id);
+        }
+        else {
+            response = await api.deleteStory(id);
+        }
+        if (response.status === 200) {
+            //get chapters from response.data and for each chapter, delete chapter
+            //let chapters = response.data.chapters;
+            //for (const chapter of chapters) {
+            //      console.log(chapter)
+            //      response = await api.deleteChapter(chapter)
+            //      if (response.status !== 200) {
+            //          continue;
+            //      }
+            //}
+            if (store.mode === "comic") {
+                store.loadProfileComics(auth.user._id);
+            }
+            else {
+                store.loadProfileStories(auth.user._id);
+            }
+        }
+    }
+
     store.loadProfileStories = async function(id) {
         const response = await api.getStoriesByCreator(id);
         if (response.status === 200) {
