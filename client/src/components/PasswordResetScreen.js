@@ -42,7 +42,7 @@ export default function PasswordResetScreen() {
                     <Typography component="h1" variant="h5" sx={{ color: 'white' }}>
                         Forgot Password?
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ width: 400, mt: 1 }}>
                         <TextField
                             margin="normal"
                             required
@@ -54,7 +54,9 @@ export default function PasswordResetScreen() {
                             autoFocus
                             sx={{ input: { color: 'white' } }}
                         />  
-                        <Typography sx={{color: 'white', fontSize: 10, textAlign: 'center'}}>{sent ? "Password reset sent to email" : ""} </Typography>
+                        <Typography sx={{color: 'white', fontSize: 10, textAlign: 'center'}}>
+                            {sent ? "Password reset sent to email" : ""}
+                        </Typography>
                         <Button
                             type="submit"
                             name="submit"
