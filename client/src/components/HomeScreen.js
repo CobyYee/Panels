@@ -1,5 +1,5 @@
 import { Box, Typography, Grid, List, ListItem, Button } from '@mui/material'
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef, useLayoutEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { GlobalStoreContext }  from '../store';
 
@@ -9,7 +9,7 @@ function HomeScreen() {
 
     // let featuredWorks = [batePic, naruto, bleach, lookism, mha, onepiece, sao, rezero]
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         store.home();
     }, [store.mode])
 
