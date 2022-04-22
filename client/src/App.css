@@ -225,7 +225,7 @@ html, body {
 }
 
 #upload_comic_tags_label {
-  height: 100px;
+  height: 70px;
 }
 
 #upload_comic_name {
@@ -238,6 +238,18 @@ html, body {
   color: white;
   font-size: 15px;
   padding-left: 5px;
+}
+
+#upload_comic_description {
+    height: 100px;
+    margin-bottom: 22px;
+    width: 700px;
+    background-color: #4E4E4E;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 15px;
+    padding-left: 5px;
 }
 
 #upload_comic_image {
@@ -255,7 +267,7 @@ html, body {
 }
 
 #tags {
-  height: 150px;
+  height: 75px;
   width: 700px;
 }
 

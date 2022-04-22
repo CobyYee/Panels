@@ -44,6 +44,11 @@ export default function ProfileScreen() {
         console.log(cardId);
     }
 
+    function handleDelete(deleteId) {
+        console.log("Deleting work: " + deleteId);
+        //store.deleteWork(deleteId);
+    }
+
     let drafts = ""
     let profileButtons = ""
 
@@ -67,7 +72,7 @@ export default function ProfileScreen() {
                                         </Box>
                                         <Button sx={{ color: '#9c4247' }}>Publish</Button>
                                         <Button onClick = {() => navigate('/editcomic/')} sx={{ color: '#9c4247' }}>Edit</Button>
-                                        <Button sx={{ color: '#9c4247' }}>Delete</Button>
+                                        <Button onClick = {() => handleDelete(work._id)} sx={{ color: '#9c4247' }}>Delete</Button>
                                     </Box>
                                 </ListItem>
                                 <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
@@ -80,7 +85,7 @@ export default function ProfileScreen() {
                                 </Box>
                                 <Button sx={{ color: '#9c4247' }}>Publish</Button>
                                 <Button onClick = {() => navigate('/editcomic/')} sx={{ color: '#9c4247' }}>Edit</Button>
-                                <Button sx={{ color: '#9c4247' }}>Delete</Button>
+                                <Button onClick = {() => handleDelete(work._id)} sx={{ color: '#9c4247' }}>Delete</Button>
                             </Box>
                         </ListItem>
                     )
@@ -152,7 +157,7 @@ export default function ProfileScreen() {
                                             <Box sx={{ flexGrow: .01 }}>
                                                 <Button onClick = {() => navigate('/uploadchapter/')} sx={{ color: '#9c4247' }}>Add Chapter</Button>
                                             </Box>
-                                            <Button sx={{ color: '#9c4247' }}>Delete</Button>
+                                            <Button onClick = {() => handleDelete(work._id)} sx={{ color: '#9c4247' }}>Delete</Button>
                                         </Box>
                                     </ListItem>
                                     <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
@@ -166,7 +171,7 @@ export default function ProfileScreen() {
                                             <Box sx={{ flexGrow: .01 }}>
                                                 <Button onClick = {() => navigate('/uploadchapter/')} sx={{ color: '#9c4247' }}>Add Chapter</Button>
                                             </Box>
-                                            <Button sx={{ color: '#9c4247' }}>Delete</Button>
+                                            <Button onClick = {() => handleDelete(work._id)} sx={{ color: '#9c4247' }}>Delete</Button>
                                         </Box>
                                     </ListItem>
                                 )
