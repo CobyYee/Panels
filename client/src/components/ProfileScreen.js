@@ -2,7 +2,7 @@
 import { Typography, Box, Grid, Button, List, ListItem, Divider } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import { useNavigate } from 'react-router-dom'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useLayoutEffect } from 'react'
 import AuthContextProvider from '../auth'
 import GlobalStoreContext from '../store';
 
@@ -14,21 +14,26 @@ export default function ProfileScreen() {
     const {auth} = useContext(AuthContextProvider)
     const {store} = useContext(GlobalStoreContext)
 
-    useEffect(() => {
-        console.log(firstRender)
+    let profileURL = window.location.href.substring(window.location.href.indexOf("/profile/") + 9);
+    if (auth.user === null && profileURL !== "") {
+        auth.loadProfile(profileURL);
+        store.loadProfileWorks(profileURL);
+    }
+
+    useLayoutEffect(() => {
         if (firstRender.current) {
             store.loadProfileWorks(auth.user._id);
         }
         firstRender.current = true;
     }, [store.mode]);
 
-    function handleFollow(event) {
+    function handleFollow() {
         let user = auth.user;
         user.follows.push(auth.session._id);
         auth.updateUser(user);
     }
 
-    function handleUnfollow(event) {
+    function handleUnfollow() {
         let user = auth.user;
         user.follows.splice(user.follows.indexOf(auth.session._id), 1)
         auth.updateUser(user);
@@ -39,10 +44,15 @@ export default function ProfileScreen() {
         console.log(cardId);
     }
 
+    function handleDelete(deleteId) {
+        console.log("Deleting work: " + deleteId);
+        //store.deleteWork(deleteId);
+    }
+
     let drafts = ""
     let profileButtons = ""
 
-    if (auth.session._id === auth.user._id) {
+    if (auth.session !== null && auth.user !== null && auth.session._id === auth.user._id) {
         drafts = 
         <div>
         <Grid item pt={2} pb={1} xs={12} sx={{ display: 'flex', verticalAlign: 'center' }}>
@@ -62,7 +72,7 @@ export default function ProfileScreen() {
                                         </Box>
                                         <Button sx={{ color: '#9c4247' }}>Publish</Button>
                                         <Button onClick = {() => navigate('/editcomic/')} sx={{ color: '#9c4247' }}>Edit</Button>
-                                        <Button sx={{ color: '#9c4247' }}>Delete</Button>
+                                        <Button onClick = {() => handleDelete(work._id)} sx={{ color: '#9c4247' }}>Delete</Button>
                                     </Box>
                                 </ListItem>
                                 <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
@@ -75,7 +85,7 @@ export default function ProfileScreen() {
                                 </Box>
                                 <Button sx={{ color: '#9c4247' }}>Publish</Button>
                                 <Button onClick = {() => navigate('/editcomic/')} sx={{ color: '#9c4247' }}>Edit</Button>
-                                <Button sx={{ color: '#9c4247' }}>Delete</Button>
+                                <Button onClick = {() => handleDelete(work._id)} sx={{ color: '#9c4247' }}>Delete</Button>
                             </Box>
                         </ListItem>
                     )
@@ -90,7 +100,6 @@ export default function ProfileScreen() {
                 <Button onClick = {() => navigate('/uploadcomic/')} sx={{ color: '#9c4247', "&:hover": { color: 'red' } }}>Upload New</Button>
             </Grid>
     }
-    console.log(auth.user)
 
     let profile_image = <AccountCircle sx={{ color: '#4e4e4e', position: 'relative', top: '15%', fontSize: 280 }}/>
     return (
@@ -100,8 +109,21 @@ export default function ProfileScreen() {
                     <Grid item xs={12} pb={6} sx={{ display: 'flex', justifyContent: 'center' }}>
                         { profile_image }
                     </Grid>
+                    <Grid item xs={12} pb={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <Box sx={{ width: '350px', textAlign: 'center' }}>
+                            <Typography color="white">
+                                A long description is a way to provide long alternative text for non-text elements, such as images. 
+                                Generally, alternative text exceeding 250 characters, which cannot be made more concise without making it less 
+                                descriptive or meaningful, should have a long description. Examples of suitable use of long description are 
+                                charts, graphs, maps, infographics, and other complex images. Like alternative text, long description should 
+                                be descriptive and meaningful. It should also include all text that is incorporated into the image. A long 
+                                description should provide visually-impaired users with as much information as sighted users would understand 
+                                from the image.
+                            </Typography>
+                        </Box>
+                    </Grid>
                     <Grid item xs={12} pb={2} sx={{ display: 'flex', justifyContent: 'center' }}>
-                        {(auth.session._id !== auth.user._id) ? ((auth.user.follows.includes(auth.session._id) ? (
+                        {(auth.session !== null && auth.user !== null && auth.session._id !== auth.user._id) ? ((auth.user.follows.includes(auth.session._id) ? (
                         <Button variant="contained" onClick={handleUnfollow} sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>Unfollow User</Button> )
                         : 
                         (<Button variant="contained" onClick={handleFollow} sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>Follow User</Button>))) : ""}
@@ -135,7 +157,7 @@ export default function ProfileScreen() {
                                             <Box sx={{ flexGrow: .01 }}>
                                                 <Button onClick = {() => navigate('/uploadchapter/')} sx={{ color: '#9c4247' }}>Add Chapter</Button>
                                             </Box>
-                                            <Button sx={{ color: '#9c4247' }}>Delete</Button>
+                                            <Button onClick = {() => handleDelete(work._id)} sx={{ color: '#9c4247' }}>Delete</Button>
                                         </Box>
                                     </ListItem>
                                     <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
@@ -143,13 +165,13 @@ export default function ProfileScreen() {
                                 return (
                                     <ListItem key={ "published" + index }>
                                         <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
-                                        <Box sx={{ flexGrow: .99 }}>
+                                            <Box sx={{ flexGrow: .99 }}>
                                                 <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
                                             </Box>
                                             <Box sx={{ flexGrow: .01 }}>
                                                 <Button onClick = {() => navigate('/uploadchapter/')} sx={{ color: '#9c4247' }}>Add Chapter</Button>
                                             </Box>
-                                            <Button sx={{ color: '#9c4247' }}>Delete</Button>
+                                            <Button onClick = {() => handleDelete(work._id)} sx={{ color: '#9c4247' }}>Delete</Button>
                                         </Box>
                                     </ListItem>
                                 )

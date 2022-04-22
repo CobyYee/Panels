@@ -200,7 +200,7 @@ updateUser = async (req, res) => {
         existingUser.bookmarks = user.bookmarks;
 
         await existingUser.save();
-        return res.status(200);
+        return res.status(200).send();
     }
     catch (err) {
         console.error("User update failed: " + err);

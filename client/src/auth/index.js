@@ -231,7 +231,7 @@ function AuthContextProvider(props) {
 
     auth.updateUser = async function(user) {
         try {
-            const response = await api.updateUser(user);
+            const response = await api.updateUser(user._id, user);
             if (response.status === 200) {
                 authReducer( {
                     type: AuthActionType.UPDATE_USER,

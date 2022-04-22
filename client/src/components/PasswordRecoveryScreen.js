@@ -70,7 +70,7 @@ export default function PasswordRecoveryScreen() {
                     <Typography component="h1" variant="h5" sx={{ color: 'white' }}>
                         Change Password
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ width: 400, mt: 1 }}>
                         <TextField
                             margin="normal"
                             required
@@ -99,7 +99,9 @@ export default function PasswordRecoveryScreen() {
 
                             sx={{ input: { color: 'white' } }}
                         />
-                        <Typography style={{textAlign: 'center', fontSize: 10, color: 'white' }}>{saved ? "Password Updated" : ""}</Typography>
+                        <Typography style={{textAlign: 'center', fontSize: 10, color: 'white' }}>
+                            {saved ? "Password Updated" : ""}
+                        </Typography>
                         <Button
                             type="submit"
                             fullWidth
