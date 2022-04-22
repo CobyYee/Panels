@@ -1,16 +1,21 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box'
+import GlobalStoreContext from '../store';
+
 
 function UploadComic() {
+    const {store} = useContext(GlobalStoreContext);
     const [file, setFile] = useState(null);
+    const [fileName, setFileName] = useState("");
+    const [title, setTitle] = useState("")
+    const [description, setDescription] = useState("");
     const tags = ["Action", "Romance", "Fantasy", "Comedy", "Slice of Life", "Reincarnation", "Martial Arts", "Food", "Horror", "Sports"];
     const [selectedTags, setSelectedTags] = useState([]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log(data.get("comic_name"));
+        store.createComic(title, file, description, selectedTags);
     }
 
     const handleTag = (tag) => {
@@ -22,8 +27,20 @@ function UploadComic() {
         }
     }
 
+    function handleFileUpload(event) {
+        const reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]);
+        reader.onload = function() {
+            setFileName(event.target.files[0].name)
+            setFile(reader.result);
+        }
+        reader.onerror = function (error) {
+            console.log("File onload error: " + error);
+        }
+    }
+
     return (
-        <Box id="upload_comic" component="form" noValidate onSubmit={handleSubmit}>
+        <Box id="upload_comic">
             <div id="upload_comic_label">
                 Upload Comic
             </div>
@@ -43,23 +60,21 @@ function UploadComic() {
                     </div>
                 </div>
                 <div id="upload_comic_fields">
-                    <input id="upload_comic_name" type="text" name="comic_name"></input> <br></br>
+                    <input id="upload_comic_name" type="text" name="comic_name" onChange={(event) => setTitle(event.target.value)}></input> <br></br>
                     <input id="upload_comic_image" type="file" 
-                           onChange={(event) => {
-                               console.log(event.target.files[0]);
-                               setFile(event.target.files[0]); }}>
+                           onChange={(event) => {handleFileUpload(event)}}>
                     </input>
                     <label id="uploaded_comic_image_label" for="upload_comic_image"> Browse </label>
-                    <label id="uploaded_comic_image_label_label" for="uploaded_comic_image_label">{(file !== null) ? file.name : ""}</label>
+                    <label id="uploaded_comic_image_label_label" for="uploaded_comic_image_label">{fileName}</label>
                     <div id="tags">
                         {tags.map((tag, index) => {
                             return <button key={"tag-" + index} className = {(selectedTags.includes(tag)) ? "tag_button" : "tag_button_unselected"} value={index} onClick={() => handleTag(tag)}>{tag}</button>
                         })}
                     </div>
-                    <input id="upload_comic_description" type="text" name="comic_description"></input> <br></br>
+                    <input id="upload_comic_description" type="text" name="comic_description" onChange={(event) => setDescription(event.target.value)}></input> <br></br>
                     <input id="terms_checkbox" type="checkbox"></input>
                     <label id="terms_label" for="terms_checkbox">By uploading this comic, I agree to Panels' terms and services</label> <br></br>
-                    <Button id="upload_button" type="submit">Upload</Button>
+                    <Button id="upload_button" type="submit" onClick={handleSubmit}>Upload</Button>
                 </div>
             </div>
         </Box>

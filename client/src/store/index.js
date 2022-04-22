@@ -19,7 +19,7 @@ export const GlobalStoreActionType = {
 
 function GlobalStoreContextProvider(props) {
     const navigate = useNavigate();
-    const auth = useContext(AuthContext)
+    const {auth} = useContext(AuthContext)
 
     const [store, setStore] = useState({
         mode: "comic",
@@ -238,14 +238,24 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    store.createComic = async function(comicData) {
-        const response = api.createComic(comicData.title, auth.session._id, auth.session.userName, comicData.genres, comicData.description, comicData.cover);
-        if (response.status === 200) {
+    store.createComic = async function(title, file, description, tags) {
+        console.log(auth.session)
+        const comic = {
+            title: title,
+            creatorId: auth.session._id,
+            creatorName: auth.session.username,
+            genres: tags,
+            description: description,
+            cover_data: file
+        }
+        const response = await api.createComic(comic);
+        if (response.status === 200) {  
             let newComic = response.comic;
             storeReducer({
                 type: GlobalStoreActionType.LOAD_WORK,
                 payload: newComic
             })
+            navigate(`/profile/${auth.session._id}`)
         }
         else {
             console.log("Failed to create new comic" + response);

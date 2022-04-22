@@ -6,6 +6,7 @@ createComic = (req, res) => {   // tested 200
     try {
         const { title, creatorId, creatorName, genres, description, cover_data } = req.body;
         if (!title || !creatorId || !creatorName || !cover_data || !genres || !description) {
+            console.log(creatorName)
             return res.status(400).json({
                 success: false,
                 error: "Must specify information to create the comic."
