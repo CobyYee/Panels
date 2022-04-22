@@ -26,6 +26,7 @@ function GlobalStoreContextProvider(props) {
         works: [],
         work: null,
         images: [],
+        image: null,
         chapter: null
     });
 
@@ -38,6 +39,7 @@ function GlobalStoreContextProvider(props) {
                     works: [],
                     work: null,
                     images: null,
+                    image: null,
                     chapter: null
                 })
             }
@@ -45,8 +47,9 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     mode: store.mode,
                     works: payload,
-                    work: store.work,
+                    work: null,
                     images: store.images,
+                    image: null,
                     chapter: null
                 })
             }
@@ -54,8 +57,9 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     mode: store.mode,
                     works: store.works,
-                    work: payload,
+                    work: payload.work,
                     images: store.images,
+                    image: payload.image,
                     chapter: null
                 })
             }
@@ -65,6 +69,7 @@ function GlobalStoreContextProvider(props) {
                     works: store.works,
                     work: store.work,
                     images: store.images,
+                    image: null,
                     chapter: payload.chapter
                 })
             }
@@ -74,6 +79,7 @@ function GlobalStoreContextProvider(props) {
                     works: store.works,
                     work: store.work,
                     images: payload,
+                    image: null,
                     chapter: store.chapter
                 })
             }
@@ -83,6 +89,7 @@ function GlobalStoreContextProvider(props) {
                     works: payload.works,
                     work: store.work,
                     images: payload.images,
+                    image: null,
                     chapter: store.chapter
                 })
             }
@@ -199,11 +206,19 @@ function GlobalStoreContextProvider(props) {
             else {
                 currentWork = response.data.story;
             }
-            storeReducer({
-                type: GlobalStoreActionType.LOAD_WORK,
-                payload: currentWork
-            })
-            navigate("/comic/");
+            //console.log(currentWork);
+            response = await api.getImagesById([currentWork.cover]);
+            if (response.status === 200) {
+                let cover_image = response.data.data;
+                //console.log(cover_image);
+                storeReducer({
+                    type: GlobalStoreActionType.LOAD_WORK,
+                    payload: {
+                        work: currentWork,
+                        image: cover_image
+                    }
+                })
+            }
         }
         else {
             console.log("Failed to load " + store.mode + ": " + id);

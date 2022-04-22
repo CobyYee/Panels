@@ -12,8 +12,8 @@ function ListCard(props) {
 
     function handleClick(event) {
         event.stopPropagation();
-        store.loadComic(props.work._id);
-        navigate('/comic/');
+        store.loadWork(props.work._id);
+        navigate("/comic/");
     }
 
     function handleAuthor(event) {
