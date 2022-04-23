@@ -6,6 +6,10 @@ function UploadChapter() {
     const [files, setFiles] = useState([]);
     const [name, setName] = useState("");
 
+    function handleSubmit() {
+        store.createComicChapter(store.work._id, name, files)
+    }
+
     function handleFileUpload(event) {
         const reader = new FileReader();
         setFiles([]);
@@ -44,7 +48,7 @@ function UploadChapter() {
                     <br></br>
                     <input id="terms_checkbox" type="checkbox"></input>
                     <label id="terms_label" for="terms_checkbox">By uploading this chapter, I agree to Panels' terms and services</label> <br></br>
-                    <button id="upload_button">Upload</button>
+                    <button id="upload_button" onClick={() => handleSubmit()}>Upload</button>
                 </div>
             </div>
         </div>

@@ -1,8 +1,11 @@
-import { useState } from 'react'
-import { Typography, Box, Grid, Toolbar, Button, FormControl, Select, MenuItem } from '@mui/material';
+import { useState, useContext } from 'react'
+import { Typography, Box, Grid, Toolbar, Button, FormControl, Select, MenuItem, ImageList, ImageListItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom'
+import batePic from '../testimgs/bate.jpg'
+import GlobalStoreContext from '../store'
 
-export default function SettingsScreen() {
+export default function ChapterScreen() {
+    const {store} = useContext(GlobalStoreContext)
     let navigate = useNavigate()
 
     const [chapter, setChapter] = useState(3)
@@ -10,6 +13,8 @@ export default function SettingsScreen() {
     const switchChapter = (event) => {
         setChapter(event.target.value)
     }
+
+    const testChapter = [batePic, batePic, batePic];
 
     return (
         <div>
@@ -46,12 +51,22 @@ export default function SettingsScreen() {
                         <Grid item xs={1} sx={{ display: 'flex', justifyContent: 'center' }}>
                             <Button variant="contained" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>Last</Button>
                         </Grid>
-                        <Grid item xs={2} sx={{ display: 'flex', justifyContent: 'center' }}>yep</Grid>
+                        <Grid item xs={2}></Grid>
                     </Grid>
                 </Toolbar>
             </Box>
-            <Box sx={{ height: '88vh', width: '40vw', overflowY: 'scroll', position: 'relative', left: '30%' }}>
-                <Box sx={{ height: '2000px', width: '100%', backgroundColor: 'white' }}></Box>
+            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <ImageList sx={{ width: '30vw' }} cols={1}>
+                {
+                    testChapter.map((image, index) => {
+                        return (
+                            <ImageListItem key={"chapter-image-" + index} sx={{ height: '200px' }}>
+                                <img src={image} alt ="Pic"></img>
+                            </ImageListItem>
+                        )
+                    })
+                }
+                </ImageList>
             </Box>
         </div>
     )

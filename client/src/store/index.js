@@ -298,7 +298,7 @@ function GlobalStoreContextProvider(props) {
                 comic.chapters.push({
                     chapterId: newChapter._id,
                     chapterName: comicName,
-                    currentDate: new Date()
+                    currentDate: null
                 })
                 response = await api.updateComic(comicId, comic);
                 if (response.status === 200) {

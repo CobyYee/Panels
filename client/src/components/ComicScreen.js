@@ -1,7 +1,6 @@
 import { useContext, useState } from 'react'
 import { Typography, Box, Grid, Button, MenuList, MenuItem, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import batePic from '../testimgs/bate.jpg'
 import { useNavigate } from 'react-router-dom'
 import GlobalStoreContext from '../store'
 import AuthContextProvider from '../auth'
@@ -13,10 +12,15 @@ export default function ComicScreen() {
     
     const [status, setStatus] = useState("chapters");
 
+    function handleChapter() {
+        //store.loadComicChapter(...)
+        navigate("/chapter/");
+    }
+
     let chapter =
         <MenuItem sx={{ p: '2px' }}>
             <Box sx={{ width: '100%', border: 1, borderColor: '#3d3d3d', display: 'flex', alignItems: 'flex-start', verticalAlign: 'center', p: 1 }}>
-                <Typography color='white' sx={{ flexGrow: .94 }}>Chapter Name</Typography>
+                <Typography onClick={() => handleChapter()} color='white' sx={{ flexGrow: .94 }}>Chapter Name</Typography>
                 <Typography color='white' sx={{ flexGrow: .06, fontSize: 12 }}>Date Released</Typography>
             </Box>
         </MenuItem>
