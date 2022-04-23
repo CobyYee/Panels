@@ -11,10 +11,10 @@ function UploadChapter() {
     }
 
     function handleFileUpload(event) {
-        const reader = new FileReader();
         setFiles([]);
         let files = Array.from(event.target.files);
         files.forEach((file) => {
+            let reader = new FileReader();            
             reader.readAsDataURL(file);
             reader.onload = function() {
                 setFiles([...files, reader.result]);
