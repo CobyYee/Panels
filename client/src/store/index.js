@@ -28,7 +28,8 @@ function GlobalStoreContextProvider(props) {
         work: null,
         images: [],
         image: null,
-        chapter: null
+        chapter: null,
+        chapter_images: null
     });
 
     const storeReducer = (action) => {
@@ -41,7 +42,8 @@ function GlobalStoreContextProvider(props) {
                     work: null,
                     images: null,
                     image: null,
-                    chapter: null
+                    chapter: null,
+                    chapter_images: null
                 })
             }
             case GlobalStoreActionType.LOAD_WORKS: {
@@ -51,7 +53,8 @@ function GlobalStoreContextProvider(props) {
                     work: null,
                     images: payload.images,
                     image: null,
-                    chapter: null
+                    chapter: null,
+                    chapter_images: null
                 })
             }
             case GlobalStoreActionType.LOAD_PROFILE_WORKS: {
@@ -61,7 +64,8 @@ function GlobalStoreContextProvider(props) {
                     work: null,
                     images: store.images,
                     image: null,
-                    chapter: null
+                    chapter: null,
+                    chapter_images: null
                 })
             }
             case GlobalStoreActionType.LOAD_WORK: {
@@ -71,7 +75,8 @@ function GlobalStoreContextProvider(props) {
                     work: payload.work,
                     images: store.images,
                     image: payload.image,
-                    chapter: null
+                    chapter: null,
+                    chapter_images: null
                 })
             }
             case GlobalStoreActionType.LOAD_CHAPTER: {
@@ -81,7 +86,8 @@ function GlobalStoreContextProvider(props) {
                     work: store.work,
                     images: store.images,
                     image: null,
-                    chapter: payload.chapter
+                    chapter: payload.chapter,
+                    chapter_images: payload.images
                 })
             }
             case GlobalStoreActionType.LOAD_IMAGES: {
@@ -91,7 +97,8 @@ function GlobalStoreContextProvider(props) {
                     work: store.work,
                     images: payload,
                     image: null,
-                    chapter: store.chapter
+                    chapter: null,
+                    chapter_images: null
                 })
             }
             case GlobalStoreActionType.LOAD_HOME: {
@@ -101,7 +108,8 @@ function GlobalStoreContextProvider(props) {
                     work: store.work,
                     images: payload.images,
                     image: null,
-                    chapter: store.chapter
+                    chapter: null,
+                    chapter_images: null
                 })
             }
             default:
@@ -220,7 +228,6 @@ function GlobalStoreContextProvider(props) {
                 type: GlobalStoreActionType.LOAD_WORK,
                 payload: currentComic
             })
-            //console.log(currentComic);
         }
         else {
             console.log("Failed to load comic: " + id);
@@ -263,7 +270,6 @@ function GlobalStoreContextProvider(props) {
             response = await api.getImagesById([currentWork.cover]);
             if (response.status === 200) {
                 let cover_image = response.data.data;
-                //console.log(cover_image);
                 storeReducer({
                     type: GlobalStoreActionType.LOAD_WORK,
                     payload: {
@@ -283,27 +289,44 @@ function GlobalStoreContextProvider(props) {
             name: comicName,
             images: images
         }
-        const response = await api.createComicChapter(comicChapter);
+        let response = await api.createComicChapter(comicChapter);
         if (response.status === 200) {
             let newChapter = response.newChapter;
-            storeReducer({
-                type: GlobalStoreActionType.LOAD_CHAPTER,
-                payload: newChapter
-            })
+            response = await api.getComicById(comicId);
+            if (response.status === 200) {
+                let comic = response.comic;
+                comic.chapters.push({
+                    chapterId: newChapter._id,
+                    chapterName: comicName,
+                    currentDate: new Date()
+                })
+                response = await api.updateComic(comicId, comic);
+                if (response.status === 200) {
+                    storeReducer({
+                        type: GlobalStoreActionType.LOAD_CHAPTER,
+                        payload: newChapter
+                    })
+                }
+            }
         }
     }
 
     store.loadComicChapter = async function(id) {
-        const response = await api.getComicChapterById(id);
+        let response = await api.getComicChapterById(id);
         if (response.status === 200) {
             let chapter = response.data.data;
-            storeReducer({
-                type: GlobalStoreActionType.LOAD_CHAPTER,
-                payload: chapter
-            }, () => {
-                navigate("/chapter/" + chapter._id);
-                }  
-            )
+            let chapter_images = chapter.images;
+            response = await api.getImagesById(chapter_images);
+            if (response.status === 200) {
+                let images = response.data.data
+                storeReducer({
+                    type: GlobalStoreActionType.LOAD_CHAPTER,
+                    payload: {
+                        chapter: chapter,
+                        images: images
+                    }
+                })
+            }
         }
     }
 
@@ -313,7 +336,10 @@ function GlobalStoreContextProvider(props) {
             let chapter = response.data.data;
             storeReducer({
                 type: GlobalStoreActionType.LOAD_CHAPTER,
-                payload: chapter
+                payload: {
+                    chapter: chapter,
+                    images: null
+                }
             })
         }
     }

@@ -1,7 +1,22 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import GlobalStoreContext from '../store';
 
-function UploadChapter(props) {
-    const [file, setFile] = useState(null);
+function UploadChapter() {
+    const {store} = useContext(GlobalStoreContext);
+    const [files, setFiles] = useState([]);
+    const [name, setName] = useState("");
+
+    function handleFileUpload(event) {
+        const reader = new FileReader();
+        setFiles([]);
+        let files = Array.from(event.target.files);
+        files.forEach((file) => {
+            reader.readAsDataURL(file);
+            reader.onload = function() {
+                setFiles([...files, reader.result]);
+            }
+        })
+    }
 
     return (
         <div id="upload_comic">
@@ -21,11 +36,11 @@ function UploadChapter(props) {
                     </div>
                 </div>
                 <div id="upload_comic_fields">
-                    <input id="upload_comic_name" type="text"></input> <br></br>
-                    <input id="upload_chapter_name" type="text"></input> <br></br>
-                    <input id="upload_chapter" type="file"></input>
-                    <label id="uploaded_chapter_label" for="upload_chapter_image">Browse</label>
-                    <label id="uploaded_chapter_label_label" for="uploaded_chapter_label"> [uploaded file name here]</label> 
+                    <input readonly="readonly" id="upload_comic_name" type="text" value={(store.work !== null) ? store.work.title : ""}></input> <br></br>
+                    <input id="upload_chapter_name" type="text" onChange={(event) => setName(event.target.value)}></input> <br></br>
+                    <input id="upload_chapter" type="file" onChange={(event) => {handleFileUpload(event)}}></input>
+                    <label id="uploaded_chapter_label" for="upload_chapter">Browse</label>
+                    <label id="uploaded_chapter_label_label" for="uploaded_chapter_label">{(files !== null) ? files.map((file) => { return file.name }) : ""}</label> 
                     <br></br>
                     <input id="terms_checkbox" type="checkbox"></input>
                     <label id="terms_label" for="terms_checkbox">By uploading this chapter, I agree to Panels' terms and services</label> <br></br>

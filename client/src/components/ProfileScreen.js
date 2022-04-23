@@ -41,12 +41,17 @@ export default function ProfileScreen() {
 
     function loadWork(cardId) {
         store.loadWork(cardId);
-        console.log(cardId);
+        navigate("/comic/");
     }
 
     function handleDelete(deleteId) {
         console.log("Deleting work: " + deleteId);
         //store.deleteWork(deleteId);
+    }
+
+    function handleChapter(workId) {
+        store.loadWork(workId)
+        navigate('/uploadchapter/');
     }
 
     let drafts = ""
@@ -155,7 +160,7 @@ export default function ProfileScreen() {
                                                 <Button onClick = {() => loadWork(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
                                             </Box>
                                             <Box sx={{ flexGrow: .01 }}>
-                                                <Button onClick = {() => navigate('/uploadchapter/')} sx={{ color: '#9c4247' }}>Add Chapter</Button>
+                                                <Button onClick = {() => handleChapter(work._id)} sx={{ color: '#9c4247' }}>Add Chapter</Button>
                                             </Box>
                                             <Button onClick = {() => handleDelete(work._id)} sx={{ color: '#9c4247' }}>Delete</Button>
                                         </Box>
