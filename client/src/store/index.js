@@ -11,6 +11,7 @@ export const GlobalStoreActionType = {
     HOME: "HOME",
     LOAD_WORKS: "LOAD_WORKS",
     LOAD_WORK: "LOAD_WORK",
+    LOAD_PROFILE_WORKS: "LOAD_PROFILE_WORKS",
     LOAD_CHAPTER: "LOAD_CHAPTER",
     SEARCH: "SEARCH",
     LOAD_IMAGES: "LOAD_IMAGES",
@@ -49,6 +50,16 @@ function GlobalStoreContextProvider(props) {
                     works: payload.works,
                     work: null,
                     images: payload.images,
+                    image: null,
+                    chapter: null
+                })
+            }
+            case GlobalStoreActionType.LOAD_PROFILE_WORKS: {
+                return setStore({
+                    mode: store.mode,
+                    works: payload,
+                    work: null,
+                    images: store.images,
                     image: null,
                     chapter: null
                 })
@@ -403,7 +414,7 @@ function GlobalStoreContextProvider(props) {
                 works = response.data.stories;
             }
             storeReducer({
-                type: GlobalStoreActionType.LOAD_WORKS,
+                type: GlobalStoreActionType.LOAD_PROFILE_WORKS,
                 payload: works
             })
         }
