@@ -46,9 +46,9 @@ function GlobalStoreContextProvider(props) {
             case GlobalStoreActionType.LOAD_WORKS: {
                 return setStore({
                     mode: store.mode,
-                    works: payload,
+                    works: payload.works,
                     work: null,
-                    images: store.images,
+                    images: payload.images,
                     image: null,
                     chapter: null
                 })
@@ -150,12 +150,21 @@ function GlobalStoreContextProvider(props) {
         }
         if (response.status === 200) {
             let works = response.data.data;
-            storeReducer({
-                type: GlobalStoreActionType.LOAD_WORKS,
-                payload: works
-            }, () => {
-                navigate("/listscreen")
-            })
+            let imageIds = [];
+            for (let i = 0; i < works.length; i++) {
+                imageIds.push(works[i].cover);
+            }
+            response = await api.getImagesById(imageIds);
+            if (response.status === 200) {
+                let images = response.data.data;
+                storeReducer({
+                    type: GlobalStoreActionType.LOAD_WORKS,
+                    payload: {
+                        works: works,
+                        images: images
+                    }
+                })
+            }
         }
     }
 
