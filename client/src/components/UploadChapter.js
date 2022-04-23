@@ -42,7 +42,7 @@ function UploadChapter() {
                 <div id="upload_comic_fields">
                     <input readonly="readonly" id="upload_comic_name" type="text" value={(store.work !== null) ? store.work.title : ""}></input> <br></br>
                     <input id="upload_chapter_name" type="text" onChange={(event) => setName(event.target.value)}></input> <br></br>
-                    <input id="upload_chapter" type="file" onChange={(event) => {handleFileUpload(event)}}></input>
+                    <input id="upload_chapter" type="file" multiple="multiple" onChange={(event) => {handleFileUpload(event)}}></input>
                     <label id="uploaded_chapter_label" for="upload_chapter">Browse</label>
                     <label id="uploaded_chapter_label_label" for="uploaded_chapter_label">{(files !== null) ? files.map((file) => { return file.name }) : ""}</label> 
                     <br></br>
