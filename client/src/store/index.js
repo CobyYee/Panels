@@ -234,6 +234,21 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    store.createComicChapter = async function(comicId, comicName, images) {
+        const comicChapter = {
+            name: comicName,
+            images: images
+        }
+        const response = await api.createComicChapter(comicChapter);
+        if (response.status === 200) {
+            let newChapter = response.newChapter;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_CHAPTER,
+                payload: newChapter
+            })
+        }
+    }
+
     store.loadComicChapter = async function(id) {
         const response = await api.getComicChapterById(id);
         if (response.status === 200) {
@@ -255,10 +270,7 @@ function GlobalStoreContextProvider(props) {
             storeReducer({
                 type: GlobalStoreActionType.LOAD_CHAPTER,
                 payload: chapter
-            }, () => {
-                navigate("/chapter/" + chapter._id);
-                }  
-            )
+            })
         }
     }
 

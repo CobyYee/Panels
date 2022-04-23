@@ -1,5 +1,3 @@
-import { Navigate } from "react-router-dom";
-import batePic from '../testimgs/bate.jpg';
 import { useContext } from 'react';
 import GlobalStoreContext from '../store';
 import {useNavigate} from 'react-router-dom'
