@@ -58,7 +58,7 @@ export default function ChapterScreen() {
             <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <ImageList sx={{ width: '30vw' }} cols={1}>
                 {
-                    testChapter.map((image, index) => {
+                    store.images.map((image, index) => {
                         return (
                             <ImageListItem key={"chapter-image-" + index} sx={{ height: '200px' }}>
                                 <img src={image} alt ="Pic"></img>

@@ -24,6 +24,11 @@ function HomeScreen() {
     //     img1.src = dataURL;
     // }
     // document.getElementById('root').appendChild(img1)
+
+    function handleLoad(workId) {
+        store.loadWork(workId);
+        navigate("/comic/")
+    }
     
     return (
         <Grid container sx = {{ flexDirection: 'column' }}>
@@ -33,7 +38,7 @@ function HomeScreen() {
                     {
                         (store.images && store.images.length === 8) ? store.images.map((image, index) => (
                             <Button key={ "featured" + index } sx = {{ backgroundColor: 'transparent', position: 'relative' }}>
-                                <img src={image} className = "image-contain" alt="Pic" onClick = {() => navigate('/comic/')}/>
+                                <img src={image} className = "image-contain" alt="Pic" onClick = {() => navigate("/comic/")}/>
                             </Button>
                         )) : ""
                     }
@@ -56,7 +61,7 @@ function HomeScreen() {
                                         <ListItem key={"latest" + index} sx={{ height: '36px' }}>
                                             <Box sx={{ borderRadius: 1, width: '100%', display: 'flex', alignItems: 'center', backgroundColor: (index % 2 === 0) ? '#2d2d2d' : 'none' } }>
                                                 <Box sx={{ flexGrow: 1 }}>
-                                                    <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
+                                                    <Button onClick = {() => handleLoad(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
                                                 </Box>
                                                 <Button onClick = {() => navigate('/chapter/')} sx={{ color: 'white', height: '100%' }}>{"Chapter " + index }</Button>
                                             </Box>
