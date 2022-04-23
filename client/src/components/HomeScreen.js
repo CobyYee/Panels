@@ -31,7 +31,7 @@ function HomeScreen() {
                 <Grid item pt={5} pb={5} xs={12} sx={{ height: '30vh', justifyContent: 'center', display: 'flex', minHeight: '400px' }}>
                     <Box sx = {{ backgroundColor: '#3d3d3d', width: '60%', borderRadius: '6px', minWidth: '1780px', display: 'flex', justifyContent: 'space-around', verticalAlign: 'center' }}>
                     {
-                        store.images ? store.images.map((image, index) => (
+                        (store.images && store.images.length === 8) ? store.images.map((image, index) => (
                             <Button key={ "featured" + index } sx = {{ backgroundColor: 'transparent', position: 'relative' }}>
                                 <img src={image} className = "image-contain" alt="Pic" onClick = {() => navigate('/comic/')}/>
                             </Button>

@@ -179,6 +179,39 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    store.search = async function(parameter) { 
+        let response = null;
+        if (parameter === "") {
+            store.listScreen();
+        }
+        else {
+            if (store.mode === "comic") {
+                response = await api.getComicsByName(parameter)
+            }
+            else {
+                response = await api.getStoriesByName(parameter);
+            }        
+            if (response.status === 200) {
+                let works = response.data.data;
+                let imageIds = [];
+                for (let i = 0; i < works.length; i++) {
+                    imageIds.push(works[i].cover);
+                }
+                response = await api.getImagesById(imageIds);
+                if (response.status === 200) {
+                    let images = response.data.data;
+                    storeReducer({
+                        type: GlobalStoreActionType.LOAD_WORKS,
+                        payload: {
+                            works: works,
+                            images: images
+                        }
+                    })
+                }
+            }
+        }
+    }
+
     store.loadComic = async function(id) {
         const response = await api.getComicById(id);
         if (response.status === 200) {
@@ -372,7 +405,7 @@ function GlobalStoreContextProvider(props) {
             let stories = response.data.stories;
             //console.log(stories);
             storeReducer({
-                type: GlobalStoreActionType.LOAD_WORKS,
+                type: GlobalStoreActionType.LOAD_PROFILE_WORKS,
                 payload: stories
             })
         }
@@ -388,7 +421,7 @@ function GlobalStoreContextProvider(props) {
             let comics = response.data.comics;
             //console.log(comics);
             storeReducer({
-                type: GlobalStoreActionType.LOAD_WORKS,
+                type: GlobalStoreActionType.LOAD_PROFILE_WORKS,
                 payload: comics
             })
         }
@@ -420,27 +453,6 @@ function GlobalStoreContextProvider(props) {
         }
         else {
             console.log("Failed to load works by creator_id: " + id);
-        }
-    }
-
-    store.search = async function(parameter) { 
-        let response = null;
-        if (parameter === "") {
-            store.listScreen();
-        }
-        else {
-            if (store.mode === "comic") {
-                response = await api.getComicsByName(parameter)
-            }
-            else {
-                response = await api.getStoriesByName(parameter);
-            }        
-            if (response.status === 200) {
-                storeReducer({
-                    type: GlobalStoreActionType.LOAD_WORKS,
-                    payload: response.data.data
-                })
-            }
         }
     }
 
