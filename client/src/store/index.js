@@ -295,11 +295,11 @@ function GlobalStoreContextProvider(props) {
             response = await api.getComicById(comicId);
             if (response.status === 200) {
                 let comic = response.data.comic;
-                comic.chapters.push({
+                comic.chapters.push(JSON.stringify({
                     id: newChapter._id,
                     name: newChapter.name,
                     uploaded: newChapter.uploaded
-                })
+                }));
                 response = await api.updateComic(comic);
                 if (response.status === 200) {
                     storeReducer({
