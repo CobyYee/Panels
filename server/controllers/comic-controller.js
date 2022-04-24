@@ -211,10 +211,10 @@ createChapter = async (req, res) => {       // tested 200
         const { name, images } = req.body;
         if (!images || !name)
             return res.status(400).json({success: false, message: "New comic chapter fields cannot be empty!"});
-
         let arr = [];
         for (let i = 0; i < images.length; i++) {
-            const newImage = new Image({data: images[i]});
+            console.log(images[i])
+            let newImage = new Image({data: images[i]});
             await newImage.save();
             arr.push(newImage._id);
         }
@@ -224,7 +224,7 @@ createChapter = async (req, res) => {       // tested 200
         });
         await newChapter.save();
 
-        return res.status(200).json({success: true, data: newChapter});
+        return res.status(200).json({success: true, data: newChapter}).send();
     }
     catch (err) {
         return res.status(500);

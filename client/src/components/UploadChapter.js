@@ -1,25 +1,35 @@
 import { useState, useContext } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import GlobalStoreContext from '../store';
+import AuthContext from '../auth';
 
 function UploadChapter() {
     const {store} = useContext(GlobalStoreContext);
+    const {auth} = useContext(AuthContext);
     const [files, setFiles] = useState([]);
     const [name, setName] = useState("");
 
+    const navigate = useNavigate();
     function handleSubmit() {
-        store.createComicChapter(store.work._id, name, files)
+        store.createComicChapter(store.work._id, name, files);
+        navigate(`/profile/${auth.session._id}`)
     }
 
     function handleFileUpload(event) {
-        setFiles([]);
-        let files = Array.from(event.target.files);
-        files.forEach((file) => {
+        let arr = [];
+        let files1 = Array.from(event.target.files);
+        files1.forEach((file) => {
             let reader = new FileReader();            
             reader.readAsDataURL(file);
             reader.onload = function() {
-                setFiles([...files, reader.result]);
+               // setFiles([...files, reader.result]);
+               arr.push(reader.result)
+            }
+            reader.onerror = function() {
+                console.log("reader onload error")
             }
         })
+        setFiles(arr);
     }
 
     return (

@@ -291,21 +291,22 @@ function GlobalStoreContextProvider(props) {
         }
         let response = await api.createComicChapter(comicChapter);
         if (response.status === 200) {
-            let newChapter = response.newChapter;
+            let newChapter = response.data.data;
             response = await api.getComicById(comicId);
             if (response.status === 200) {
-                let comic = response.comic;
+                let comic = response.data.comic;
                 comic.chapters.push({
                     chapterId: newChapter._id,
                     chapterName: comicName,
-                    currentDate: null
+                    currentDate: new Date()
                 })
-                response = await api.updateComic(comicId, comic);
+                response = await api.updateComic(comic);
                 if (response.status === 200) {
                     storeReducer({
                         type: GlobalStoreActionType.LOAD_CHAPTER,
                         payload: newChapter
                     })
+                    console.log("comic updated")
                 }
             }
         }

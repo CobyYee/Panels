@@ -9,7 +9,7 @@ const api = axios.create({
 
 export const getComicById = (id) => api.get(`/comic/${id}`)
 export const createComic = (payload) => api.post(`/comic/`, payload)
-export const updateComic = (id, payload) => api.put(`/comic/${id}`, payload)
+export const updateComic = (payload) => api.put(`/comic/`, payload)
 export const deleteComic = (id) => api.delete(`/comic/${id}`)
 export const getAllComics = () => api.get(`/comics/`);
 export const getComicsByGenres = (payload) => api.get(`/comicsbygenres`, payload)

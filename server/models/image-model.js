@@ -3,8 +3,7 @@ const Schema = mongoose.Schema
 
 const ImageSchema = new Schema(
     {
-        data: { type: Buffer, required: true },
-        contentType: String,
+        data: { type: Buffer, required: true }
     },
     { timestamps: true }
 )
