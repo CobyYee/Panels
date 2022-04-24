@@ -81,6 +81,7 @@ export default function ProfileScreen() {
                                             <Button onClick = {() => loadWork(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
                                         </Box>
                                         <Button sx={{ color: '#9c4247' }}>Publish</Button>
+                                        <Button onClick = {() => navigate('/uploadchapter/')} sx={{ color: '#9c4247' }}>Add Chapter</Button>
                                         <Button onClick = {() => handleEdit(work._id)} sx={{ color: '#9c4247' }}>Edit</Button>
                                         <Button onClick = {() => handleDelete(work._id)} sx={{ color: '#9c4247' }}>Delete</Button>
                                     </Box>
@@ -94,6 +95,7 @@ export default function ProfileScreen() {
                                     <Button onClick = {() => loadWork(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
                                 </Box>
                                 <Button sx={{ color: '#9c4247' }}>Publish</Button>
+                                <Button onClick = {() => navigate('/uploadchapter/')} sx={{ color: '#9c4247' }}>Add Chapter</Button>
                                 <Button onClick = {() => handleEdit(work._id)} sx={{ color: '#9c4247' }}>Edit</Button>
                                 <Button onClick = {() => handleDelete(work._id)} sx={{ color: '#9c4247' }}>Delete</Button>
                             </Box>

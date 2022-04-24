@@ -14,7 +14,12 @@ export default function ComicScreen() {
 
     function handleChapter(chapterId) {
         store.loadComicChapter(chapterId);
-        navigate("/chapter/");
+        if (store.work.published !== null) {
+            navigate("/chapter/");
+        }
+        else {
+            navigate("/editchapter/");
+        }
     }
 
     let comment =
