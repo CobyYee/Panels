@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { Typography, Box, Grid, Button, MenuList, MenuItem, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
+import { Typography, Box, Grid, Button, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom'
 import GlobalStoreContext from '../store'
@@ -12,38 +12,10 @@ export default function ComicScreen() {
     
     const [status, setStatus] = useState("chapters");
 
-    function handleChapter() {
-        //store.loadComicChapter(...)
+    function handleChapter(chapterId) {
+        store.loadComicChapter(chapterId);
         navigate("/chapter/");
     }
-
-    let chapter =
-        <MenuItem sx={{ p: '2px' }}>
-            <Box sx={{ width: '100%', border: 1, borderColor: '#3d3d3d', display: 'flex', alignItems: 'flex-start', verticalAlign: 'center', p: 1 }}>
-                <Typography onClick={() => handleChapter()} color='white' sx={{ flexGrow: .94 }}>Chapter Name</Typography>
-                <Typography color='white' sx={{ flexGrow: .06, fontSize: 12 }}>Date Released</Typography>
-            </Box>
-        </MenuItem>
-
-    let display =   
-        <MenuList>
-            { chapter }
-            { chapter }
-            { chapter }
-            { chapter }
-            { chapter }
-            { chapter }
-            { chapter }
-            { chapter }
-            { chapter }
-            { chapter }
-            { chapter }
-            { chapter }
-            { chapter }
-            { chapter }
-            { chapter }
-            { chapter }
-        </MenuList>
 
     let comment =
         <ListItem>
@@ -55,6 +27,7 @@ export default function ComicScreen() {
             <ListItemText primary={ <Typography color='white'>User</Typography> } secondary={ <Typography color='white'>comment</Typography> }/>
         </ListItem>
 
+    /*
     if (status === "comments") {
         display =   <List>
                         { comment }
@@ -62,6 +35,7 @@ export default function ComicScreen() {
                         { comment }
                     </List>
     }
+    */
 
     function handleAuthor(event) {
         auth.loadProfile(store.work.creatorId);
@@ -109,7 +83,20 @@ export default function ComicScreen() {
                 </Grid>
                 <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
                     <Box sx={{ height: '100%', width: '100%', maxHeight: '50vh', overflowY: 'scroll' }}>
-                        { display }
+                    { (store.work !== null) ?
+                        <List>
+                        {
+                            store.work.chapters.map((chapter, index) => (
+                                <ListItem sx={{ p: '2px' }}>
+                                    <Box sx={{ width: '100%', border: 1, borderColor: '#3d3d3d', display: 'flex', alignItems: 'flex-start', verticalAlign: 'center', p: 1 }}>
+                                        <Typography onClick={() => handleChapter(chapter._id)} color='white' sx={{ flexGrow: .94 }}>Chapter Name</Typography>
+                                        <Typography color='white' sx={{ flexGrow: .06, fontSize: 12 }}>Date Released</Typography>
+                                    </Box>
+                                </ListItem>
+                            ))
+                        }
+                        </List> : ""
+                    }
                     </Box>
                 </Grid>
             </Grid>
