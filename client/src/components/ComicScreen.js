@@ -87,9 +87,9 @@ export default function ComicScreen() {
                         <List>
                         {
                             store.work.chapters.map((chapter, index) => (
-                                <ListItem sx={{ p: '2px' }}>
+                                <ListItem key={"chapter-card" + index} sx={{ p: '2px' }}>
                                     <Box sx={{ width: '100%', border: 1, borderColor: '#3d3d3d', display: 'flex', alignItems: 'flex-start', verticalAlign: 'center', p: 1 }}>
-                                        <Typography onClick={() => handleChapter(chapter._id)} color='white' sx={{ flexGrow: .94 }}>Chapter Name</Typography>
+                                        <Typography onClick={() => handleChapter(JSON.parse(chapter).id)} color='white' sx={{ flexGrow: .94 }}>{JSON.parse(chapter).name}</Typography>
                                         <Typography color='white' sx={{ flexGrow: .06, fontSize: 12 }}>Date Released</Typography>
                                     </Box>
                                 </ListItem>
