@@ -73,7 +73,7 @@ export default function ProfileScreen() {
                                 <ListItem>
                                     <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
                                         <Box sx={{ flexGrow: 1 }}>
-                                            <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
+                                            <Button onClick = {() => loadWork(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
                                         </Box>
                                         <Button sx={{ color: '#9c4247' }}>Publish</Button>
                                         <Button onClick = {() => navigate('/editcomic/')} sx={{ color: '#9c4247' }}>Edit</Button>
@@ -86,7 +86,7 @@ export default function ProfileScreen() {
                         <ListItem key={ "draft" + index }>
                             <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
                                 <Box sx={{ flexGrow: 1 }}>
-                                    <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
+                                    <Button onClick = {() => loadWork(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
                                 </Box>
                                 <Button sx={{ color: '#9c4247' }}>Publish</Button>
                                 <Button onClick = {() => navigate('/editcomic/')} sx={{ color: '#9c4247' }}>Edit</Button>
@@ -171,7 +171,7 @@ export default function ProfileScreen() {
                                     <ListItem key={ "published" + index }>
                                         <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
                                             <Box sx={{ flexGrow: .99 }}>
-                                                <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
+                                                <Button onClick = {() => loadWork(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
                                             </Box>
                                             <Box sx={{ flexGrow: .01 }}>
                                                 <Button onClick = {() => navigate('/uploadchapter/')} sx={{ color: '#9c4247' }}>Add Chapter</Button>
