@@ -328,6 +328,12 @@ function GlobalStoreContextProvider(props) {
                     }
                 })
             }
+            else {
+                console.log("can't get images");
+            }
+        }
+        else {
+            console.log("No chapter found");
         }
     }
 

@@ -241,7 +241,7 @@ getChapterById = async(req, res) => {       // tested 200
         if (!chapter)
             return res.status.json({success: false, message: "Comic chapter with this id does not exist!"})
 
-        return res.status(200).json({success: true, data: chapter});
+        return res.status(200).json({success: true, data: chapter}).send();
     }
     catch (err) {
         return res.status(500);
