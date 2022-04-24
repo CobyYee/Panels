@@ -344,3 +344,8 @@ html, body {
   width: 180px;
   height: 290px;
 }
+
+.cover-image {
+  width: 256px;
+  height: 351px;
+}

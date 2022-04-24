@@ -47,7 +47,7 @@ export default function ComicScreen() {
             <Grid item={true} xs={11} container sx={{ display: 'flex', justifyContent: 'center', minWidth: '2300px' }} pb={4}>
                 <Grid item xs={4} sx={{ display: 'flex', justifyContent: 'flex-end' }} pr={10}>
                     <Box sx={{ border: 1, borderColor: '#4e4e4e', height: '352px', width: '256px' }}>
-                            <img src={store.image} sx={{ width: '352px', height: '256px' }} className = "image-contain" alt="Pic"/>
+                            <img src={store.image} className = "cover-image" alt="Pic"/>
                     </Box>
                 </Grid>
                 <Grid item xs={8} container spacing={2}>
