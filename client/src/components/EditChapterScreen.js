@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Typography, Box, Grid, Button, List, ListItem } from '@mui/material';
 
-export default function EditComicScreen() {
+export default function EditChapterScreen() {
     const [currentPage, setCurrentPage] = useState(1)
 
     return (
