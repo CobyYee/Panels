@@ -349,3 +349,7 @@ html, body {
   width: 256px;
   height: 351px;
 }
+
+.chapter-contain {
+    height: 100%;
+}
