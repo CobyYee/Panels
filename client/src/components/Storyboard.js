@@ -4,6 +4,8 @@ import { Grid, Button, TextField, Box } from '@mui/material'
 import { useNavigate } from "react-router-dom";
 import exStory from '../testimgs/exStory.jpg';
 import exComic from '../testimgs/exComic.jpg';
+import konva from 'konva'
+import {Stage, Layer, Rect, Line} from 'react-konva'
 
 function StoryBoard() {
     const { store } = useContext(GlobalStoreContext)
@@ -12,7 +14,7 @@ function StoryBoard() {
     let editor = ""
     if(store.mode === "comic") {
         editor = <Box sx={{ height: '80vh', position: 'relative', backgroundColor: 'white', borderRadius: '10px', width: '90%', left: '5%'}}>
-            <img src={exComic} alt="Pic" style={{ width: '100%', height: '100%' }}/>
+            
         </Box>
     }
     else {

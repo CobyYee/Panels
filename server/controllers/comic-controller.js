@@ -213,13 +213,13 @@ createChapter = async (req, res) => {       // tested 200
             return res.status(400).json({success: false, message: "New comic chapter fields cannot be empty!"});
         let arr = [];
         for (let i = 0; i < images.length; i++) {
-            console.log(images[i])
             let newImage = new Image({data: images[i]});
             await newImage.save();
             arr.push(newImage._id);
         }
         const newChapter = new ComicChapter({
             name: name,
+            uploaded: new Date(),
             images: arr
         });
         await newChapter.save();

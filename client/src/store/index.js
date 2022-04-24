@@ -284,9 +284,9 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    store.createComicChapter = async function(comicId, comicName, images) {
+    store.createComicChapter = async function(comicId, chapterName, images) {
         const comicChapter = {
-            name: comicName,
+            name: chapterName,
             images: images
         }
         let response = await api.createComicChapter(comicChapter);
@@ -296,9 +296,9 @@ function GlobalStoreContextProvider(props) {
             if (response.status === 200) {
                 let comic = response.data.comic;
                 comic.chapters.push({
-                    chapterId: newChapter._id,
-                    chapterName: comicName,
-                    currentDate: new Date()
+                    id: newChapter._id,
+                    name: newChapter.name,
+                    uploaded: newChapter.uploaded
                 })
                 response = await api.updateComic(comic);
                 if (response.status === 200) {
