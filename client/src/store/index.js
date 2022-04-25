@@ -234,6 +234,24 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    store.publish = async function(id) {
+        let response = await api.getComicById(id);
+        if (response.status === 200) {
+            let comic = response.data.comic;
+            comic.published = new Date();
+            response = await api.updateComic(comic);
+            if (response.status === 200) {
+                storeReducer({
+                    type: GlobalStoreActionType.LOAD_WORK,
+                    payload: {
+                        work: comic,
+                        image: store.image
+                    }
+                })
+            }
+        }
+    }
+
     store.loadStory = async function(id) {
         const response = await api.getStoryById(id);
         if (response.status === 200) {

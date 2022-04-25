@@ -52,6 +52,13 @@ export default function EditChapterScreen() {
         setChapterImageIds(temp);
     }
 
+    function saveChapter() {
+        console.log("Saving chapter");
+        store.chapter.images = chapterImageIds;
+        store.updateChapter(store.chapter);
+        console.log("SAVED");
+    }
+
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <Grid item={true} xs={12} container sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -84,7 +91,7 @@ export default function EditChapterScreen() {
                 <Grid item xs={9} container>
                     <Grid item xs={12} sx={{ border: 1, borderColor: '#4e4e4e', height: '100%', width: '100%' }}>
                         <Grid item xs={12} sx={{ backgroundColor: '#4e4e4e', height: '48px', display: 'flex', verticalAlign: 'center' }}>
-                            <Button sx={{ color: 'white' }}>Save</Button>
+                            <Button sx={{ color: 'white' }} onClick={() => saveChapter()}>Save</Button>
                             <Button sx={{ color: 'white' }}>Insert</Button>
                             <Button sx={{ color: 'white' }}>Edit</Button>
                             <Button sx={{ color: 'white' }}>Help</Button>
