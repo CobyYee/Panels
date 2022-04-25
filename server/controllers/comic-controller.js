@@ -248,6 +248,7 @@ updateChapter = async (req, res) => {
             return res.status(400).json({success: false, message: "This comic does not exist!"});
 
         old.name = body.name;
+        old.uploaded = body.uploaded;
         old.images = body.images;
 
         await old.save();
@@ -292,12 +293,16 @@ deleteChapter = async(req, res) => {    // tested 200
 createKonva = async(req, res) => {
     try {
         const { data } = req.body;
+        if (!data)
+            return res.status(400).json({ success: false, message: "Konva missing data!"})
+
         const konva = new Konva({ data: data });
-        const saved = konva.save();
+        const saved = await konva.save();
 
         if (!saved)
             return res.status(500);
 
+        console.log("konva created")
         return res.status(200).json({success: true, data: saved})
     }
     catch (err) {
@@ -306,18 +311,24 @@ createKonva = async(req, res) => {
     }
 }
 
-getKonvaById = async(req, res) => {
+getKonvasById = async(req, res) => {
     try {
-        const id = req.params.id;
-        const konva = await Konva.findById(id);
+        const ids = req.body;
+        if (!ids)
+            return res.status(400).json({success: false, message: "missing konva ids"});
 
-        if (!konva)
-            return res.status(400).json({success: false, message: "Konva not found"});
+        let arr = [];
+        for (let i = 0; i < ids.length; i++) {
+            let found = await Konva.findById(ids[i]);
+            if (!found)
+                return res.status(400).json({ success: false, errorMessage: "Konva " + ids[i] + " not found!"})
+            arr.push(found.data.toString())
+        }
 
-        return res.status(200).json({success: true, data: konva})
+        return res.status(200).json({success: true, data: arr});
     }
     catch (err) {
-        console.error("get konva error: " + err);
+        console.error("get konvas error: " + err);
         return res.status(500);
     }
 }
@@ -336,5 +347,7 @@ module.exports = {
     updateChapter,
     getChapterById,
     deleteChapter,
+    createKonva,
+    getKonvasById,
     //getChaptersByFilter
 }

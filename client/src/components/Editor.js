@@ -92,7 +92,6 @@ function Editor(props) {
         </Layer>
     </Stage>
     
-    console.log(thing)
     return ( 
     <div>
         <select value={tool} onChange={(e) => {setTool(e.target.value);}}>
@@ -107,7 +106,7 @@ function Editor(props) {
         </button>
         <div id="stage-container">
         
-        {thing}
+        {thing  }
           
         </div>
     </div>

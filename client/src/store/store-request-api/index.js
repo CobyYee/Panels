@@ -21,6 +21,8 @@ export const createComicChapter = (payload) => api.post(`/comicchapter/`, payloa
 export const updateComicChapter = (payload) => api.post(`/comicchapter/`, payload)
 
 export const getImagesById = (payload) => api.post(`/images/`, payload)
+export const createKonva = (payload) => api.post(`/konva/`, payload)
+export const getKonvasById = (payload) => api.post(`/konvas/`, payload)
 
 export const getStoryById = (id) => api.get(`/story/${id}`)
 export const createStory = (payload) => api.post(`/story/`, payload)
@@ -54,6 +56,8 @@ const apis = {
     updateComicChapter,
 
     getImagesById,
+    createKonva,
+    getKonvasById,
 
     getStoryById,
     createStory,

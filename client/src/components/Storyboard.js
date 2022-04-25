@@ -25,6 +25,8 @@ function StoryBoard(props) {
     function handleSave(event) {
         console.log(stageRef.current.toDataURL());
         console.log(stageRef.current.toJSON());
+        store.createKonva(stageRef.current.toDataURL());
+        navigate('/profile')
     }
 
     let stage = {"attrs":{"width":1920,"height":486,"id":"canvas"},"className":"Stage","children":[{"attrs":{},"className":"Layer","children":[{"attrs":{"points":[500.79998779296875,56,500.79998779296875,79,500.79998779296875,84,500.79998779296875,85],"stroke":"#df4b26","strokeWidth":5,"tension":0.5,"lineCap":"round"},"className":"Line"},{"attrs":{"points":[557.7999877929688,47,557.7999877929688,50,557.7999877929688,59,556.7999877929688,63,552.7999877929688,92],"stroke":"#df4b26","strokeWidth":5,"tension":0.5,"lineCap":"round"},"className":"Line"},{"attrs":{"points":[478.79998779296875,109,478.79998779296875,111,482.79998779296875,118,486.79998779296875,126,492.79998779296875,133,521.7999877929688,144,559.7999877929688,142,584.7999877929688,132,600.7999877929688,120],"stroke":"#df4b26","strokeWidth":5,"tension":0.5,"lineCap":"round"},"className":"Line"}]}]}

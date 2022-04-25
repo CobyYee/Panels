@@ -108,7 +108,7 @@ export default function ProfileScreen() {
         </div>
         profileButtons =
             <Grid item xs={4} sx={{display: 'flex', justifyContent: 'flex-end'}}>
-                <Button onClick = {() => navigate('/storyboard/')} sx={{ color: '#9c4247', "&:hover": { color: 'red' } }}>Create New</Button>
+                <Button onClick = {() => navigate('/storyboard/')} sx={{ color: '#9c4247', "&:hover": { color: 'red' } }}>Create Drawing</Button>
                 <Button onClick = {() => navigate('/uploadcomic/')} sx={{ color: '#9c4247', "&:hover": { color: 'red' } }}>Upload New</Button>
             </Grid>
     }

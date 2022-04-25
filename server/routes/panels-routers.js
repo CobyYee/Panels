@@ -18,7 +18,8 @@ router.get('/comicchapter/:id', ComicController.getChapterById)
 router.post('/comicchapter', ComicController.createChapter)
 
 router.post('/images', ComicController.getImagesById)
-
+router.post('/konva', ComicController.createKonva)
+router.post('/konvas', ComicController.getKonvasById)
 
 router.get('/story/:id', StoryController.getStoryById)
 router.post('/story', StoryController.createStory)
