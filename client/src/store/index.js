@@ -545,8 +545,36 @@ function GlobalStoreContextProvider(props) {
                 
             })
         }
+        else {
+            console.log("failed to get images")
+        }
     }
 
+
+    store.createKonva = async function(data) {
+        const response = await api.createKonva({
+            data: data
+        });
+        if (response.status === 200) {
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_PROFILE_WORKS,
+                payload: store.works
+            })
+        }
+        else {
+            console.log("failed to create konva")
+        }
+    }
+
+    store.getKonvasById = async function(ids) {
+        const response = await api.getKonvasById(ids);
+        if (response.status === 200) {
+            console.log(response.data.data)
+        }
+        else {
+            console.log("get konvas failed")
+        }
+    }
     return (
         <GlobalStoreContext.Provider  value={{store}}>
             {props.children}
