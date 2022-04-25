@@ -248,7 +248,19 @@ function GlobalStoreContextProvider(props) {
                         image: store.image
                     }
                 })
+                if (store.mode === "comic") {
+                    store.loadProfileComics(auth.user._id);
+                }
+                else {
+                    store.loadProfileStories(auth.user._id);
+                }
             }
+            else {
+                console.log(response);
+            }
+        }
+        else {
+            console.log("failed to find work");
         }
     }
 
@@ -389,6 +401,12 @@ function GlobalStoreContextProvider(props) {
                     image: file
                 }
             })
+            if (store.mode === "comic") {
+                store.loadProfileComics(auth.user._id);
+            }
+            else {
+                store.loadProfileStories(auth.user._id);
+            }
             navigate(`/profile/${auth.session._id}`)
         }
         else {
