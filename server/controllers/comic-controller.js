@@ -1,6 +1,7 @@
 const Comic = require('../models/comic-model');
 const Image = require('../models/image-model');
 const ComicChapter = require('../models/comicChapter-model.js');
+const Konva = require('../models/konva-model')
 
 createComic = (req, res) => {   // tested 200
     try {
@@ -260,6 +261,39 @@ deleteChapter = async(req, res) => {    // tested 200
         return res.status(200).json({success: true, data: deleted});
     }
     catch (err) {
+        return res.status(500);
+    }
+}
+
+createKonva = async(req, res) => {
+    try {
+        const { data } = req.body;
+        const konva = new Konva({ data: data });
+        const saved = konva.save();
+
+        if (!saved)
+            return res.status(500);
+
+        return res.status(200).json({success: true, data: saved})
+    }
+    catch (err) {
+        console.error("create konva error: " + err);
+        return res.status(500);
+    }
+}
+
+getKonvaById = async(req, res) => {
+    try {
+        const id = req.params.id;
+        const konva = await Konva.findById(id);
+
+        if (!konva)
+            return res.status(400).json({success: false, message: "Konva not found"});
+
+        return res.status(200).json({success: true, data: konva})
+    }
+    catch (err) {
+        console.error("get konva error: " + err);
         return res.status(500);
     }
 }
