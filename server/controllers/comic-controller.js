@@ -141,6 +141,7 @@ updateComic = async (req, res) => {     // tested 200
         old.title = body.title;
         old.genres = body.genres;
         old.description = body.description;
+        old.published = body.published;
         old.chapters = body.chapters;
         //old.comments = body.comments;
 

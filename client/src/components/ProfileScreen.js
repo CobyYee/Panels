@@ -2,7 +2,7 @@
 import { Typography, Box, Grid, Button, List, ListItem, Divider } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import { useNavigate } from 'react-router-dom'
-import { useContext, useEffect, useRef, useLayoutEffect } from 'react'
+import { useContext, useRef, useLayoutEffect } from 'react'
 import AuthContextProvider from '../auth'
 import GlobalStoreContext from '../store';
 
@@ -45,8 +45,8 @@ export default function ProfileScreen() {
     }
 
     function handleDelete(deleteId) {
-        console.log("Deleting work: " + deleteId);
-        //store.deleteWork(deleteId);
+        //console.log("Deleting work: " + deleteId);
+        store.deleteWork(deleteId);
     }
 
     function handleChapter(workId) {
@@ -57,6 +57,10 @@ export default function ProfileScreen() {
     function handleEdit(editId) {
         store.loadWork(editId);
         navigate('/editcomic/')
+    }
+
+    function handlePublish(publishId) {
+        store.publish(publishId);
     }
 
     let drafts = ""
@@ -80,8 +84,8 @@ export default function ProfileScreen() {
                                         <Box sx={{ flexGrow: 1 }}>
                                             <Button onClick = {() => loadWork(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
                                         </Box>
-                                        <Button sx={{ color: '#9c4247' }}>Publish</Button>
-                                        <Button onClick = {() => navigate('/uploadchapter/')} sx={{ color: '#9c4247' }}>Add Chapter</Button>
+                                        <Button onClick = {() => handlePublish(work._id)} sx={{ color: '#9c4247' }}>Publish</Button>
+                                        <Button onClick = {() => handleChapter(work._id)} sx={{ color: '#9c4247' }}>Add Chapter</Button>
                                         <Button onClick = {() => handleEdit(work._id)} sx={{ color: '#9c4247' }}>Edit</Button>
                                         <Button onClick = {() => handleDelete(work._id)} sx={{ color: '#9c4247' }}>Delete</Button>
                                     </Box>
@@ -94,8 +98,8 @@ export default function ProfileScreen() {
                                 <Box sx={{ flexGrow: 1 }}>
                                     <Button onClick = {() => loadWork(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
                                 </Box>
-                                <Button sx={{ color: '#9c4247' }}>Publish</Button>
-                                <Button onClick = {() => navigate('/uploadchapter/')} sx={{ color: '#9c4247' }}>Add Chapter</Button>
+                                <Button onClick = {() => handlePublish(work._id)} sx={{ color: '#9c4247' }}>Publish</Button>
+                                <Button onClick = {() => handleChapter(work._id)} sx={{ color: '#9c4247' }}>Add Chapter</Button>
                                 <Button onClick = {() => handleEdit(work._id)} sx={{ color: '#9c4247' }}>Edit</Button>
                                 <Button onClick = {() => handleDelete(work._id)} sx={{ color: '#9c4247' }}>Delete</Button>
                             </Box>
