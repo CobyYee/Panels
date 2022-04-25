@@ -177,7 +177,6 @@ function AuthContextProvider(props) {
             const response = await api.getUserById(id);
             if (response.status === 200) {
                 let profile_user = response.data.user
-                console.log(response.data.user)
                 authReducer( {
                     type: AuthActionType.LOAD_PROFILE,
                     payload: profile_user

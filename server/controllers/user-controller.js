@@ -182,7 +182,6 @@ getUserById = async (req, res) => {
 updateUser = async (req, res) => {
     try {
         const user = req.body;
-        console.log(user)
         if (!user) {
             return res.status(400).json({ errorMessage: "Missing user to update"})
         }
