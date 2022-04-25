@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from 'react'
-import { Typography, Box, Grid, Button, List, ListItem } from '@mui/material';
+import { Typography, Box, Grid, Button, List, ListItem, Modal } from '@mui/material';
 import GlobalStoreContext from '../store'
 
 export default function EditChapterScreen() {
@@ -9,6 +9,10 @@ export default function EditChapterScreen() {
     const [currentImage, setCurrentImage] = useState(null);
     const [chapterImageIds, setChapterImageIds] = useState([]);
     const [currentChapter, setCurrentChapter] = useState([]);
+
+    const [modalOpen, setModalOpen] = useState(false);
+    const [file, setFile] = useState(null);
+    const [fileName, setFileName] = useState("");
 
     useEffect(() => {
         setCurrentChapter(store.chapter_images);
@@ -59,6 +63,29 @@ export default function EditChapterScreen() {
         console.log("SAVED");
     }
 
+    function handleFileUpload(event) {
+        const reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]);
+        reader.onload = function() {
+            setFileName(event.target.files[0].name)
+            setFile(reader.result);
+        }
+        reader.onerror = function (error) {
+            console.log("File onload error: " + error);
+        }
+    }
+
+    const handleModalOpen = () => setModalOpen(true);
+    const handleModalClose = () => setModalOpen(false);
+
+    function handleInsert() {
+        console.log("inserting panel");
+        let temp = currentChapter.slice();
+        temp.splice(currentPage + 1, 0, file);
+        setCurrentChapter(temp);
+        handleModalClose();
+    }
+
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <Grid item={true} xs={12} container sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -92,7 +119,7 @@ export default function EditChapterScreen() {
                     <Grid item xs={12} sx={{ border: 1, borderColor: '#4e4e4e', height: '100%', width: '100%' }}>
                         <Grid item xs={12} sx={{ backgroundColor: '#4e4e4e', height: '48px', display: 'flex', verticalAlign: 'center' }}>
                             <Button sx={{ color: 'white' }} onClick={() => saveChapter()}>Save</Button>
-                            <Button sx={{ color: 'white' }}>Insert</Button>
+                            <Button sx={{ color: 'white' }} onClick={handleModalOpen}>Insert</Button>
                             <Button sx={{ color: 'white' }}>Edit</Button>
                             <Button sx={{ color: 'white' }}>Help</Button>
                         </Grid>
@@ -111,6 +138,19 @@ export default function EditChapterScreen() {
                     </Box>
                 </Grid>
             </Grid>
+            <Modal
+                open={modalOpen}
+                onClose={handleModalClose}>
+                <Box sx={{ position: 'absolute', top: '30%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: '#3d3d3d', p: 2, borderRadius: 2 }}>
+                    <Typography color="white" sx={{ fontSize: 20 }} mb={2}>Insert Panel</Typography>
+                    <Button variant="contained" component="label" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>
+                        Browse Files
+                        <input type="file" hidden onChange={(event) => {handleFileUpload(event)}} />
+                    </Button>
+                    <Typography color="white" mt={2} mb={4}>Uploaded: {fileName}</Typography>
+                    <Button variant="contained" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }} onClick={() => handleInsert()}>Upload</Button><Button variant="contained" sx={{ backgroundColor: '#4e4e4e' }} onClick={handleModalClose}>Cancel</Button>
+                </Box>
+            </Modal>
         </Box>
     )
 }
