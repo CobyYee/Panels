@@ -390,10 +390,31 @@ function GlobalStoreContextProvider(props) {
                 type: GlobalStoreActionType.LOAD_WORK,
                 payload: {
                     work: currentDraft,
-                    image: newFile
+                    image: store.image
                 }
             })
             console.log("comic updated")
+        }
+    }
+
+    store.updateComicChapter = async function(newName, newImages) {
+        let chapterDraft = store.chapter;
+        chapterDraft.name = newName;
+        chapterDraft.images = newImages;
+        let response = await api.updateComicChapter(chapterDraft);
+        if (response.status === 200) {
+            let updated = response.data.data;
+            response = await api.getImagesById(newImages);
+            if (response.status === 200) {
+                let newImages = response.data.data;
+                storeReducer({
+                    type: GlobalStoreActionType.LOAD_CHAPTER,
+                    payload: {
+                        chapter: updated,
+                        chapter_images: newImages
+                    }
+                })
+            }
         }
     }
 

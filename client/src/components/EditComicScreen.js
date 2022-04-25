@@ -2,10 +2,13 @@ import { useState, useContext, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box'
 import GlobalStoreContext from '../store';
+import { Navigate, useNavigate } from 'react-router-dom'
 
 
 function EditComicScreen() {
     const {store} = useContext(GlobalStoreContext);
+    let navigate = useNavigate()
+
     const [file, setFile] = useState(null);
     const [fileName, setFileName] = useState("");
     const [title, setTitle] = useState(store.work !== null ? store.work.title : "")
@@ -13,13 +16,15 @@ function EditComicScreen() {
     const tags = ["Action", "Romance", "Fantasy", "Comedy", "Slice of Life", "Reincarnation", "Martial Arts", "Food", "Horror", "Sports"];
     const [selectedTags, setSelectedTags] = useState([]);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    function handleSubmit() {
         let newTitle = (title === "") ? store.work.title : title;
         let newDescription = (description === "") ? store.work.description: description;
         //MUST TEST IF COVER UPLOADING WORKS
-        let newFile = (file === null) ? store.image : file;
-        store.updateDraft(newTitle, newFile, newDescription, tags);
+        //let newFile = (file === null) ? store.work.cover : file;
+        let newFile = store.work.cover;
+        let newTags = store.work.genres;
+        store.updateDraft(newTitle, newFile, newDescription, newTags);
+        navigate("/comic/");
     }
 
     const handleTag = (tag) => {
@@ -85,7 +90,7 @@ function EditComicScreen() {
                     <input id="upload_comic_description" type="text" defaultValue={store.work != null ? store.work.description : ""} onChange={(event) => setDescription(event.target.value)}></input> <br></br>
                     <input id="terms_checkbox" type="checkbox"></input>
                     <label id="terms_label" for="terms_checkbox">By editing this comic, I agree to Panels' terms and services</label> <br></br>
-                    <Button id="upload_button" type="submit">Save</Button>
+                    <Button id="upload_button" type="submit" onClick={() => handleSubmit()}>Save</Button>
                 </div>
             </div>
         </Box>
