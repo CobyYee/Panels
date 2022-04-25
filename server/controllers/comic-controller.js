@@ -123,7 +123,7 @@ updateComic = async (req, res) => {     // tested 200
         if(!body) {
             return res.status(400).json({
                 success: false,
-                message: "Must specify information to create the comic."
+                message: "Must specify information to update the comic."
             });
         }
 
@@ -138,12 +138,11 @@ updateComic = async (req, res) => {     // tested 200
             await oldCover.save();
         }
 
+        old.title = body.title;
         old.genres = body.genres;
-        old.ratings = body.ratings;
         old.description = body.description;
-        old.views = body.views;
         old.chapters = body.chapters;
-        old.comments = body.comments;
+        //old.comments = body.comments;
 
         console.log(req.body);
         console.log(old.chapters);
@@ -234,6 +233,31 @@ createChapter = async (req, res) => {       // tested 200
     }
 }
 
+updateChapter = async (req, res) => {
+    try {
+        const body = req.body;
+        if(!body) {
+            return res.status(400).json({
+                success: false,
+                message: "Must specify information to update the comic chapter."
+            });
+        }
+
+        const old = await ComicChapter.findById(body._id);
+        if (!old)
+            return res.status(400).json({success: false, message: "This comic does not exist!"});
+
+        old.name = body.name;
+        old.images = body.images;
+
+        await old.save();
+        return res.status(200).json({success: true, data: old});
+    }
+    catch (err) {
+        return res.status(500);
+    }   
+}
+
 getChapterById = async(req, res) => {       // tested 200
     try {
         const id = req.params.id;
@@ -309,6 +333,7 @@ module.exports = {
     getImagesById,
     updateComic,
     createChapter,
+    updateChapter,
     getChapterById,
     deleteChapter,
     //getChaptersByFilter

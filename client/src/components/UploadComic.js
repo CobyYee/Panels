@@ -61,9 +61,7 @@ function UploadComic() {
                 </div>
                 <div id="upload_comic_fields">
                     <input id="upload_comic_name" type="text" name="comic_name" onChange={(event) => setTitle(event.target.value)}></input> <br></br>
-                    <input id="upload_comic_image" type="file" 
-                           onChange={(event) => {handleFileUpload(event)}}>
-                    </input>
+                    <input id="upload_comic_image" type="file" onChange={(event) => {handleFileUpload(event)}}></input>
                     <label id="uploaded_comic_image_label" for="upload_comic_image"> Browse </label>
                     <label id="uploaded_comic_image_label_label" for="uploaded_comic_image_label">{fileName}</label>
                     <div id="tags">

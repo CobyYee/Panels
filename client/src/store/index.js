@@ -352,7 +352,7 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.createComic = async function(title, file, description, tags) {
-        console.log(auth.session)
+        //console.log(auth.session)
         const comic = {
             title: title,
             creatorId: auth.session._id,
@@ -366,12 +366,55 @@ function GlobalStoreContextProvider(props) {
             let newComic = response.comic;
             storeReducer({
                 type: GlobalStoreActionType.LOAD_WORK,
-                payload: newComic
+                payload: {
+                    work: newComic,
+                    image: file
+                }
             })
             navigate(`/profile/${auth.session._id}`)
         }
         else {
             console.log("Failed to create new comic" + response);
+        }
+    }
+
+    store.updateDraft = async function(newTitle, newFile, newDescription, newTags) {
+        let currentDraft = store.work;
+        currentDraft.title = newTitle;
+        currentDraft.cover = newFile;
+        currentDraft.description = newDescription;
+        currentDraft.genres = newTags;
+        const response = await api.updateComic(currentDraft);
+        if (response.status === 200) {
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_WORK,
+                payload: {
+                    work: currentDraft,
+                    image: store.image
+                }
+            })
+            console.log("comic updated")
+        }
+    }
+
+    store.updateComicChapter = async function(newName, newImages) {
+        let chapterDraft = store.chapter;
+        chapterDraft.name = newName;
+        chapterDraft.images = newImages;
+        let response = await api.updateComicChapter(chapterDraft);
+        if (response.status === 200) {
+            let updated = response.data.data;
+            response = await api.getImagesById(newImages);
+            if (response.status === 200) {
+                let newImages = response.data.data;
+                storeReducer({
+                    type: GlobalStoreActionType.LOAD_CHAPTER,
+                    payload: {
+                        chapter: updated,
+                        chapter_images: newImages
+                    }
+                })
+            }
         }
     }
 
@@ -381,7 +424,10 @@ function GlobalStoreContextProvider(props) {
             let newStory = response.story;
             storeReducer({
                 type: GlobalStoreActionType.LOAD_WORK,
-                payload: newStory
+                payload: {
+                    work: newStory,
+                    image: storyData.cover
+                }
             })
         }
         else {
