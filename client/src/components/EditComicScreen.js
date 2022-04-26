@@ -1,8 +1,8 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box'
 import GlobalStoreContext from '../store';
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
 function EditComicScreen() {

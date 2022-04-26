@@ -25,7 +25,7 @@ export default function ProfileScreen() {
             store.loadProfileWorks(auth.user._id);
         }
         firstRender.current = true;
-    }, [store.mode]);
+    }, [store.mode, auth.user]);
 
     function handleFollow() {
         let user = auth.user;

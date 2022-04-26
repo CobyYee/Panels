@@ -340,6 +340,10 @@ html, body {
   margin-bottom: 20px;
 }
 
+
+
+/* Misc. */
+
 .image-contain {
   width: 180px;
   height: 290px;
@@ -351,5 +355,87 @@ html, body {
 }
 
 .chapter-contain {
-    height: 100%;
+  height: 100%;
+}
+
+
+
+
+/* HomeScreen */
+
+#home_grid_container {
+  height: 30vh;
+  min-height: 400px;
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+#home_image_container {
+  background-color: #3d3d3d;
+  width: 60%;
+  min-width: 1780px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-evenly;
+  vertical-align: center;
+}
+
+#home_image_selector {
+  background-color: transparent;
+  position: relative;
+}
+
+#latest_updates_title_container {
+  height: 5vh;
+  display: flex;
+  justify-content: center;
+}
+
+#latest_updates_title {
+  color: white;
+  font-family: "Poppins";
+  font-size: 1.5em;
+}
+
+#latest_updates_grid_container {
+  max-height: 50vh;
+  display: flex;
+  justify-content: center;
+}
+
+#latest_updates_box_container {
+  position: relative;
+  width: 80%;
+  max-width: 1780px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  border: 1px solid;
+  border-color: #4e4e4e;
+  border-radius: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+#latest_updates_list {
+  width: 100%;
+  height: 100%;
+  columns: 2;
+}
+
+#latest_updates_even, #latest_updates_odd {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-radius: 1px;
+}
+
+#latest_updates_even {
+  background-color: #2d2d2d;
+}
+
+#home_button {
+  color: white;
 }

@@ -1,7 +1,6 @@
 import { useState, useContext } from 'react'
 import { Typography, Box, Grid, Toolbar, Button, FormControl, Select, MenuItem, ImageList, ImageListItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom'
-import batePic from '../testimgs/bate.jpg'
 import GlobalStoreContext from '../store'
 
 export default function ChapterScreen() {
@@ -11,10 +10,8 @@ export default function ChapterScreen() {
     const [chapter, setChapter] = useState(3)
 
     const switchChapter = (event) => {
-        setChapter(event.target.value)
+        setChapter(event.target.value);
     }
-
-    const testChapter = [batePic, batePic, batePic];
 
     return (
         <div>
