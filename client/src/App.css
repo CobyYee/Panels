@@ -443,3 +443,31 @@ html, body {
 #home_button {
   color: white;
 }
+
+
+
+/* ProfileScreen */
+
+#profile_button {
+  background-color: #9c4247;
+}
+
+#profile_button:hover {
+  background-color: red;
+}
+
+#profile_text_button {
+  color: #9c4247;
+}
+
+#profile_drafts_container {
+  display: flex;
+  vertical-align: center;
+  padding-top: 16px;
+  padding-bottom: 8px;
+}
+
+#profile_drafts_title {
+  color: white;
+  font-size: 1.6em;
+}

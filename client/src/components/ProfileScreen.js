@@ -69,8 +69,10 @@ export default function ProfileScreen() {
     if (auth.session !== null && auth.user !== null && auth.session._id === auth.user._id) {
         drafts = 
         <div>
-        <Grid item pt={2} pb={1} xs={12} sx={{ display: 'flex', verticalAlign: 'center' }}>
-                        <Typography sx={{ color: 'white', fontSize: 25 }}>Drafts</Typography>
+        <Grid id="profile_drafts_container" item xs={12}>
+            <Typography id="profile_drafts_title">
+                Drafts
+            </Typography>
         </Grid>
         <Grid item xs={12} sx={{ border: 1, borderColor: '#4e4e4e' }}>
             <List sx={{ width: '100%', overflowY: 'scroll', maxHeight: '25vh' }}>
@@ -84,10 +86,10 @@ export default function ProfileScreen() {
                                         <Box sx={{ flexGrow: 1 }}>
                                             <Button onClick = {() => loadWork(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
                                         </Box>
-                                        <Button onClick = {() => handlePublish(work._id)} sx={{ color: '#9c4247' }}>Publish</Button>
-                                        <Button onClick = {() => handleChapter(work._id)} sx={{ color: '#9c4247' }}>Add Chapter</Button>
-                                        <Button onClick = {() => handleEdit(work._id)} sx={{ color: '#9c4247' }}>Edit</Button>
-                                        <Button onClick = {() => handleDelete(work._id)} sx={{ color: '#9c4247' }}>Delete</Button>
+                                        <Button id="profile_text_button" onClick={() => handlePublish(work._id)}>Publish</Button>
+                                        <Button id="profile_text_button" onClick={() => handleChapter(work._id)}>Add Chapter</Button>
+                                        <Button id="profile_text_button" onClick={() => handleEdit(work._id)}>Edit</Button>
+                                        <Button id="profile_text_button" onClick={() => handleDelete(work._id)}>Delete</Button>
                                     </Box>
                                 </ListItem>
                                 <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
@@ -98,10 +100,10 @@ export default function ProfileScreen() {
                                 <Box sx={{ flexGrow: 1 }}>
                                     <Button onClick = {() => loadWork(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
                                 </Box>
-                                <Button onClick = {() => handlePublish(work._id)} sx={{ color: '#9c4247' }}>Publish</Button>
-                                <Button onClick = {() => handleChapter(work._id)} sx={{ color: '#9c4247' }}>Add Chapter</Button>
-                                <Button onClick = {() => handleEdit(work._id)} sx={{ color: '#9c4247' }}>Edit</Button>
-                                <Button onClick = {() => handleDelete(work._id)} sx={{ color: '#9c4247' }}>Delete</Button>
+                                <Button id="profile_text_button" onClick={() => handlePublish(work._id)}>Publish</Button>
+                                <Button id="profile_text_button" onClick={() => handleChapter(work._id)}>Add Chapter</Button>
+                                <Button id="profile_text_button" onClick={() => handleEdit(work._id)}>Edit</Button>
+                                <Button id="profile_text_button" onClick={() => handleDelete(work._id)}>Delete</Button>
                             </Box>
                         </ListItem>
                     )
@@ -112,8 +114,8 @@ export default function ProfileScreen() {
         </div>
         profileButtons =
             <Grid item xs={4} sx={{display: 'flex', justifyContent: 'flex-end'}}>
-                <Button onClick = {() => navigate('/storyboard/')} sx={{ color: '#9c4247', "&:hover": { color: 'red' } }}>Create Drawing</Button>
-                <Button onClick = {() => navigate('/uploadcomic/')} sx={{ color: '#9c4247', "&:hover": { color: 'red' } }}>Upload New</Button>
+                <Button id="profile_text_button" onClick = {() => navigate('/storyboard/')}>Create Drawing</Button>
+                <Button id="profile_text_button" onClick = {() => navigate('/uploadcomic/')}>Upload New</Button>
             </Grid>
     }
 
@@ -140,9 +142,9 @@ export default function ProfileScreen() {
                     </Grid>
                     <Grid item xs={12} pb={2} sx={{ display: 'flex', justifyContent: 'center' }}>
                         {(auth.session !== null && auth.user !== null && auth.session._id !== auth.user._id) ? ((auth.user.follows.includes(auth.session._id) ? (
-                        <Button variant="contained" onClick={handleUnfollow} sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>Unfollow User</Button> )
+                        <Button id="profile_button" variant="contained" onClick={handleUnfollow}>Unfollow User</Button> )
                         : 
-                        (<Button variant="contained" onClick={handleFollow} sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>Follow User</Button>))) : ""}
+                        (<Button id="profile_button" variant="contained" onClick={handleFollow}>Follow User</Button>))) : ""}
                     </Grid>
                 </Grid>
                 <Grid item xs={7}>
@@ -168,12 +170,12 @@ export default function ProfileScreen() {
                                     <ListItem>
                                         <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
                                             <Box sx={{ flexGrow: .99 }}>
-                                                <Button onClick = {() => loadWork(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
+                                                <Button onClick={() => loadWork(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
                                             </Box>
                                             <Box sx={{ flexGrow: .01 }}>
-                                                <Button onClick = {() => handleChapter(work._id)} sx={{ color: '#9c4247' }}>Add Chapter</Button>
+                                                <Button id="profile_text_button" onClick={() => handleChapter(work._id)}>Add Chapter</Button>
                                             </Box>
-                                            <Button onClick = {() => handleDelete(work._id)} sx={{ color: '#9c4247' }}>Delete</Button>
+                                            <Button id="profile_text_button" onClick={() => handleDelete(work._id)}>Delete</Button>
                                         </Box>
                                     </ListItem>
                                     <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
@@ -182,12 +184,12 @@ export default function ProfileScreen() {
                                     <ListItem key={ "published" + index }>
                                         <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
                                             <Box sx={{ flexGrow: .99 }}>
-                                                <Button onClick = {() => loadWork(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
+                                                <Button onClick={() => loadWork(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
                                             </Box>
                                             <Box sx={{ flexGrow: .01 }}>
-                                                <Button onClick = {() => navigate('/uploadchapter/')} sx={{ color: '#9c4247' }}>Add Chapter</Button>
+                                                <Button id="profile_text_button" onClick={() => navigate('/uploadchapter/')}>Add Chapter</Button>
                                             </Box>
-                                            <Button onClick = {() => handleDelete(work._id)} sx={{ color: '#9c4247' }}>Delete</Button>
+                                            <Button id="profile_text_button" onClick={() => handleDelete(work._id)}>Delete</Button>
                                         </Box>
                                     </ListItem>
                                 )
