@@ -1,10 +1,11 @@
 //import { useState } from 'react'
-import { Typography, Box, Grid, Button, List, ListItem, Divider } from '@mui/material';
+import { Typography, Box, Grid, Button, List, Divider } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import { useNavigate } from 'react-router-dom'
 import { useContext, useRef, useLayoutEffect } from 'react'
 import AuthContextProvider from '../auth'
 import GlobalStoreContext from '../store';
+import ProfileCard from './ProfileCard'
 
 export default function ProfileScreen() {
     //get user from url. if user is self, we can display the Drafts section and enable the createNew button. Otherwise, don't
@@ -25,7 +26,7 @@ export default function ProfileScreen() {
             store.loadProfileWorks(auth.user._id);
         }
         firstRender.current = true;
-    }, [store.mode, auth.user]);
+    }, [store.mode]);
 
     function handleFollow() {
         let user = auth.user;
@@ -39,83 +40,41 @@ export default function ProfileScreen() {
         auth.updateUser(user);
     }
 
-    function loadWork(cardId) {
-        store.loadWork(cardId);
-        navigate("/comic/" + cardId);
-    }
-
-    function handleDelete(deleteId) {
-        //console.log("Deleting work: " + deleteId);
-        store.deleteWork(deleteId);
-    }
-
-    function handleChapter(workId) {
-        store.loadWork(workId);
-        navigate('/uploadchapter/');
-    }
-
-    function handleEdit(editId) {
-        store.loadWork(editId);
-        navigate('/editcomic/')
-    }
-
-    function handlePublish(publishId) {
-        store.publish(publishId);
-    }
-
     let drafts = ""
     let profileButtons = ""
 
     if (auth.session !== null && auth.user !== null && auth.session._id === auth.user._id) {
         drafts = 
         <div>
-        <Grid id="profile_drafts_container" item xs={12}>
-            <Typography id="profile_drafts_title">
-                Drafts
-            </Typography>
-        </Grid>
-        <Grid item xs={12} sx={{ border: 1, borderColor: '#4e4e4e' }}>
-            <List sx={{ width: '100%', overflowY: 'scroll', maxHeight: '25vh' }}>
-            {
-                store.works.filter(work => work.published === null).map((work, index) => {
-                    if (store.works.length - index > 1)
-                        return (
-                            <div key={ "draft" + index }>
-                                <ListItem>
-                                    <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
-                                        <Box sx={{ flexGrow: 1 }}>
-                                            <Button onClick = {() => loadWork(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
-                                        </Box>
-                                        <Button id="profile_text_button" onClick={() => handlePublish(work._id)}>Publish</Button>
-                                        <Button id="profile_text_button" onClick={() => handleChapter(work._id)}>Add Chapter</Button>
-                                        <Button id="profile_text_button" onClick={() => handleEdit(work._id)}>Edit</Button>
-                                        <Button id="profile_text_button" onClick={() => handleDelete(work._id)}>Delete</Button>
-                                    </Box>
-                                </ListItem>
-                                <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
-                            </div> )
-                    return (
-                        <ListItem key={ "draft" + index }>
-                            <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
-                                <Box sx={{ flexGrow: 1 }}>
-                                    <Button onClick = {() => loadWork(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
-                                </Box>
-                                <Button id="profile_text_button" onClick={() => handlePublish(work._id)}>Publish</Button>
-                                <Button id="profile_text_button" onClick={() => handleChapter(work._id)}>Add Chapter</Button>
-                                <Button id="profile_text_button" onClick={() => handleEdit(work._id)}>Edit</Button>
-                                <Button id="profile_text_button" onClick={() => handleDelete(work._id)}>Delete</Button>
-                            </Box>
-                        </ListItem>
-                    )
-                })
-            }
-            </List>
-        </Grid>
+            <Grid id="profile_drafts_container" item xs={12}>
+                <Typography id="profile_drafts_title">
+                    Drafts
+                </Typography>
+            </Grid>
+            <Grid item xs={12} sx={{ border: 1, borderColor: '#4e4e4e' }}>
+                <List sx={{ width: '100%', overflowY: 'scroll', maxHeight: '25vh' }}>
+                {
+                    store.works.filter(work => work.published === null).map((work, index) => {
+                        if (store.works.filter(work => work.published === null).length - index > 1)
+                            return (
+                                <div key={"draft" + index}>
+                                    <ProfileCard work={work}/>
+                                    <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
+                                </div> )
+                        else {
+                            return (
+                                <ProfileCard key={"draft" + index} work={work}/>
+                            )
+                        }
+                    })
+                }
+                </List>
+            </Grid>
         </div>
         profileButtons =
             <Grid item xs={4} sx={{display: 'flex', justifyContent: 'flex-end'}}>
-                <Button id="profile_text_button" onClick = {() => navigate('/storyboard/')}>Create Drawing</Button>
-                <Button id="profile_text_button" onClick = {() => navigate('/uploadcomic/')}>Upload New</Button>
+                <Button id="profile_text_button" onClick={() => navigate('/storyboard/')}>Create Drawing</Button>
+                <Button id="profile_text_button" onClick={() => navigate('/uploadcomic/')}>Upload New</Button>
             </Grid>
     }
 
@@ -126,6 +85,12 @@ export default function ProfileScreen() {
                 <Grid item xs={3} sx={{ alignItems: 'right' }}>
                     <Grid item xs={12} pb={6} sx={{ display: 'flex', justifyContent: 'center' }}>
                         { profile_image }
+                    </Grid>
+                    <Grid item xs={12} pb={2} sx={{ display: 'flex', justifyContent: 'center' }}>
+                        {(auth.session !== null && auth.user !== null && auth.session._id !== auth.user._id) ? ((auth.user.follows.includes(auth.session._id) ? (
+                        <Button id="profile_button" variant="contained" onClick={handleUnfollow}>Unfollow User</Button> )
+                        : 
+                        (<Button id="profile_button" variant="contained" onClick={handleFollow}>Follow User</Button>))) : ""}
                     </Grid>
                     <Grid item xs={12} pb={6} sx={{ display: 'flex', justifyContent: 'center' }}>
                         <Box sx={{ width: '350px', textAlign: 'center' }}>
@@ -139,12 +104,6 @@ export default function ProfileScreen() {
                                 from the image.
                             </Typography>
                         </Box>
-                    </Grid>
-                    <Grid item xs={12} pb={2} sx={{ display: 'flex', justifyContent: 'center' }}>
-                        {(auth.session !== null && auth.user !== null && auth.session._id !== auth.user._id) ? ((auth.user.follows.includes(auth.session._id) ? (
-                        <Button id="profile_button" variant="contained" onClick={handleUnfollow}>Unfollow User</Button> )
-                        : 
-                        (<Button id="profile_button" variant="contained" onClick={handleFollow}>Follow User</Button>))) : ""}
                     </Grid>
                 </Grid>
                 <Grid item xs={7}>
@@ -164,35 +123,17 @@ export default function ProfileScreen() {
                         <List sx={{ width: '100%', overflowY: 'scroll', maxHeight: '25vh' }}>
                         {
                             store.works.filter(work => work.published !== null).map((work, index) => {
-                                if (store.works.length - index > 1)
-                                return (
-                                <div key={ "published" + index }>
-                                    <ListItem>
-                                        <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
-                                            <Box sx={{ flexGrow: .99 }}>
-                                                <Button onClick={() => loadWork(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
-                                            </Box>
-                                            <Box sx={{ flexGrow: .01 }}>
-                                                <Button id="profile_text_button" onClick={() => handleChapter(work._id)}>Add Chapter</Button>
-                                            </Box>
-                                            <Button id="profile_text_button" onClick={() => handleDelete(work._id)}>Delete</Button>
-                                        </Box>
-                                    </ListItem>
-                                    <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
-                                </div> )
-                                return (
-                                    <ListItem key={ "published" + index }>
-                                        <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
-                                            <Box sx={{ flexGrow: .99 }}>
-                                                <Button onClick={() => loadWork(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
-                                            </Box>
-                                            <Box sx={{ flexGrow: .01 }}>
-                                                <Button id="profile_text_button" onClick={() => navigate('/uploadchapter/')}>Add Chapter</Button>
-                                            </Box>
-                                            <Button id="profile_text_button" onClick={() => handleDelete(work._id)}>Delete</Button>
-                                        </Box>
-                                    </ListItem>
-                                )
+                                if (store.works.filter(work => work.published !== null).length - index > 1)
+                                    return (
+                                        <div key={ "published" + index }>
+                                            <ProfileCard work={work}/>
+                                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
+                                        </div> )
+                                else {
+                                    return (
+                                        <ProfileCard key={"published" + index} work={work}/>
+                                    )
+                                } 
                             })
                         }
                         </List>
