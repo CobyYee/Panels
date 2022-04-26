@@ -358,6 +358,10 @@ html, body {
   height: 100%;
 }
 
+#divider {
+  background-color: #4e4e4e;
+}
+
 
 
 
@@ -448,6 +452,11 @@ html, body {
 
 /* ProfileScreen */
 
+#profile_box {
+  padding-top: 80px;
+  flex-direction: column;
+}
+
 #profile_button {
   background-color: #9c4247;
 }
@@ -460,14 +469,67 @@ html, body {
   color: #9c4247;
 }
 
-#profile_drafts_container {
+#profile_works_border {
+  border: 1px solid;
+  border-color: #4e4e4e;
+}
+
+#profile_works_list {
+  width: 100%;
+  max-height: 25vh;
+  overflow-y: scroll;
+}
+
+#profile_image {
+  position: relative;
+  top: 15%;
+  color: #4e4e4e;
+  font-size: 20em;
+}
+
+#profile_works_card {
+  width: 100%;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  border-radius: 1px;
+}
+
+#profile_name, #profile_status, #profile_uploaded_title_container, #profile_drafts_title_container {
   display: flex;
   vertical-align: center;
-  padding-top: 16px;
+}
+
+#profile_name {
+  padding-top: 114px;
+}
+
+#profile_name_text {
+  color: white;
+  font-size: 2.7em;
+}
+
+#profile_status_text {
+  color: white;
+  font-size: .9em;
+}
+
+#profile_uploaded_title_container {
+  padding-top: 48px;
   padding-bottom: 8px;
 }
 
-#profile_drafts_title {
-  color: white;
-  font-size: 1.6em;
+#profile_drafts_title_container {
+    padding-top: 16px;
+    padding-bottom: 8px;
+  }
+  
+#profile_works_title {
+    color: white;
+    font-size: 1.5em;
+}
+
+.profile_centered {
+    display: flex;
+    justify-content: center;
 }

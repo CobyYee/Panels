@@ -1,4 +1,3 @@
-//import { useState } from 'react'
 import { Typography, Box, Grid, Button, List, Divider } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import { useNavigate } from 'react-router-dom'
@@ -8,12 +7,10 @@ import GlobalStoreContext from '../store';
 import ProfileCard from './ProfileCard'
 
 export default function ProfileScreen() {
-    //get user from url. if user is self, we can display the Drafts section and enable the createNew button. Otherwise, don't
-    //current user and their works should be stored in store? so we can retrieve and filter and place in Box
     const firstRender = useRef(false);
-    let navigate = useNavigate()
     const {auth} = useContext(AuthContextProvider)
     const {store} = useContext(GlobalStoreContext)
+    let navigate = useNavigate()
 
     let profileURL = window.location.href.substring(window.location.href.indexOf("/profile/") + 9);
     if (auth.user === null && profileURL !== "") {
@@ -42,24 +39,25 @@ export default function ProfileScreen() {
 
     let drafts = ""
     let profileButtons = ""
+    let profile_image = <AccountCircle id="profile_image"/>
 
     if (auth.session !== null && auth.user !== null && auth.session._id === auth.user._id) {
         drafts = 
         <div>
-            <Grid id="profile_drafts_container" item xs={12}>
-                <Typography id="profile_drafts_title">
+            <Grid id="profile_drafts_title_container" item xs={12}>
+                <Typography id="profile_works_title">
                     Drafts
                 </Typography>
             </Grid>
-            <Grid item xs={12} sx={{ border: 1, borderColor: '#4e4e4e' }}>
-                <List sx={{ width: '100%', overflowY: 'scroll', maxHeight: '25vh' }}>
+            <Grid id="profile_works_border" item xs={12}>
+                <List id="profile_works_list">
                 {
                     store.works.filter(work => work.published === null).map((work, index) => {
                         if (store.works.filter(work => work.published === null).length - index > 1)
                             return (
                                 <div key={"draft" + index}>
                                     <ProfileCard work={work}/>
-                                    <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
+                                    <Divider id="divider"/>
                                 </div> )
                         else {
                             return (
@@ -78,21 +76,24 @@ export default function ProfileScreen() {
             </Grid>
     }
 
-    let profile_image = <AccountCircle sx={{ color: '#4e4e4e', position: 'relative', top: '15%', fontSize: 280 }}/>
     return (
-        <Box sx={{ paddingTop: 10, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <Grid item={true} xs={10} container sx={{ display: 'flex', justifyContent: 'center', minWidth: '1200px' }}>
+        <Box id="profile_box" className="profile_centered">
+            <Grid className="profile_centered" item={true} xs={10} container sx={{ minWidth: '1200px' }}>
                 <Grid item xs={3} sx={{ alignItems: 'right' }}>
-                    <Grid item xs={12} pb={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <Grid className="profile_centered" item xs={12} pb={6}>
                         { profile_image }
                     </Grid>
-                    <Grid item xs={12} pb={2} sx={{ display: 'flex', justifyContent: 'center' }}>
-                        {(auth.session !== null && auth.user !== null && auth.session._id !== auth.user._id) ? ((auth.user.follows.includes(auth.session._id) ? (
-                        <Button id="profile_button" variant="contained" onClick={handleUnfollow}>Unfollow User</Button> )
-                        : 
-                        (<Button id="profile_button" variant="contained" onClick={handleFollow}>Follow User</Button>))) : ""}
+                    <Grid className="profile_centered" item xs={12} pb={2}>
+                        { 
+                        (auth.session !== null && auth.user !== null && auth.session._id !== auth.user._id) ? 
+                            ((auth.user.follows.includes(auth.session._id) ? 
+                                ( <Button id="profile_button" variant="contained" onClick={handleUnfollow}>Unfollow User</Button> )
+                            : 
+                                ( <Button id="profile_button" variant="contained" onClick={handleFollow}>Follow User</Button>)
+                            )) : ""
+                        }
                     </Grid>
-                    <Grid item xs={12} pb={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <Grid className="profile_centered" item xs={12} pb={6}>
                         <Box sx={{ width: '350px', textAlign: 'center' }}>
                             <Typography color="white">
                                 A long description is a way to provide long alternative text for non-text elements, such as images. 
@@ -107,27 +108,29 @@ export default function ProfileScreen() {
                     </Grid>
                 </Grid>
                 <Grid item xs={7}>
-                    <Grid item pt={14} xs={12} sx={{ display: 'flex', verticalAlign: 'center' }}>
-                        <Typography sx={{ color: 'white', fontSize: 40 }}>{(auth.user !== null) ? auth.user.username : ""}</Typography>
+                    <Grid id="profile_name" item xs={12}>
+                        <Typography id="profile_name_text">{(auth.user !== null) ? auth.user.username : ""}</Typography>
                     </Grid>
-                    <Grid item xs={12} sx={{ display: 'flex', verticalAlign: 'center' }}>
-                        <Typography sx={{ color: 'white', fontSize: 15 }}>{(auth.user !== null && auth.user.admin) ? "admin" : "user"}</Typography>
+                    <Grid id="profile_status" item xs={12}>
+                        <Typography id="profile_status_text">{(auth.user !== null && auth.user.admin) ? "admin" : "user"}</Typography>
                     </Grid>
-                    <Grid item pt={6} pb={1} xs={12} sx={{ display: 'flex', verticalAlign: 'center', maxHeight: '30vh' }}>
+                    <Grid id="profile_uploaded_title_container" item xs={12}>
                         <Grid item xs={8}>
-                            <Typography sx={{ color: 'white', fontSize: 25 }}>Uploaded Works</Typography>
+                            <Typography id="profile_works_title">
+                                Uploaded Works
+                            </Typography>
                         </Grid>
                         { profileButtons }
                     </Grid>
-                    <Grid item xs={12} sx={{ border: 1, borderColor: '#4e4e4e' }}>
-                        <List sx={{ width: '100%', overflowY: 'scroll', maxHeight: '25vh' }}>
+                    <Grid id="profile_works_border" item xs={12}>
+                        <List id="profile_works_list">
                         {
                             store.works.filter(work => work.published !== null).map((work, index) => {
                                 if (store.works.filter(work => work.published !== null).length - index > 1)
                                     return (
                                         <div key={ "published" + index }>
                                             <ProfileCard work={work}/>
-                                            <Divider sx={{ backgroundColor: '#4e4e4e' }}/>
+                                            <Divider id="divider"/>
                                         </div> )
                                 else {
                                     return (

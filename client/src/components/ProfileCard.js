@@ -50,7 +50,7 @@ export default function ProfileScreen(props) {
 
     return (
         <ListItem>
-            <Box sx={{ borderRadius: 1, width: '100%', height: '32px', display: 'flex', alignItems: 'center' }}>
+            <Box id="profile_works_card">
                 <Box sx={{ flexGrow: 1 }}>
                     <Button onClick = {() => loadWork(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{work.title}</Button>
                 </Box>
