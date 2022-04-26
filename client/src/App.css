@@ -425,6 +425,10 @@ html, body {
   columns: 2;
 }
 
+#latest_updates_card {
+  height: 36px;
+}
+
 #latest_updates_even, #latest_updates_odd {
   width: 100%;
   display: flex;

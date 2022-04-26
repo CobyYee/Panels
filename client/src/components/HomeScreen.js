@@ -47,7 +47,7 @@ function HomeScreen() {
                         <List id="latest_updates_list" container="true">
                         {
                             store.works.map((work, index) => (
-                                <ListItem key={"latest" + index} sx={{ height: '36px' }}>
+                                <ListItem id="latest_updates_card" key={"latest" + index}>
                                     <Box id={(index % 2 === 0 ? "latest_updates_even" : "latest_updates_odd")}>
                                         <Box sx={{ flexGrow: 1 }}>
                                             <Button id="home_button" onClick={() => handleLoad(work._id)}>{work.title}</Button>
