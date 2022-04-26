@@ -24,7 +24,7 @@ function EditComicScreen() {
         let newFile = store.work.cover;
         let newTags = store.work.genres;
         store.updateDraft(newTitle, newFile, newDescription, newTags);
-        navigate("/comic/");
+        navigate("/comic/" + store.work._id);
     }
 
     const handleTag = (tag) => {

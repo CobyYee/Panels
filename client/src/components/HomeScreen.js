@@ -1,5 +1,5 @@
 import { Box, Typography, Grid, List, ListItem, Button } from '@mui/material'
-import { useContext, useEffect, useRef, useLayoutEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { GlobalStoreContext }  from '../store';
 
@@ -7,27 +7,13 @@ function HomeScreen() {
     const {store} = useContext(GlobalStoreContext)
     let navigate = useNavigate();
 
-    // let featuredWorks = [batePic, naruto, bleach, lookism, mha, onepiece, sao, rezero]
-
-    useLayoutEffect(() => {
+    useEffect(() => {
         store.home();
     }, [store.mode])
 
-    // let img = new Image();
-    // img.src = store.store.images[1];
-    // let canvas = document.createElement("canvas");
-    // let img1 = document.createElement("img");
-    // img.onload = function () {
-    //     let context = canvas.getContext("2d");
-    //     context.drawImage(img, 0, 0 )
-    //     let dataURL = canvas.toDataURL(img.type)
-    //     img1.src = dataURL;
-    // }
-    // document.getElementById('root').appendChild(img1)
-
     function handleLoad(workId) {
         store.loadWork(workId);
-        navigate("/comic/")
+        navigate("/comic/" + workId);
     }
     
     return (
@@ -38,7 +24,7 @@ function HomeScreen() {
                     {
                         (store.images && store.images.length === 8) ? store.images.map((image, index) => (
                             <Button key={ "featured" + index } sx = {{ backgroundColor: 'transparent', position: 'relative' }}>
-                                <img src={image} className = "image-contain" alt="Pic" onClick = {() => navigate("/comic/")}/>
+                                <img src={image} className = "image-contain" alt="Pic" onClick = {() => handleLoad(store.works[index]._id)}/>
                             </Button>
                         )) : ""
                     }

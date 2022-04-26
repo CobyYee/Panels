@@ -22,7 +22,7 @@ export default function ChapterScreen() {
                 <Toolbar>
                     <Grid item={true} xs={12} container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <Grid item xs={2} sx={{ display: 'flex', justifyContent: 'center' }}>
-                            <Button onClick = {() => navigate('/comic/')} sx={{ color: '#9c4247' }}>back to comicName</Button>
+                            <Button onClick = {() => navigate('/comic/' + store.work._id)} sx={{ color: '#9c4247' }}>back to comicName</Button>
                         </Grid>
                         <Grid item xs={1} sx={{ display: 'flex', justifyContent: 'center' }}>
                             <Button variant="contained" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>First</Button>

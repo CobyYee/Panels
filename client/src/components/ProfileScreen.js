@@ -41,7 +41,7 @@ export default function ProfileScreen() {
 
     function loadWork(cardId) {
         store.loadWork(cardId);
-        navigate("/comic/");
+        navigate("/comic/" + cardId);
     }
 
     function handleDelete(deleteId) {
