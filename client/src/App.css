@@ -340,6 +340,10 @@ html, body {
   margin-bottom: 20px;
 }
 
+
+
+/* Misc. */
+
 .image-contain {
   width: 180px;
   height: 290px;
@@ -351,5 +355,303 @@ html, body {
 }
 
 .chapter-contain {
-    height: 100%;
+  height: 100%;
+}
+
+#divider {
+  background-color: #4e4e4e;
+}
+
+#button, #comic_button {
+  background-color: #9c4247;
+}
+  
+#button:hover, #comic_button:hover {
+  background-color: red;
+}
+  
+#text_button {
+  color: #9c4247;
+}
+
+
+
+
+/* HomeScreen */
+
+#home_grid_container {
+  height: 30vh;
+  min-height: 400px;
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+#home_image_container {
+  background-color: #3d3d3d;
+  width: 60%;
+  min-width: 1780px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-evenly;
+  vertical-align: center;
+}
+
+#home_image_selector {
+  background-color: transparent;
+  position: relative;
+}
+
+#latest_updates_title_container {
+  height: 5vh;
+  display: flex;
+  justify-content: center;
+}
+
+#latest_updates_title {
+  color: white;
+  font-family: "Poppins";
+  font-size: 1.5em;
+}
+
+#latest_updates_grid_container {
+  max-height: 50vh;
+  display: flex;
+  justify-content: center;
+}
+
+#latest_updates_box_container {
+  position: relative;
+  width: 80%;
+  max-width: 1780px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  border: 1px solid;
+  border-color: #4e4e4e;
+  border-radius: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+#latest_updates_list {
+  width: 100%;
+  height: 100%;
+  columns: 2;
+}
+
+#latest_updates_card {
+  height: 36px;
+}
+
+#latest_updates_even, #latest_updates_odd {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-radius: 1px;
+}
+
+#latest_updates_even {
+  background-color: #2d2d2d;
+}
+
+#home_button {
+  color: white;
+}
+
+
+
+/* ProfileScreen */
+
+#profile_box {
+  padding-top: 80px;
+  flex-direction: column;
+}
+
+#profile_works_border {
+  border: 1px solid;
+  border-color: #4e4e4e;
+}
+
+#profile_works_list {
+  width: 100%;
+  max-height: 25vh;
+  overflow-y: scroll;
+}
+
+#profile_image {
+  position: relative;
+  top: 15%;
+  color: #4e4e4e;
+  font-size: 20em;
+}
+
+#profile_works_card {
+  width: 100%;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  border-radius: 1px;
+}
+
+#profile_name, #profile_status, #profile_uploaded_title_container, #profile_drafts_title_container {
+  display: flex;
+  vertical-align: center;
+}
+
+#profile_name {
+  padding-top: 114px;
+}
+
+#profile_name_text {
+  color: white;
+  font-size: 2.7em;
+}
+
+#profile_status_text {
+  color: white;
+  font-size: .9em;
+}
+
+#profile_uploaded_title_container {
+  padding-top: 48px;
+  padding-bottom: 8px;
+}
+
+#profile_drafts_title_container {
+  padding-top: 16px;
+  padding-bottom: 8px;
+}
+  
+#profile_works_title {
+  color: white;
+  font-size: 1.5em;
+}
+
+.profile_centered {
+  display: flex;
+  justify-content: center;
+}
+
+
+
+
+/* ComicScreen */
+
+.comic_centered {
+  display: flex;
+  justify-content: center;
+}
+
+#comic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 80px;
+}
+
+#comic_grid {
+  width: 2500px;
+  max-width: 100vw;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 64px;
+}
+
+#comic_info_grid {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 100px;
+}
+
+#comic_cover_box {
+  width: 256px;
+  height: 352px;
+  border: 1px solid;
+  border-color: #4e4e4e;
+}
+
+#comic_cover {
+  width: 300px;
+  height: 440px;
+}
+
+#comic_name {
+  position: relative;
+  left: -5px;
+  color: white;
+  font-size: 3em;
+}
+
+#comic_creator_name {
+  color: white;
+  font-size: 1.2em;
+  margin-bottom: 60px;
+}
+
+#comic_info {
+  color: white;
+}
+
+#comic_button {
+  min-width: 200px;
+  max-width: 8vw;
+  height: 38px;
+}
+
+#comic_buttons, #comic_chapter_buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+#comic_buttons {
+  margin: 40px 0px 20px 0px;
+}
+
+#comic_chapter_buttons {
+  position: relative;
+  left: 1%;
+}
+
+#comic_description_box {
+  width: 70%;
+  height: 137px;
+}
+
+#comic_chapter_grid {
+  width: 1590px;
+  max-width: 80vw;
+  display: flex;
+  align-items: center;
+}
+
+#comic_chapters_box {
+  width: 100%;
+  height: 100%;
+  max-height: 50vh;
+  overflow-y: scroll;
+}
+
+#comic_chapter {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  vertical-align: center;
+  border: 1px solid;
+  border-color: #3d3d3d;
+  padding: 8px;
+}
+
+#comic_chapter_name {
+  color: white;
+  flex-grow: .94;
+  font-size: 1em;
+}
+
+#comic_chapter_date {
+  color: white;
+  flex-grow: .06;
+  font-size: .8em;
 }

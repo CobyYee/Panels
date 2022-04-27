@@ -1,8 +1,8 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box'
 import GlobalStoreContext from '../store';
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
 function EditComicScreen() {
@@ -24,7 +24,7 @@ function EditComicScreen() {
         let newFile = store.work.cover;
         let newTags = store.work.genres;
         store.updateDraft(newTitle, newFile, newDescription, newTags);
-        navigate("/comic/");
+        navigate("/comic/" + store.work._id);
     }
 
     const handleTag = (tag) => {

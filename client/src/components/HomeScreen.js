@@ -1,5 +1,5 @@
 import { Box, Typography, Grid, List, ListItem, Button } from '@mui/material'
-import { useContext, useEffect, useRef, useLayoutEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { GlobalStoreContext }  from '../store';
 
@@ -7,74 +7,59 @@ function HomeScreen() {
     const {store} = useContext(GlobalStoreContext)
     let navigate = useNavigate();
 
-    // let featuredWorks = [batePic, naruto, bleach, lookism, mha, onepiece, sao, rezero]
-
-    useLayoutEffect(() => {
+    useEffect(() => {
         store.home();
     }, [store.mode])
 
-    // let img = new Image();
-    // img.src = store.store.images[1];
-    // let canvas = document.createElement("canvas");
-    // let img1 = document.createElement("img");
-    // img.onload = function () {
-    //     let context = canvas.getContext("2d");
-    //     context.drawImage(img, 0, 0 )
-    //     let dataURL = canvas.toDataURL(img.type)
-    //     img1.src = dataURL;
-    // }
-    // document.getElementById('root').appendChild(img1)
-
     function handleLoad(workId) {
         store.loadWork(workId);
-        navigate("/comic/")
+        navigate("/comic/" + workId);
     }
     
     return (
-        <Grid container sx = {{ flexDirection: 'column' }}>
-            <Grid item xs = {12} sx={{ height: '100vh' }}>
-                <Grid item pt={5} pb={5} xs={12} sx={{ height: '30vh', justifyContent: 'center', display: 'flex', minHeight: '400px' }}>
-                    <Box sx = {{ backgroundColor: '#3d3d3d', width: '60%', borderRadius: '6px', minWidth: '1780px', display: 'flex', justifyContent: 'space-around', verticalAlign: 'center' }}>
+        <Grid container>
+            <Grid item xs={12}>
+                <Grid id="home_grid_container" item xs={12}>
+                    <Box id="home_image_container">
                     {
-                        (store.images && store.images.length === 8) ? store.images.map((image, index) => (
-                            <Button key={ "featured" + index } sx = {{ backgroundColor: 'transparent', position: 'relative' }}>
-                                <img src={image} className = "image-contain" alt="Pic" onClick = {() => navigate("/comic/")}/>
-                            </Button>
+                        (store.images && store.images.length === 8) ? 
+                            store.images.map((image, index) => (
+                                <Button id="home_image_selector" key={"featured" + index}>
+                                    <img className = "image-contain" 
+                                         src={image} 
+                                         alt="" 
+                                         onClick={() => handleLoad(store.works[index]._id)}
+                                    />
+                                </Button>
                         )) : ""
                     }
                     </Box>
                 </Grid>
 
-                <Grid item xs={12} sx={{ height: '5vh', justifyContent: 'center', display: 'flex' }}>
-                    <Typography sx = {{color: 'white', fontSize: '16pt'}}>
+                <Grid id="latest_updates_title_container" item xs={12}>
+                    <Typography id="latest_updates_title">
                         Latest Updates
                     </Typography>
                 </Grid>
 
-                <Grid item xs={12} sx={{ maxHeight: '50vh', justifyContent: 'center', display: 'flex' }}>
-                    <Box xs={12} sx = {{ position: 'relative', border: 1 , borderColor: '#4e4e4e',  width: '80%', height: '100%', borderRadius: '15px', maxWidth: '1780px' }}>
-                        <Grid item container sx = {{ display: 'flex' }}>
-                            <Grid item xs = {12} sx={{ p: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                <List container="true" sx={{ width: '100%', height: '100%', columns: 2 }}>
-                                {
-                                    store.works.map((work, index) => (
-                                        <ListItem key={"latest" + index} sx={{ height: '36px' }}>
-                                            <Box sx={{ borderRadius: 1, width: '100%', display: 'flex', alignItems: 'center', backgroundColor: (index % 2 === 0) ? '#2d2d2d' : 'none' } }>
-                                                <Box sx={{ flexGrow: 1 }}>
-                                                    <Button onClick = {() => handleLoad(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
-                                                </Box>
-                                                <Button onClick = {() => navigate('/chapter/')} sx={{ color: 'white', height: '100%' }}>{"Chapter " + index }</Button>
-                                            </Box>
-                                        </ListItem>
-                                    ))
-                                }
-                                </List>
-                            </Grid>
-                        </Grid>
-
+                <Grid id="latest_updates_grid_container" item xs={12}>
+                    <Box id="latest_updates_box_container" xs={12}>
+                        <List id="latest_updates_list" container="true">
+                        {
+                            store.works.map((work, index) => (
+                                <ListItem id="latest_updates_card" key={"latest" + index}>
+                                    <Box id={(index % 2 === 0 ? "latest_updates_even" : "latest_updates_odd")}>
+                                        <Box sx={{ flexGrow: 1 }}>
+                                            <Button id="home_button" onClick={() => handleLoad(work._id)}>{work.title}</Button>
+                                        </Box>
+                                        <Button id="home_button" onClick={() => navigate('/chapter/')}>{"Chapter " + index}</Button>
+                                    </Box>
+                                </ListItem>
+                            ))
+                        }
+                        </List>
                     </Box>
                 </Grid>
-
             </Grid>
         </Grid>
     )
