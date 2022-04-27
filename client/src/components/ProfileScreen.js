@@ -71,8 +71,8 @@ export default function ProfileScreen() {
         </div>
         profileButtons =
             <Grid item xs={4} sx={{display: 'flex', justifyContent: 'flex-end'}}>
-                <Button id="profile_text_button" onClick={() => navigate('/storyboard/')}>Create Drawing</Button>
-                <Button id="profile_text_button" onClick={() => navigate('/uploadcomic/')}>Upload New</Button>
+                <Button id="text_button" onClick={() => navigate('/storyboard/')}>Create Drawing</Button>
+                <Button id="text_button" onClick={() => navigate('/uploadcomic/')}>Upload New</Button>
             </Grid>
     }
 
@@ -87,9 +87,9 @@ export default function ProfileScreen() {
                         { 
                         (auth.session !== null && auth.user !== null && auth.session._id !== auth.user._id) ? 
                             ((auth.user.follows.includes(auth.session._id) ? 
-                                ( <Button id="profile_button" variant="contained" onClick={handleUnfollow}>Unfollow User</Button> )
+                                ( <Button id="button" variant="contained" onClick={handleUnfollow}>Unfollow User</Button> )
                             : 
-                                ( <Button id="profile_button" variant="contained" onClick={handleFollow}>Follow User</Button>)
+                                ( <Button id="button" variant="contained" onClick={handleFollow}>Follow User</Button>)
                             )) : ""
                         }
                     </Grid>

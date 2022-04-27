@@ -11,17 +11,17 @@ export default function ProfileScreen(props) {
 
     let buttons = 
         <div>
-            <Button id="profile_text_button" onClick={() => handleChapter(work._id)}>Add Chapter</Button>
-            <Button id="profile_text_button" onClick={() => handleDelete(work._id)}>Delete</Button>   
+            <Button id="text_button" onClick={() => handleChapter(work._id)}>Add Chapter</Button>
+            <Button id="text_button" onClick={() => handleDelete(work._id)}>Delete</Button>   
         </div> 
     
     if (work.published === null) {
         buttons = 
             <div>
-                <Button id="profile_text_button" onClick={() => handlePublish(work._id)}>Publish</Button>
-                <Button id="profile_text_button" onClick={() => handleChapter(work._id)}>Add Chapter</Button>
-                <Button id="profile_text_button" onClick={() => handleEdit(work._id)}>Edit</Button>
-                <Button id="profile_text_button" onClick={() => handleDelete(work._id)}>Delete</Button>
+                <Button id="text_button" onClick={() => handlePublish(work._id)}>Publish</Button>
+                <Button id="text_button" onClick={() => handleChapter(work._id)}>Add Chapter</Button>
+                <Button id="text_button" onClick={() => handleEdit(work._id)}>Edit</Button>
+                <Button id="text_button" onClick={() => handleDelete(work._id)}>Delete</Button>
             </div>
     }
 
