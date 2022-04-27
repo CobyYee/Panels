@@ -52,7 +52,7 @@ export default function ComicScreen() {
             <Grid id="comic_grid" item={true} xs={11} container>
                 <Grid id="comic_info_grid" item xs={4}>
                     <Box id="comic_cover_box">
-                        <img className="cover-image" src={store.image} alt=""/>
+                        <img id="comic_cover" src={store.image} alt=""/>
                     </Box>
                 </Grid>
                 <Grid item xs={8} container>
@@ -103,10 +103,10 @@ export default function ComicScreen() {
                             store.work.chapters.map((chapter, index) => (
                                 <ListItem key={"chapter-card" + index} sx={{ p: '2px' }}>
                                     <div id="comic_chapter">
-                                        <Typography id="comic_chapter_name" onClick={() => handleChapter(JSON.parse(chapter).id)}>
+                                        <div id="comic_chapter_name" onClick={() => handleChapter(JSON.parse(chapter).id)}>
                                             {JSON.parse(chapter).name}
-                                        </Typography>
-                                        <Typography id="comic_chapter_date" color='white'>Date Released</Typography>
+                                        </div>
+                                        <div id="comic_chapter_date">Date Released</div>
                                     </div>
                                 </ListItem>
                             ))
