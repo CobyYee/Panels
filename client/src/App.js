@@ -41,7 +41,9 @@ const App = () => {
                         <Route exact path="/settings/" element={< SettingsScreen />} />
                         <Route exact path="/profile/:id" element={< ProfileScreen />} />
                         <Route exact path="/comic/:id" element={< ComicScreen />} />
+                        <Route exact path="/story/:id" element={< ComicScreen />} />
                         <Route exact path="/uploadcomic" element={< UploadComic />} />
+                        <Route exact path="/uploadstory" element={< UploadComic />} />
                         <Route exact path="/uploadchapter" element={< UploadChapter />} />
                         <Route exact path="/storyboard/" element={< Storyboard />} />
                         <Route exact path="/chapter/" element={< ChapterScreen />}/>

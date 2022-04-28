@@ -23,7 +23,7 @@ function EditComicScreen() {
         //let newFile = (file === null) ? store.work.cover : file;
         let newFile = store.work.cover;
         let newTags = store.work.genres;
-        store.updateDraft(newTitle, newFile, newDescription, newTags);
+        store.updateComic(newTitle, newFile, newDescription, newTags);
         navigate("/comic/" + store.work._id);
     }
 

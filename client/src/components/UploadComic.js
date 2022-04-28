@@ -42,12 +42,12 @@ function UploadComic() {
     return (
         <Box id="upload_comic">
             <div id="upload_comic_label">
-                Upload Comic
+                Upload {store.mode}
             </div>
             <div id="upload_comic_inputs">
                 <div id="upload_comic_parameters">
                     <div id="upload_comic_name_label">
-                        Comic Name
+                        {store.mode} Name
                     </div>
                     <div id="upload_comic_image_label">
                         Cover Image
@@ -71,7 +71,7 @@ function UploadComic() {
                     </div>
                     <input id="upload_comic_description" type="text" name="comic_description" onChange={(event) => setDescription(event.target.value)}></input> <br></br>
                     <input id="terms_checkbox" type="checkbox"></input>
-                    <label id="terms_label" for="terms_checkbox">By uploading this comic, I agree to Panels' terms and services</label> <br></br>
+                    <label id="terms_label" for="terms_checkbox">By uploading this {store.mode}, I agree to Panels' terms and services</label> <br></br>
                     <Button id="upload_button" type="submit" onClick={handleSubmit}>Upload</Button>
                 </div>
             </div>
