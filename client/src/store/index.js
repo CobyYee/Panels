@@ -521,7 +521,7 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    store.publish = async function(id) {
+    store.publishComic = async function(id) {
         let response = await api.getComicById(id);
         if (response.status === 200) {
             let comic = response.data.comic;
@@ -600,6 +600,45 @@ function GlobalStoreContextProvider(props) {
         }
         else {
             console.log("No chapter found");
+        }
+    }
+
+    store.publishStory = async function(id) {
+        let response = await api.getStoryById(id);
+        if (response.status === 200) {
+            let story = response.data.story;
+            story.published = new Date();
+            response = await api.updateStory(story);
+            if (response.status === 200) {
+                storeReducer({
+                    type: GlobalStoreActionType.LOAD_WORK,
+                    payload: {
+                        work: story,
+                        image: store.image
+                    }
+                })
+                if (store.mode === "comic") {
+                    store.loadProfileComics(auth.user._id);
+                }
+                else {
+                    store.loadProfileStories(auth.user._id);
+                }
+            }
+            else {
+                console.log(response);
+            }
+        }
+        else {
+            console.log("failed to find work");
+        }
+    }
+
+    store.publish = async function (id) {
+        if (store.mode === "comic") {
+            store.publishComic(id);
+        }
+        else {
+            store.publishStory(id);
         }
     }
 

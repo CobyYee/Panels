@@ -70,17 +70,18 @@ updateStory = async (req, res) => {
             return res.status(400).json({success: false, message: "This story does not exist!"});
 
         if (body.cover !== old.cover.toString()) {
-            console.log("HERE");
+            //console.log("HERE");
             const oldCover = await Image.findById(old.cover);
             oldCover.data = body.cover;
             await oldCover.save();
         }
 
+        old.title = body.title;
         old.genres = body.genres;
-        old.ratings = body.ratings;
         old.description = body.description;
-        old.views = body.views;
+        old.published = body.published;
         old.chapters = body.chapters;
+        //old.comments = body.comments;
 
         await old.save();
         return res.status(200).json({success: true, data: old});

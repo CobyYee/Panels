@@ -26,7 +26,7 @@ export const getKonvasById = (payload) => api.post(`/konvas/`, payload)
 
 export const getStoryById = (id) => api.get(`/story/${id}`)
 export const createStory = (payload) => api.post(`/story/`, payload)
-export const updateStory = (id, payload) => api.put(`/story/${id}`, payload)
+export const updateStory = (payload) => api.put(`/story/`, payload)
 export const deleteStory = (id) => api.delete(`/story/${id}`)
 export const getAllStories = () => api.get(`/stories/`);
 export const getStoriesByGenres = (payload) => api.get(`/storiesbygenres`, payload)
