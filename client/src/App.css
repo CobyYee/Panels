@@ -659,3 +659,20 @@ html, body {
   flex-grow: .06;
   font-size: .8em;
 }
+
+
+/* Quill */
+
+#story-editor {
+  background-color: red;
+  width: 90%;
+  height: 80%;
+  position: relative;
+  margin: auto;
+}
+
+#quill-textbox {
+  height: 100%;
+  position: relative;
+  background-color: white;
+}

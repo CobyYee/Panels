@@ -15,6 +15,7 @@ import UploadChapter from './UploadChapter'
 import ChapterScreen from './ChapterScreen'
 import EditChapterScreen from './EditChapterScreen'
 import EditComicScreen from './EditComicScreen'
+import StoryEditor from './StoryEditor'
 
 export {
     Banner,
@@ -33,5 +34,6 @@ export {
     UploadChapter,
     ChapterScreen,
     EditChapterScreen,
-    EditComicScreen
+    EditComicScreen,
+    StoryEditor
 }

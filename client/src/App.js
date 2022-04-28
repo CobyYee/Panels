@@ -21,7 +21,8 @@ import {
     Storyboard,
     ChapterScreen,
     EditChapterScreen,
-    EditComicScreen
+    EditComicScreen,
+    StoryEditor
 } from './components'
 
 const App = () => {
@@ -49,6 +50,7 @@ const App = () => {
                         <Route exact path="/chapter/" element={< ChapterScreen />}/>
                         <Route exact path="/editchapter/" element={< EditChapterScreen />}/>
                         <Route exact path="/editcomic/" element={< EditComicScreen />}/>
+                        <Route exact path="/storyeditor/" element={ <StoryEditor />} />
                     </Routes>
              </GlobalStoreContextProvider>
             </AuthContextProvider>
