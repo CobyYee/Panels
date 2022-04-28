@@ -307,9 +307,10 @@ html, body {
   border: none;
   border-radius: 4px;
   display: inline-block;
+  margin-top: 10px;
   margin-bottom: 4px;
-  margin-left: 3px;
   color: white;
+  font-family: 'Poppins';
   font-size: 16px;
 }
 

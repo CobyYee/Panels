@@ -1,5 +1,4 @@
 import { useState, useContext } from 'react';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box'
 import GlobalStoreContext from '../store';
 
@@ -62,7 +61,7 @@ function UploadComic() {
                 <div id="upload_comic_fields">
                     <input id="upload_comic_name" type="text" name="comic_name" onChange={(event) => setTitle(event.target.value)}></input> <br></br>
                     <input id="upload_comic_image" type="file" onChange={(event) => {handleFileUpload(event)}}></input>
-                    <label id="uploaded_comic_image_label" for="upload_comic_image"> Browse </label>
+                    <label id="uploaded_comic_image_label" for="upload_comic_image">Browse</label>
                     <label id="uploaded_comic_image_label_label" for="uploaded_comic_image_label">{fileName}</label>
                     <div id="tags">
                         {tags.map((tag, index) => {
@@ -72,7 +71,7 @@ function UploadComic() {
                     <input id="upload_comic_description" type="text" name="comic_description" onChange={(event) => setDescription(event.target.value)}></input> <br></br>
                     <input id="terms_checkbox" type="checkbox"></input>
                     <label id="terms_label" for="terms_checkbox">By uploading this {store.mode}, I agree to Panels' terms and services</label> <br></br>
-                    <Button id="upload_button" type="submit" onClick={handleSubmit}>Upload</Button>
+                    <button id="upload_button" type="submit" onClick={() => handleSubmit()}>Upload</button>
                 </div>
             </div>
         </Box>
