@@ -36,7 +36,7 @@ createComic = (req, res) => {   // tested 200
             published: null,
             views: 0,
             chapters: [],
-            comments: [],
+            comments: []
         });
         
         newComic.save().then(() => {
@@ -145,8 +145,6 @@ updateComic = async (req, res) => {     // tested 200
         old.chapters = body.chapters;
         //old.comments = body.comments;
 
-        console.log(req.body);
-        console.log(old.chapters);
         await old.save();
         return res.status(200).json({success: true, data: old});
     }

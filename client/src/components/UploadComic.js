@@ -1,5 +1,4 @@
 import { useState, useContext } from 'react';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box'
 import GlobalStoreContext from '../store';
 
@@ -15,7 +14,7 @@ function UploadComic() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        store.createComic(title, file, description, selectedTags);
+        store.createWork(title, file, description, selectedTags);
     }
 
     const handleTag = (tag) => {
@@ -42,12 +41,12 @@ function UploadComic() {
     return (
         <Box id="upload_comic">
             <div id="upload_comic_label">
-                Upload Comic
+                Upload {store.mode}
             </div>
             <div id="upload_comic_inputs">
                 <div id="upload_comic_parameters">
                     <div id="upload_comic_name_label">
-                        Comic Name
+                        {store.mode} Name
                     </div>
                     <div id="upload_comic_image_label">
                         Cover Image
@@ -62,7 +61,7 @@ function UploadComic() {
                 <div id="upload_comic_fields">
                     <input id="upload_comic_name" type="text" name="comic_name" onChange={(event) => setTitle(event.target.value)}></input> <br></br>
                     <input id="upload_comic_image" type="file" onChange={(event) => {handleFileUpload(event)}}></input>
-                    <label id="uploaded_comic_image_label" for="upload_comic_image"> Browse </label>
+                    <label id="uploaded_comic_image_label" for="upload_comic_image">Browse</label>
                     <label id="uploaded_comic_image_label_label" for="uploaded_comic_image_label">{fileName}</label>
                     <div id="tags">
                         {tags.map((tag, index) => {
@@ -71,8 +70,8 @@ function UploadComic() {
                     </div>
                     <input id="upload_comic_description" type="text" name="comic_description" onChange={(event) => setDescription(event.target.value)}></input> <br></br>
                     <input id="terms_checkbox" type="checkbox"></input>
-                    <label id="terms_label" for="terms_checkbox">By uploading this comic, I agree to Panels' terms and services</label> <br></br>
-                    <Button id="upload_button" type="submit" onClick={handleSubmit}>Upload</Button>
+                    <label id="terms_label" for="terms_checkbox">By uploading this {store.mode}, I agree to Panels' terms and services</label> <br></br>
+                    <button id="upload_button" type="submit" onClick={() => handleSubmit()}>Upload</button>
                 </div>
             </div>
         </Box>

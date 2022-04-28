@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import GlobalStoreContext from '../store';
 import AuthContext from '../auth';
 
@@ -40,13 +40,13 @@ function UploadChapter() {
             <div id="upload_comic_inputs">
                 <div id="upload_comic_parameters">
                     <div id="upload_comic_name_label">
-                        Comic Name
+                        {store.mode} Name
                     </div>
                     <div id="upload_comic_image_label">
                         Chapter Name
                     </div>
                     <div id="upload_comic_tags_label">
-                        Chapter File
+                        Upload File(s)
                     </div>
                 </div>
                 <div id="upload_comic_fields">

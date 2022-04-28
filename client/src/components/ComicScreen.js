@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
-import { Typography, Box, Grid, Button, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
-import AccountCircle from '@mui/icons-material/AccountCircle';
+import { Box, Grid, Button, List, ListItem } from '@mui/material';
+//import { Typography, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
 import { useNavigate } from 'react-router-dom'
 import GlobalStoreContext from '../store'
 import AuthContextProvider from '../auth'

@@ -189,13 +189,15 @@ html, body {
   display: block;
   padding-left: 28%;
   padding-top: 100px;
-  width: 72%
+  width: 72%;
+  text-transform: capitalize;
 }
 
 #upload_comic_label {
   font-size: 25px;
   color: white;
   height: 50px;
+  text-transform: capitalize;
 }
 
 #upload_comic_inputs {
@@ -295,6 +297,7 @@ html, body {
 
 #terms_label {
   margin: 0px 0px 5px 5px;
+  text-transform: capitalize;
 }
 
 #upload_button {
@@ -304,9 +307,10 @@ html, body {
   border: none;
   border-radius: 4px;
   display: inline-block;
+  margin-top: 10px;
   margin-bottom: 4px;
-  margin-left: 3px;
   color: white;
+  font-family: 'Poppins';
   font-size: 16px;
 }
 
@@ -567,8 +571,8 @@ html, body {
 }
 
 #comic_cover_box {
-  width: 256px;
-  height: 352px;
+  width: 300px;
+  height: 440px;
   border: 1px solid;
   border-color: #4e4e4e;
 }
@@ -654,4 +658,21 @@ html, body {
   color: white;
   flex-grow: .06;
   font-size: .8em;
+}
+
+
+/* Quill */
+
+#story-editor {
+  background-color: red;
+  width: 90%;
+  height: 80%;
+  position: relative;
+  margin: auto;
+}
+
+#quill-textbox {
+  height: 100%;
+  position: relative;
+  background-color: white;
 }

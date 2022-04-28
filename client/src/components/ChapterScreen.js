@@ -58,7 +58,7 @@ export default function ChapterScreen() {
                     (store.chapter_images !== null) ?
                         store.chapter_images.map((image, index) => (
                             <ImageListItem key={"chapter-image-" + index} sx={{ height: '200px' }}>
-                                <img src={image} alt ="Pic"></img>
+                                <img src={image} alt =""></img>
                             </ImageListItem>
                         )) : ""
                 }

@@ -72,7 +72,7 @@ export default function ProfileScreen() {
         profileButtons =
             <Grid item xs={4} sx={{display: 'flex', justifyContent: 'flex-end'}}>
                 <Button id="text_button" onClick={() => navigate('/storyboard/')}>Create Drawing</Button>
-                <Button id="text_button" onClick={() => navigate('/uploadcomic/')}>Upload New</Button>
+                <Button id="text_button" onClick={() => navigate('/upload' + store.mode + '/')}>Upload New</Button>
             </Grid>
     }
 

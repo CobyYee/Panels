@@ -125,6 +125,46 @@ function GlobalStoreContextProvider(props) {
         console.log("Switching modes to: " + ((store.mode === "comic") ? "story" : "comic"));
     }
 
+    store.getImagesById = async function(ids) {
+        const response = await api.getImagesById(ids);
+        if (response.status === 200) {
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_IMAGES,
+                payload: response.data.data
+            }, () => {
+                
+            })
+        }
+        else {
+            console.log("failed to get images")
+        }
+    }
+
+    store.createKonva = async function(data) {
+        const response = await api.createKonva({
+            data: data
+        });
+        if (response.status === 200) {
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_PROFILE_WORKS,
+                payload: store.works
+            })
+        }
+        else {
+            console.log("failed to create konva")
+        }
+    }
+
+    store.getKonvasById = async function(ids) {
+        const response = await api.getKonvasById(ids);
+        if (response.status === 200) {
+            console.log(response.data.data)
+        }
+        else {
+            console.log("get konvas failed")
+        }
+    }
+
     store.home = async function() {
         try {
             if (store.mode === "comic") {
@@ -220,63 +260,44 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    store.loadComic = async function(id) {
-        const response = await api.getComicById(id);
-        if (response.status === 200) {
-            let currentComic = response.data.comic;
-            storeReducer({
-                type: GlobalStoreActionType.LOAD_WORK,
-                payload: currentComic
-            })
+    /* Work Functions */
+
+    store.createWork = async function(title, file, description, tags) {
+        const work = {
+            title: title,
+            creatorId: auth.session._id,
+            creatorName: auth.session.username,
+            genres: tags,
+            description: description,
+            cover_data: file
+        }
+        let response = null;
+        if (store.mode === "comic") {
+            response = await api.createComic(work);
         }
         else {
-            console.log("Failed to load comic: " + id);
-        }
-    }
-
-    store.publish = async function(id) {
-        let response = await api.getComicById(id);
-        if (response.status === 200) {
-            let comic = response.data.comic;
-            comic.published = new Date();
-            response = await api.updateComic(comic);
-            if (response.status === 200) {
-                storeReducer({
-                    type: GlobalStoreActionType.LOAD_WORK,
-                    payload: {
-                        work: comic,
-                        image: store.image
-                    }
-                })
-                if (store.mode === "comic") {
-                    store.loadProfileComics(auth.user._id);
-                }
-                else {
-                    store.loadProfileStories(auth.user._id);
-                }
+            response = await api.createStory(work);
+        }        
+        if (response.status === 200) {  
+            let newWork = null;
+            if (store.mode === "comic") {
+                newWork = response.data.comic;
             }
             else {
-                console.log(response);
+                newWork = response.data.story;
             }
-        }
-        else {
-            console.log("failed to find work");
-        }
-    }
-
-    store.loadStory = async function(id) {
-        const response = await api.getStoryById(id);
-        if (response.status === 200) {
-            let currentStory = response.data.story;
             storeReducer({
                 type: GlobalStoreActionType.LOAD_WORK,
-                payload: currentStory
-            }, () => {
-                navigate("/story/" + currentStory._id);
+                payload: {
+                    work: newWork,
+                    image: file
+                }
             })
+            store.loadProfileWorks(auth.user._id);
+            navigate(`/profile/${auth.session._id}`)
         }
         else {
-            console.log("Failed to load story: " + id);
+            console.log("Failed to create new comic" + response);
         }
     }
 
@@ -314,6 +335,118 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    store.deleteWork = async function (id) {
+        let response = null;
+        if (store.mode === "comic") {
+            response = await api.deleteComic(id);
+        }
+        else {
+            response = await api.deleteStory(id);
+        }
+        if (response.status === 200) {
+            //get chapters from response.data and for each chapter, delete chapter
+            //let chapters = response.data.chapters;
+            //for (const chapter of chapters) {
+            //      console.log(chapter)
+            //      response = await api.deleteChapter(chapter)
+            //      if (response.status !== 200) {
+            //          continue;
+            //      }
+            //}
+            if (store.mode === "comic") {
+                store.loadProfileComics(auth.user._id);
+            }
+            else {
+                store.loadProfileStories(auth.user._id);
+            }
+        }
+    }
+
+    store.deleteChapter = async function (id) {
+        let response = null;
+        if (store.mode === "comic") {
+            response = await api.deleteComicChapter(id);
+        }
+        else {
+            response = await api.deleteStoryChapter(id);
+        }
+        if (response.status === 200) {
+            console.log("Chapter delete success");
+        }
+        else {
+            console.log("Chapter delete failure" + response);
+        }
+    }
+
+    /* Comic Functions */
+
+    store.createComic = async function(title, file, description, tags) {
+        //console.log(auth.session)
+        const comic = {
+            title: title,
+            creatorId: auth.session._id,
+            creatorName: auth.session.username,
+            genres: tags,
+            description: description,
+            cover_data: file
+        }
+        const response = await api.createComic(comic);
+        if (response.status === 200) {  
+            let newComic = response.data.comic;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_WORK,
+                payload: {
+                    work: newComic,
+                    image: file
+                }
+            })
+            store.loadProfileComics(auth.user._id);
+            navigate(`/profile/${auth.session._id}`)
+        }
+        else {
+            console.log("Failed to create new comic" + response);
+        }
+    }
+
+    store.updateComic = async function(newTitle, newFile, newDescription, newTags) {
+        let currentDraft = store.work;
+        currentDraft.title = newTitle;
+        currentDraft.cover = newFile;
+        currentDraft.description = newDescription;
+        currentDraft.genres = newTags;
+        let response = null;
+        if (store.mode === "comic") {
+            response = await api.updateComic(currentDraft);
+        }
+        else {
+            response = await api.updateStory(currentDraft);
+        }
+        if (response.status === 200) {
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_WORK,
+                payload: {
+                    work: currentDraft,
+                    image: store.image
+                }
+            })
+            console.log("comic updated")
+        }
+    }
+
+    store.loadComic = async function(id) {
+        const response = await api.getComicById(id);
+        if (response.status === 200) {
+            let currentComic = response.data.comic;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_WORK,
+                payload: currentComic
+            })
+        }
+        else {
+            console.log("Failed to load comic: " + id);
+        }
+    }
+
     store.createComicChapter = async function(comicId, chapterName, images) {
         const comicChapter = {
             name: chapterName,
@@ -338,6 +471,27 @@ function GlobalStoreContextProvider(props) {
                     })
                     console.log("comic updated")
                 }
+            }
+        }
+    }
+
+    store.updateComicChapter = async function(newName, newImages) {
+        let chapterDraft = store.chapter;
+        chapterDraft.name = newName;
+        chapterDraft.images = newImages;
+        let response = await api.updateComicChapter(chapterDraft);
+        if (response.status === 200) {
+            let updated = response.data.data;
+            response = await api.getImagesById(newImages);
+            if (response.status === 200) {
+                let newImages = response.data.data;
+                storeReducer({
+                    type: GlobalStoreActionType.LOAD_CHAPTER,
+                    payload: {
+                        chapter: updated,
+                        chapter_images: newImages
+                    }
+                })
             }
         }
     }
@@ -367,92 +521,37 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    store.loadStoryChapter = async function(id) {
-        const response = await api.getStoryChapterById(id);
+    store.publishComic = async function(id) {
+        let response = await api.getComicById(id);
         if (response.status === 200) {
-            let chapter = response.data.data;
-            storeReducer({
-                type: GlobalStoreActionType.LOAD_CHAPTER,
-                payload: {
-                    chapter: chapter,
-                    images: null
-                }
-            })
-        }
-    }
-
-    store.createComic = async function(title, file, description, tags) {
-        //console.log(auth.session)
-        const comic = {
-            title: title,
-            creatorId: auth.session._id,
-            creatorName: auth.session.username,
-            genres: tags,
-            description: description,
-            cover_data: file
-        }
-        const response = await api.createComic(comic);
-        if (response.status === 200) {  
-            let newComic = response.comic;
-            storeReducer({
-                type: GlobalStoreActionType.LOAD_WORK,
-                payload: {
-                    work: newComic,
-                    image: file
-                }
-            })
-            if (store.mode === "comic") {
-                store.loadProfileComics(auth.user._id);
-            }
-            else {
-                store.loadProfileStories(auth.user._id);
-            }
-            navigate(`/profile/${auth.session._id}`)
-        }
-        else {
-            console.log("Failed to create new comic" + response);
-        }
-    }
-
-    store.updateDraft = async function(newTitle, newFile, newDescription, newTags) {
-        let currentDraft = store.work;
-        currentDraft.title = newTitle;
-        currentDraft.cover = newFile;
-        currentDraft.description = newDescription;
-        currentDraft.genres = newTags;
-        const response = await api.updateComic(currentDraft);
-        if (response.status === 200) {
-            storeReducer({
-                type: GlobalStoreActionType.LOAD_WORK,
-                payload: {
-                    work: currentDraft,
-                    image: store.image
-                }
-            })
-            console.log("comic updated")
-        }
-    }
-
-    store.updateComicChapter = async function(newName, newImages) {
-        let chapterDraft = store.chapter;
-        chapterDraft.name = newName;
-        chapterDraft.images = newImages;
-        let response = await api.updateComicChapter(chapterDraft);
-        if (response.status === 200) {
-            let updated = response.data.data;
-            response = await api.getImagesById(newImages);
+            let comic = response.data.comic;
+            comic.published = new Date();
+            response = await api.updateComic(comic);
             if (response.status === 200) {
-                let newImages = response.data.data;
                 storeReducer({
-                    type: GlobalStoreActionType.LOAD_CHAPTER,
+                    type: GlobalStoreActionType.LOAD_WORK,
                     payload: {
-                        chapter: updated,
-                        chapter_images: newImages
+                        work: comic,
+                        image: store.image
                     }
                 })
+                if (store.mode === "comic") {
+                    store.loadProfileComics(auth.user._id);
+                }
+                else {
+                    store.loadProfileStories(auth.user._id);
+                }
+            }
+            else {
+                console.log(response);
             }
         }
+        else {
+            console.log("failed to find work");
+        }
     }
+
+    /* Story Functions */
 
     store.createStory = async function(storyData) {
         const response = api.createStory(storyData.title, auth.session._id, auth.session.userName, storyData.genres, storyData.description, storyData.cover);
@@ -471,46 +570,75 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    store.deleteChapter = async function (id) {
-        let response = null;
-        if (store.mode === "comic") {
-            response = await api.deleteComicChapter(id);
-        }
-        else {
-            response = await api.deleteStoryChapter(id);
-        }
+    store.loadStory = async function(id) {
+        const response = await api.getStoryById(id);
         if (response.status === 200) {
-            console.log("Chapter delete success");
+            let currentStory = response.data.story;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_WORK,
+                payload: currentStory
+            }, () => {
+                navigate("/story/" + currentStory._id);
+            })
         }
         else {
-            console.log("Chapter delete failure" + response);
+            console.log("Failed to load story: " + id);
         }
     }
 
-    store.deleteWork = async function (id) {
-        let response = null;
-        if (store.mode === "comic") {
-            response = await api.deleteComic(id);
+    store.loadStoryChapter = async function(id) {
+        const response = await api.getStoryChapterById(id);
+        if (response.status === 200) {
+            let chapter = response.data.data;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_CHAPTER,
+                payload: {
+                    chapter: chapter,
+                    images: store.images
+                }
+            })
         }
         else {
-            response = await api.deleteStory(id);
+            console.log("No chapter found");
         }
+    }
+
+    store.publishStory = async function(id) {
+        let response = await api.getStoryById(id);
         if (response.status === 200) {
-            //get chapters from response.data and for each chapter, delete chapter
-            //let chapters = response.data.chapters;
-            //for (const chapter of chapters) {
-            //      console.log(chapter)
-            //      response = await api.deleteChapter(chapter)
-            //      if (response.status !== 200) {
-            //          continue;
-            //      }
-            //}
-            if (store.mode === "comic") {
-                store.loadProfileComics(auth.user._id);
+            let story = response.data.story;
+            story.published = new Date();
+            response = await api.updateStory(story);
+            if (response.status === 200) {
+                storeReducer({
+                    type: GlobalStoreActionType.LOAD_WORK,
+                    payload: {
+                        work: story,
+                        image: store.image
+                    }
+                })
+                if (store.mode === "comic") {
+                    store.loadProfileComics(auth.user._id);
+                }
+                else {
+                    store.loadProfileStories(auth.user._id);
+                }
             }
             else {
-                store.loadProfileStories(auth.user._id);
+                console.log(response);
             }
+        }
+        else {
+            console.log("failed to find work");
+        }
+    }
+
+    store.publish = async function (id) {
+        if (store.mode === "comic") {
+            store.publishComic(id);
+        }
+        else {
+            store.publishStory(id);
         }
     }
 
@@ -571,46 +699,6 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    store.getImagesById = async function(ids) {
-        const response = await api.getImagesById(ids);
-        if (response.status === 200) {
-            storeReducer({
-                type: GlobalStoreActionType.LOAD_IMAGES,
-                payload: response.data.data
-            }, () => {
-                
-            })
-        }
-        else {
-            console.log("failed to get images")
-        }
-    }
-
-
-    store.createKonva = async function(data) {
-        const response = await api.createKonva({
-            data: data
-        });
-        if (response.status === 200) {
-            storeReducer({
-                type: GlobalStoreActionType.LOAD_PROFILE_WORKS,
-                payload: store.works
-            })
-        }
-        else {
-            console.log("failed to create konva")
-        }
-    }
-
-    store.getKonvasById = async function(ids) {
-        const response = await api.getKonvasById(ids);
-        if (response.status === 200) {
-            console.log(response.data.data)
-        }
-        else {
-            console.log("get konvas failed")
-        }
-    }
     return (
         <GlobalStoreContext.Provider  value={{store}}>
             {props.children}

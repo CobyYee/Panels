@@ -27,7 +27,7 @@ export default function ProfileScreen(props) {
 
     function loadWork(cardId) {
         store.loadWork(cardId);
-        navigate("/comic/" + cardId);
+        navigate("/" + store.mode + "/" + cardId);
     }
 
     function handlePublish(publishId) {
