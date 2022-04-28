@@ -33,7 +33,8 @@ createStory = (req, res) => {
             description: description,
             published: null,
             views: 0,
-            chapters: []
+            chapters: [],
+            comments: []
         });
         
         newStory.save().then(() => {

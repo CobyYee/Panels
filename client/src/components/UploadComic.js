@@ -15,7 +15,7 @@ function UploadComic() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        store.createComic(title, file, description, selectedTags);
+        store.createWork(title, file, description, selectedTags);
     }
 
     const handleTag = (tag) => {

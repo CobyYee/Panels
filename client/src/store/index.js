@@ -262,6 +262,45 @@ function GlobalStoreContextProvider(props) {
 
     /* Work Functions */
 
+    store.createWork = async function(title, file, description, tags) {
+        const work = {
+            title: title,
+            creatorId: auth.session._id,
+            creatorName: auth.session.username,
+            genres: tags,
+            description: description,
+            cover_data: file
+        }
+        let response = null;
+        if (store.mode === "comic") {
+            response = await api.createComic(work);
+        }
+        else {
+            response = await api.createStory(work);
+        }        
+        if (response.status === 200) {  
+            let newWork = null;
+            if (store.mode === "comic") {
+                newWork = response.data.comic;
+            }
+            else {
+                newWork = response.data.story;
+            }
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_WORK,
+                payload: {
+                    work: newWork,
+                    image: file
+                }
+            })
+            store.loadProfileWorks(auth.user._id);
+            navigate(`/profile/${auth.session._id}`)
+        }
+        else {
+            console.log("Failed to create new comic" + response);
+        }
+    }
+
     store.loadWork = async function(id) {
         let response = null;
         if (store.mode === "comic") {
@@ -296,22 +335,6 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    store.deleteChapter = async function (id) {
-        let response = null;
-        if (store.mode === "comic") {
-            response = await api.deleteComicChapter(id);
-        }
-        else {
-            response = await api.deleteStoryChapter(id);
-        }
-        if (response.status === 200) {
-            console.log("Chapter delete success");
-        }
-        else {
-            console.log("Chapter delete failure" + response);
-        }
-    }
-
     store.deleteWork = async function (id) {
         let response = null;
         if (store.mode === "comic") {
@@ -339,6 +362,22 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    store.deleteChapter = async function (id) {
+        let response = null;
+        if (store.mode === "comic") {
+            response = await api.deleteComicChapter(id);
+        }
+        else {
+            response = await api.deleteStoryChapter(id);
+        }
+        if (response.status === 200) {
+            console.log("Chapter delete success");
+        }
+        else {
+            console.log("Chapter delete failure" + response);
+        }
+    }
+
     /* Comic Functions */
 
     store.createComic = async function(title, file, description, tags) {
@@ -353,7 +392,7 @@ function GlobalStoreContextProvider(props) {
         }
         const response = await api.createComic(comic);
         if (response.status === 200) {  
-            let newComic = response.comic;
+            let newComic = response.data.comic;
             storeReducer({
                 type: GlobalStoreActionType.LOAD_WORK,
                 payload: {

@@ -36,7 +36,7 @@ createComic = (req, res) => {   // tested 200
             published: null,
             views: 0,
             chapters: [],
-            comments: [],
+            comments: []
         });
         
         newComic.save().then(() => {
