@@ -11,7 +11,12 @@ function UploadChapter() {
 
     const navigate = useNavigate();
     function handleSubmit() {
-        store.createComicChapter(store.work._id, name, files);
+        if (store.mode === "comic") {
+            store.createComicChapter(store.work._id, name, files);
+        }
+        else {
+            store.createStoryChapter(store.work._id, name);
+        }
         navigate(`/profile/${auth.session._id}`)
     }
 
@@ -50,7 +55,7 @@ function UploadChapter() {
                     </div>
                 </div>
                 <div id="upload_comic_fields">
-                    <input readonly="readonly" id="upload_comic_name" type="text" value={(store.work !== null) ? store.work.title : ""}></input> <br></br>
+                    <input readOnly id="upload_comic_name" type="text" value={(store.work !== null) ? store.work.title : ""}></input> <br></br>
                     <input id="upload_chapter_name" type="text" onChange={(event) => setName(event.target.value)}></input> <br></br>
                     <input id="upload_chapter" type="file" multiple="multiple" onChange={(event) => {handleFileUpload(event)}}></input>
                     <label id="uploaded_chapter_label" for="upload_chapter">Browse</label>

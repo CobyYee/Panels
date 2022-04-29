@@ -586,10 +586,10 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    store.createStoryChapter = async function(storyId, chapterName, images) {
+    store.createStoryChapter = async function(storyId, chapterName) {
         const storyChapter = {
             name: chapterName,
-            images: images
+            chapter: "check"
         }
         let response = await api.createStoryChapter(storyChapter);
         if (response.status === 200) {
@@ -609,6 +609,9 @@ function GlobalStoreContextProvider(props) {
                         payload: newChapter
                     })
                     console.log("story updated")
+                }
+                else {
+                    console.log(response);
                 }
             }
         }
