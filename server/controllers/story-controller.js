@@ -254,25 +254,16 @@ updateStoryChapter = async (req, res) => {
             });
         }
 
-        StoryChapter.findById({ _id: body._id }, (err, chapter) => {
-            if (err || !chapter) {
-                return res.status(400).json({
-                    success: false,
-                    message: "Cannot find story chapter."
-                });
-            }
+        const old = await StoryChapter.findById(body._id);
+        if (!old)
+            return res.status(400).json({success: false, message: "This story chapter does not exist!"});
 
-            chapter.name = body.name
-            chapter.chapter = body.chapter
+        old.name = body.name;
+        old.uploaded = body.uploaded;
+        old.chapter = body.chapter;
 
-            chapter.save().then(() => {
-                return res.status(200).json({   
-                    success: true,
-                    chapter: chapter,
-                    message: "Story chapter has been successfully updated."
-                });
-            })
-        })
+        await old.save();
+        return res.status(200).json({success: true, data: old});
     }
     catch (err) {
         return res.status(500);
