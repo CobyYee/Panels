@@ -71,7 +71,7 @@ function UploadComic() {
                     <input id="upload_comic_description" type="text" name="comic_description" onChange={(event) => setDescription(event.target.value)}></input> <br></br>
                     <input id="terms_checkbox" type="checkbox"></input>
                     <label id="terms_label" for="terms_checkbox">By uploading this {store.mode}, I agree to Panels' terms and services</label> <br></br>
-                    <button id="upload_button" type="submit" onClick={() => handleSubmit()}>Upload</button>
+                    <button id="upload_button" type="submit" onClick={handleSubmit}>Upload</button>
                 </div>
             </div>
         </Box>
