@@ -668,10 +668,5 @@ html, body {
   height: 80%;
   position: relative;
   margin: auto;
-}
-
-#quill-textbox {
-  height: 100%;
-  position: relative;
   background-color: white;
 }
