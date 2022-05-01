@@ -4,23 +4,17 @@ import { useContext, useEffect, useState } from 'react'
 import { Button, Grid, TextField } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import GlobalStoreContext from '../store'
+import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
 
 export default function StoryEditor() {
     const {store} = useContext(GlobalStoreContext)
 
-    let quill;
     let navigate = useNavigate();
-    let div = <div id = "story-editor"></div>
+    let div = <div id = "story-editor"> HI </div>
 
     const [title, setTitle] = useState("");
-
-    useEffect(() => {
-        if(store.chapter !== null) {
-            setTitle(store.chapter.name);
-        }
-    }, [store.chapter])
-
-    quill = new Quill('#story-editor', {
+    
+    let quill = new Quill('#story-editor', {
         formats: {
             'background': 'white'
         },
@@ -35,8 +29,13 @@ export default function StoryEditor() {
         console.log(quill.getContents())
         store.updateStoryChapter(title, quill.getContents())
     }
-    /*
 
+    useEffect(() => {
+        if(store.chapter !== null)
+            setTitle(store.chapter.name);
+    }, [store.chapter])
+    
+    /*
     useEffect(() => {
         var Delta = Quill.import('delta')
         quill = new Quill('#story-editor', {
@@ -54,9 +53,7 @@ export default function StoryEditor() {
         //quill.on('text-change', function(delta) {
         //    console.log(delta);
         //})
-    }, [])
-    */
-
+    }, []) */
 
     let editor = 
         <Grid container>
