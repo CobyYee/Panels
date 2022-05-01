@@ -589,7 +589,7 @@ function GlobalStoreContextProvider(props) {
     store.createStoryChapter = async function(storyId, chapterName) {
         const storyChapter = {
             name: chapterName,
-            chapter: "check"
+            chapter: null
         }
         let response = await api.createStoryChapter(storyChapter);
         if (response.status === 200) {
@@ -606,7 +606,7 @@ function GlobalStoreContextProvider(props) {
                 if (response.status === 200) {
                     storeReducer({
                         type: GlobalStoreActionType.LOAD_CHAPTER,
-                        payload: newChapter
+                        payload: newChapter.name
                     })
                     console.log("story updated")
                 }

@@ -5,7 +5,7 @@ const StoryChapterSchema = new Schema(
     {
         name: { type: String, required: true },
         uploaded: { type: Date, required: false },
-        chapter: { type: String, required: true }
+        chapter: { type: Object, required: false }
     },
     { timestamps: true }
 )

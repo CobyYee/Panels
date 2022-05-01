@@ -215,7 +215,7 @@ createStoryChapter = async (req, res) => {
     try {
         const { name, chapter } = req.body;
         console.log(name + " " + chapter);
-        if (!name || chapter === null) {
+        if (!name) {
             return res.status(400).json({
                 success: false,
                 error: "Must specify information to create the story chapter."
