@@ -273,6 +273,10 @@ html, body {
   background-color: #b8434b;
 }
 
+#uploaded_comic_image_label_label {
+  margin-left: 10px;
+}
+
 #tags {
   height: 75px;
   width: 700px;
@@ -362,6 +366,10 @@ html, body {
 
 #uploaded_chapter_label:hover {
   background-color: #b8434b;
+}
+
+#uploaded_chapter_label_label {
+  margin-left: 10px;
 }
 
 
