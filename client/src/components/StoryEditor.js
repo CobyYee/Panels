@@ -10,7 +10,7 @@ export default function StoryEditor() {
 
     let quill;
     let navigate = useNavigate();
-    let div = <div id = "story-editor"/>
+    let div = <div id = "story-editor"></div>
 
     const [title, setTitle] = useState("");
 
