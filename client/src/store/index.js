@@ -188,9 +188,29 @@ function GlobalStoreContextProvider(props) {
                             }
                         })
                     }
-                    navigate("/")
                 }
-                else {
+            }
+            else {
+                let res = await api.getAllStories();
+                if (res.status === 200) {
+                    let stories = res.data.data;
+                    let works = stories.slice();
+                    let featuredWorks = works.sort((a, b) => { return b.views - a.views}).slice(0, 8);
+                    let imageIds = [];
+                    for (let i = 0; i < featuredWorks.length && i < 8; i++) {
+                        imageIds.push(featuredWorks[i].cover);
+                    }
+                    const response = await api.getImagesById(imageIds);
+                    if (response.status === 200) {
+                        let images = response.data.data;
+                        storeReducer({
+                            type: GlobalStoreActionType.LOAD_HOME,
+                            payload: {
+                                works: stories,
+                                images: images
+                            }
+                        })
+                    }
                 }
             }
         }
@@ -589,7 +609,7 @@ function GlobalStoreContextProvider(props) {
     store.createStoryChapter = async function(storyId, chapterName) {
         const storyChapter = {
             name: chapterName,
-            chapter: "check"
+            chapter: null
         }
         let response = await api.createStoryChapter(storyChapter);
         if (response.status === 200) {
@@ -606,7 +626,7 @@ function GlobalStoreContextProvider(props) {
                 if (response.status === 200) {
                     storeReducer({
                         type: GlobalStoreActionType.LOAD_CHAPTER,
-                        payload: newChapter
+                        payload: newChapter.name
                     })
                     console.log("story updated")
                 }

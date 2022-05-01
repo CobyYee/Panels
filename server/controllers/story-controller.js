@@ -215,7 +215,7 @@ createStoryChapter = async (req, res) => {
     try {
         const { name, chapter } = req.body;
         console.log(name + " " + chapter);
-        if (!name || chapter === null) {
+        if (!name) {
             return res.status(400).json({
                 success: false,
                 error: "Must specify information to create the story chapter."
@@ -280,15 +280,18 @@ deleteStoryChapter = async (req, res) => {
 
 getStoryChapterById = async (req, res) => {
     try {
-        const found = await StoryChapter.findById({ _id: req.params.id });
-        if (!found)
-            return res.status(400).json({success: false, message: "Story chapter not found"});
-        
-        return res.status(200).json({success: true, story: found});
+        const id = req.params.id;
+        if (!id) 
+            return res.status(400).json({success: false, message: "id field cannot be empty!"});
+
+        const chapter = await StoryChapter.findById(id);
+        if (!chapter)
+            return res.status.json({success: false, message: "Story chapter with this id does not exist!"})
+
+        return res.status(200).json({success: true, data: chapter}).send();
     }
     catch (err) {
-        console.error("getStoryChapterById failed: " + err);
-        return res.status(500).send();
+        return res.status(500);
     }
 }
 
