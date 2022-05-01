@@ -1,10 +1,12 @@
 import Quill from 'quill'
 import 'react-quill/dist/quill.snow.css';
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { Button, Grid, TextField } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import GlobalStoreContext from '../store'
 
 export default function StoryEditor() {
+    const {store} = useContext(GlobalStoreContext)
 
     let quill;
     let navigate = useNavigate();
@@ -39,7 +41,7 @@ export default function StoryEditor() {
                 <Button variant="text" onClick = {() => navigate('/profile/')} sx = {{color: 'white', fontSize: '28px'}}>Back to Profile</Button>
             </Grid>
             <Grid item xs = {6} sx = {{display: 'flex', justifyContent:'center'}} >
-                <TextField placeholder = "Name" sx = {{input: {color: 'white'}}}>  </TextField>
+                <TextField value={(store.chapter !== null) ? store.chapter.name : ""} sx = {{input: {color: 'white'}}}>  </TextField>
             </Grid>
             <Grid item xs = {3}/>
 

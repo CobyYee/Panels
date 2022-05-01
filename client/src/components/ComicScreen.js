@@ -13,7 +13,12 @@ export default function ComicScreen() {
     const [status, setStatus] = useState("chapters");
 
     function handleChapter(chapterId) {
-        store.loadComicChapter(chapterId);
+        if (store.mode === "comic") {
+            store.loadComicChapter(chapterId);
+        }
+        else {
+            store.loadStoryChapter(chapterId);
+        }
         if (store.work.published !== null) {
             navigate("/chapter/");
         }
