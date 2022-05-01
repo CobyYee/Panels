@@ -689,6 +689,21 @@ html, body {
 }
 
 
+
+/* ChapterScreen */
+
+#chapter_centered, #chapter_grid_centered {
+  display: flex;
+  justify-content: center;
+}
+
+#chapter_grid_centered {
+  align-items: center;
+  vertical-align: center;
+}
+
+
+
 /* Quill */
 
 #story-editor {

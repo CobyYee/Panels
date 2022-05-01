@@ -17,19 +17,36 @@ export default function ChapterScreen() {
         <div>
             <Box sx = {{ flexGrow: 1}}>
                 <Toolbar>
-                    <Grid item={true} xs={12} container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <Grid item xs={2} sx={{ display: 'flex', justifyContent: 'center' }}>
-                            <Button onClick = {() => navigate('/comic/' + store.work._id)} sx={{ color: '#9c4247' }}>back to comicName</Button>
+                    <Grid id="chapter_grid_centered" item={true} xs={12} container>
+                        <Grid id="chapter_centered" item xs={2}>
+                            <Button id="text_button" onClick = {() => navigate('/comic/' + store.work._id)}>back to {store.work.title}</Button>
                         </Grid>
-                        <Grid item xs={1} sx={{ display: 'flex', justifyContent: 'center' }}>
-                            <Button variant="contained" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: '#b8434b' } }}>First</Button>
+                        <Grid id="chapter_centered" item xs={1}>
+                            <Button id="button" variant="contained">First</Button>
                         </Grid>
-                        <Grid item xs={1} sx={{ display: 'flex', justifyContent: 'center' }}>
-                            <Button variant="contained" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: '#b8434b' } }}>Prev</Button>
+                        <Grid id="chapter_centered" item xs={1}>
+                            <Button id="button" variant="contained">Prev</Button>
                         </Grid>
-                        <Grid item xs={4} sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <Grid id="chapter_centered" item xs={4}>
                             <FormControl>
-                                <Select value={chapter} onChange={switchChapter} sx={{backgroundColor: 'white'}}>
+                                <Select id="chapter_select" value={chapter} onChange={switchChapter} 
+                                    sx={{ color: 'white', 
+                                          backgroundColor: '#3d3d3d',
+                                          height: '48px',
+                                          "& .MuiOutlinedInput-notchedOutline": { borderColor: 'transparent' }, 
+                                          "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: 'transparent' },
+                                          "&.Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: '#9c4247' },
+                                          "& .MuiSelect-icon": { color: 'white' }
+                                    }}
+                                    MenuProps={{
+                                        PaperProps: {
+                                          sx: { backgroundColor: '#3d3d3d', color: 'white' },
+                                        },
+                                    }}
+                                    classes={{
+                                        icon: { sx: { color: 'white' } }
+                                    }}
+                                >
                                     <MenuItem value={3}>
                                         <Typography>Chapter 3</Typography>
                                     </MenuItem>
@@ -42,17 +59,17 @@ export default function ChapterScreen() {
                                 </Select>
                             </FormControl>
                         </Grid>
-                        <Grid item xs={1} sx={{ display: 'flex', justifyContent: 'center' }}>
-                            <Button variant="contained" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: '#b8434b' } }}>Next</Button>
+                        <Grid id="chapter_centered" item xs={1}>
+                            <Button id="button" variant="contained">Next</Button>
                         </Grid>
-                        <Grid item xs={1} sx={{ display: 'flex', justifyContent: 'center' }}>
-                            <Button variant="contained" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: '#b8434b' } }}>Last</Button>
+                        <Grid id="chapter_centered" item xs={1}>
+                            <Button id="button" variant="contained">Last</Button>
                         </Grid>
                         <Grid item xs={2}></Grid>
                     </Grid>
                 </Toolbar>
             </Box>
-            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Box id="chapter_grid_centered" sx={{ width: '100%' }}>
                 <ImageList sx={{ width: '30vw' }} cols={1}>
                 {
                     (store.chapter_images !== null) ?
