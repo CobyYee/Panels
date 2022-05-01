@@ -22,10 +22,10 @@ export default function ChapterScreen() {
                             <Button onClick = {() => navigate('/comic/' + store.work._id)} sx={{ color: '#9c4247' }}>back to comicName</Button>
                         </Grid>
                         <Grid item xs={1} sx={{ display: 'flex', justifyContent: 'center' }}>
-                            <Button variant="contained" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>First</Button>
+                            <Button variant="contained" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: '#b8434b' } }}>First</Button>
                         </Grid>
                         <Grid item xs={1} sx={{ display: 'flex', justifyContent: 'center' }}>
-                            <Button variant="contained" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>Prev</Button>
+                            <Button variant="contained" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: '#b8434b' } }}>Prev</Button>
                         </Grid>
                         <Grid item xs={4} sx={{ display: 'flex', justifyContent: 'center' }}>
                             <FormControl>
@@ -43,10 +43,10 @@ export default function ChapterScreen() {
                             </FormControl>
                         </Grid>
                         <Grid item xs={1} sx={{ display: 'flex', justifyContent: 'center' }}>
-                            <Button variant="contained" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>Next</Button>
+                            <Button variant="contained" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: '#b8434b' } }}>Next</Button>
                         </Grid>
                         <Grid item xs={1} sx={{ display: 'flex', justifyContent: 'center' }}>
-                            <Button variant="contained" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>Last</Button>
+                            <Button variant="contained" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: '#b8434b' } }}>Last</Button>
                         </Grid>
                         <Grid item xs={2}></Grid>
                     </Grid>

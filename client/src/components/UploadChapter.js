@@ -58,11 +58,11 @@ function UploadChapter() {
                     <input readOnly id="upload_comic_name" type="text" value={(store.work !== null) ? store.work.title : ""}></input> <br></br>
                     <input id="upload_chapter_name" type="text" onChange={(event) => setName(event.target.value)}></input> <br></br>
                     <input id="upload_chapter" type="file" multiple="multiple" onChange={(event) => {handleFileUpload(event)}}></input>
-                    <label id="uploaded_chapter_label" for="upload_chapter">Browse</label>
-                    <label id="uploaded_chapter_label_label" for="uploaded_chapter_label">{(files !== null) ? files.map((file) => { return file.name }) : ""}</label> 
+                    <label id="uploaded_chapter_label" htmlFor="upload_chapter">Browse</label>
+                    <label id="uploaded_chapter_label_label" htmlFor="uploaded_chapter_label">{(files !== null) ? files.map((file) => { return file.name }) : ""}</label> 
                     <br></br>
                     <input id="terms_checkbox" type="checkbox"></input>
-                    <label id="terms_label" for="terms_checkbox">By uploading this chapter, I agree to Panels' terms and services</label> <br></br>
+                    <label id="terms_label" htmlFor="terms_checkbox">By uploading this chapter, I agree to Panels' terms and services</label> <br></br>
                     <button id="upload_button" onClick={() => handleSubmit()}>Upload</button>
                 </div>
             </div>

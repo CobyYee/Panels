@@ -143,12 +143,12 @@ export default function EditChapterScreen() {
                 onClose={handleModalClose}>
                 <Box sx={{ position: 'absolute', top: '30%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: '#3d3d3d', p: 2, borderRadius: 2 }}>
                     <Typography color="white" sx={{ fontSize: 20 }} mb={2}>Insert Panel</Typography>
-                    <Button variant="contained" component="label" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }}>
+                    <Button variant="contained" component="label" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: '#b8434b' } }}>
                         Browse Files
                         <input type="file" hidden onChange={(event) => {handleFileUpload(event)}} />
                     </Button>
                     <Typography color="white" mt={2} mb={4}>Uploaded: {fileName}</Typography>
-                    <Button variant="contained" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: 'red' } }} onClick={() => handleInsert()}>Upload</Button><Button variant="contained" sx={{ backgroundColor: '#4e4e4e' }} onClick={handleModalClose}>Cancel</Button>
+                    <Button variant="contained" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: '#b8434b' } }} onClick={() => handleInsert()}>Upload</Button><Button variant="contained" sx={{ backgroundColor: '#4e4e4e' }} onClick={handleModalClose}>Cancel</Button>
                 </Box>
             </Modal>
         </Box>

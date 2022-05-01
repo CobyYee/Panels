@@ -50,10 +50,10 @@ export default function StoryEditor() {
             
             <Grid item xs = "10"/>
             <Grid item xs = "1">
-                <Button variant="contained" sx={{ backgroundColor:'#9c4247', "&:hover":  { backgroundColor: 'red' } }} onClick = {handleSave}>Save</Button>
+                <Button variant="contained" sx={{ backgroundColor:'#9c4247', "&:hover":  { backgroundColor: '#b8434b' } }} onClick = {handleSave}>Save</Button>
             </Grid>
             <Grid item xs = "1">
-                <Button variant="contained" sx={{ backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' } }}>Publish</Button>
+                <Button variant="contained" sx={{ backgroundColor:'#9c4247', "&:hover": { backgroundColor: '#b8434b' } }}>Publish</Button>
             </Grid>
         </Grid>
 
