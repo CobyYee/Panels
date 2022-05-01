@@ -638,7 +638,6 @@ function GlobalStoreContextProvider(props) {
         const response = await api.getStoryChapterById(id);
         if (response.status === 200) {
             let chapter = response.data.data;
-            console.log(chapter);
             storeReducer({
                 type: GlobalStoreActionType.LOAD_CHAPTER,
                 payload: {
