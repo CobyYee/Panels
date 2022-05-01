@@ -22,7 +22,7 @@ function HomeScreen() {
                 <Grid id="home_grid_container" item xs={12}>
                     <Box id="home_image_container">
                     {
-                        (store.images && store.images.length === 8) ? 
+                        (store.images && store.images.length <= 8) ? 
                             store.images.map((image, index) => (
                                 <Button id="home_image_selector" key={"featured" + index}>
                                     <img className = "image-contain" 
