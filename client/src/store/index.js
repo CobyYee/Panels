@@ -586,6 +586,54 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    store.createStoryChapter = async function(storyId, chapterName) {
+        const storyChapter = {
+            name: chapterName,
+            chapter: "check"
+        }
+        let response = await api.createStoryChapter(storyChapter);
+        if (response.status === 200) {
+            let newChapter = response.data.data;
+            response = await api.getStoryById(storyId);
+            if (response.status === 200) {
+                let story = response.data.story;
+                story.chapters.push(JSON.stringify({
+                    id: newChapter._id,
+                    name: newChapter.name,
+                    uploaded: newChapter.uploaded
+                }));
+                response = await api.updateStory(story);
+                if (response.status === 200) {
+                    storeReducer({
+                        type: GlobalStoreActionType.LOAD_CHAPTER,
+                        payload: newChapter
+                    })
+                    console.log("story updated")
+                }
+                else {
+                    console.log(response);
+                }
+            }
+        }
+    }
+
+    store.updateStoryChapter = async function(newName, newChapter) {
+        let chapterDraft = store.chapter;
+        chapterDraft.name = newName;
+        chapterDraft.chapter = newChapter;
+        let response = await api.updateStoryChapter(chapterDraft);
+        if (response.status === 200) {
+            let updated = response.data.data;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_CHAPTER,
+                payload: {
+                    chapter: updated,
+                    chapter_images: store.chapter_images
+                }
+            })
+        }
+    }
+
     store.loadStoryChapter = async function(id) {
         const response = await api.getStoryChapterById(id);
         if (response.status === 200) {

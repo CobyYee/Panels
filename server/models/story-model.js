@@ -13,7 +13,8 @@ const StorySchema = new Schema(
         description: { type: String, required: true },
         published: { type: Date, required: false },
         views: { type: Number, required: true},
-        chapters: { type: [{ ObjectId, String, Date }], required: true }
+        chapters: { type: [String], required: true },
+        comments: { type: [{ ObjectId, String, Date}], required: true }
     },
     { timestamps: true }
 )

@@ -18,7 +18,12 @@ export default function ComicScreen() {
             navigate("/chapter/");
         }
         else {
-            navigate("/editchapter/");
+            if (store.mode === "comic") {
+                navigate("/editchapter/");
+            }
+            else {
+                navigate("/storyeditor/");
+            }
         }
     }
 

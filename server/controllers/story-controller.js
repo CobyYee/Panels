@@ -214,7 +214,8 @@ getStories = async (req, res) => {
 createStoryChapter = async (req, res) => {
     try {
         const { name, chapter } = req.body;
-        if (!name || !chapter) {
+        console.log(name + " " + chapter);
+        if (!name || chapter === null) {
             return res.status(400).json({
                 success: false,
                 error: "Must specify information to create the story chapter."
@@ -223,23 +224,15 @@ createStoryChapter = async (req, res) => {
 
         const newChapter = new StoryChapter({
             name: name,
+            uploaded: new Date(),
             chapter: chapter
         });
         
-        newChapter.save().then(() => {
-            return res.status(200).json({   
-                success: true,
-                chapter: newChapter,
-                message: "New story chapter has been successfully created."
-            });
-        }).catch(err => {
-            return res.status(500).json({
-                success: false,
-                error: err
-            });
-        });
+        await newChapter.save();
+        return res.status(200).json({success: true, data: newChapter}).send();
     }
     catch (err) {
+        console.log(err);
         return res.status(500).send();
     }
 }
@@ -254,25 +247,16 @@ updateStoryChapter = async (req, res) => {
             });
         }
 
-        StoryChapter.findById({ _id: body._id }, (err, chapter) => {
-            if (err || !chapter) {
-                return res.status(400).json({
-                    success: false,
-                    message: "Cannot find story chapter."
-                });
-            }
+        const old = await StoryChapter.findById(body._id);
+        if (!old)
+            return res.status(400).json({success: false, message: "This story chapter does not exist!"});
 
-            chapter.name = body.name
-            chapter.chapter = body.chapter
+        old.name = body.name;
+        old.uploaded = body.uploaded;
+        old.chapter = body.chapter;
 
-            chapter.save().then(() => {
-                return res.status(200).json({   
-                    success: true,
-                    chapter: chapter,
-                    message: "Story chapter has been successfully updated."
-                });
-            })
-        })
+        await old.save();
+        return res.status(200).json({success: true, data: old});
     }
     catch (err) {
         return res.status(500);

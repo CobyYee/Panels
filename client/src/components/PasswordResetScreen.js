@@ -64,7 +64,7 @@ export default function PasswordResetScreen() {
                             fullWidth
                             variant="contained"
                             // NEED A SCRIPT TO GO WITH THIS, ENABLE BUTTON ONCE A VALID EMAIL IS INPUTTED
-                            sx={{ mt: 1, mb: 2, backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' } }}
+                            sx={{ mt: 1, mb: 2, backgroundColor:'#9c4247', "&:hover": { backgroundColor: '#b8434b' } }}
                         >
                             Send Password Reset Email
                         </Button>

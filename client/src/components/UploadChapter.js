@@ -6,19 +6,27 @@ import AuthContext from '../auth';
 function UploadChapter() {
     const {store} = useContext(GlobalStoreContext);
     const {auth} = useContext(AuthContext);
-    const [files, setFiles] = useState([]);
     const [name, setName] = useState("");
+    const [files, setFiles] = useState([]);
+    const [fileNames, setFileNames] = useState([]);
 
     const navigate = useNavigate();
     function handleSubmit() {
-        store.createComicChapter(store.work._id, name, files);
-        navigate(`/profile/${auth.session._id}`)
+        if (name !== "") {
+            if (store.mode === "comic") {
+                store.createComicChapter(store.work._id, name, files);
+            }
+            else {
+                store.createStoryChapter(store.work._id, name);
+            }
+            navigate(`/profile/${auth.session._id}`)
+        }
     }
 
     function handleFileUpload(event) {
         let arr = [];
-        let files1 = Array.from(event.target.files);
-        files1.forEach((file) => {
+        let files = Array.from(event.target.files);
+        files.forEach((file) => {
             let reader = new FileReader();            
             reader.readAsDataURL(file);
             reader.onload = function() {
@@ -30,6 +38,7 @@ function UploadChapter() {
             }
         })
         setFiles(arr);
+        setFileNames(files.map(file => file.name));
     }
 
     return (
@@ -50,14 +59,14 @@ function UploadChapter() {
                     </div>
                 </div>
                 <div id="upload_comic_fields">
-                    <input readonly="readonly" id="upload_comic_name" type="text" value={(store.work !== null) ? store.work.title : ""}></input> <br></br>
+                    <input readOnly id="upload_comic_name" type="text" value={(store.work !== null) ? store.work.title : ""}></input> <br></br>
                     <input id="upload_chapter_name" type="text" onChange={(event) => setName(event.target.value)}></input> <br></br>
                     <input id="upload_chapter" type="file" multiple="multiple" onChange={(event) => {handleFileUpload(event)}}></input>
-                    <label id="uploaded_chapter_label" for="upload_chapter">Browse</label>
-                    <label id="uploaded_chapter_label_label" for="uploaded_chapter_label">{(files !== null) ? files.map((file) => { return file.name }) : ""}</label> 
+                    <label id="uploaded_chapter_label" htmlFor="upload_chapter">Browse</label>
+                    <label id="uploaded_chapter_label_label" htmlFor="uploaded_chapter_label">{fileNames.join(", ")}</label> 
                     <br></br>
                     <input id="terms_checkbox" type="checkbox"></input>
-                    <label id="terms_label" for="terms_checkbox">By uploading this chapter, I agree to Panels' terms and services</label> <br></br>
+                    <label id="terms_label" htmlFor="terms_checkbox">By uploading this chapter, I agree to Panels' terms and services</label> <br></br>
                     <button id="upload_button" onClick={() => handleSubmit()}>Upload</button>
                 </div>
             </div>

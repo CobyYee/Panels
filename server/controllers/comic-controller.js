@@ -244,7 +244,7 @@ updateChapter = async (req, res) => {
 
         const old = await ComicChapter.findById(body._id);
         if (!old)
-            return res.status(400).json({success: false, message: "This comic does not exist!"});
+            return res.status(400).json({success: false, message: "This comic chapter does not exist!"});
 
         old.name = body.name;
         old.uploaded = body.uploaded;

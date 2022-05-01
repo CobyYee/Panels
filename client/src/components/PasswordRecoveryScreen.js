@@ -106,7 +106,7 @@ export default function PasswordRecoveryScreen() {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 2, mb: 2, backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' } }}
+                            sx={{ mt: 2, mb: 2, backgroundColor:'#9c4247', "&:hover": { backgroundColor: '#b8434b' } }}
                         >
                             Change Password
                         </Button>
