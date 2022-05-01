@@ -32,6 +32,7 @@ export default function StoryEditor() {
     })
 
     function handleSave() {
+        console.log(quill.getContents())
         store.updateStoryChapter(title, quill.getContents())
     }
     /*
