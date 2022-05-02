@@ -1,4 +1,5 @@
 import { GlobalStoreContext }  from '../store';
+import  AuthContextProvider  from '../auth';
 import { useContext, useState, useRef, useEffect } from 'react'
 import { Grid, Button, TextField, Box } from '@mui/material'
 import { useNavigate } from "react-router-dom";
@@ -9,7 +10,8 @@ import Editor from './Editor';
 //import {Stage, Layer, Rect, Line, Text} from 'react-konva'
 
 function StoryBoard(props) {
-    const { store } = useContext(GlobalStoreContext)
+    const { store } = useContext(GlobalStoreContext);
+    const {auth} = useContext(AuthContextProvider);
     const [tool, setTool] = useState('pen');
     const [lines, setLines] = useState([]);
     const [trash, setTrash] = useState([]);
@@ -30,14 +32,14 @@ function StoryBoard(props) {
     function handleSave(event) {
         console.log(stageRef.current.toDataURL());
         console.log(stageRef.current.toJSON()); 
-        //store.createKonva(stageRef.current.toDataURL());
-        //navigate('/profile')
+        store.createKonva(stageRef.current.toDataURL());
+        navigate('/profile/' + auth.session._id)
     }
 
     let editor = "";
     if(store.mode === "comic") {
         editor = 
-        <Box sx={{ height: '80vh', position: 'relative', backgroundColor: 'white', borderRadius: '10px', width: '70%', left: '15%'}}>
+        <Box sx={{ height: '1500px', position: 'relative', backgroundColor: 'white', borderRadius: '10px', width: '1500px'}}>
             <Editor tool={tool} setTool={setTool} lines={lines} setLines={setLines} trash={trash} setTrash={setTrash} isDrawing={isDrawing} stageRef={stageRef} image={image}/>
         </Box>
     }
@@ -56,8 +58,7 @@ function StoryBoard(props) {
                 <TextField placeholder = "Name" sx = {{input: {color: 'white'}}}>  </TextField>
             </Grid>
             <Grid item xs = {3}/>
-            <div id="container"></div>
-            <Grid item xs = {12}>
+            <Grid item xs = {12} style={{justifyContent: 'center', display: 'flex'}}>
                 {editor}
             </Grid>
             <Grid item xs = {10}/>

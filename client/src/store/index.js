@@ -85,7 +85,7 @@ function GlobalStoreContextProvider(props) {
                     works: store.works,
                     work: store.work,
                     images: store.images,
-                    image: store.image,
+                    image: null,
                     chapter: payload.chapter,
                     chapter_images: payload.images
                 })
@@ -145,6 +145,7 @@ function GlobalStoreContextProvider(props) {
             data: data
         });
         if (response.status === 200) {
+            console.log("konva created: " + response.data.data)
             storeReducer({
                 type: GlobalStoreActionType.LOAD_PROFILE_WORKS,
                 payload: store.works

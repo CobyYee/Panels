@@ -57,21 +57,22 @@ function Editor(props) {
 
     let image1 = new window.Image();
     image1.src= image;
-    image1.height = window.innerHeight;
-    image1.width = window.innerWidth;
     
-    console.log(stageRef)
     let thing = 
     <Stage
         ref={stageRef}
         id="canvas"
-        width={window.innerWidth}
-        height={window.innerHeight}
-        onMouseDown={handleMouseDown}
-        onMousemove={handleMouseMove}
+        width={1500}
+        height={1500}
+            onMouseDown={handleMouseDown}
+            onMousemove={handleMouseMove}
         onMouseup={handleMouseUp}
     >
         <Layer>
+            <Image 
+            image={image1}
+            width={1000}
+            height={1000}/>
             {lines.map((line, i) => (
             <Line
                 key={i}
