@@ -2,45 +2,42 @@ import Quill from 'quill'
 import 'react-quill/dist/quill.snow.css';
 import { useContext, useEffect, useState} from 'react'
 import { Button, Grid, TextField } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
 import GlobalStoreContext from '../store'
+import AuthContextProvider from '../auth'
 import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
 import ReactQuill from 'react-quill';
 
 export default function StoryEditor() {
     const {store} = useContext(GlobalStoreContext)
-    const [value, setValue] = useState("")
+    const {auth} = useContext(AuthContextProvider)
+    const [text, setText] = useState("")
 
-    let navigate = useNavigate();
-    let div = <ReactQuill theme="snow" value={value} onChange={(content, delta, source, editor) => handleChange(content, delta, source, editor)}/>
+    let div = <ReactQuill value = {text} theme="snow" onChange={(content, delta, source, editor) => handleChange(content, delta, source, editor)}/>
     
     //<ReactQuill theme="snow" value={value} onChange={(e) => setValue(e)}/>
 
     const [title, setTitle] = useState("");
-    
-    // let quill = new Quill("#story-editor", {
-    //     formats: {
-    //         'background': 'white'    
-    //     },
-    //     modules: {
-    //         toolbar: false
-    //     },
-    //     placeholder: 'Begin creating your story',
-    //     theme: 'snow'
-    // })
 
     function handleChange(content, delta, source, editor) {
-        console.log(editor.getContents())
+        setText(editor.getContents())
+        //console.log(value)
     }
 
     function handleSave() {
         // console.log(quill.getContents())
-        // store.updateStoryChapter(title, quill.getContents())
+        store.updateStoryChapter(title, text)
+    }
+
+    const handleProfile = () => {
+        auth.loadProfile(auth.session._id);
+        store.loadProfileWorks(auth.session._id);
     }
 
     useEffect(() => {
-        if(store.chapter !== null)
+        if(store.chapter !== null) {
             setTitle(store.chapter.name);
+            setText(store.chapter.chapter)
+        }
     }, [store.chapter])
     
     /*
@@ -66,7 +63,7 @@ export default function StoryEditor() {
     let editor = 
         <Grid container>
             <Grid item xs = {3} >
-                <Button variant="text" onClick = {() => navigate('/profile/')} sx = {{color: 'white', fontSize: '28px'}}>Back to Profile</Button>
+                <Button variant="text" onClick = {() => handleProfile()} sx = {{color: 'white', fontSize: '28px'}}>Back to Profile</Button>
             </Grid>
             <Grid item xs = {6} sx = {{display: 'flex', justifyContent:'center'}} >
                 <TextField value={title} onChange = {(event) => {setTitle(event.target.value)}} sx = {{input: {color: 'white'}}}>  </TextField>
