@@ -213,9 +213,8 @@ getStories = async (req, res) => {
 
 createStoryChapter = async (req, res) => {
     try {
-        console.log("hello")
         const { name, chapter } = req.body;
-        console.log(name + " " + chapter);
+        //console.log(name + " " + chapter);
         if (!name) {
             return res.status(400).json({
                 success: false,

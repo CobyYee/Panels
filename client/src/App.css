@@ -816,6 +816,14 @@ html, body {
   background-color: white;
 }
 
+#story_creator {
+  width: 60%;
+  height: 40vh;
+}
+
+.ql-toolbar .ql-picker {
+    color: #fff;
+}
 
 #stage-container, #stage-container-wrapper {
   width: 100%;

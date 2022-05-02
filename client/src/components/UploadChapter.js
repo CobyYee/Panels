@@ -1,3 +1,5 @@
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import GlobalStoreContext from '../store';
@@ -9,6 +11,7 @@ function UploadChapter() {
     const [name, setName] = useState("");
     const [files, setFiles] = useState([]);
     const [fileNames, setFileNames] = useState([]);
+    const [text, setText] = useState("");
 
     const navigate = useNavigate();
     function handleSubmit() {
@@ -17,7 +20,7 @@ function UploadChapter() {
                 store.createComicChapter(store.work._id, name, files);
             }
             else {
-                store.createStoryChapter(store.work._id, name);
+                store.createStoryChapter(store.work._id, name, text);
             }
             navigate(`/profile/${auth.session._id}`)
         }
@@ -41,6 +44,26 @@ function UploadChapter() {
         setFileNames(files.map(file => file.name));
     }
 
+    function handleChange(content, delta, source, editor) {
+        setText(editor.getContents())
+    }
+
+    let display =
+        <div>
+            <input id="upload_chapter" type="file" multiple="multiple" onChange={(event) => {handleFileUpload(event)}}></input>
+            <label id="uploaded_chapter_label" htmlFor="upload_chapter">Browse</label>
+            <label id="uploaded_chapter_label_label" htmlFor="uploaded_chapter_label">{fileNames.join(", ")}</label> 
+            <br></br>
+        </div>
+
+    if (store.mode === "story") {
+        display = 
+            <div>
+                <ReactQuill id="story_creator" className="q1-toolbar" onChange={(content, delta, source, editor) => handleChange(content, delta, source, editor)}/>
+                <br/><br/>
+            </div>
+    }
+
     return (
         <div id="upload_comic">
             <div id="upload_comic_label">
@@ -55,16 +78,15 @@ function UploadChapter() {
                         Chapter Name
                     </div>
                     <div id="upload_comic_tags_label">
-                        Upload File(s)
+                    {
+                        (store.mode === "comic" ? "Upload File(s)" : "Create Story")
+                    }
                     </div>
                 </div>
                 <div id="upload_comic_fields">
                     <input readOnly id="upload_comic_name" type="text" value={(store.work !== null) ? store.work.title : ""}></input> <br></br>
                     <input id="upload_chapter_name" type="text" onChange={(event) => setName(event.target.value)}></input> <br></br>
-                    <input id="upload_chapter" type="file" multiple="multiple" onChange={(event) => {handleFileUpload(event)}}></input>
-                    <label id="uploaded_chapter_label" htmlFor="upload_chapter">Browse</label>
-                    <label id="uploaded_chapter_label_label" htmlFor="uploaded_chapter_label">{fileNames.join(", ")}</label> 
-                    <br></br>
+                    { display }
                     <input id="terms_checkbox" type="checkbox"></input>
                     <label id="terms_label" htmlFor="terms_checkbox">By uploading this chapter, I agree to Panels' terms and services</label> <br></br>
                     <button id="upload_button" onClick={() => handleSubmit()}>Upload</button>
