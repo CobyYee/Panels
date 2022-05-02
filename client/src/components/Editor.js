@@ -10,16 +10,6 @@ function Editor(props) {
         document.getElementById("editor-redo-btn").disabled = (trash.length === 0) ? true : false;
     })
 
-    // useEffect(() => {
-    //     if (props.stage) {
-    //         let stage = Konva.Node.create(props.stage, "stage-container");
-    //         //stageRef.current.add(layer);
-    //         stage.addEventListener("onMouseDown", handleMouseDown);
-    //         stage.addEventListener("onMousemove", handleMouseMove);
-    //         console.log(stage)
-    //     }
-    // }, [props.stage])
-
     const handleMouseDown = (e) => {
         isDrawing.current = true;
         const pos = e.target.getStage().getPointerPosition();
@@ -66,9 +56,11 @@ function Editor(props) {
     }
 
     let image1 = new window.Image();
-    image1.src= require('./bate.jpg');
+    image1.src= image;
+    image1.height = window.innerHeight;
+    image1.width = window.innerWidth;
     
-
+    console.log(stageRef)
     let thing = 
     <Stage
         ref={stageRef}
@@ -80,11 +72,6 @@ function Editor(props) {
         onMouseup={handleMouseUp}
     >
         <Layer>
-        <Image
-        x={100}
-        y={100}
-        image={image1}
-            />
             {lines.map((line, i) => (
             <Line
                 key={i}
@@ -102,7 +89,7 @@ function Editor(props) {
     </Stage>
     
     return ( 
-    <div>
+    <div id="stage-container-wrapper">
         <select value={tool} onChange={(e) => {setTool(e.target.value);}}>
             <option value="pen">Pen</option>
             <option value="eraser">Eraser</option>
