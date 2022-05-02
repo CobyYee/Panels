@@ -708,7 +708,7 @@ html, body {
 
 #story-editor {
   width: 90%;
-  height: 80%;
+  height: 80vh;
   position: relative;
   margin: auto;
   background-color: white;
