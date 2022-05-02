@@ -3,10 +3,10 @@ import { useContext, useState, useRef, useEffect } from 'react'
 import { Grid, Button, TextField, Box } from '@mui/material'
 import { useNavigate } from "react-router-dom";
 import exStory from '../testimgs/exStory.jpg';
-import exComic from '../testimgs/exComic.jpg';
+//import exComic from '../testimgs/exComic.jpg';
 import Editor from './Editor';
-import Konva from 'konva'
-import {Stage, Layer, Rect, Line, Text} from 'react-konva'
+//import Konva from 'konva'
+//import {Stage, Layer, Rect, Line, Text} from 'react-konva'
 
 function StoryBoard(props) {
     const { store } = useContext(GlobalStoreContext)

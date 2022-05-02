@@ -9,10 +9,19 @@ export default function ChapterScreen() {
     const {store} = useContext(GlobalStoreContext)
     let navigate = useNavigate()
 
-    const [chapter, setChapter] = useState(3)
+    const [chapter, setChapter] = useState(JSON.parse(store.work.chapters[store.work.chapters.length - 1]).name);
 
     const switchChapter = (event) => {
         setChapter(event.target.value);
+    }
+
+    function changeChapter(chapterId) {
+        if (store.mode === "comic") {
+            store.loadComicChapter(chapterId);
+        }
+        else {
+            store.loadStoryChapter(chapterId);
+        }
     }
 
     let display =
@@ -20,7 +29,7 @@ export default function ChapterScreen() {
         {
             (store.chapter_images !== null) ?
                 store.chapter_images.map((image, index) => (
-                    <ImageListItem key={"chapter-image-" + index} sx={{ height: '200px' }}>
+                    <ImageListItem key={"chapter-image-" + index}>
                         <img src={image} alt =""></img>
                     </ImageListItem>
                 )) : ""
@@ -32,7 +41,11 @@ export default function ChapterScreen() {
             <Box sx={{ width: '50vw', color: 'white' }}>
             {
                 (store.chapter !== null) ?
-                    <ReactQuill style={{ backgroundColor: '#3d3d3d', borderRadius: '4px' }} readOnly={true} theme={"bubble"} value={store.chapter.chapter}/>
+                    <ReactQuill style={{ backgroundColor: '#3d3d3d', borderRadius: '4px' }} 
+                                readOnly={true} 
+                                theme={"bubble"} 
+                                value={store.chapter.chapter}
+                    />
                 : ""
             }
             </Box>
@@ -72,15 +85,14 @@ export default function ChapterScreen() {
                                         icon: { sx: { color: 'white' } }
                                     }}
                                 >
-                                    <MenuItem value={3}>
-                                        <Typography>Chapter 3</Typography>
-                                    </MenuItem>
-                                    <MenuItem value={2}>
-                                        <Typography>Chapter 2</Typography>
-                                    </MenuItem>
-                                    <MenuItem value={1}>
-                                        <Typography>Chapter 1</Typography>
-                                    </MenuItem>
+                                {
+                                    (store.work !== null) ?
+                                        store.work.chapters.reverse().map((chapter) => (
+                                            <MenuItem value={JSON.parse(chapter).name} onClick={() => changeChapter(JSON.parse(chapter).id)}>
+                                                <Typography>{JSON.parse(chapter).name}</Typography>
+                                            </MenuItem>
+                                        )) : ""
+                                }
                                 </Select>
                             </FormControl>
                         </Grid>
