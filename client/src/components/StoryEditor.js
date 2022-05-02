@@ -4,17 +4,16 @@ import { useContext, useEffect, useState} from 'react'
 import { Button, Grid, TextField } from '@mui/material'
 import GlobalStoreContext from '../store'
 import AuthContextProvider from '../auth'
-import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
 import ReactQuill from 'react-quill';
 
-export default function StoryEditor(props) {
+export default function StoryEditor() {
     const {store} = useContext(GlobalStoreContext)
     const {auth} = useContext(AuthContextProvider)
-    const [text, setText] = useState("hello")
-    
-    //<ReactQuill theme="snow" value={value} onChange={(e) => setValue(e)}/>
+    const [text, setText] = useState("")
 
-    const [title, setTitle] = useState("hello");
+    let div = <ReactQuill defaultValue = {store.chapter.chapter} theme="snow" onChange={(content, delta, source, editor) => handleChange(content, delta, source, editor)}/>
+
+    const [title, setTitle] = useState("");
 
     function handleChange(content, delta, source, editor) {
         setText(editor.getContents())
@@ -23,7 +22,7 @@ export default function StoryEditor(props) {
 
     function handleSave() {
         // console.log(quill.getContents())
-        // store.updateStoryChapter(title, text)
+        store.updateStoryChapter(title, text)
     }
 
     const handleProfile = () => {
@@ -32,32 +31,11 @@ export default function StoryEditor(props) {
     }
 
     useEffect(() => {
-        // if(store.chapter !== null) {
-        //     setTitle(store.chapter.name);
-        //     setText(store.chapter.chapter)
-        // }
-        console.log(store.chapter)
+        if(store.chapter !== null) {
+            setTitle(store.chapter.name);
+            setText(store.chapter.chapter)
+        }
     }, [store.chapter])
-    
-    /*
-    useEffect(() => {
-        var Delta = Quill.import('delta')
-        quill = new Quill('#story-editor', {
-            formats: {
-                'background': 'white'
-            },
-            modules: {
-                toolbar: false
-            },
-            placeholder: 'Begin creating your story',
-            theme: 'snow'
-        })
-        var change = new Delta()
-
-        //quill.on('text-change', function(delta) {
-        //    console.log(delta);
-        //})
-    }, []) */
 
     let editor = 
         <Grid container>
@@ -71,7 +49,7 @@ export default function StoryEditor(props) {
 
             <Grid item xs = {1}/>
             <Grid item xs = {10}>
-                <ReactQuill defaultValue={text} theme="snow" onChange={(content, delta, source, editor) => handleChange(content, delta, source, editor)}/>
+                {div}
             </Grid>
             <Grid item xs = {1}/>
             
