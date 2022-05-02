@@ -7,18 +7,17 @@ import AuthContextProvider from '../auth'
 import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
 import ReactQuill from 'react-quill';
 
-export default function StoryEditor() {
+export default function StoryEditor(props) {
     const {store} = useContext(GlobalStoreContext)
     const {auth} = useContext(AuthContextProvider)
-    const [text, setText] = useState("")
+    const [text, setText] = useState("hello")
     
     //<ReactQuill theme="snow" value={value} onChange={(e) => setValue(e)}/>
 
-    const [title, setTitle] = useState("");
+    const [title, setTitle] = useState("hello");
 
     function handleChange(content, delta, source, editor) {
         setText(editor.getContents())
-        console.log(text)
         //console.log(value)
     }
 
@@ -33,10 +32,11 @@ export default function StoryEditor() {
     }
 
     useEffect(() => {
-        if(store.chapter !== null) {
-            setTitle(store.chapter.name);
-            setText(store.chapter.chapter)
-        }
+        // if(store.chapter !== null) {
+        //     setTitle(store.chapter.name);
+        //     setText(store.chapter.chapter)
+        // }
+        console.log(store.chapter)
     }, [store.chapter])
     
     /*

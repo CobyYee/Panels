@@ -20,15 +20,19 @@ export default function ComicScreen() {
             store.loadStoryChapter(chapterId);
         }
         if (store.work.published !== null) {
-            navigate("/chapter/");
+            
+        }
+        navigate("/chapter/");
+    }
+
+    function handleEdit(chapterId) {
+        if (store.mode === "comic") {
+            store.loadComicChapter(chapterId);
+            navigate("/editchapter/");
         }
         else {
-            if (store.mode === "comic") {
-                navigate("/editchapter/");
-            }
-            else {
-                navigate("/storyeditor/");
-            }
+            store.loadStoryChapter(chapterId).then(res => {navigate("/storyeditor/")}).catch(err => {console.log("story chapter edit error : " + err)});
+            
         }
     }
 
@@ -116,7 +120,11 @@ export default function ComicScreen() {
                                         <div id="comic_chapter_name" onClick={() => handleChapter(JSON.parse(chapter).id)}>
                                             {JSON.parse(chapter).name}
                                         </div>
-                                        <div id="comic_chapter_date">Date Released</div>
+                                        {
+                                            (store.work.creatorId === auth.session._id) ? 
+                                                <Button id="text_button" sx={{ height: '26px' }} onClick={() => handleEdit(JSON.parse(chapter).id)}>Edit</Button>
+                                            : <div id="comic_chapter_date">Date Released</div>
+                                        }
                                     </div>
                                 </ListItem>
                             ))
