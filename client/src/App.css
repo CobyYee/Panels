@@ -387,7 +387,13 @@ html, body {
 }
 
 .chapter-contain {
+  max-height: 90%;
+  max-width: 100%;
+}
+
+.edit_image {
   height: 100%;
+  max-width: 100%;
 }
 
 #divider {
@@ -406,6 +412,35 @@ html, body {
   color: #9c4247;
 }
 
+#insert_panel_modal {
+  width: 400px;
+  background-color: #3d3d3d;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 4px;
+  padding: 16px;
+}
+
+#modal_title {
+  color: white;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+#modal_filename {
+  color: white;
+  margin-top: 16px;
+  margin-bottom: 32px;
+  margin-left: 2px;
+}
+
+#cancel_button {
+  color: white;
+  position: relative;
+  left: 3%;
+}
 
 
 
@@ -700,6 +735,73 @@ html, body {
 #chapter_grid_centered {
   align-items: center;
   vertical-align: center;
+}
+
+
+
+/* EditChapterScreen */
+
+.edit_chapter_centered {
+  display: flex;
+  justify-content: center;
+}
+
+#edit_container {
+  flex-direction: column;
+  align-items: center;
+}
+
+#edit_slides {
+  height: 91vh;
+  overflow-y: scroll;
+}
+
+#edit_slides_container, #edit_slides_list, #edit_toolbar, #edit_currentpage {
+  width: 100%;
+  height: 100%;
+}
+
+#edit_slides_container {
+  align-items: center;
+}
+
+#edit_image_container {
+  width: 100%;
+  height: 40vh;
+}
+
+#edit_toolbar {
+  border: 1px solid;
+  border-color: #4e4e4e;
+}
+
+#edit_toolbar_buttons {
+  height: 48px;
+  background-color: #4e4e4e;
+  display: flex;
+  vertical-align: center;
+}
+
+#edit_display_grid {
+  height: 88vh;
+  align-items: center;
+}
+
+#edit_image_panel {
+  border: 1px solid;
+  border-color: transparent;
+  cursor: pointer;
+}
+
+#edit_image_container {
+  width: 97.5%;
+  height: 95%;
+}
+
+#edit_currentpage {
+  align-items: center;
+  border-top: 1px solid;
+  border-color: #4e4e4e;
 }
 
 

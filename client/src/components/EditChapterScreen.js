@@ -87,68 +87,75 @@ export default function EditChapterScreen() {
     }
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-            <Grid item={true} xs={12} container sx={{ display: 'flex', justifyContent: 'center' }}>
-                <Grid item xs={3} sx={{ display: 'flex', justifyContent: 'center', height: '91vh', overflowY: 'scroll' }}>
-                    <Box sx={{ height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <List sx={{ height: '100%', width: '100%' }}>
+        <Box id="edit_container" className="edit_chapter_centered">
+            <Grid className="edit_chapter_centered" item={true} xs={12} container>
+                <Grid id="edit_slides" className="edit_chapter_centered" item xs={3}>
+                    <Box id="edit_slides_container" className="edit_chapter_centered">
+                        <List id="edit_slides_list" 
+                              sx={{ "&& .Mui-selected": { backgroundColor: '#3d3d3d', border: 1, borderColor: 'white' } }}
+                        >
                         {
                             (currentChapter !== null) ? 
-                                    currentChapter.map((image, index) => (
-                                        <ListItem key={"image-edit-" + index} sx={{display: 'flex', justifyContent: 'center' }}>
-                                            <Typography pr={4} color='white'>{(index + 1) + "."}</Typography>
-                                            <Box container sx={{ width: '60%', height: '40vh', display: 'flex', justifyContent: 'center' }}>
-                                                <img src={image} 
-                                                     className="chapter-contain" 
-                                                     alt =""
-                                                     id={'item-' + index}
-                                                     draggable="true" 
-                                                     onDragStart={handleDragStart}
-                                                     onDragOver={handleDragOver}
-                                                     onDrop={handleDrop}
-                                                     onClick={() => handleSlide(index, image)}>
-                                                </img>
-                                            </Box>
-                                        </ListItem>
-                                    )) : ""
+                                currentChapter.map((image, index) => (
+                                    <ListItem key={"image-edit-" + index} 
+                                              id="edit_image_panel" 
+                                              className="edit_chapter_centered" 
+                                              selected={currentPage === index}
+                                    >
+                                        <Typography color='white' pr={4}>{(index + 1) + "."}</Typography>
+                                        <Box id="edit_image_container" className="edit_chapter_centered" container>
+                                            <img src={image} 
+                                                 className="chapter-contain" 
+                                                 alt =""
+                                                 id={'item-' + index}
+                                                 draggable="true" 
+                                                 onDragStart={handleDragStart}
+                                                 onDragOver={handleDragOver}
+                                                 onDrop={handleDrop}
+                                                 onClick={() => handleSlide(index, image)}>
+                                            </img>
+                                        </Box>
+                                    </ListItem>
+                                )) : ""
                         }
                         </List>
                     </Box>
                 </Grid>
                 <Grid item xs={9} container>
-                    <Grid item xs={12} sx={{ border: 1, borderColor: '#4e4e4e', height: '100%', width: '100%' }}>
-                        <Grid item xs={12} sx={{ backgroundColor: '#4e4e4e', height: '48px', display: 'flex', verticalAlign: 'center' }}>
+                    <Grid id="edit_toolbar" item xs={12}>
+                        <Grid id="edit_toolbar_buttons" item xs={12}>
                             <Button sx={{ color: 'white' }} onClick={() => saveChapter()}>Save</Button>
                             <Button sx={{ color: 'white' }} onClick={handleModalOpen}>Insert</Button>
                             <Button sx={{ color: 'white' }}>Edit</Button>
                             <Button sx={{ color: 'white' }}>Help</Button>
                         </Grid>
-                        <Grid item xs={12} sx={{ height: '88vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <Box sx={{ height: '95%', width: '95%', backgroundColor: '#4e4e4e', display: 'flex', justifyContent: 'center' }}>
-                                <img src={currentImage} className="chapter-contain" alt =""></img>
+                        <Grid id="edit_display_grid" className="edit_chapter_centered" item xs={12}>
+                            <Box id="edit_image_container" className="edit_chapter_centered">
+                                <img src={currentImage} className="edit_image" alt =""></img>
                             </Box>
                         </Grid>
                     </Grid>
                 </Grid>
             </Grid>
             <Grid item={true} xs={12} container sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-                <Grid item xs={3} sx={{ height: '3vh', display: 'flex', alignItems: 'center' }}>
-                    <Box sx={{ borderTop: 1, borderColor: '#4e4e4e', height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <Typography color='white'>Page {currentPage + 1} of {(currentChapter !== null) ? currentChapter.length : "0"}</Typography>
+                <Grid className="edit_chapter_centered" item xs={3} sx={{ height: '3vh' }}>
+                    <Box id="edit_currentpage" className="edit_chapter_centered">
+                        <Typography color="white">Page {currentPage + 1} of {(currentChapter !== null) ? currentChapter.length : "0"}</Typography>
                     </Box>
                 </Grid>
             </Grid>
             <Modal
                 open={modalOpen}
                 onClose={handleModalClose}>
-                <Box sx={{ position: 'absolute', top: '30%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: '#3d3d3d', p: 2, borderRadius: 2 }}>
-                    <Typography color="white" sx={{ fontSize: 20 }} mb={2}>Insert Panel</Typography>
-                    <Button variant="contained" component="label" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: '#b8434b' } }}>
+                <Box id="insert_panel_modal">
+                    <Typography id="modal_title">Insert Panel</Typography>
+                    <Button id="button" variant="contained" component="label">
                         Browse Files
                         <input type="file" hidden onChange={(event) => {handleFileUpload(event)}} />
                     </Button>
-                    <Typography color="white" mt={2} mb={4}>Uploaded: {fileName}</Typography>
-                    <Button variant="contained" sx={{ backgroundColor: '#9c4247', "&:hover": { backgroundColor: '#b8434b' } }} onClick={() => handleInsert()}>Upload</Button><Button variant="contained" sx={{ backgroundColor: '#4e4e4e' }} onClick={handleModalClose}>Cancel</Button>
+                    <Typography id="modal_filename">Uploaded: {fileName}</Typography>
+                    <Button id="button" variant="contained" onClick={() => handleInsert()}>Upload</Button>
+                    <Button id="cancel_button" onClick={handleModalClose}>Cancel</Button>
                 </Box>
             </Modal>
         </Box>
