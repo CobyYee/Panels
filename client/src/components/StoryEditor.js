@@ -1,29 +1,26 @@
-import Quill from 'quill'
+import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Grid, TextField } from '@mui/material'
 import GlobalStoreContext from '../store'
-import AuthContextProvider from '../auth'
-import ReactQuill from 'react-quill';
+//import AuthContextProvider from '../auth'
 
 export default function StoryEditor() {
     const {store} = useContext(GlobalStoreContext)
-    const {auth} = useContext(AuthContextProvider)
+    //const {auth} = useContext(AuthContextProvider)
     const navigate = useNavigate();
     const [text, setText] = useState("")
 
-    let div = <ReactQuill id = "story-editor" defaultValue = {store.chapter.chapter} theme="snow" onChange={(content, delta, source, editor) => handleChange(content, delta, source, editor)}/>
+    let div = <ReactQuill id = "story-editor" defaultValue = {store.chapter.chapter} theme="snow" onChange={(editor) => handleChange(editor)}/>
 
     const [title, setTitle] = useState("");
 
-    function handleChange(content, delta, source, editor) {
+    function handleChange(editor) {
         setText(editor.getContents())
-        //console.log(value)
     }
 
     function handleSave() {
-        // console.log(quill.getContents())
         store.updateStoryChapter(title, text)
     }
 

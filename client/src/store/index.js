@@ -607,10 +607,10 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    store.createStoryChapter = async function(storyId, chapterName) {
+    store.createStoryChapter = async function(storyId, chapterName, chapter) {
         const storyChapter = {
             name: chapterName,
-            chapter: null
+            chapter: chapter
         }
         let response = await api.createStoryChapter(storyChapter);
         if (response.status === 200) {
