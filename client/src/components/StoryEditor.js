@@ -12,11 +12,11 @@ export default function StoryEditor() {
     const navigate = useNavigate();
     const [text, setText] = useState("")
 
-    let div = <ReactQuill id = "story-editor" defaultValue = {store.chapter.chapter} theme="snow" onChange={(editor) => handleChange(editor)}/>
+    let div = <ReactQuill id = "story-editor" defaultValue = {store.chapter.chapter} theme="snow" onChange={(content, delta, source, editor) => handleChange(content, delta, source, editor)}/>
 
     const [title, setTitle] = useState("");
 
-    function handleChange(editor) {
+    function handleChange(content, delta, source, editor) {
         setText(editor.getContents())
     }
 
