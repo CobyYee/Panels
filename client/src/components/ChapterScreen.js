@@ -1,6 +1,6 @@
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.bubble.css'
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { Typography, Box, Grid, Toolbar, Button, FormControl, Select, MenuItem, ImageList, ImageListItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom'
 import GlobalStoreContext from '../store'
@@ -9,7 +9,13 @@ export default function ChapterScreen() {
     const {store} = useContext(GlobalStoreContext)
     let navigate = useNavigate()
 
-    const [chapter, setChapter] = useState(JSON.parse(store.work.chapters[store.work.chapters.length - 1]).name);
+    const [chapter, setChapter] = useState("");
+
+    useEffect(() => {
+        if (store.chapter !== null) {
+            setChapter(store.chapter.name);
+        }
+    }, [store.chapter])
 
     const switchChapter = (event) => {
         setChapter(event.target.value);
@@ -56,13 +62,13 @@ export default function ChapterScreen() {
             <Box sx = {{ flexGrow: 1}}>
                 <Toolbar>
                     <Grid id="chapter_grid_centered" item={true} xs={12} container>
-                        <Grid id="chapter_centered" item xs={2}>
+                        <Grid id="chapter_centered" item xs={3}>
                             <Button id="text_button" onClick = {() => navigate('/comic/' + store.work._id)}>back to {store.work.title}</Button>
                         </Grid>
-                        <Grid id="chapter_centered" item xs={1}>
+                        <Grid id="chapter_centered" item xs={0.5}>
                             <Button id="button" variant="contained">First</Button>
                         </Grid>
-                        <Grid id="chapter_centered" item xs={1}>
+                        <Grid id="chapter_centered" item xs={0.5}>
                             <Button id="button" variant="contained">Prev</Button>
                         </Grid>
                         <Grid id="chapter_centered" item xs={4}>
@@ -87,8 +93,11 @@ export default function ChapterScreen() {
                                 >
                                 {
                                     (store.work !== null) ?
-                                        store.work.chapters.reverse().map((chapter) => (
-                                            <MenuItem value={JSON.parse(chapter).name} onClick={() => changeChapter(JSON.parse(chapter).id)}>
+                                        store.work.chapters.reverse().map((chapter, index) => (
+                                            <MenuItem key={"chapter-select-" + index}
+                                                      value={JSON.parse(chapter).name} 
+                                                      onClick={() => changeChapter(JSON.parse(chapter).id)}
+                                            >
                                                 <Typography>{JSON.parse(chapter).name}</Typography>
                                             </MenuItem>
                                         )) : ""
@@ -96,13 +105,13 @@ export default function ChapterScreen() {
                                 </Select>
                             </FormControl>
                         </Grid>
-                        <Grid id="chapter_centered" item xs={1}>
+                        <Grid id="chapter_centered" item xs={0.5}>
                             <Button id="button" variant="contained">Next</Button>
                         </Grid>
-                        <Grid id="chapter_centered" item xs={1}>
+                        <Grid id="chapter_centered" item xs={0.5}>
                             <Button id="button" variant="contained">Last</Button>
                         </Grid>
-                        <Grid item xs={2}></Grid>
+                        <Grid item xs={3}></Grid>
                     </Grid>
                 </Toolbar>
             </Box>
