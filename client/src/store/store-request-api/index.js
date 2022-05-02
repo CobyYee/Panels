@@ -4,7 +4,7 @@
 import axios from 'axios'
 axios.defaults.withCredentials = true;
 const api = axios.create({
-    baseURL: 'http://localhost:4000/api'
+    baseURL: 'https://panelswebcomics.herokuapp.com/api'
 })
 
 export const getComicById = (id) => api.get(`/comic/${id}`)
@@ -18,7 +18,7 @@ export const getComicsByCreator = (id) => api.get(`/comics/${id}`)
 export const deleteComicChapter = (id) => api.delete(`/comicchapter/${id}`)
 export const getComicChapterById = (id) => api.get(`/comicchapter/${id}`)
 export const createComicChapter = (payload) => api.post(`/comicchapter/`, payload)
-export const updateComicChapter = (payload) => api.post(`/comicchapter/`, payload)
+export const updateComicChapter = (payload) => api.put(`/comicchapter/`, payload)
 
 export const getImagesById = (payload) => api.post(`/images/`, payload)
 export const createKonva = (payload) => api.post(`/konva/`, payload)
