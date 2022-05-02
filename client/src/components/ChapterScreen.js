@@ -1,3 +1,5 @@
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.bubble.css'
 import { useState, useContext } from 'react'
 import { Typography, Box, Grid, Toolbar, Button, FormControl, Select, MenuItem, ImageList, ImageListItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom'
@@ -11,6 +13,29 @@ export default function ChapterScreen() {
 
     const switchChapter = (event) => {
         setChapter(event.target.value);
+    }
+
+    let display =
+        <ImageList sx={{ width: '30vw' }} cols={1}>
+        {
+            (store.chapter_images !== null) ?
+                store.chapter_images.map((image, index) => (
+                    <ImageListItem key={"chapter-image-" + index} sx={{ height: '200px' }}>
+                        <img src={image} alt =""></img>
+                    </ImageListItem>
+                )) : ""
+        }
+        </ImageList>
+
+    if (store.mode === "story") {
+        display = 
+            <Box sx={{ width: '50vw', color: 'white' }}>
+            {
+                (store.chapter !== null) ?
+                    <ReactQuill style={{ backgroundColor: '#3d3d3d', borderRadius: '4px' }} readOnly={true} theme={"bubble"} value={store.chapter.chapter}/>
+                : ""
+            }
+            </Box>
     }
 
     return (
@@ -70,16 +95,9 @@ export default function ChapterScreen() {
                 </Toolbar>
             </Box>
             <Box id="chapter_grid_centered" sx={{ width: '100%' }}>
-                <ImageList sx={{ width: '30vw' }} cols={1}>
-                {
-                    (store.chapter_images !== null) ?
-                        store.chapter_images.map((image, index) => (
-                            <ImageListItem key={"chapter-image-" + index} sx={{ height: '200px' }}>
-                                <img src={image} alt =""></img>
-                            </ImageListItem>
-                        )) : ""
-                }
-                </ImageList>
+            {
+                display
+            }
             </Box>
         </div>
     )
