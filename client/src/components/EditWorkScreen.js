@@ -3,7 +3,7 @@ import GlobalStoreContext from '../store';
 import { useNavigate } from 'react-router-dom'
 
 
-function EditComicScreen() {
+function EditWorkScreen() {
     const {store} = useContext(GlobalStoreContext);
     let navigate = useNavigate()
 
@@ -100,4 +100,4 @@ function EditComicScreen() {
     )
 }
 
-export default EditComicScreen;
+export default EditWorkScreen;
