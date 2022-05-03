@@ -183,9 +183,9 @@ html, body {
 
 
 
-/* upload comic */
+/* upload work */
 
-#upload_comic {
+#upload_work {
   display: block;
   padding-left: 28%;
   padding-top: 100px;
@@ -193,44 +193,44 @@ html, body {
   text-transform: capitalize;
 }
 
-#upload_comic_label {
+#upload_work_label {
   font-size: 25px;
   color: white;
   height: 50px;
   text-transform: capitalize;
 }
 
-#upload_comic_inputs {
+#upload_work_inputs {
   width: 100%;
   display: flex;
 }
 
-#upload_comic_parameters {
+#upload_work_parameters {
   width: 10%;
   margin-left: 25px;
   color: white;
 }
 
-#upload_comic_fields {
+#upload_work_fields {
   width: 80%;
   display: block;
   color: white;
 }
 
-#upload_comic_name_label {
+#upload_work_name_label {
   margin-top: 2px;
   height: 50px
 }
 
-#upload_comic_image_label {
+#upload_work_image_label {
   height: 50px;
 }
 
-#upload_comic_tags_label {
+#upload_work_tags_label {
   height: 70px;
 }
 
-#upload_comic_name {
+#upload_work_name {
   height: 25px;
   margin-bottom: 22px;
   width: 700px;
@@ -242,7 +242,7 @@ html, body {
   padding-left: 5px;
 }
 
-#upload_comic_description {
+#upload_work_description {
   height: 100px;
   margin-bottom: 22px;
   width: 700px;
@@ -254,11 +254,11 @@ html, body {
   padding-left: 5px;
 }
 
-#upload_comic_image {
+#upload_work_image {
   display: none;
 }
 
-#uploaded_comic_image_label {
+#uploaded_work_image_label {
   padding: 3px 15px 3px 15px;
   height: 25px;
   background-color: #9c4247;
@@ -269,11 +269,11 @@ html, body {
   cursor: pointer;
 }
 
-#uploaded_comic_image_label:hover {
+#uploaded_work_image_label:hover {
   background-color: #b8434b;
 }
 
-#uploaded_comic_image_label_label {
+#uploaded_work_image_label_label {
   margin-left: 10px;
 }
 
@@ -400,11 +400,11 @@ html, body {
   background-color: #4e4e4e;
 }
 
-#button, #comic_button {
+#button, #work_button {
   background-color: #9c4247;
 }
   
-#button:hover, #comic_button:hover {
+#button:hover, #work_button:hover {
   background-color: #b8434b;
 }
   

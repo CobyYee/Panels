@@ -145,7 +145,9 @@ export default function Banner() {
                                 onClick={handleListScreen} 
                                 disableRipple
                                 sx={{ color: 'white', fontSize: 15, "&.MuiButtonBase-root:hover": { bgcolor: "transparent" } }}>
-                                    All Comics 
+                                    {" "} {
+                                        "All " + ((store.mode === 'comic') ? "Comics" : "Stories")
+                                    } {" "}
                             </Button>
                         </Grid>
                         <Grid item xs ={8} container sx={{display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
