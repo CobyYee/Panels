@@ -19,7 +19,7 @@ function EditWorkScreen() {
         //let newFile = (file === null) ? store.work.cover : file;
         let newFile = store.work.cover;
         store.updateComic(title, newFile, description, selectedTags);
-        navigate("/comic/" + store.work._id);
+        navigate((store.mode === "comic") ? "/comic/" : "/story/" + store.work._id);
     }
 
     useEffect(() => {
