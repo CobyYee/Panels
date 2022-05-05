@@ -41,7 +41,7 @@ export default function ProfileScreen(props) {
 
     function handleEdit(editId) {
         store.loadWork(editId);
-        navigate('/editcomic/')
+        navigate('/edit' + store.mode + '/')
     }
 
     function handleDelete(deleteId) {

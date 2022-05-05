@@ -50,6 +50,7 @@ const App = () => {
                         <Route exact path="/chapter/" element={< ChapterScreen />}/>
                         <Route exact path="/editchapter/" element={< EditChapterScreen />}/>
                         <Route exact path="/editcomic/" element={< EditComicScreen />}/>
+                        <Route exact path="/editstory/" element={< EditComicScreen />}/>
                         <Route exact path="/storyeditor/" element={ <StoryEditor />} />
                     </Routes>
              </GlobalStoreContextProvider>

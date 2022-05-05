@@ -13,6 +13,7 @@ export const GlobalStoreActionType = {
     LOAD_WORK: "LOAD_WORK",
     LOAD_PROFILE_WORKS: "LOAD_PROFILE_WORKS",
     LOAD_CHAPTER: "LOAD_CHAPTER",
+    UPDATE_STORY_CHAPTER: "UPDATE_STORY_CHAPTER",
     SEARCH: "SEARCH",
     LOAD_IMAGES: "LOAD_IMAGES",
     LOAD_HOME: "LOAD_HOME"
@@ -85,9 +86,20 @@ function GlobalStoreContextProvider(props) {
                     works: store.works,
                     work: store.work,
                     images: store.images,
-                    image: null,
+                    image: store.image,
                     chapter: payload.chapter,
                     chapter_images: payload.images
+                })
+            }
+            case GlobalStoreActionType.UPDATE_STORY_CHAPTER: {
+                return setStore({
+                    mode: store.mode,
+                    works: store.works,
+                    work: store.work,
+                    images: store.images,
+                    image: store.image,
+                    chapter: payload,
+                    chapter_images: null
                 })
             }
             case GlobalStoreActionType.LOAD_IMAGES: {
@@ -429,7 +441,7 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    store.updateComic = async function(newTitle, newFile, newDescription, newTags) {
+    store.updateWork = async function(newTitle, newFile, newDescription, newTags) {
         let currentDraft = store.work;
         currentDraft.title = newTitle;
         currentDraft.cover = newFile;
@@ -488,7 +500,10 @@ function GlobalStoreContextProvider(props) {
                 if (response.status === 200) {
                     storeReducer({
                         type: GlobalStoreActionType.LOAD_CHAPTER,
-                        payload: newChapter
+                        payload: {
+                            chapter: newChapter,
+                            chapter_images: images
+                        }
                     })
                     console.log("comic updated")
                 }
@@ -627,7 +642,7 @@ function GlobalStoreContextProvider(props) {
                 if (response.status === 200) {
                     storeReducer({
                         type: GlobalStoreActionType.LOAD_CHAPTER,
-                        payload: newChapter.name
+                        payload: newChapter
                     })
                     console.log("story updated")
                 }
@@ -646,11 +661,8 @@ function GlobalStoreContextProvider(props) {
         if (response.status === 200) {
             let updated = response.data.data;
             storeReducer({
-                type: GlobalStoreActionType.LOAD_CHAPTER,
-                payload: {
-                    chapter: updated,
-                    chapter_images: store.chapter_images
-                }
+                type: GlobalStoreActionType.UPDATE_STORY_CHAPTER,
+                payload: updated
             })
         }
     }

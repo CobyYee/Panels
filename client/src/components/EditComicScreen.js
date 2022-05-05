@@ -18,8 +18,8 @@ function EditComicScreen() {
         //MUST TEST IF COVER UPLOADING WORKS
         //let newFile = (file === null) ? store.work.cover : file;
         let newFile = store.work.cover;
-        store.updateComic(title, newFile, description, selectedTags);
-        navigate("/comic/" + store.work._id);
+        store.updateWork(title, newFile, description, selectedTags);
+        navigate("/" + store.mode + "/" + store.work._id);
     }
 
     useEffect(() => {
@@ -54,12 +54,12 @@ function EditComicScreen() {
     return (
         <div id="upload_comic">
             <div id="upload_comic_label">
-                Edit Comic
+                Edit {store.mode}
             </div>
             <div id="upload_comic_inputs">
                 <div id="upload_comic_parameters">
                     <div id="upload_comic_name_label">
-                        Comic Name
+                        {store.mode} Name
                     </div>
                     <div id="upload_comic_image_label">
                         Cover Image
@@ -92,7 +92,7 @@ function EditComicScreen() {
                     </div>
                     <input id="upload_comic_description" type="text" defaultValue={description} onChange={(event) => setDescription(event.target.value)}></input> <br></br>
                     <input id="terms_checkbox" type="checkbox"></input>
-                    <label id="terms_label" htmlFor="terms_checkbox">By editing this comic, I agree to Panels' terms and services</label> <br></br>
+                    <label id="terms_label" htmlFor="terms_checkbox">By editing this {store.mode}, I agree to Panels' terms and services</label> <br></br>
                     <button id="upload_button" type="submit" onClick={handleSubmit}>Save</button>
                 </div>
             </div>
