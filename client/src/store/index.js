@@ -12,7 +12,9 @@ export const GlobalStoreActionType = {
     LOAD_WORKS: "LOAD_WORKS",
     LOAD_WORK: "LOAD_WORK",
     LOAD_PROFILE_WORKS: "LOAD_PROFILE_WORKS",
-    LOAD_CHAPTER: "LOAD_CHAPTER",
+    LOAD_COMIC_CHAPTER: "LOAD_COMIC_CHAPTER",
+    LOAD_STORY_CHAPTER: "LOAD_STORY_CHAPTER",
+    UPDATE_COMIC_CHAPTER: "UPDATE_COMIC_CHAPTER",
     UPDATE_STORY_CHAPTER: "UPDATE_STORY_CHAPTER",
     SEARCH: "SEARCH",
     LOAD_IMAGES: "LOAD_IMAGES",
@@ -80,7 +82,29 @@ function GlobalStoreContextProvider(props) {
                     chapter_images: null
                 })
             }
-            case GlobalStoreActionType.LOAD_CHAPTER: {
+            case GlobalStoreActionType.LOAD_COMIC_CHAPTER: {
+                return setStore({
+                    mode: store.mode,
+                    works: store.works,
+                    work: store.work,
+                    images: store.images,
+                    image: store.image,
+                    chapter: payload.chapter,
+                    chapter_images: payload.images
+                })
+            }
+            case GlobalStoreActionType.LOAD_STORY_CHAPTER: {
+                return setStore({
+                    mode: store.mode,
+                    works: store.works,
+                    work: store.work,
+                    images: store.images,
+                    image: store.image,
+                    chapter: payload,
+                    chapter_images: store.chapter_images
+                })
+            }
+            case GlobalStoreActionType.UPDATE_COMIC_CHAPTER: {
                 return setStore({
                     mode: store.mode,
                     works: store.works,
@@ -466,6 +490,8 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    //No longer used. Refer to loadWork
+    /*
     store.loadComic = async function(id) {
         const response = await api.getComicById(id);
         if (response.status === 200) {
@@ -479,6 +505,7 @@ function GlobalStoreContextProvider(props) {
             console.log("Failed to load comic: " + id);
         }
     }
+    */
 
     store.createComicChapter = async function(comicId, chapterName, images) {
         const comicChapter = {
@@ -499,7 +526,7 @@ function GlobalStoreContextProvider(props) {
                 response = await api.updateComic(comic);
                 if (response.status === 200) {
                     storeReducer({
-                        type: GlobalStoreActionType.LOAD_CHAPTER,
+                        type: GlobalStoreActionType.LOAD_COMIC_CHAPTER,
                         payload: {
                             chapter: newChapter,
                             chapter_images: images
@@ -522,7 +549,7 @@ function GlobalStoreContextProvider(props) {
             if (response.status === 200) {
                 let newImages = response.data.data;
                 storeReducer({
-                    type: GlobalStoreActionType.LOAD_CHAPTER,
+                    type: GlobalStoreActionType.UPDATE_COMIC_CHAPTER,
                     payload: {
                         chapter: updated,
                         chapter_images: newImages
@@ -541,7 +568,7 @@ function GlobalStoreContextProvider(props) {
             if (response.status === 200) {
                 let images = response.data.data
                 storeReducer({
-                    type: GlobalStoreActionType.LOAD_CHAPTER,
+                    type: GlobalStoreActionType.LOAD_COMIC_CHAPTER,
                     payload: {
                         chapter: chapter,
                         images: images
@@ -606,6 +633,8 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    // No longer used. Refer to loadWork
+    /*
     store.loadStory = async function(id) {
         const response = await api.getStoryById(id);
         if (response.status === 200) {
@@ -621,6 +650,7 @@ function GlobalStoreContextProvider(props) {
             console.log("Failed to load story: " + id);
         }
     }
+    */
 
     store.createStoryChapter = async function(storyId, chapterName, chapter) {
         const storyChapter = {
@@ -641,7 +671,7 @@ function GlobalStoreContextProvider(props) {
                 response = await api.updateStory(story);
                 if (response.status === 200) {
                     storeReducer({
-                        type: GlobalStoreActionType.LOAD_CHAPTER,
+                        type: GlobalStoreActionType.LOAD_STORY_CHAPTER,
                         payload: newChapter
                     })
                     console.log("story updated")
@@ -672,11 +702,8 @@ function GlobalStoreContextProvider(props) {
         if (response.status === 200) {
             let chapter = response.data.data;
             storeReducer({
-                type: GlobalStoreActionType.LOAD_CHAPTER,
-                payload: {
-                    chapter: chapter,
-                    images: store.images
-                }
+                type: GlobalStoreActionType.LOAD_STORY_CHAPTER,
+                payload: chapter
             })
         }
         else {

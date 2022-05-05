@@ -400,11 +400,11 @@ html, body {
   background-color: #4e4e4e;
 }
 
-#button, #work_button {
+#button, #work_button, #comic_button {
   background-color: #9c4247;
 }
   
-#button:hover, #work_button:hover {
+#button:hover, #work_button:hover, #comic_button:hover {
   background-color: #b8434b;
 }
   
