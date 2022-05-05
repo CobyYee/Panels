@@ -49,12 +49,7 @@ const App = () => {
                         <Route exact path="/storyboard/" element={< Storyboard />} />
                         <Route exact path="/chapter/" element={< ChapterScreen />}/>
                         <Route exact path="/editchapter/" element={< EditChapterScreen />}/>
-<<<<<<< HEAD
-                        <Route exact path="/editcomic/" element={< EditComicScreen />}/>
-                        <Route exact path="/editstory/" element={< EditComicScreen />}/>
-=======
                         <Route exact path="/editwork/" element={< EditWorkScreen />}/>
->>>>>>> 1d3095365fc0888752c57ddebe694ec2811c6d2a
                         <Route exact path="/storyeditor/" element={ <StoryEditor />} />
                     </Routes>
              </GlobalStoreContextProvider>
