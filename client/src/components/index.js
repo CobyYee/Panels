@@ -10,11 +10,11 @@ import SettingsScreen from './SettingsScreen'
 import ProfileScreen from './ProfileScreen'
 import ComicScreen from './ComicScreen'
 import Storyboard from './Storyboard'
-import UploadComic from './UploadComic'
+import UploadComic from './UploadWork'
 import UploadChapter from './UploadChapter'
 import ChapterScreen from './ChapterScreen'
 import EditChapterScreen from './EditChapterScreen'
-import EditComicScreen from './EditComicScreen'
+import EditWorkScreen from './EditWorkScreen'
 import StoryEditor from './StoryEditor'
 
 export {
@@ -34,6 +34,6 @@ export {
     UploadChapter,
     ChapterScreen,
     EditChapterScreen,
-    EditComicScreen,
+    EditWorkScreen,
     StoryEditor
 }

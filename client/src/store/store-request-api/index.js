@@ -1,5 +1,5 @@
 /*
-    We will be used Axios for making HTTP requests to our back end.
+    We will be using Axios for making HTTP requests to our back end.
 */
 import axios from 'axios'
 axios.defaults.withCredentials = true;
