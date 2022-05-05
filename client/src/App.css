@@ -99,6 +99,7 @@ html, body {
   height: 32px;
   border-radius: 15px;
   left: 20%;
+  cursor: pointer;
 }
 
 #comic-selector {

@@ -36,18 +36,17 @@ export default function Banner() {
         comicBgColor = '#B8434B'
 
     let contentButton = <div id = "content-selector"> 
-        <Box sx = {{width: '50%', backgroundColor: comicBgColor, borderRadius: '15px'}}>
+        <Box sx={{ width: '50%', backgroundColor: comicBgColor, borderRadius: '15px' }}>
             <div id = "comic-selector" onClick={() => changeContent("Comic")}>
                 Comic
             </div>
         </Box>
-        <Box sx = {{width: '50%', backgroundColor: storyBgColor, borderRadius: '15px'}}>
+        <Box sx={{ width: '50%', backgroundColor: storyBgColor, borderRadius: '15px' }}>
             <div id = "story-selector" onClick={() => changeContent("Story")}>
                 Story
             </div>
         </Box>
     </div> 
-    // FINISH CREATING COMPONENTS FOR HANDLING THE CONTENT CHANGER
 
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
