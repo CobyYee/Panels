@@ -413,6 +413,11 @@ html, body {
   color: #9c4247;
 }
 
+#text_button_background {
+  color: #9c4247;
+  background-color: #3d3d3d;
+}
+
 #insert_panel_modal {
   width: 400px;
   background-color: #3d3d3d;

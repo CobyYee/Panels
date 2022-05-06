@@ -2,6 +2,7 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.bubble.css'
 import { useState, useContext, useEffect } from 'react'
 import { Typography, Box, Grid, Toolbar, Button, FormControl, Select, MenuItem, ImageList, ImageListItem } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom'
 import GlobalStoreContext from '../store'
 
@@ -88,7 +89,9 @@ export default function ChapterScreen() {
                 <Toolbar>
                     <Grid id="chapter_grid_centered" item={true} xs={12} container>
                         <Grid id="chapter_centered" item xs={3}>
-                            <Button id="text_button" onClick = {() => navigate(((store.mode === "comic") ? "/comic/" : "/story/") + store.work._id)}>back to {store.work.title}</Button>
+                            <Button id="text_button_background" onClick = {() => navigate(((store.mode === "comic") ? "/comic/" : "/story/") + store.work._id)}>
+                                <ArrowBackIcon/> back to {store.work.title}
+                            </Button>
                         </Grid>
                         <Grid id="chapter_centered" item xs={0.5}>
                             <Button id="button" variant="contained" onClick={handleClickFirst}>First</Button>
