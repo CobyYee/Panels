@@ -118,7 +118,7 @@ export default function ComicScreen() {
                                 <ListItem key={"chapter-card" + index} sx={{ p: '2px' }}>
                                     <div id="comic_chapter">
                                         <div id="comic_chapter_name" onClick={() => handleChapter(JSON.parse(chapter).id)}>
-                                            {JSON.parse(chapter).name}
+                                            {"Chapter " + (index + 1) + ": " + JSON.parse(chapter).name}
                                         </div>
                                         {
                                             (store.work.creatorId === auth.session._id) ? 
