@@ -417,7 +417,7 @@ function GlobalStoreContextProvider(props) {
             //let chapters = response.data.chapters;
             //for (const chapter of chapters) {
             //      console.log(chapter)
-            //      response = await api.deleteChapter(chapter)
+            //      response = await api.deleteComicChapter(chapter)
             //      if (response.status !== 200) {
             //          continue;
             //      }

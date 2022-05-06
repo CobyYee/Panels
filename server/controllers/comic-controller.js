@@ -228,7 +228,7 @@ getComicsByCreator = async (req, res) => {
     }
 }
 
-createChapter = async (req, res) => {       // tested 200
+createComicChapter = async (req, res) => {       // tested 200
     try {
         const { name, images } = req.body;
         if (!images || !name)
@@ -253,7 +253,7 @@ createChapter = async (req, res) => {       // tested 200
     }
 }
 
-updateChapter = async (req, res) => {
+updateComicChapter = async (req, res) => {
     try {
         const body = req.body;
         if(!body) {
@@ -279,7 +279,7 @@ updateChapter = async (req, res) => {
     }   
 }
 
-getChapterById = async(req, res) => {       // tested 200
+getComicChapterById = async(req, res) => {       // tested 200
     try {
         const id = req.params.id;
         if (!id) 
@@ -296,7 +296,7 @@ getChapterById = async(req, res) => {       // tested 200
     }
 }
 
-deleteChapter = async(req, res) => {    // tested 200
+deleteComicChapter = async(req, res) => {    // tested 200
     try {
         const id = req.params.id;
         const deleted = await ComicChapter.deleteOne({_id: id});
@@ -364,10 +364,10 @@ module.exports = {
     getComicsById,
     getImagesById,
     updateComic,
-    createChapter,
-    updateChapter,
-    getChapterById,
-    deleteChapter,
+    createComicChapter,
+    updateComicChapter,
+    getComicChapterById,
+    deleteComicChapter,
     createKonva,
     getKonvasById,
     //getChaptersByFilter
