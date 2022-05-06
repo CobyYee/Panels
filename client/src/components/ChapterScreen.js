@@ -30,6 +30,22 @@ export default function ChapterScreen() {
         }
     }
 
+    function handleClickFirst() {
+
+    }
+
+    function handleClickPrev() {
+
+    }
+
+    function handleClickNext() {
+
+    }
+
+    function handleClickLast() {
+
+    }
+
     let display =
         <ImageList sx={{ width: '30vw' }} cols={1}>
         {
@@ -63,12 +79,12 @@ export default function ChapterScreen() {
                 <Toolbar>
                     <Grid id="chapter_grid_centered" item={true} xs={12} container>
                         <Grid id="chapter_centered" item xs={3}>
-                            <Button id="text_button" onClick = {() => navigate('/comic/' + store.work._id)}>back to {store.work.title}</Button>
+                            <Button id="text_button" onClick = {() => navigate(((store.mode === "comic") ? "/comic/" : "/story/") + store.work._id)}>back to {store.work.title}</Button>
                         </Grid>
-                        <Grid id="chapter_centered" item xs={0.5}>
+                        <Grid id="chapter_centered" item xs={0.5} onClick={handleClickFirst} >
                             <Button id="button" variant="contained">First</Button>
                         </Grid>
-                        <Grid id="chapter_centered" item xs={0.5}>
+                        <Grid id="chapter_centered" item xs={0.5} onClick={handleClickPrev} >
                             <Button id="button" variant="contained">Prev</Button>
                         </Grid>
                         <Grid id="chapter_centered" item xs={4}>
@@ -105,10 +121,10 @@ export default function ChapterScreen() {
                                 </Select>
                             </FormControl>
                         </Grid>
-                        <Grid id="chapter_centered" item xs={0.5}>
+                        <Grid id="chapter_centered" item xs={0.5} onClick={handleClickNext} >
                             <Button id="button" variant="contained">Next</Button>
                         </Grid>
-                        <Grid id="chapter_centered" item xs={0.5}>
+                        <Grid id="chapter_centered" item xs={0.5} onClick={handleClickLast} >
                             <Button id="button" variant="contained">Last</Button>
                         </Grid>
                         <Grid item xs={3}></Grid>
