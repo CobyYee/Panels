@@ -1,5 +1,6 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Box, Grid, Button, List, ListItem } from '@mui/material';
+import Rating from '@mui/material/Rating';
 //import { Typography, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
 import { useNavigate } from 'react-router-dom'
 import GlobalStoreContext from '../store'
@@ -11,6 +12,13 @@ export default function ComicScreen() {
     let navigate = useNavigate()
     
     const [status, setStatus] = useState("chapters");
+    const [rating, setRating] = useState(0);
+
+    useEffect(() => {
+        if (store.work !== null && store.work.ratings.length > 0) {
+            setRating(store.work.ratings.reduce((total, rating) => total += JSON.parse(rating).rating, 0)/store.work.ratings.length);
+        }
+    }, [store.work])
 
     function handleChapter(chapterId) {
         if (store.mode === "comic") {
@@ -61,6 +69,35 @@ export default function ComicScreen() {
         store.loadProfileWorks(store.work.creatorId);
     }
 
+    function handleBookmark() {
+        let session = auth.session;
+        if (session === null) {
+            return;
+        }
+        if (store.mode === "comic") {
+            session.comic_bookmarks.push(store.work._id);
+        }
+        else {
+            session.story_bookmarks.push(store.work._id);
+        }
+        auth.updateUser(session);
+    }
+
+    function handleUnbookmark() {
+        let session = auth.session;
+        if (store.mode === "comic") {
+            session.comic_bookmarks.splice(session.comic_bookmarks.indexOf(store.work._id), 1);
+        }
+        else {
+            session.story_bookmarks.splice(session.story_bookmarks.indexOf(store.work._id), 1);
+        }
+        auth.updateUser(session);
+    }
+
+    function handleRating(newRating) {
+        store.addRating(auth.session._id, newRating);
+    }
+
     return (
         <Box id="comic">
             <Grid id="comic_grid" item={true} xs={11} container>
@@ -87,14 +124,12 @@ export default function ComicScreen() {
                     </Grid>
                     <Grid item xs={11}>
                         <div id="comic_info">
-                            Rating: {(store.work !== null && store.work.ratings.length > 0) ? 
-                                store.work.ratings.reduce((total, rating) => total += rating.value, 0)/store.work.ratings.length 
-                            : "0"}/5
+                            <Rating name="work_rating" value={rating} precision={0.1} onChange={(event, value) => handleRating(value)}/>
                         </div>
                     </Grid>
                     <Grid id="comic_buttons" item xs={3.3}>
-                        <Button id="comic_button" variant='contained' onClick = {() => navigate('/chapter/')}>Continue Reading</Button>
-                        <Button id="comic_button" variant='contained'>Bookmark</Button>
+                        <Button id="comic_button" variant='contained' onClick={() => navigate('/chapter/')}>Continue Reading</Button>
+                        <Button id="comic_button" variant='contained' onClick={() => handleBookmark()}>Bookmark</Button>
                     </Grid>
                     <Grid item xs={12}>
                         <div id="comic_description_box">
@@ -121,7 +156,7 @@ export default function ComicScreen() {
                                             {JSON.parse(chapter).name}
                                         </div>
                                         {
-                                            (store.work.creatorId === auth.session._id) ? 
+                                            (auth.session !== null && store.work.creatorId === auth.session._id) ? 
                                                 <Button id="text_button" sx={{ height: '26px' }} onClick={() => handleEdit(JSON.parse(chapter).id)}>Edit</Button>
                                             : <div id="comic_chapter_date">Date Released</div>
                                         }

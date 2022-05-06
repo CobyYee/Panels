@@ -837,8 +837,32 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
-    store.addBookmark = async function(id) {
-        console.log(id);
+    store.addRating = async function(id, rating) {
+        let newWork = store.work;
+        newWork.ratings.push(JSON.stringify({
+            userId: id,
+            rating: rating
+        }));
+        let response = null;
+        if (store.mode === "comic") {
+            response = await api.updateComic(newWork);
+        }
+        else {
+            response = await api.updateStory(newWork);
+        }
+        if (response.status === 200) {
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_WORK,
+                payload: {
+                    work: newWork,
+                    image: store.image
+                }
+            })
+            console.log("success");
+        }
+        else {
+            console.log("failed");
+        }
     }
 
     return (

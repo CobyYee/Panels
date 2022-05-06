@@ -38,7 +38,8 @@ getSession = async(req, res) => {
                 follows: existingUser.follows,
                 works: existingUser.works,
                 drafts: existingUser.drafts,
-                bookmarks: existingUser.bookmarks
+                comic_bookmarks: existingUser.comic_bookmarks,
+                story_bookmarks: existingUser.story_bookmarks
             }
         });
     })
@@ -129,7 +130,8 @@ loginUser = async (req, res) => {
                     follows: existingUser.follows,
                     works: existingUser.works,
                     drafts: existingUser.drafts,
-                    bookmarks: existingUser.bookmarks
+                    comic_bookmarks: existingUser.comic_bookmarks,
+                    story_bookmarks: existingUser.story_bookmarks
                 }
             })
         }
@@ -168,7 +170,8 @@ getUserById = async (req, res) => {
                 follows: existingUser.follows,
                 works: existingUser.works,
                 drafts: existingUser.drafts,
-                bookmarks: existingUser.bookmarks,
+                comic_bookmarks: existingUser.comic_bookmarks,
+                story_bookmarks: existingUser.story_bookmarks
             } 
         });
     }
@@ -186,7 +189,7 @@ updateUser = async (req, res) => {
             return res.status(400).json({ errorMessage: "Missing user to update"})
         }
 
-        const existingUser = await User.findById(req.body._id);
+        const existingUser = await User.findById(user._id);
         if (!existingUser)
             return res.status(400).json({ errorMessage: "This user does not exist!"});
 
@@ -196,7 +199,8 @@ updateUser = async (req, res) => {
         existingUser.follows = user.follows;
         existingUser.works = user.works;
         existingUser.drafts = user.drafts;
-        existingUser.bookmarks = user.bookmarks;
+        existingUser.comic_bookmarks = user.comic_bookmarks;
+        existingUser.story_bookmarks = user.story_bookmarks;
 
         await existingUser.save();
         return res.status(200).send();
