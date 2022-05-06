@@ -95,6 +95,7 @@ export default function ComicScreen() {
 
     function handleRating(newRating) {
         store.addRating(auth.session._id, newRating);
+        setRating(store.work.ratings.reduce((total, rating) => total += JSON.parse(rating).rating, 0)/store.work.ratings.length);
     }
 
     return (
