@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react'
 import { Typography, Box, Grid, Button, List, ListItem, Modal } from '@mui/material';
 import GlobalStoreContext from '../store'
 
-export default function EditChapterScreen() {
+export default function ComicEditor() {
     const {store} = useContext(GlobalStoreContext)
 
     const [currentPage, setCurrentPage] = useState(0);

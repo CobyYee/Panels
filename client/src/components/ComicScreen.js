@@ -28,11 +28,10 @@ export default function ComicScreen() {
     function handleEdit(chapterId) {
         if (store.mode === "comic") {
             store.loadComicChapter(chapterId);
-            navigate("/editchapter/");
+            navigate("/comiceditor/");
         }
         else {
             store.loadStoryChapter(chapterId).then(res => {navigate("/storyeditor/")}).catch(err => {console.log("story chapter edit error : " + err)});
-            
         }
     }
 
