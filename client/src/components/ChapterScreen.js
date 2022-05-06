@@ -31,7 +31,7 @@ export default function ChapterScreen() {
     }
 
     function handleClickFirst() {
-
+        changeChapter(JSON.parse(store.work.chapters[0]).id);
     }
 
     function handleClickPrev() {
@@ -43,7 +43,7 @@ export default function ChapterScreen() {
     }
 
     function handleClickLast() {
-
+        changeChapter(JSON.parse(store.work.chapters[store.work.chapters.length-1]).id);
     }
 
     let display =
