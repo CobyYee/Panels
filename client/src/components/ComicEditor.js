@@ -1,8 +1,9 @@
 import { useState, useContext, useEffect } from 'react'
 import { Typography, Box, Grid, Button, List, ListItem, Modal } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import GlobalStoreContext from '../store'
 
-export default function EditChapterScreen() {
+export default function ComicEditor() {
     const {store} = useContext(GlobalStoreContext)
 
     const [currentPage, setCurrentPage] = useState(0);
@@ -56,11 +57,13 @@ export default function EditChapterScreen() {
         setChapterImageIds(temp);
     }
 
+    const navigate = useNavigate();
     function saveChapter() {
         console.log("Saving chapter");
         store.chapter.images = chapterImageIds;
         store.updateChapter(store.chapter);
         console.log("SAVED");
+        navigate("/comic/" + store.work._id);
     }
 
     function handleFileUpload(event) {
@@ -124,7 +127,7 @@ export default function EditChapterScreen() {
                 <Grid item xs={9} container>
                     <Grid id="edit_toolbar" item xs={12}>
                         <Grid id="edit_toolbar_buttons" item xs={12}>
-                            <Button sx={{ color: 'white' }} onClick={() => saveChapter()}>Save</Button>
+                            <Button sx={{ color: 'white' }} onClick={saveChapter}>Save</Button>
                             <Button sx={{ color: 'white' }} onClick={handleModalOpen}>Insert</Button>
                             <Button sx={{ color: 'white' }}>Edit</Button>
                             <Button sx={{ color: 'white' }}>Help</Button>

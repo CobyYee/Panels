@@ -413,6 +413,11 @@ html, body {
   color: #9c4247;
 }
 
+#text_button_background {
+  color: #9c4247;
+  background-color: #3d3d3d;
+}
+
 #insert_panel_modal {
   width: 400px;
   background-color: #3d3d3d;
@@ -740,7 +745,7 @@ html, body {
 
 
 
-/* EditChapterScreen */
+/* ComicEditor */
 
 .edit_chapter_centered {
   display: flex;
@@ -829,4 +834,13 @@ html, body {
 #stage-container, #stage-container-wrapper {
   width: 100%;
   height: 100%;
+}
+
+/* Misc */
+
+#testing {
+  font-size: 25px;
+  color: white;
+  height: 50px;
+  margin-left: 100px;
 }

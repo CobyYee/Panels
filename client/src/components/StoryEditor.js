@@ -35,7 +35,7 @@ export default function StoryEditor() {
     let editor = 
         <Grid container>
             <Grid item xs = {3} >
-                <Button id="text_button" onClick = {() => navigate('/' + store.mode + '/' + store.work._id)}>back to {store.work.title}</Button>
+                <Button id="text_button_background" onClick = {() => navigate('/' + store.mode + '/' + store.work._id)}>back to {store.work.title}</Button>
             </Grid>
             <Grid item xs = {6} sx = {{display: 'flex', justifyContent:'center'}} >
                 <TextField value={title} onChange = {(event) => {setTitle(event.target.value)}} sx = {{input: {color: 'white'}}}>  </TextField>

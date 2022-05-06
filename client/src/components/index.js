@@ -13,7 +13,7 @@ import Storyboard from './Storyboard'
 import UploadComic from './UploadWork'
 import UploadChapter from './UploadChapter'
 import ChapterScreen from './ChapterScreen'
-import EditChapterScreen from './EditChapterScreen'
+import ComicEditor from './ComicEditor'
 import EditWorkScreen from './EditWorkScreen'
 import StoryEditor from './StoryEditor'
 
@@ -33,7 +33,7 @@ export {
     UploadComic,
     UploadChapter,
     ChapterScreen,
-    EditChapterScreen,
+    ComicEditor,
     EditWorkScreen,
     StoryEditor
 }

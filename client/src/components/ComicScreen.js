@@ -36,11 +36,10 @@ export default function ComicScreen() {
     function handleEdit(chapterId) {
         if (store.mode === "comic") {
             store.loadComicChapter(chapterId);
-            navigate("/editchapter/");
+            navigate("/comiceditor/");
         }
         else {
             store.loadStoryChapter(chapterId).then(res => {navigate("/storyeditor/")}).catch(err => {console.log("story chapter edit error : " + err)});
-            
         }
     }
 
@@ -153,7 +152,7 @@ export default function ComicScreen() {
                                 <ListItem key={"chapter-card" + index} sx={{ p: '2px' }}>
                                     <div id="comic_chapter">
                                         <div id="comic_chapter_name" onClick={() => handleChapter(JSON.parse(chapter).id)}>
-                                            {JSON.parse(chapter).name}
+                                            {"Chapter " + (index + 1) + ": " + JSON.parse(chapter).name}
                                         </div>
                                         {
                                             (auth.session !== null && store.work.creatorId === auth.session._id) ? 
