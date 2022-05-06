@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { Typography, Button, Box } from '@mui/material';
+import { Button, Box } from '@mui/material';
 
-function SortBar(props) {
+function SortBar() {
     const [sortBy, setSortBy] = useState([true, false, false]);
 
     function handleClick(event) {
@@ -13,7 +13,7 @@ function SortBar(props) {
 
     return (    
         <Box id="sort_bar">
-            <Typography class="sort_label">Sort By:</Typography>
+            <div className="sort_label">Sort By:</div>
             <Button disableRipple class={sortBy[0] ? "sort_button_clicked" : "sort_button"} onClick={handleClick} value={0}>Latest Updated</Button>
             <Button disableRipple class={sortBy[1] ? "sort_button_clicked" : "sort_button"} onClick={handleClick} value={1}>Popularity</Button>
             <Button disableRipple class={sortBy[2] ? "sort_button_clicked" : "sort_button"} onClick={handleClick} value={2}>Alphabetically</Button>

@@ -80,6 +80,7 @@ updateStory = async (req, res) => {
         old.genres = body.genres;
         old.description = body.description;
         old.published = body.published;
+        old.ratings = body.ratings;
         old.chapters = body.chapters;
         //old.comments = body.comments;
 
