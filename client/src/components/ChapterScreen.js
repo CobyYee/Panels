@@ -30,16 +30,25 @@ export default function ChapterScreen() {
         }
     }
 
+    function currentIndex() {
+        return store.work.chapters.map(x => JSON.parse(x).id).indexOf(store.chapter._id);
+    }
+
     function handleClickFirst() {
         changeChapter(JSON.parse(store.work.chapters[0]).id);
     }
 
     function handleClickPrev() {
+        let index = currentIndex();
 
+        changeChapter(JSON.parse(store.work.chapters[(index !== 0) ? index - 1 : 0]).id);
     }
 
     function handleClickNext() {
+        let index = currentIndex();
+        let last = store.work.chapters.length-1;
 
+        changeChapter(JSON.parse(store.work.chapters[(index !== last) ? index + 1 : last]).id);
     }
 
     function handleClickLast() {
@@ -114,7 +123,7 @@ export default function ChapterScreen() {
                                                       value={JSON.parse(chapter).name}
                                                       onClick={() => changeChapter(JSON.parse(chapter).id)}
                                             >
-                                                <Typography>{JSON.parse(chapter).name}</Typography>
+                                                <Typography>{JSON.parse(chapter).name + " index:" + index}</Typography>
                                             </MenuItem>
                                         )) : ""
                                 }
