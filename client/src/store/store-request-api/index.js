@@ -11,7 +11,8 @@ export const getComicById = (id) => api.get(`/comic/${id}`)
 export const createComic = (payload) => api.post(`/comic/`, payload)
 export const updateComic = (payload) => api.put(`/comic/`, payload)
 export const deleteComic = (id) => api.delete(`/comic/${id}`)
-export const getAllComics = () => api.get(`/comics/`);
+export const getAllComics = () => api.get(`/comics/`)
+export const getComicsById = (payload) => api.get(`/comicsbyid`, payload)
 export const getComicsByGenres = (payload) => api.get(`/comicsbygenres`, payload)
 export const getComicsByName = (name) => api.get(`/comicsbyname/${name}`, name)      // change backend, name parameter in body, not params
 export const getComicsByCreator = (id) => api.get(`/comics/${id}`)
@@ -28,7 +29,8 @@ export const getStoryById = (id) => api.get(`/story/${id}`)
 export const createStory = (payload) => api.post(`/story/`, payload)
 export const updateStory = (payload) => api.put(`/story/`, payload)
 export const deleteStory = (id) => api.delete(`/story/${id}`)
-export const getAllStories = () => api.get(`/stories/`);
+export const getAllStories = () => api.get(`/stories/`)
+export const getStoriesById = (payload) => api.get(`/storiesbyid`, payload)
 export const getStoriesByGenres = (payload) => api.get(`/storiesbygenres`, payload)
 export const getStoriesByName = (name) => api.get(`/storiesbyname/${name}`, name)      // change backend, name parameter in body, not params
 export const getStoriesByCreator = (id) => api.get(`/stories/${id}`)
@@ -47,6 +49,7 @@ const apis = {
     updateComic,
     deleteComic,
     getAllComics,
+    getComicsById,
     getComicsByGenres,
     getComicsByName,
     getComicsByCreator,
@@ -64,6 +67,7 @@ const apis = {
     updateStory,
     deleteStory,
     getAllStories,
+    getStoriesById,
     getStoriesByGenres,
     getStoriesByName,
     getStoriesByCreator,

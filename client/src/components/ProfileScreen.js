@@ -33,7 +33,7 @@ export default function ProfileScreen() {
 
     function handleUnfollow() {
         let user = auth.user;
-        user.follows.splice(user.follows.indexOf(auth.session._id), 1)
+        user.follows.splice(user.follows.indexOf(auth.session._id), 1);
         auth.updateUser(user);
     }
 

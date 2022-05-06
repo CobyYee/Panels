@@ -10,6 +10,7 @@ export const GlobalStoreActionType = {
     SWITCH_MODE: "SWITCH_MODE",
     HOME: "HOME",
     LOAD_WORKS: "LOAD_WORKS",
+    LOAD_BOOKMARKS: "LOAD_BOOKMARKS",
     LOAD_WORK: "LOAD_WORK",
     LOAD_PROFILE_WORKS: "LOAD_PROFILE_WORKS",
     LOAD_COMIC_CHAPTER: "LOAD_COMIC_CHAPTER",
@@ -55,6 +56,17 @@ function GlobalStoreContextProvider(props) {
                     works: payload.works,
                     work: null,
                     images: payload.images,
+                    image: null,
+                    chapter: null,
+                    chapter_images: null
+                })
+            }
+            case GlobalStoreActionType.LOAD_BOOKMARKS: {
+                return setStore({
+                    mode: store.mode,
+                    works: payload,
+                    work: null,
+                    images: store.images,
                     image: null,
                     chapter: null,
                     chapter_images: null
@@ -805,6 +817,28 @@ function GlobalStoreContextProvider(props) {
         else {
             console.log("Failed to load works by creator_id: " + id);
         }
+    }
+
+    store.loadBookmarks = async function(ids) {
+        let response = null;
+        if (store.mode === "comic") {
+            response = await api.getComicsById(ids);
+        }
+        else {
+            response = await api.getStoriesById(ids);
+        }
+        if (response.status === 200) {
+            let bookmarks = response.data.data;
+            console.log(bookmarks);
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_BOOKMARKS,
+                payload: bookmarks
+            })
+        }
+    }
+
+    store.addBookmark = async function(id) {
+        console.log(id);
     }
 
     return (

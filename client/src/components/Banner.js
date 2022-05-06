@@ -70,10 +70,21 @@ export default function Banner() {
         store.loadProfileWorks(auth.session._id);
     }
 
+    const handleBookmarks = () => {
+        console.log(auth.session.comic_bookmarks);
+        if (store.mode === "comic") {
+            store.loadBookmarks(auth.session.comic_bookmarks);
+        }
+        else {
+            store.loadBookmarks(auth.session.story_bookmarks);
+        }
+        navigate("/bookmarks/");
+    }
+
     const handleListScreen = () => {
         handleClose(); //not sure if necessary
         store.listScreen();
-        navigate("/listscreen/")
+        navigate("/listscreen/");
     }
 
     let options =
@@ -95,7 +106,7 @@ export default function Banner() {
             <MenuItem onClick={handleProfile}>
                 Profile
             </MenuItem>
-            <MenuItem onClick={() => navigate('/bookmarks/')}>
+            <MenuItem onClick={handleBookmarks}>
                 Bookmarks
             </MenuItem>
             <MenuItem onClick={() => navigate('/settings/')}>

@@ -11,14 +11,14 @@ function ListCard(props) {
     function handleClick(event) {
         event.stopPropagation();
         store.loadWork(props.work._id);
-        navigate((store.mode === "comic") ? "/comic/" : "/story/" + props.work._id);
+        navigate(((store.mode === "comic") ? "/comic/" : "/story/") + props.work._id);
     }
 
     function handleAuthor(event) {
         event.stopPropagation();
         auth.loadProfile(props.work.creatorId);
         store.loadProfileWorks(props.work.creatorId);
-        navigate('/profilescreen/')
+        navigate('/profile/' + props.work.creatorId);
     }
 
     return (

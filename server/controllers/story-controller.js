@@ -211,6 +211,27 @@ getStories = async (req, res) => {
     }
 }
 
+getStoriesById = async (req, res) => {
+    try {
+        const ids = req.body;
+        if (!ids)
+            return res.status(400).json({ success: false, errorMessage: "Missing image ids"});
+        let arr = [];
+        for (let i = 0; i < ids.length; i++) {
+            let found = await Story.findById(ids[i]);
+            if (!found)
+                return res.status(400).json({ success: false, errorMessage: "Image " + ids[i] + " not found!"});
+            else   
+                arr.push(found);
+        }
+        
+        return res.status(200).json({ success: true, data: arr });
+    }
+    catch (err) {
+        return res.status(500);
+    }
+}
+
 createStoryChapter = async (req, res) => {
     try {
         const { name, chapter } = req.body;
@@ -306,6 +327,7 @@ module.exports = {
     getStoriesByGenre,
     getStoriesByCreator,
     getStories,
+    getStoriesById,
     createStoryChapter,
     updateStoryChapter,
     deleteStoryChapter,
