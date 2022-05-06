@@ -81,11 +81,11 @@ export default function ChapterScreen() {
                         <Grid id="chapter_centered" item xs={3}>
                             <Button id="text_button" onClick = {() => navigate(((store.mode === "comic") ? "/comic/" : "/story/") + store.work._id)}>back to {store.work.title}</Button>
                         </Grid>
-                        <Grid id="chapter_centered" item xs={0.5} onClick={handleClickFirst} >
-                            <Button id="button" variant="contained">First</Button>
+                        <Grid id="chapter_centered" item xs={0.5}>
+                            <Button id="button" variant="contained" onClick={handleClickFirst}>First</Button>
                         </Grid>
-                        <Grid id="chapter_centered" item xs={0.5} onClick={handleClickPrev} >
-                            <Button id="button" variant="contained">Prev</Button>
+                        <Grid id="chapter_centered" item xs={0.5}>
+                            <Button id="button" variant="contained" onClick={handleClickPrev}>Prev</Button>
                         </Grid>
                         <Grid id="chapter_centered" item xs={4}>
                             <FormControl>
@@ -111,7 +111,7 @@ export default function ChapterScreen() {
                                     (store.work !== null) ?
                                         store.work.chapters.reverse().map((chapter, index) => (
                                             <MenuItem key={"chapter-select-" + index}
-                                                      value={JSON.parse(chapter).name} 
+                                                      value={JSON.parse(chapter).name}
                                                       onClick={() => changeChapter(JSON.parse(chapter).id)}
                                             >
                                                 <Typography>{JSON.parse(chapter).name}</Typography>
@@ -121,11 +121,11 @@ export default function ChapterScreen() {
                                 </Select>
                             </FormControl>
                         </Grid>
-                        <Grid id="chapter_centered" item xs={0.5} onClick={handleClickNext} >
-                            <Button id="button" variant="contained">Next</Button>
+                        <Grid id="chapter_centered" item xs={0.5}>
+                            <Button id="button" variant="contained" onClick={handleClickNext}>Next</Button>
                         </Grid>
-                        <Grid id="chapter_centered" item xs={0.5} onClick={handleClickLast} >
-                            <Button id="button" variant="contained">Last</Button>
+                        <Grid id="chapter_centered" item xs={0.5}>
+                            <Button id="button" variant="contained" onClick={handleClickLast}>Last</Button>
                         </Grid>
                         <Grid item xs={3}></Grid>
                     </Grid>
