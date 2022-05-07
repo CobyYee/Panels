@@ -4,6 +4,7 @@ import { Box, Grid, Button, List, ListItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom'
 import GlobalStoreContext from '../store'
 import AuthContextProvider from '../auth'
+import Comments from './Comments';
 
 export default function ComicScreen() {
     const {store} = useContext(GlobalStoreContext)
@@ -21,7 +22,7 @@ export default function ComicScreen() {
         }
         if (store.work.published !== null) {
             
-        }
+        }   
         navigate("/chapter/");
     }
 
@@ -39,7 +40,7 @@ export default function ComicScreen() {
     /*
     let comment =
         <ListItem>
-            <ListItemAvatar>
+            <ListItemAvatar>k
                 <Avatar>
                     <AccountCircle/>
                 </Avatar>
@@ -86,7 +87,7 @@ export default function ComicScreen() {
                         </div>
                     </Grid>
                     <Grid item xs={11}>
-                        <div id="comic_info">
+                        <div id="comic_kinfo">
                             Rating: {(store.work !== null && store.work.ratings.length > 0) ? 
                                 store.work.ratings.reduce((total, rating) => total += rating.value, 0)/store.work.ratings.length 
                             : "0"}/5
@@ -121,7 +122,7 @@ export default function ComicScreen() {
                                             {JSON.parse(chapter).name}
                                         </div>
                                         {
-                                            (store.work.creatorId === auth.session._id) ? 
+                                            (auth.session && store.work.creatorId === auth.session._id) ? 
                                                 <Button id="text_button" sx={{ height: '26px' }} onClick={() => handleEdit(JSON.parse(chapter).id)}>Edit</Button>
                                             : <div id="comic_chapter_date">Date Released</div>
                                         }
@@ -133,6 +134,7 @@ export default function ComicScreen() {
                     }
                     </Box>
                 </Grid>
+                <Comments url={"1234"} id={"4321"} title={"example"}/>
             </Grid>
         </Box>
     )

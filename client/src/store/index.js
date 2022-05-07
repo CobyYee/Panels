@@ -85,7 +85,7 @@ function GlobalStoreContextProvider(props) {
                     works: store.works,
                     work: store.work,
                     images: store.images,
-                    image: null,
+                    image: store.image,
                     chapter: payload.chapter,
                     chapter_images: payload.images
                 })
