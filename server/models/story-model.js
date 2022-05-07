@@ -9,7 +9,7 @@ const StorySchema = new Schema(
         creatorName: { type: String, required: true },
         cover: { type: ObjectId, required: true },
         genres: { type: [String], required: true },
-        ratings: { type: [{ObjectId, Number}], required: true },
+        ratings: { type: [String], required: true },
         description: { type: String, required: true },
         published: { type: Date, required: false },
         views: { type: Number, required: true},

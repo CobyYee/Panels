@@ -13,7 +13,7 @@ function HomeScreen() {
 
     function handleLoad(workId) {
         store.loadWork(workId);
-        navigate("/comic/" + workId);
+        navigate(((store.mode === "comic") ? "/comic/" : "/story/") + workId);
     }
     
     return (

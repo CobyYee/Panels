@@ -65,26 +65,26 @@ function UploadChapter() {
     }
 
     return (
-        <div id="upload_comic">
-            <div id="upload_comic_label">
+        <div id="upload_work">
+            <div id="upload_work_label">
                 Upload Chapter
             </div>
-            <div id="upload_comic_inputs">
-                <div id="upload_comic_parameters">
-                    <div id="upload_comic_name_label">
+            <div id="upload_work_inputs">
+                <div id="upload_work_parameters">
+                    <div id="upload_work_name_label">
                         {store.mode} Name
                     </div>
-                    <div id="upload_comic_image_label">
+                    <div id="upload_work_image_label">
                         Chapter Name
                     </div>
-                    <div id="upload_comic_tags_label">
+                    <div id="upload_work_tags_label">
                     {
                         (store.mode === "comic" ? "Upload File(s)" : "Create Story")
                     }
                     </div>
                 </div>
-                <div id="upload_comic_fields">
-                    <input readOnly id="upload_comic_name" type="text" value={(store.work !== null) ? store.work.title : ""}></input> <br></br>
+                <div id="upload_work_fields">
+                    <input readOnly id="upload_work_name" type="text" value={(store.work !== null) ? store.work.title : ""}></input> <br></br>
                     <input id="upload_chapter_name" type="text" onChange={(event) => setName(event.target.value)}></input> <br></br>
                     { display }
                     <input id="terms_checkbox" type="checkbox"></input>

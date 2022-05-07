@@ -36,18 +36,17 @@ export default function Banner() {
         comicBgColor = '#B8434B'
 
     let contentButton = <div id = "content-selector"> 
-        <Box sx = {{width: '50%', backgroundColor: comicBgColor, borderRadius: '15px'}}>
+        <Box sx={{ width: '50%', backgroundColor: comicBgColor, borderRadius: '15px' }}>
             <div id = "comic-selector" onClick={() => changeContent("Comic")}>
                 Comic
             </div>
         </Box>
-        <Box sx = {{width: '50%', backgroundColor: storyBgColor, borderRadius: '15px'}}>
+        <Box sx={{ width: '50%', backgroundColor: storyBgColor, borderRadius: '15px' }}>
             <div id = "story-selector" onClick={() => changeContent("Story")}>
                 Story
             </div>
         </Box>
     </div> 
-    // FINISH CREATING COMPONENTS FOR HANDLING THE CONTENT CHANGER
 
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
@@ -71,10 +70,21 @@ export default function Banner() {
         store.loadProfileWorks(auth.session._id);
     }
 
+    const handleBookmarks = () => {
+        console.log(auth.session.comic_bookmarks);
+        if (store.mode === "comic") {
+            store.loadBookmarks(auth.session.comic_bookmarks);
+        }
+        else {
+            store.loadBookmarks(auth.session.story_bookmarks);
+        }
+        navigate("/bookmarks/");
+    }
+
     const handleListScreen = () => {
         handleClose(); //not sure if necessary
         store.listScreen();
-        navigate("/listscreen/")
+        navigate("/listscreen/");
     }
 
     let options =
@@ -96,7 +106,7 @@ export default function Banner() {
             <MenuItem onClick={handleProfile}>
                 Profile
             </MenuItem>
-            <MenuItem onClick={() => navigate('/bookmarks/')}>
+            <MenuItem onClick={handleBookmarks}>
                 Bookmarks
             </MenuItem>
             <MenuItem onClick={() => navigate('/settings/')}>
@@ -145,7 +155,9 @@ export default function Banner() {
                                 onClick={handleListScreen} 
                                 disableRipple
                                 sx={{ color: 'white', fontSize: 15, "&.MuiButtonBase-root:hover": { bgcolor: "transparent" } }}>
-                                    All Comics 
+                                    {
+                                        (store.mode === "comic" ? "All Comics" : "All Stories")
+                                    }
                             </Button>
                         </Grid>
                         <Grid item xs ={8} container sx={{display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import GlobalStoreContext from '../store';
 
 
-function UploadComic() {
+function UploadWork() {
     const {store} = useContext(GlobalStoreContext);
     const [file, setFile] = useState(null);
     const [fileName, setFileName] = useState("");
@@ -40,36 +40,36 @@ function UploadComic() {
     }
 
     return (
-        <div id="upload_comic">
-            <div id="upload_comic_label">
+        <div id="upload_work">
+            <div id="upload_work_label">
                 Upload {store.mode}
             </div>
-            <div id="upload_comic_inputs">
-                <div id="upload_comic_parameters">
-                    <div id="upload_comic_name_label">
+            <div id="upload_work_inputs">
+                <div id="upload_work_parameters">
+                    <div id="upload_work_name_label">
                         {store.mode} Name
                     </div>
-                    <div id="upload_comic_image_label">
+                    <div id="upload_work_image_label">
                         Cover Image
                     </div>
-                    <div id="upload_comic_tags_label">
+                    <div id="upload_work_tags_label">
                         Tags
                     </div>
-                    <div id="upload_comic_name_label">
+                    <div id="upload_work_name_label">
                         Description
                     </div>
                 </div>
-                <div id="upload_comic_fields">
-                    <input id="upload_comic_name" type="text" name="comic_name" onChange={(event) => setTitle(event.target.value)}></input> <br></br>
-                    <input id="upload_comic_image" type="file" onChange={(event) => {handleFileUpload(event)}}></input>
-                    <label id="uploaded_comic_image_label" htmlFor="upload_comic_image">Browse</label>
-                    <label id="uploaded_comic_image_label_label" htmlFor="uploaded_comic_image_label">{fileName}</label>
+                <div id="upload_work_fields">
+                    <input id="upload_work_name" type="text" name="work_name" onChange={(event) => setTitle(event.target.value)}></input> <br></br>
+                    <input id="upload_work_image" type="file" onChange={(event) => {handleFileUpload(event)}}></input>
+                    <label id="uploaded_work_image_label" htmlFor="upload_work_image">Browse</label>
+                    <label id="uploaded_work_image_label_label" htmlFor="uploaded_work_image_label">{fileName}</label>
                     <div id="tags">
                         {tags.map((tag, index) => {
                             return <button key={"tag-" + index} className = {(selectedTags.includes(tag)) ? "tag_button" : "tag_button_unselected"} value={index} onClick={() => handleTag(tag)}>{tag}</button>
                         })}
                     </div>
-                    <input id="upload_comic_description" type="text" name="comic_description" onChange={(event) => setDescription(event.target.value)}></input> <br></br>
+                    <input id="upload_work_description" type="text" name="work_description" onChange={(event) => setDescription(event.target.value)}></input> <br></br>
                     <input id="terms_checkbox" type="checkbox"></input>
                     <label id="terms_label" htmlFor="terms_checkbox">By uploading this {store.mode}, I agree to Panels' terms and services</label> <br></br>
                     <button id="upload_button" type="submit" onClick={handleSubmit}>Upload</button>
@@ -79,4 +79,4 @@ function UploadComic() {
     )
 }
 
-export default UploadComic;
+export default UploadWork;

@@ -33,7 +33,7 @@ export default function ProfileScreen() {
 
     function handleUnfollow() {
         let user = auth.user;
-        user.follows.splice(user.follows.indexOf(auth.session._id), 1)
+        user.follows.splice(user.follows.indexOf(auth.session._id), 1);
         auth.updateUser(user);
     }
 
@@ -71,8 +71,7 @@ export default function ProfileScreen() {
         </div>
         profileButtons =
             <Grid item xs={4} sx={{display: 'flex', justifyContent: 'flex-end'}}>
-                <Button id="text_button" onClick={() => navigate('/storyboard/')}>Create Drawing</Button>
-                <Button id="text_button" onClick={() => navigate('/upload' + store.mode + '/')}>Upload New</Button>
+                <Button id="text_button" onClick={() => navigate('/upload' + store.mode + '/')}>Create New {store.mode}</Button>
             </Grid>
     }
 

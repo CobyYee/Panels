@@ -2,6 +2,7 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.bubble.css'
 import { useState, useContext, useEffect } from 'react'
 import { Typography, Box, Grid, Toolbar, Button, FormControl, Select, MenuItem, ImageList, ImageListItem } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom'
 import GlobalStoreContext from '../store'
 
@@ -28,6 +29,31 @@ export default function ChapterScreen() {
         else {
             store.loadStoryChapter(chapterId);
         }
+    }
+
+    function currentIndex() {
+        return store.work.chapters.map(x => JSON.parse(x).id).indexOf(store.chapter._id);
+    }
+
+    function handleClickFirst() {
+        changeChapter(JSON.parse(store.work.chapters[0]).id);
+    }
+
+    function handleClickPrev() {
+        let index = currentIndex();
+
+        changeChapter(JSON.parse(store.work.chapters[(index !== 0) ? index - 1 : 0]).id);
+    }
+
+    function handleClickNext() {
+        let index = currentIndex();
+        let last = store.work.chapters.length-1;
+
+        changeChapter(JSON.parse(store.work.chapters[(index !== last) ? index + 1 : last]).id);
+    }
+
+    function handleClickLast() {
+        changeChapter(JSON.parse(store.work.chapters[store.work.chapters.length-1]).id);
     }
 
     let display =
@@ -63,13 +89,15 @@ export default function ChapterScreen() {
                 <Toolbar>
                     <Grid id="chapter_grid_centered" item={true} xs={12} container>
                         <Grid id="chapter_centered" item xs={3}>
-                            <Button id="text_button" onClick = {() => navigate('/comic/' + store.work._id)}>back to {store.work.title}</Button>
+                            <Button id="text_button_background" onClick = {() => navigate(((store.mode === "comic") ? "/comic/" : "/story/") + store.work._id)}>
+                                <ArrowBackIcon/> back to {store.work.title}
+                            </Button>
                         </Grid>
                         <Grid id="chapter_centered" item xs={0.5}>
-                            <Button id="button" variant="contained">First</Button>
+                            <Button id="button" variant="contained" onClick={handleClickFirst}>First</Button>
                         </Grid>
                         <Grid id="chapter_centered" item xs={0.5}>
-                            <Button id="button" variant="contained">Prev</Button>
+                            <Button id="button" variant="contained" onClick={handleClickPrev}>Prev</Button>
                         </Grid>
                         <Grid id="chapter_centered" item xs={4}>
                             <FormControl>
@@ -95,10 +123,10 @@ export default function ChapterScreen() {
                                     (store.work !== null) ?
                                         store.work.chapters.reverse().map((chapter, index) => (
                                             <MenuItem key={"chapter-select-" + index}
-                                                      value={JSON.parse(chapter).name} 
+                                                      value={JSON.parse(chapter).name}
                                                       onClick={() => changeChapter(JSON.parse(chapter).id)}
                                             >
-                                                <Typography>{JSON.parse(chapter).name}</Typography>
+                                                <Typography>{"Chapter " + (index + 1) + ": " + JSON.parse(chapter).name}</Typography>
                                             </MenuItem>
                                         )) : ""
                                 }
@@ -106,10 +134,10 @@ export default function ChapterScreen() {
                             </FormControl>
                         </Grid>
                         <Grid id="chapter_centered" item xs={0.5}>
-                            <Button id="button" variant="contained">Next</Button>
+                            <Button id="button" variant="contained" onClick={handleClickNext}>Next</Button>
                         </Grid>
                         <Grid id="chapter_centered" item xs={0.5}>
-                            <Button id="button" variant="contained">Last</Button>
+                            <Button id="button" variant="contained" onClick={handleClickLast}>Last</Button>
                         </Grid>
                         <Grid item xs={3}></Grid>
                     </Grid>

@@ -2,18 +2,15 @@ import { Typography, Box, Grid, List, ListItem, Button, Divider } from '@mui/mat
 import { useContext } from 'react'
 import SortBar from './SortBar'
 import { useNavigate } from 'react-router-dom'
+import GlobalStoreContext from '../store';
 
 export default function BookmarksScreen() {
+    const {store} = useContext(GlobalStoreContext);
     let navigate = useNavigate();
-
-    let latestUpdates = [["Work 1", "1"], ["Work 2", "21"], ["Work 3", "14"], ["Work 4", "1123"], ["Work 5", "41"], ["Work 6", "11"], ["Work 7", "12"], ["Work 8", "1"], 
-        ["Work 9", "1"], ["Work 10", "1"], ["Work 11", "1"], ["Work 12", "1"], ["Work 13", "1"], ["Work 14", "1"], ["Work 15", "1"], ["Work 16", "1"], ["Work 17", "1"], 
-        ["Work 18", "1"], ["Work 19", "1"], ["Work 21", "1"], ["Work 21", "1"], ["Work 22", "1"], ["Work 23", "1"], ["Work 24", "1"], ["Work 24", "1"], ["Work 26", "1"], 
-        ["Work 27", "1"], ["Work 28", "1"]]
 
     return (
         <Box>
-            <div id = "bookmarks-title">
+            <div id="bookmarks-title">
                 Your Bookmarks
             </div>
             <div className="search_list">
@@ -32,7 +29,7 @@ export default function BookmarksScreen() {
                 <Grid item xs = {12}>
                     <List sx={{ width: '100%', height: '100%' }}>
                     {
-                        latestUpdates.map((work, index) => (
+                        store.works.map((work, index) => (
                             <ListItem key={ "bookmark" + index } sx={{ height: '36px' }}>
                                 <Grid item 
                                       container xs={12} 
@@ -42,10 +39,10 @@ export default function BookmarksScreen() {
                                           }}
                                 >
                                     <Grid item xs={5}>
-                                        <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work[0] }</Button>
+                                        <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
                                     </Grid>
                                     <Grid item xs={6.5}>
-                                        <Button onClick = {() => navigate('/chapter/')} sx={{ color: 'white', height: '100%' }}>Chapter { work[1] }</Button>
+                                        <Button onClick = {() => navigate('/chapter/')} sx={{ color: 'white', height: '100%' }}>{(work.chapters.length !== 0) ? work.chapters[work.chapters.length - 1] : ""}</Button>
                                     </Grid>
                                     <Grid item xs={0.5}>
                                         <Button onClick = {() => navigate('/chapter/')} sx={{ color: 'white', height: '100%' }}>Remove</Button>

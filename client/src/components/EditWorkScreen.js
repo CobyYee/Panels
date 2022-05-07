@@ -3,7 +3,7 @@ import GlobalStoreContext from '../store';
 import { useNavigate } from 'react-router-dom'
 
 
-function EditComicScreen() {
+function EditWorkScreen() {
     const {store} = useContext(GlobalStoreContext);
     let navigate = useNavigate()
 
@@ -18,8 +18,8 @@ function EditComicScreen() {
         //MUST TEST IF COVER UPLOADING WORKS
         //let newFile = (file === null) ? store.work.cover : file;
         let newFile = store.work.cover;
-        store.updateComic(title, newFile, description, selectedTags);
-        navigate("/comic/" + store.work._id);
+        store.updateWork(title, newFile, description, selectedTags);
+        navigate("/" + store.mode + "/" + store.work._id);
     }
 
     useEffect(() => {
@@ -52,35 +52,35 @@ function EditComicScreen() {
     }
 
     return (
-        <div id="upload_comic">
-            <div id="upload_comic_label">
-                Edit Comic
+        <div id="upload_work">
+            <div id="upload_work_label">
+                Edit {store.mode}
             </div>
-            <div id="upload_comic_inputs">
-                <div id="upload_comic_parameters">
-                    <div id="upload_comic_name_label">
-                        Comic Name
+            <div id="upload_work_inputs">
+                <div id="upload_work_parameters">
+                    <div id="upload_work_name_label">
+                        {store.mode} Name
                     </div>
-                    <div id="upload_comic_image_label">
+                    <div id="upload_work_image_label">
                         Cover Image
                     </div>
-                    <div id="upload_comic_tags_label">
+                    <div id="upload_work_tags_label">
                         Reselect Tags
                     </div>
-                    <div id="upload_comic_name_label">
+                    <div id="upload_work_name_label">
                         Description
                     </div>
                 </div>
-                <div id="upload_comic_fields">
-                    <input id="upload_comic_name" 
+                <div id="upload_work_fields">
+                    <input id="upload_work_name"
                            type="text" 
                            defaultValue={title} 
                            onChange={(event) => setTitle(event.target.value)}>
                     </input> 
                     <br></br>
-                    <input id="upload_comic_image" type="file" onChange={(event) => {handleFileUpload(event)}}></input>
-                    <label id="uploaded_comic_image_label" htmlFor="upload_comic_image"> Browse </label>
-                    <label id="uploaded_comic_image_label_label" htmlFor="uploaded_comic_image_label">{fileName}</label>
+                    <input id="upload_work_image" type="file" onChange={(event) => {handleFileUpload(event)}}></input>
+                    <label id="uploaded_work_image_label" htmlFor="upload_work_image"> Browse </label>
+                    <label id="uploaded_work_image_label_label" htmlFor="uploaded_work_image_label">{fileName}</label>
                     <div id="tags">
                         {tags.map((tag, index) => {
                             return <button key={"tag-" + index} 
@@ -90,9 +90,9 @@ function EditComicScreen() {
                                     </button>
                         })}
                     </div>
-                    <input id="upload_comic_description" type="text" defaultValue={description} onChange={(event) => setDescription(event.target.value)}></input> <br></br>
+                    <input id="upload_work_description" type="text" defaultValue={description} onChange={(event) => setDescription(event.target.value)}></input> <br></br>
                     <input id="terms_checkbox" type="checkbox"></input>
-                    <label id="terms_label" htmlFor="terms_checkbox">By editing this comic, I agree to Panels' terms and services</label> <br></br>
+                    <label id="terms_label" htmlFor="terms_checkbox">By editing this {store.mode}, I agree to Panels' terms and services</label> <br></br>
                     <button id="upload_button" type="submit" onClick={handleSubmit}>Save</button>
                 </div>
             </div>
@@ -100,4 +100,4 @@ function EditComicScreen() {
     )
 }
 
-export default EditComicScreen;
+export default EditWorkScreen;
