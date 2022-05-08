@@ -469,6 +469,10 @@ html, body {
 
 /* HomeScreen */
 
+#home {
+  padding-top: 30px;
+}
+
 #home_grid_container {
   height: 30vh;
   min-height: 400px;
@@ -479,7 +483,7 @@ html, body {
 }
 
 #home_image_container {
-  background-color: #3d3d3d;
+  background-color: #2e2e2e;
   width: 60%;
   min-width: 1780px;
   border-radius: 6px;

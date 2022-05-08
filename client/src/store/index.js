@@ -12,6 +12,7 @@ export const GlobalStoreActionType = {
     LOAD_WORKS: "LOAD_WORKS",
     LOAD_BOOKMARKS: "LOAD_BOOKMARKS",
     LOAD_WORK: "LOAD_WORK",
+    LOAD_WORK_AND_CHAPTER: "LOAD_WORK_AND_CHAPTER",
     LOAD_PROFILE_WORKS: "LOAD_PROFILE_WORKS",
     LOAD_COMIC_CHAPTER: "LOAD_COMIC_CHAPTER",
     LOAD_STORY_CHAPTER: "LOAD_STORY_CHAPTER",
@@ -94,6 +95,17 @@ function GlobalStoreContextProvider(props) {
                     chapter_images: null
                 })
             }
+            case GlobalStoreActionType.LOAD_WORK_AND_CHAPTER: {
+                return setStore({
+                    mode: store.mode,
+                    works: store.works,
+                    work: payload.work,
+                    images: store.images,
+                    image: payload.cover_image,
+                    chapter: payload.chapter,
+                    chapter_images: payload.chapter_images
+                })
+            }
             case GlobalStoreActionType.LOAD_COMIC_CHAPTER: {
                 return setStore({
                     mode: store.mode,
@@ -113,7 +125,7 @@ function GlobalStoreContextProvider(props) {
                     images: store.images,
                     image: store.image,
                     chapter: payload,
-                    chapter_images: store.chapter_images
+                    chapter_images: null
                 })
             }
             case GlobalStoreActionType.UPDATE_COMIC_CHAPTER: {
@@ -401,6 +413,52 @@ function GlobalStoreContextProvider(props) {
         }
         else {
             console.log("Failed to load " + store.mode + ": " + id);
+        }
+    }
+
+    store.loadWorkAndChapter = async function(workId, chapterId) {
+        let response = null;
+        if (store.mode === "comic") {
+            response = await api.getComicById(workId);
+        }
+        else {
+            response = await api.getStoryById(workId);
+        }
+        if (response.status === 200) {
+            let currentWork = null;
+            if (store.mode === "comic") {
+                currentWork = response.data.comic;
+            }
+            else {
+                currentWork = response.data.story;
+            }
+            response = await api.getImagesById([currentWork.cover]);
+            if (response.status === 200) {
+                let cover_image = response.data.data;
+                if (store.mode === "comic") {
+                    response = await api.getComicChapterById(chapterId);
+                }
+                else {
+                    response = await api.getStoryChapterById(chapterId);
+                }
+                if (response.status === 200) {
+                    let chapter = response.data.data;
+                    let chapter_images = chapter.images;
+                    response = await api.getImagesById(chapter_images);
+                    if (response.status === 200) {
+                        let images = response.data.data;
+                        storeReducer({
+                            type: GlobalStoreActionType.LOAD_WORK_AND_CHAPTER,
+                            payload: {
+                                work: currentWork,
+                                cover_image: cover_image,
+                                chapter: chapter,
+                                chapter_images: images
+                            }
+                        })
+                    }
+                }
+            }
         }
     }
 

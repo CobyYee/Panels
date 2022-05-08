@@ -28,9 +28,6 @@ export default function ComicScreen() {
         else {
             store.loadStoryChapter(chapterId);
         }
-        if (store.work.published !== null) {
-            
-        }   
         navigate("/chapter/");
     }
 

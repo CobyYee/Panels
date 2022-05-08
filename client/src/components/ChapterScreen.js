@@ -90,7 +90,7 @@ export default function ChapterScreen() {
                     <Grid id="chapter_grid_centered" item={true} xs={12} container>
                         <Grid id="chapter_centered" item xs={3}>
                             <Button id="text_button_background" onClick = {() => navigate(((store.mode === "comic") ? "/comic/" : "/story/") + store.work._id)}>
-                                <ArrowBackIcon/> back to {store.work.title}
+                                <ArrowBackIcon/> back to {(store.work !== null) ? store.work.title : ""}
                             </Button>
                         </Grid>
                         <Grid id="chapter_centered" item xs={0.5}>

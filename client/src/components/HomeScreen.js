@@ -13,12 +13,24 @@ function HomeScreen() {
 
     function handleLoad(workId) {
         store.loadWork(workId);
-        navigate(((store.mode === "comic") ? "/comic/" : "/story/") + workId);
-        
+        navigate(((store.mode === "comic") ? "/comic/" : "/story/") + workId);        
     }
+
+    function handleChapter(workId, chapterId) {
+        store.loadWorkAndChapter(workId, chapterId); 
+        navigate("/chapter/");
+    }
+
+    /*
+    useEffect(() => {
+        if (store.chapter !== null) {
+            navigate("/chapter/")
+        }
+    }, [store.chapter])
+    */
     
     return (
-        <Grid container>
+        <Grid id="home" container>
             <Grid item xs={12}>
                 <Grid id="home_grid_container" item xs={12}>
                     <Box id="home_image_container">
@@ -53,7 +65,15 @@ function HomeScreen() {
                                         <Box sx={{ flexGrow: 1 }}>
                                             <Button id="home_button" onClick={() => handleLoad(work._id)}>{work.title}</Button>
                                         </Box>
-                                        <Button id="home_button" onClick={() => navigate('/chapter/')}>{"Chapter " + index}</Button>
+                                        {
+                                            (work.chapters.length > 0) ?
+                                                (
+                                                <Button id="home_button" onClick={() => handleChapter(work._id, JSON.parse(work.chapters[work.chapters.length - 1]).id)}>
+                                                    {JSON.parse(work.chapters[work.chapters.length - 1]).name}
+                                                </Button> 
+                                                )
+                                            : ""
+                                        }
                                     </Box>
                                 </ListItem>
                             ))
