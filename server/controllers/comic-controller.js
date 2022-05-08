@@ -78,6 +78,9 @@ getComicById = async (req, res) => {        // tested 200
         const found = await Comic.findById(req.params.id);
         if (!found)
             return res.status(400).json({success: false, message: "Comic not found"});
+
+        found.views++;
+        await found.save();
         
         return res.status(200).json({success: true, comic: found});
     }
@@ -121,19 +124,15 @@ getComicsById = async (req, res) => {
 getImagesById = async (req, res) => {
     try {
         const ids = req.body;
-        console.log('Hello1')
         if (!ids)
             return res.status(400).json({ success: false, errorMessage: "Missing image ids"});
         let arr = [];
         for (let i = 0; i < ids.length; i++) {
             let found = await Image.findById(ids[i]);
-            console.log('Hello2')
             if (!found)
                 return res.status(400).json({ success: false, errorMessage: "Image " + ids[i] + " not found!"})
             arr.push(found.data.toString())
-            console.log("hello2.5")
         }
-        console.log('Hello3')
         return res.status(200).json({ success: true, data: arr });
     }
     catch (err) {
