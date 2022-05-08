@@ -147,7 +147,13 @@ export default function ComicScreen() {
                     </Grid>
                     <Grid id="comic_buttons" item xs={3.3}>
                         <Button id="comic_button" variant='contained' onClick={() => navigate('/chapter/')}>Continue Reading</Button>
-                        <Button id="comic_button" variant='contained' onClick={() => handleBookmark()}>Bookmark</Button>
+                        {
+                            (auth.session !== null && store.work !== null) ?
+                                (((store.mode === "comic" && auth.session.comic_bookmarks.includes(store.work._id) || (store.mode === "story" && auth.session.story_bookmarks.includes(store.work._id)) ?
+                                    ( <Button id="comic_button" variant='contained' onClick={() => handleUnbookmark()}>Unbookmark</Button> ) :
+                                    ( <Button id="comic_button" variant='contained' onClick={() => handleBookmark()}>Bookmark</Button> )
+                                ))) : ( <Button id="comic_button" variant='contained' disabled={true}>Bookmark</Button> )
+                        }
                     </Grid>
                     <Grid item xs={12}>
                         <div id="comic_description_box">
