@@ -1,12 +1,43 @@
 import { Typography, Box, Grid, List, ListItem, Button, Divider } from '@mui/material';
-import { useContext } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import SortBar from './SortBar'
 import { useNavigate } from 'react-router-dom'
 import GlobalStoreContext from '../store';
+import AuthContextProvider from '../auth'
 
 export default function BookmarksScreen() {
-    const {store} = useContext(GlobalStoreContext);
+    const firstRender = useRef(false);
+    const {store} = useContext(GlobalStoreContext)
+    const {auth} = useContext(AuthContextProvider)
     let navigate = useNavigate();
+
+    useEffect(() => {
+        if (firstRender.current) {
+            if (store.mode === "comic") {
+                store.loadBookmarks(auth.session.comic_bookmarks);
+            }
+            else {
+                store.loadBookmarks(auth.session.story_bookmarks);
+            }
+        }
+        firstRender.current = true;
+    }, [store.mode])
+
+    function loadWork(workId) {
+        store.loadWork(workId);
+        navigate("/" + store.mode + "/" + workId);
+    }
+
+    function handleUnbookmark(workId) {
+        let session = auth.session;
+        if (store.mode === "comic") {
+            session.comic_bookmarks.splice(session.comic_bookmarks.indexOf(workId), 1);
+        }
+        else {
+            session.story_bookmarks.splice(session.story_bookmarks.indexOf(workId), 1);
+        }
+        auth.updateUser(session);
+    }
 
     return (
         <Box>
@@ -39,13 +70,13 @@ export default function BookmarksScreen() {
                                           }}
                                 >
                                     <Grid item xs={5}>
-                                        <Button onClick = {() => navigate('/comic/')} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
+                                        <Button onClick = {() => loadWork(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
                                     </Grid>
                                     <Grid item xs={6.5}>
                                         <Button onClick = {() => navigate('/chapter/')} sx={{ color: 'white', height: '100%' }}>{(work.chapters.length !== 0) ? work.chapters[work.chapters.length - 1] : ""}</Button>
                                     </Grid>
                                     <Grid item xs={0.5}>
-                                        <Button onClick = {() => navigate('/chapter/')} sx={{ color: 'white', height: '100%' }}>Remove</Button>
+                                        <Button onClick = {() => handleUnbookmark(work._id)} sx={{ color: '#9c4247', height: '100%' }}>Remove</Button>
                                     </Grid>
                                 </Grid>
                             </ListItem>

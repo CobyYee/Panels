@@ -44,26 +44,6 @@ export default function ComicScreen() {
         }
     }
 
-    /*
-    let comment =
-        <ListItem>
-            <ListItemAvatar>k
-                <Avatar>
-                    <AccountCircle/>
-                </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary={ <Typography color='white'>User</Typography> } secondary={ <Typography color='white'>comment</Typography> }/>
-        </ListItem>
-
-    if (status === "comments") {
-        display =   <List>
-                        { comment }
-                        { comment }
-                        { comment }
-                    </List>
-    }
-    */
-
     function handleAuthor() {
         auth.loadProfile(store.work.creatorId);
         store.loadProfileWorks(store.work.creatorId);
