@@ -11,8 +11,8 @@ function HomeScreen() {
         store.home();
     }, [store.mode])
 
-    async function handleLoad(workId) {
-        await store.loadWork(workId);
+    function handleLoad(workId) {
+        store.loadWork(workId);
         navigate(((store.mode === "comic") ? "/comic/" : "/story/") + workId);
         
     }
