@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from 'react'
-import { Typography, Box, Grid, Button, List, ListItem, Modal } from '@mui/material';
+import {Typography, Box, Grid, Button, List, ListItem, Modal, TextField} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import GlobalStoreContext from '../store'
 
@@ -11,6 +11,7 @@ export default function ComicEditor() {
     const [chapterImageIds, setChapterImageIds] = useState([]);
     const [currentChapter, setCurrentChapter] = useState([]);
 
+    const [title, setTitle] = useState("");
     const [modalOpen, setModalOpen] = useState(false);
     const [file, setFile] = useState(null);
     const [fileName, setFileName] = useState("");
@@ -21,6 +22,7 @@ export default function ComicEditor() {
 
     useEffect(() => {
         if (store.chapter !== null) {
+            setTitle(store.chapter.name);
             setChapterImageIds(store.chapter.images);
         }
     }, [store.chapter])
@@ -61,7 +63,7 @@ export default function ComicEditor() {
     function saveChapter() {
         console.log("Saving chapter");
         store.chapter.images = chapterImageIds;
-        store.updateChapter(store.chapter);
+        store.updateComicChapter(title, store.chapter.images);
         console.log("SAVED");
         navigate("/comic/" + store.work._id);
     }
@@ -125,6 +127,9 @@ export default function ComicEditor() {
                     </Box>
                 </Grid>
                 <Grid item xs={9} container>
+                    <Grid item xs = {6} sx = {{display: 'flex', justifyContent:'center'}} >
+                        <TextField value={title} onChange = {(event) => {setTitle(event.target.value)}} sx = {{input: {color: 'white'}}}>  </TextField>
+                    </Grid>
                     <Grid id="edit_toolbar" item xs={12}>
                         <Grid id="edit_toolbar_buttons" item xs={12}>
                             <Button sx={{ color: 'white' }} onClick={saveChapter}>Save</Button>
