@@ -109,9 +109,8 @@ getComicsById = async (req, res) => {
         for (let i = 0; i < ids.length; i++) {
             let found = await Comic.findById(ids[i]);
             if (!found)
-                return res.status(400).json({ success: false, errorMessage: "Image " + ids[i] + " not found!"});
-            else   
-                arr.push(found);
+                return res.status(400).json({ success: false, errorMessage: "Comic " + ids[i] + " not found!"});
+            arr.push(found);
         }
         
         return res.status(200).json({ success: true, data: arr });

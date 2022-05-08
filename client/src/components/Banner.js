@@ -71,7 +71,6 @@ export default function Banner() {
     }
 
     const handleBookmarks = () => {
-        console.log(auth.session.comic_bookmarks);
         if (store.mode === "comic") {
             store.loadBookmarks(auth.session.comic_bookmarks);
         }
