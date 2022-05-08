@@ -832,7 +832,6 @@ function GlobalStoreContextProvider(props) {
         }
         if (response.status === 200) {
             let bookmarks = response.data.data;
-            console.log(bookmarks);
             storeReducer({
                 type: GlobalStoreActionType.LOAD_BOOKMARKS,
                 payload: bookmarks
