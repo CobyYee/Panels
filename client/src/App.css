@@ -22,12 +22,22 @@ body {
   font-size: 15px;
 }
 
+.sort_button, .filter_button {
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.sort_button:hover, .filter_button:hover {
+  background-color: #3d3d3d;
+}
+
 .sort_button_clicked, .filter_button_clicked, .genre_button_odd {
   margin: 5px;
   color: black;
   background-color: #b8434b;
   border-radius: 5px;
   border: 0px solid transparent;
+  cursor: pointer;
 }
 
 .sort_button_clicked, .filter_button_clicked {
@@ -178,13 +188,13 @@ html, body {
 }
 
 .list_card_author {
-  font-size: 12px;
-  padding-bottom: 10px;
+  font-size: 14px;
+  padding-bottom: 6px;
   cursor: pointer;
 }
 
 .list_card_description {
-  font-size: 14px;
+  font-size: 15px;
 }
 
 

@@ -29,12 +29,14 @@ function ListCard(props) {
                     {props.work.title}
                 </div>
                 <div class="list_card_genres">
-                    {props.work.genres.map((genre, index) => (
+                {
+                    props.work.genres.map((genre, index) => (
                         <button key={ "genre-button-" + index + "-" + props.work._id } class={(index % 2 === 0) ? "genre_button_odd" : "genre_button_even"} value={index}>{genre}</button>
-                    ))}
+                    ))
+                }
                 </div>
                 <div class="list_card_author" onClick={handleAuthor}>
-                    {"Author: " + props.work.creatorName}
+                    {props.work.creatorName}
                 </div>
                 <div class="list_card_description">
                     {props.work.description}
