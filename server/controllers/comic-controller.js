@@ -78,6 +78,9 @@ getComicById = async (req, res) => {        // tested 200
         const found = await Comic.findById(req.params.id);
         if (!found)
             return res.status(400).json({success: false, message: "Comic not found"});
+
+        found.views++;
+        await found.save();
         
         return res.status(200).json({success: true, comic: found});
     }
