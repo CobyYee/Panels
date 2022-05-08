@@ -271,18 +271,21 @@ function GlobalStoreContextProvider(props) {
     store.listScreen = async function() {
         let response = null;
         if (store.mode === "comic") {
-            response = await api.getAllComics();            
+            response = await api.getAllComics(); 
+            console.log("hello1")           
         }
         else {
             response = await api.getAllStories();
         }
         if (response.status === 200) {
+            console.log("hello2")  
             let works = response.data.data;
             let imageIds = [];
             for (let i = 0; i < works.length; i++) {
                 imageIds.push(works[i].cover);
             }
             response = await api.getImagesById(imageIds);
+            console.log("hello3")
             if (response.status === 200) {
                 let images = response.data.data;
                 storeReducer({

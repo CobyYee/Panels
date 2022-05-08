@@ -99,6 +99,23 @@ export default function ComicScreen() {
         setRating(store.work.ratings.reduce((total, rating) => total += JSON.parse(rating).rating, 0)/store.work.ratings.length);
     }
 
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    
+    var disqus_config = function () {
+        this.page.url = `http://localhost:3000/comic/${store.work._id}`;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = `${store.work._id}`; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.title = `${store.work.title}`
+    };
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://panelswebcomics-1.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+
     return (
         <Box id="comic">
             <Grid id="comic_grid" item={true} xs={11} container>
@@ -124,15 +141,8 @@ export default function ComicScreen() {
                         </div>
                     </Grid>
                     <Grid item xs={11}>
-<<<<<<< HEAD
-                        <div id="comic_kinfo">
-                            Rating: {(store.work !== null && store.work.ratings.length > 0) ? 
-                                store.work.ratings.reduce((total, rating) => total += rating.value, 0)/store.work.ratings.length 
-                            : "0"}/5
-=======
                         <div id="comic_info">
                             <Rating name="work_rating" value={rating} precision={0.1} onChange={(event, value) => handleRating(value)}/>
->>>>>>> 0bd5b1dec7dfe574b0467ed45008e324793b45c0
                         </div>
                     </Grid>
                     <Grid id="comic_buttons" item xs={3.3}>
@@ -164,11 +174,7 @@ export default function ComicScreen() {
                                             {"Chapter " + (index + 1) + ": " + JSON.parse(chapter).name}
                                         </div>
                                         {
-<<<<<<< HEAD
-                                            (auth.session && store.work.creatorId === auth.session._id) ? 
-=======
                                             (auth.session !== null && store.work.creatorId === auth.session._id) ? 
->>>>>>> 0bd5b1dec7dfe574b0467ed45008e324793b45c0
                                                 <Button id="text_button" sx={{ height: '26px' }} onClick={() => handleEdit(JSON.parse(chapter).id)}>Edit</Button>
                                             : <div id="comic_chapter_date">Date Released</div>
                                         }
@@ -180,7 +186,9 @@ export default function ComicScreen() {
                     }
                     </Box>
                 </Grid>
-                <Comments url={"1234"} id={"4321"} title={"example"}/>
+                <div id="disqus_thread" style={{width: '100%'}}></div>
+                    
+                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
             </Grid>
         </Box>
     )
