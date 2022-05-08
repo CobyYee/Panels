@@ -142,8 +142,9 @@ html, body {
 }
 
 .search_list {
-  width: 80%;
-  margin-left: 10%;
+  width: 75%;
+  margin-left: 12.5%;
+  margin-top: 1%;
   display: block;
   padding: 25px 0px 0px 0px;
 }
@@ -177,7 +178,7 @@ html, body {
 }
 
 .listcard_image {
-  width: 125px;
+  width: 135px;
   height: 200px;
   cursor: pointer;
 }
