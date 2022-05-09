@@ -1,12 +1,12 @@
 import ListCard from "./ListCard";
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useLayoutEffect, useRef } from 'react';
 import GlobalStoreContext from '../store';
 
 function SearchList() {
     const firstRender = useRef(false);
     const {store} = useContext(GlobalStoreContext)
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (firstRender.current) {
             store.listScreen();
         }
@@ -15,7 +15,7 @@ function SearchList() {
 
     return ( 
        <ul id="comic_list">
-            {store.works.filter(work => work.published !== null).map((work, index) => (
+            {store.works.map((work, index) => (
                 <li key={ "result" + index } class="comic_item">
                     <ListCard work={work} cover={(store.images !== null) ? store.images[index] : null}/>
                 </li>

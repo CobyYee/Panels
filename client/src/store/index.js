@@ -237,8 +237,8 @@ function GlobalStoreContextProvider(props) {
             }
             if (response.status === 200) {
                 let data = response.data.data;
-                let works = data.slice();
-                let featuredWorks = works.sort((a, b) => { return b.views - a.views}).slice(0, 8);
+                let works = data.filter(work => work.published !== null).slice(0, 8);
+                let featuredWorks = works.sort((a, b) => { return b.views - a.views});
                 let imageIds = featuredWorks.map(work => work.cover);
                 response = await api.getImagesById(imageIds);
                 if (response.status === 200) {
@@ -259,7 +259,7 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.sortWorks = async function(value) {
-        let sorted = store.works.filter(work => work.published !== null).slice();
+        let sorted = store.works.slice();
         if (value == 0) {
             sorted = sorted.sort((a, b) => { return (b.published > a.published) - (b.published < a.published) });
         }
@@ -305,7 +305,7 @@ function GlobalStoreContextProvider(props) {
             response = await api.getAllStories();
         }
         if (response.status === 200) {
-            let works = response.data.data;
+            let works = response.data.data.filter(work => work.published !== null);
             let imageIds = [];
             for (let i = 0; i < works.length; i++) {
                 imageIds.push(works[i].cover);

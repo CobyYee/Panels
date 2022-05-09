@@ -1,5 +1,5 @@
 import { Box, Typography, Grid, List, ListItem, Button } from '@mui/material'
-import { useContext, useEffect } from 'react'
+import { useContext, useLayoutEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { GlobalStoreContext }  from '../store';
 
@@ -7,7 +7,7 @@ function HomeScreen() {
     const {store} = useContext(GlobalStoreContext)
     let navigate = useNavigate();
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         store.home();
     }, [store.mode])
 
