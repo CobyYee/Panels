@@ -15,7 +15,7 @@ function SearchList() {
 
     return ( 
        <ul id="comic_list">
-            {store.works.map((work, index) => (
+            {store.filteredWorks.map((work, index) => (
                 <li key={ "result" + index } class="comic_item">
                     <ListCard work={work} cover={(store.images !== null) ? store.images[index] : null}/>
                 </li>

@@ -10,6 +10,7 @@ export const GlobalStoreActionType = {
     SWITCH_MODE: "SWITCH_MODE",
     HOME: "HOME",
     LOAD_WORKS: "LOAD_WORKS",
+    LOAD_FILTERED_WORKS: "LOAD_FILTERED_WORKS",
     LOAD_BOOKMARKS: "LOAD_BOOKMARKS",
     LOAD_WORK: "LOAD_WORK",
     LOAD_WORK_AND_CHAPTER: "LOAD_WORK_AND_CHAPTER",
@@ -23,14 +24,17 @@ export const GlobalStoreActionType = {
     LOAD_HOME: "LOAD_HOME"
 }
 
+
 function GlobalStoreContextProvider(props) {
     const navigate = useNavigate();
     const {auth} = useContext(AuthContext)
+    const genres = ["Action", "Fantasy", "Romance", "Reincarnation", "Martial Arts", "Slice of Life", "Sports"];  
 
     const [store, setStore] = useState({
         mode: "comic",
         works: [],
         work: null,
+        filteredWorks: [],
         images: [],
         image: null,
         chapter: null,
@@ -44,6 +48,7 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     mode: (store.mode === "comic") ? "story" : "comic",
                     works: [],
+                    filteredWorks: [],
                     work: null,
                     images: null,
                     image: null,
@@ -55,6 +60,19 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     mode: store.mode,
                     works: payload.works,
+                    filteredWorks: payload.works,
+                    work: null,
+                    images: payload.images,
+                    image: null,
+                    chapter: null,
+                    chapter_images: null
+                })
+            }
+            case GlobalStoreActionType.LOAD_FILTERED_WORKS: {
+                return setStore({
+                    mode: store.mode,
+                    works: payload.works ? payload.works : store.works,
+                    filteredWorks: payload.filtered,
                     work: null,
                     images: payload.images,
                     image: null,
@@ -66,6 +84,7 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     mode: store.mode,
                     works: payload,
+                    filteredWorks: store.filteredWorks,
                     work: null,
                     images: store.images,
                     image: null,
@@ -77,6 +96,7 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     mode: store.mode,
                     works: payload,
+                    filteredWorks: store.filteredWorks,
                     work: null,
                     images: store.images,
                     image: null,
@@ -88,6 +108,7 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     mode: store.mode,
                     works: store.works,
+                    filteredWorks: store.filteredWorks,
                     work: payload.work,
                     images: store.images,
                     image: payload.image,
@@ -99,6 +120,7 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     mode: store.mode,
                     works: store.works,
+                    filteredWorks: store.filteredWorks,
                     work: payload.work,
                     images: store.images,
                     image: payload.cover_image,
@@ -110,6 +132,7 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     mode: store.mode,
                     works: store.works,
+                    filteredWorks: store.filteredWorks,
                     work: store.work,
                     images: store.images,
                     image: store.image,
@@ -121,6 +144,7 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     mode: store.mode,
                     works: store.works,
+                    filteredWorks: store.filteredWorks,
                     work: store.work,
                     images: store.images,
                     image: store.image,
@@ -132,6 +156,7 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     mode: store.mode,
                     works: store.works,
+                    filteredWorks: store.filteredWorks,
                     work: store.work,
                     images: store.images,
                     image: store.image,
@@ -143,6 +168,7 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     mode: store.mode,
                     works: store.works,
+                    filteredWorks: store.filteredWorks,
                     work: store.work,
                     images: store.images,
                     image: store.image,
@@ -154,6 +180,7 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     mode: store.mode,
                     works: store.works,
+                    filteredWorks: store.filteredWorks,
                     work: store.work,
                     images: payload,
                     image: null,
@@ -165,6 +192,7 @@ function GlobalStoreContextProvider(props) {
                 return setStore({
                     mode: store.mode,
                     works: payload.works,
+                    filteredWorks: payload.works,
                     work: store.work,
                     images: payload.images,
                     image: null,
@@ -259,12 +287,16 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.sortWorks = async function(value) {
-        let sorted = store.works.slice();
+        let sorted = store.filteredWorks.slice();
+        let sortedAll = store.works.slice();
         if (value == 0) {
             sorted = sorted.sort((a, b) => { return (b.published > a.published) - (b.published < a.published) });
+            sortedAll = sorted.sort((a, b) => { return (b.published > a.published) - (b.published < a.published) });
         }
         else if (value == 1) {
             sorted = sorted.sort((a, b) => { return b.views-a.views });
+            sortedAll = sorted.sort((a, b) => { return b.views-a.views });
+            
         }
         else if (value == 2) {
             sorted = sorted.sort((a, b) => {
@@ -278,18 +310,68 @@ function GlobalStoreContextProvider(props) {
                 }
                 return ratingB - ratingA;
             })
+
+            sortedAll = sortedAll.sort((a, b) => {
+                let ratingA = 0;
+                let ratingB = 0;
+                if (a.ratings.length > 0) {
+                    ratingA = a.ratings.reduce((i, j) => i + j, 0)/a.ratings.length;
+                }
+                if (b.ratings.length > 0) {
+                    ratingB = b.ratings.reduce((i, j) => i + j, 0)/b.ratings.length;
+                }
+                return ratingB - ratingA;
+            })
         }
         else if (value == 3) {
             sorted = sorted.sort((a, b) => { return a.title.localeCompare(b.title) });
+            sortedAll = sortedAll.sort((a, b) => { return a.title.localeCompare(b.title) });
         }
         let imageIds = sorted.map(work => work.cover);
         let response = await api.getImagesById(imageIds);
         if (response.status === 200) {
             let images = response.data.data;
             storeReducer({
-                type: GlobalStoreActionType.LOAD_WORKS,
+                type: GlobalStoreActionType.LOAD_FILTERED_WORKS,
                 payload: {
-                    works: sorted,
+                    works: sortedAll,
+                    filtered: sorted,
+                    images: images
+                }
+            })
+        }
+    }
+
+    store.filterWorks = async function(state) {
+        let arr = [];
+        let filtered = [];
+        for (let i = 0; i < state.length; i++) {
+            if (state[i]) {
+                arr.push(i);
+            }
+        }
+        console.log(store.works)
+        let works_arr = store.works.slice();
+        for (let i = 0; i < works_arr.length; i++) {
+            let good = true;
+            for (let j = 0; j < arr.length; j++) {
+                if (!works_arr[i].genres.includes(genres[arr[j]])) {
+                    good = false;
+                    break;
+                }
+            }
+            if (good)
+                filtered.push(works_arr[i]);
+        }
+        let imageIds = filtered.map(work => work.cover);
+        let response = await api.getImagesById(imageIds);
+        if (response.status === 200) {
+            let images = response.data.data;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_FILTERED_WORKS,
+                payload: {
+                    works: null,
+                    filtered: filtered,
                     images: images
                 }
             })

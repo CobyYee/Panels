@@ -7,7 +7,7 @@ function ListScreen() {
     return (
         <div class="search_list">
             <SortBar></SortBar>
-            <GenreBar state={[false, false, false]}></GenreBar>
+            <GenreBar state={[false, false, false, false, false, false, false]}></GenreBar>
             <SearchList/>
         </div>  
     )
