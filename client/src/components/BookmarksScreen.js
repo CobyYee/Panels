@@ -1,4 +1,4 @@
-import { Typography, Box, Grid, List, ListItem, Button, Divider } from '@mui/material';
+import { Box, Grid, List, ListItem, Button, Divider } from '@mui/material';
 import { useContext, useEffect, useRef } from 'react'
 import SortBar from './SortBar'
 import { useNavigate } from 'react-router-dom'
@@ -42,6 +42,7 @@ export default function BookmarksScreen() {
             session.story_bookmarks.splice(session.story_bookmarks.indexOf(workId), 1);
         }
         auth.updateUser(session);
+        store.removeBookmark(workId);
     }
 
     return (

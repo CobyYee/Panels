@@ -228,55 +228,71 @@ function GlobalStoreContextProvider(props) {
 
     store.home = async function() {
         try {
+            let response = null;
             if (store.mode === "comic") {
-                let res = await api.getAllComics();
-                if (res.status === 200) {
-                    let comics = res.data.data;
-                    let works = comics.slice();
-                    let featuredWorks = works.sort((a, b) => { return b.views - a.views}).slice(0, 8);
-                    let imageIds = [];
-                    for (let i = 0; i < featuredWorks.length && i < 8; i++) {
-                        imageIds.push(featuredWorks[i].cover);
-                    }
-                    const response = await api.getImagesById(imageIds);
-                    if (response.status === 200) {
-                        let images = response.data.data;
-                        storeReducer({
-                            type: GlobalStoreActionType.LOAD_HOME,
-                            payload: {
-                                works: comics,
-                                images: images
-                            }
-                        })
-                    }
-                }
+                response = await api.getAllComics();
             }
             else {
-                let res = await api.getAllStories();
-                if (res.status === 200) {
-                    let stories = res.data.data;
-                    let works = stories.slice();
-                    let featuredWorks = works.sort((a, b) => { return b.views - a.views}).slice(0, 8);
-                    let imageIds = [];
-                    for (let i = 0; i < featuredWorks.length && i < 8; i++) {
-                        imageIds.push(featuredWorks[i].cover);
-                    }
-                    const response = await api.getImagesById(imageIds);
-                    if (response.status === 200) {
-                        let images = response.data.data;
-                        storeReducer({
-                            type: GlobalStoreActionType.LOAD_HOME,
-                            payload: {
-                                works: stories,
-                                images: images
-                            }
-                        })
-                    }
+                response = await api.getAllStories();
+            }
+            if (response.status === 200) {
+                let data = response.data.data;
+                let works = data.slice();
+                let featuredWorks = works.sort((a, b) => { return b.views - a.views}).slice(0, 8);
+                let imageIds = featuredWorks.map(work => work.cover);
+                response = await api.getImagesById(imageIds);
+                if (response.status === 200) {
+                    let images = response.data.data;
+                    storeReducer({
+                        type: GlobalStoreActionType.LOAD_HOME,
+                        payload: {
+                            works: featuredWorks,
+                            images: images
+                        }
+                    })
                 }
             }
         }
         catch (err) {
             console.error("Store.home failed: " + err)
+        }
+    }
+
+    store.sortWorks = async function(value) {
+        let sorted = store.works.filter(work => work.published !== null).slice();
+        if (value == 0) {
+            sorted = sorted.sort((a, b) => { return (b.published > a.published) - (b.published < a.published) });
+        }
+        else if (value == 1) {
+            sorted = sorted.sort((a, b) => { return b.views-a.views });
+        }
+        else if (value == 2) {
+            sorted = sorted.sort((a, b) => {
+                let ratingA = 0;
+                let ratingB = 0;
+                if (a.ratings.length > 0) {
+                    ratingA = a.ratings.reduce((i, j) => i + j, 0)/a.ratings.length;
+                }
+                if (b.ratings.length > 0) {
+                    ratingB = b.ratings.reduce((i, j) => i + j, 0)/b.ratings.length;
+                }
+                return ratingB - ratingA;
+            })
+        }
+        else if (value == 3) {
+            sorted = sorted.sort((a, b) => { return a.title.localeCompare(b.title) });
+        }
+        let imageIds = sorted.map(work => work.cover);
+        let response = await api.getImagesById(imageIds);
+        if (response.status === 200) {
+            let images = response.data.data;
+            storeReducer({
+                type: GlobalStoreActionType.LOAD_WORKS,
+                payload: {
+                    works: sorted,
+                    images: images
+                }
+            })
         }
     }
 
@@ -892,6 +908,14 @@ function GlobalStoreContextProvider(props) {
                 payload: bookmarks
             })
         }
+    }
+
+    store.removeBookmark = async function(id) {
+        let newWorks = store.works.slice().filter(work => work._id !== id);
+        storeReducer({
+            type: GlobalStoreActionType.LOAD_BOOKMARKS,
+            payload: newWorks
+        })
     }
 
     store.addRating = async function(id, rating) {

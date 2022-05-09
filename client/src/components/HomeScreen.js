@@ -20,14 +20,6 @@ function HomeScreen() {
         store.loadWorkAndChapter(workId, chapterId); 
         navigate("/chapter/");
     }
-
-    /*
-    useEffect(() => {
-        if (store.chapter !== null) {
-            navigate("/chapter/")
-        }
-    }, [store.chapter])
-    */
     
     return (
         <Grid id="home" container>
@@ -48,13 +40,11 @@ function HomeScreen() {
                     }
                     </Box>
                 </Grid>
-
                 <Grid id="latest_updates_title_container" item xs={12}>
                     <Typography id="latest_updates_title">
                         Latest Updates
                     </Typography>
                 </Grid>
-
                 <Grid id="latest_updates_grid_container" item xs={12}>
                     <Box id="latest_updates_box_container" xs={12}>
                         <List id="latest_updates_list" container="true">

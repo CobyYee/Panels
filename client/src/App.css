@@ -856,7 +856,7 @@ html, body {
   display: flex;
   justify-content: flex-start;
   border-radius: 1;
-  padding-top: 32px;
+  padding-top: 24px;
 }
 
 #bookmarks_label {
