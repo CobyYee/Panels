@@ -28,6 +28,11 @@ export default function BookmarksScreen() {
         navigate("/" + store.mode + "/" + workId);
     }
 
+    function handleChapter(workId, chapterId) {
+        store.loadWorkAndChapter(workId, chapterId); 
+        navigate("/chapter/");
+    }
+
     function handleUnbookmark(workId) {
         let session = auth.session;
         if (store.mode === "comic") {
@@ -73,7 +78,11 @@ export default function BookmarksScreen() {
                                         <Button onClick = {() => loadWork(work._id)} sx={{ color: 'white', flexGrow: 1 }}>{ work.title }</Button>
                                     </Grid>
                                     <Grid item xs={6.5}>
-                                        <Button onClick = {() => navigate('/chapter/')} sx={{ color: 'white', height: '100%' }}>{(work.chapters.length !== 0) ? work.chapters[work.chapters.length - 1] : ""}</Button>
+                                        <Button onClick={() => handleChapter(work._id, JSON.parse(work.chapters[work.chapters.length - 1]).id)} sx={{ color: 'white', height: '100%' }}>
+                                        {
+                                            (work.chapters.length > 0) ? JSON.parse(work.chapters[work.chapters.length - 1]).name : ""
+                                        }
+                                        </Button>
                                     </Grid>
                                     <Grid item xs={0.5}>
                                         <Button onClick = {() => handleUnbookmark(work._id)} sx={{ color: '#9c4247', height: '100%' }}>Remove</Button>
