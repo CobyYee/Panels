@@ -187,7 +187,7 @@ export default function Banner() {
                                 aria-controls="primary-search-account-menu"
                                 aria-haspopup="true"
                             >
-                                <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                                <Avatar sx={{ width: 32, height: 32 }}>{(auth.session !== null) ? auth.session.username.charAt(0) : "U"}</Avatar>
                             </IconButton>
                         </Grid>
                     </Grid>
