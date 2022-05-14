@@ -22,6 +22,7 @@ export default function ProfileScreen() {
 
     useEffect(() => {
         if (auth.user !== null) {
+            console.log(auth.user.username);
             setDescription(auth.user.description);
         }
     }, [auth.user])
@@ -45,10 +46,20 @@ export default function ProfileScreen() {
         auth.updateUser(user);
     }
 
+    /*
     function handleBan() {
         let user = auth.user;
         user.banned = !user.banned;
         auth.updateUser(user);
+    }
+    */
+
+    function handleDescription(event) {
+        if (event.keyCode === 13 && !event.shiftKey) {
+            let user = auth.user;
+            user.description = description;
+            auth.updateUser(user);
+        }
     }
 
     let drafts = ""
@@ -108,9 +119,18 @@ export default function ProfileScreen() {
                     </Grid>
                     <Grid className="profile_centered" item xs={12} pb={6}>
                         <Box sx={{ width: '350px', textAlign: 'center' }}>
-                            <Typography color="white">
+                        {
+                            (auth.session !== null && auth.user !== null && auth.session._id === auth.user._id) ?
+                                <textarea id="profile_description" 
+                                        value={description} 
+                                        onChange={(event) => setDescription(event.target.value)} 
+                                        onKeyDown={(event) => handleDescription(event)}
+                                />
+                            :
+                            <div style={{ color: 'white' }}>
                                 { description }
-                            </Typography>
+                            </div>
+                        }
                         </Box>
                     </Grid>
                 </Grid>

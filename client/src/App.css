@@ -14,6 +14,10 @@ body {
   font-family: "Poppins";
 }
 
+textarea {
+  resize: none;
+}
+
 .sort_button, .sort_label, .filter_label, .filter_button {
   margin: 5px;
   border: transparent;
@@ -650,6 +654,24 @@ html, body {
 #profile_works_title {
   color: white;
   font-size: 1.5em;
+}
+
+#profile_description {
+  height: 100px;
+  width: 100%;
+  background-color: #2d2d2d;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 15px;
+  font-family: inherit;
+  margin: 10px;
+  text-align: justify;
+  text-align-last: center
+}
+  
+#profile_description:focus {
+  outline: 1px solid #9c4247;
 }
 
 .profile_centered {
