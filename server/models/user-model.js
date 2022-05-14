@@ -11,6 +11,7 @@ const UserSchema = new Schema(
         passwordHash: { type: String, required: true },
         email: { type: String, required: true },
         profilePicture: { type: ObjectId, required: false },
+        description: { type: String, required: function() { return typeof this.description === 'String' } },
         follows: { type: [ObjectId], required: true },
         works: { type: [ObjectId], required: true },
         drafts: { type: [ObjectId], required: true },

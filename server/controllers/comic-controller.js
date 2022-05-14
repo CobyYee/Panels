@@ -6,7 +6,7 @@ const Konva = require('../models/konva-model')
 createComic = (req, res) => {   // tested 200
     try {
         const { title, creatorId, creatorName, genres, description, cover_data } = req.body;
-        if (!title || !creatorId || !creatorName || !cover_data || !genres || !description) {
+        if (!title || !creatorId || !creatorName || !cover_data || !genres) {
             console.log(creatorName)
             return res.status(400).json({
                 success: false,

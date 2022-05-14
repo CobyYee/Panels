@@ -34,20 +34,7 @@ export default function Banner() {
     if(store.mode === "story")
         storyBgColor = '#B8434B'
     else 
-        comicBgColor = '#B8434B'
-
-    let contentButton = <div id = "content-selector"> 
-        <Box sx={{ width: '50%', backgroundColor: comicBgColor, borderRadius: '15px' }}>
-            <div id = "comic-selector" onClick={() => changeContent("Comic")}>
-                Comic
-            </div>
-        </Box>
-        <Box sx={{ width: '50%', backgroundColor: storyBgColor, borderRadius: '15px' }}>
-            <div id = "story-selector" onClick={() => changeContent("Story")}>
-                Story
-            </div>
-        </Box>
-    </div> 
+        comicBgColor = '#B8434B'         
 
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
@@ -171,15 +158,20 @@ export default function Banner() {
                                     border: 'none', 
                                     input: {color: 'white'} 
                                 }}
-                                value={ searchStatus }
+                                value={searchStatus}
                                 onChange={handleSearchChange}
                                 onKeyDown={searchWorks}>
                             </TextField>
                         </Grid>
-                        <Grid item xs = {1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <Box>
-                            { contentButton }
-                            </Box>
+                        <Grid item xs={1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <div id="content-selector"> 
+                                <div style={{ width: '50%', backgroundColor: comicBgColor, borderRadius: '15px' }}>
+                                    <div id = "comic-selector" onClick={() => changeContent("Comic")}>Comic</div>
+                                </div>
+                                <div style={{ width: '50%', backgroundColor: storyBgColor, borderRadius: '15px' }}>
+                                    <div id = "story-selector" onClick={() => changeContent("Story")}>Story</div>
+                                </div>
+                            </div>
                         </Grid>
                         <Grid item xs = {1} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                             <IconButton
