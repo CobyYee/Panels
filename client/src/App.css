@@ -707,7 +707,7 @@ html, body {
 #comic_info_grid {
   display: flex;
   justify-content: flex-end;
-  padding-right: 100px;
+  padding-right: 70px;
 }
 
 #comic_cover_box {
@@ -776,6 +776,7 @@ html, body {
   height: 100%;
   max-height: 50vh;
   overflow-y: scroll;
+  margin-bottom: 10%;
 }
 
 #comic_chapter {
