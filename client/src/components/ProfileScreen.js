@@ -55,11 +55,9 @@ export default function ProfileScreen() {
     */
 
     function handleDescription(event) {
-        if (event.keyCode === 13 && !event.shiftKey) {
-            let user = auth.user;
-            user.description = description;
-            auth.updateUser(user);
-        }
+        let user = auth.user;
+        user.description = description;
+        auth.updateUser(user);
     }
 
     let drafts = ""
@@ -104,10 +102,10 @@ export default function ProfileScreen() {
         <Box id="profile_box" className="profile_centered">
             <Grid className="profile_centered" item={true} xs={10} container sx={{ minWidth: '1200px' }}>
                 <Grid item xs={3} sx={{ alignItems: 'right' }}>
-                    <Grid className="profile_centered" item xs={12} pb={6}>
+                    <Grid className="profile_centered" item xs={12} pb={3}>
                         { profile_image }
                     </Grid>
-                    <Grid className="profile_centered" item xs={12} pb={2}>
+                    <Grid className="profile_centered" item xs={12} pb={5}>
                         { 
                         (auth.session !== null && auth.user !== null && auth.session._id !== auth.user._id) ? 
                             ((auth.user.follows.includes(auth.session._id) ? 
@@ -124,7 +122,7 @@ export default function ProfileScreen() {
                                 <textarea id="profile_description" 
                                         value={description} 
                                         onChange={(event) => setDescription(event.target.value)} 
-                                        onKeyDown={(event) => handleDescription(event)}
+                                        onBlur={(event) => handleDescription(event)}
                                 />
                             :
                             <div style={{ color: 'white' }}>
