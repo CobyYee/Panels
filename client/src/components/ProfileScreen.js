@@ -54,10 +54,12 @@ export default function ProfileScreen() {
     }
     */
 
-    function handleDescription(event) {
-        let user = auth.user;
-        user.description = description;
-        auth.updateUser(user);
+    function handleDescription() {
+        if (description !== auth.user.description) {
+            let user = auth.user;
+            user.description = description;
+            auth.updateUser(user);
+        }
     }
 
     let drafts = ""
@@ -122,7 +124,7 @@ export default function ProfileScreen() {
                                 <textarea id="profile_description" 
                                           value={description} 
                                           onChange={(event) => setDescription(event.target.value)} 
-                                          onBlur={(event) => handleDescription(event)}
+                                          onBlur={() => handleDescription()}
                                           spellCheck="false"
                                 />
                             :
