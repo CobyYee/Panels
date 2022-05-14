@@ -120,9 +120,10 @@ export default function ProfileScreen() {
                         {
                             (auth.session !== null && auth.user !== null && auth.session._id === auth.user._id) ?
                                 <textarea id="profile_description" 
-                                        value={description} 
-                                        onChange={(event) => setDescription(event.target.value)} 
-                                        onBlur={(event) => handleDescription(event)}
+                                          value={description} 
+                                          onChange={(event) => setDescription(event.target.value)} 
+                                          onBlur={(event) => handleDescription(event)}
+                                          spellCheck="false"
                                 />
                             :
                             <div style={{ color: 'white' }}>
