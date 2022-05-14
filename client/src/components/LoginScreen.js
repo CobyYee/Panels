@@ -63,7 +63,7 @@ export default function SignIn() {
   };
 
   return (
-    <div style={{ background: '#2b2b2b', height: '95.1vh' }}>
+    <div style={{ background: '#2b2b2b', height: '100%', maxHeight: '94.8vh' }}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

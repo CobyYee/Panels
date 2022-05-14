@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AuthContextProvider from '../auth'
 import { useContext, useState } from 'react';
 import GlobalStoreContext from '../store';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 export default function Banner() {
     const {auth} = useContext(AuthContextProvider)
@@ -99,6 +100,8 @@ export default function Banner() {
             </MenuItem>
         </div>
 
+    let profile = <AccountCircle sx={{ width: 32, height: 32, color: 'white' }} />
+
     if (auth.session !== null) {
         options =
         <div>
@@ -115,6 +118,7 @@ export default function Banner() {
                 Logout
             </MenuItem>
         </div>
+        profile = <Avatar sx={{ width: 32, height: 32 }}>{auth.session.username.charAt(0)}</Avatar>
     }
     
     let menu = <Menu
@@ -154,9 +158,7 @@ export default function Banner() {
                                 onClick={handleListScreen} 
                                 disableRipple
                                 sx={{ color: 'white', fontSize: 15, "&.MuiButtonBase-root:hover": { bgcolor: "transparent" } }}>
-                                    {
-                                        (store.mode === "comic" ? "All Comics" : "All Stories")
-                                    }
+                                { (store.mode === "comic" ? "All Comics" : "All Stories") }
                             </Button>
                         </Grid>
                         <Grid item xs ={8} container sx={{display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -187,7 +189,7 @@ export default function Banner() {
                                 aria-controls="primary-search-account-menu"
                                 aria-haspopup="true"
                             >
-                                <Avatar sx={{ width: 32, height: 32 }}>{(auth.session !== null) ? auth.session.username.charAt(0) : "U"}</Avatar>
+                                { profile }
                             </IconButton>
                         </Grid>
                     </Grid>
