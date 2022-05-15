@@ -269,9 +269,21 @@ updateComicChapter = async (req, res) => {
         if (!old)
             return res.status(400).json({success: false, message: "This comic chapter does not exist!"});
 
+        for (let i = 0; i < old.images.length; i++) {
+            await Image.findOneAndDelete(old.images[i]._id);
+        }
+
+        let images = body.images;
+        let arr = [];
+        for (let i = 0; i < images.length; i++) {
+            let newImage = new Image({data: images[i]});
+            await newImage.save();
+            arr.push(newImage._id);
+        }
+
         old.name = body.name;
         old.uploaded = body.uploaded;
-        old.images = body.images;
+        old.images = images;
 
         await old.save();
         return res.status(200).json({success: true, data: old});

@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from 'react'
 import {Typography, Box, Grid, Button, List, ListItem, Modal, TextField} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import GlobalStoreContext from '../store'
+import StoryBoard from './Storyboard';
 
 export default function ComicEditor() {
     const {store} = useContext(GlobalStoreContext)
@@ -10,6 +11,7 @@ export default function ComicEditor() {
     const [currentImage, setCurrentImage] = useState(null);
     const [chapterImageIds, setChapterImageIds] = useState([]);
     const [currentChapter, setCurrentChapter] = useState([]);
+    const [storyboardOpen, setStoryboardOpen] = useState(false);
 
     const [title, setTitle] = useState("");
     const [modalOpen, setModalOpen] = useState(false);
@@ -93,6 +95,7 @@ export default function ComicEditor() {
 
     return (
         <Box id="edit_container" className="edit_chapter_centered">
+            {storyboardOpen ? <StoryBoard currentImage={currentImage} setStoryboardOpen={setStoryboardOpen}/> : ""}
             <Grid className="edit_chapter_centered" item={true} xs={12} container>
                 <Grid id="edit_slides" className="edit_chapter_centered" item xs={3}>
                     <Box id="edit_slides_container" className="edit_chapter_centered">
@@ -134,7 +137,7 @@ export default function ComicEditor() {
                         <Grid id="edit_toolbar_buttons" item xs={12}>
                             <Button sx={{ color: 'white' }} onClick={saveChapter}>Save</Button>
                             <Button sx={{ color: 'white' }} onClick={handleModalOpen}>Insert</Button>
-                            <Button sx={{ color: 'white' }}>Edit</Button>
+                            <Button sx={{ color: 'white' }} onClick={() => setStoryboardOpen(true)}>Edit</Button>
                             <Button sx={{ color: 'white' }}>Help</Button>
                         </Grid>
                         <Grid id="edit_display_grid" className="edit_chapter_centered" item xs={12}>
