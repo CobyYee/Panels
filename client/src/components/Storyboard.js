@@ -12,17 +12,18 @@ import Editor from './Editor';
 function StoryBoard(props) {
     const { store } = useContext(GlobalStoreContext);
     const {auth} = useContext(AuthContextProvider);
-    const [tool, setTool] = useState('pen');
+    const [tool, setTool] = useState('black');
     const [lines, setLines] = useState([]);
     const [trash, setTrash] = useState([]);
+    const [colorWheelOpen, setColorWheelOpen] = useState(false);
+    const [color, setColor] = useState('#000000');
+    const [strokeWidth, setStrokeWidth] = useState(1);
     const isDrawing = useRef(false);
     const stageRef = useRef(null);
     let navigate = useNavigate();
 
     function handleSave(event) {
-        console.log(stageRef.current.toDataURL());
-        console.log(stageRef.current.toJSON()); 
-        props.setStoryboardOpen(false)
+        props.handleSaveImage(stageRef.current.toDataURL())
         // store.createKonva(stageRef.current.toDataURL());
         // navigate('/profile/' + auth.session._id)
     }
@@ -30,8 +31,24 @@ function StoryBoard(props) {
     let editor = "";
     if(store.mode === "comic") {
         editor = 
-        <Box sx={{ height: '1500px', position: 'relative', backgroundColor: 'white', borderRadius: '10px', width: '1500px'}}>
-            <Editor tool={tool} setTool={setTool} lines={lines} setLines={setLines} trash={trash} setTrash={setTrash} isDrawing={isDrawing} stageRef={stageRef} image={props.currentImage}/>
+        <Box >
+            <Editor 
+            tool={tool} 
+            setTool={setTool} 
+            lines={lines} 
+            setLines={setLines} 
+            trash={trash} 
+            setTrash={setTrash} 
+            colorWheelOpen={colorWheelOpen}
+            setColorWheelOpen={setColorWheelOpen}
+            color={color} 
+            setColor={setColor} 
+            strokeWidth={strokeWidth}
+            setStrokeWidth={setStrokeWidth}
+            isDrawing={isDrawing} 
+            stageRef={stageRef} 
+            image={props.currentImage}
+            />
         </Box>
     }
     else {
@@ -52,13 +69,9 @@ function StoryBoard(props) {
             <Grid item xs = {12} style={{justifyContent: 'center', display: 'flex'}}>
                 {editor}
             </Grid>
-            <Grid item xs = {10}/>
-            <Grid item xs = {1}>
-                <Button variant="contained" sx={{ backgroundColor:'#9c4247', "&:hover":  { backgroundColor: 'red' } }} onClick={handleSave}>Save</Button>
-            </Grid>
-            <Grid item xs = {1}>
-                <Button variant="contained" sx={{ backgroundColor:'#9c4247', "&:hover": { backgroundColor: 'red' } }}>Publish</Button>
-            </Grid>
+            <Grid item xs = {10.3}/>
+            <Button variant="contained" sx={{ backgroundColor:'#9c4247', "&:hover":  { backgroundColor: 'red' } }} onClick={handleSave}>Save</Button>
+          
         </Grid>
         
         return (component)

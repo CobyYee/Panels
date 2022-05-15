@@ -978,3 +978,9 @@ html, body {
   height: 50px;
   margin-left: 100px;
 }
+
+
+/* editor */
+#editor-toolbar {
+  display: flex;
+}
