@@ -1,7 +1,7 @@
 import { Typography, Box, Grid, Button, List, Divider } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import { useNavigate } from 'react-router-dom'
-import { useContext, useRef, useLayoutEffect } from 'react'
+import { useContext, useState, useRef, useEffect, useLayoutEffect } from 'react'
 import AuthContextProvider from '../auth'
 import GlobalStoreContext from '../store';
 import ProfileCard from './ProfileCard'
@@ -12,11 +12,20 @@ export default function ProfileScreen() {
     const {store} = useContext(GlobalStoreContext)
     let navigate = useNavigate()
 
+    const [description, setDescription] = useState("")
+
     let profileURL = window.location.href.substring(window.location.href.indexOf("/profile/") + 9);
     if (auth.user === null && profileURL !== "") {
         auth.loadProfile(profileURL);
         store.loadProfileWorks(profileURL);
     }
+
+    useEffect(() => {
+        if (auth.user !== null) {
+            console.log(auth.user.username);
+            setDescription(auth.user.description);
+        }
+    }, [auth.user])
 
     useLayoutEffect(() => {
         if (firstRender.current) {
@@ -35,6 +44,22 @@ export default function ProfileScreen() {
         let user = auth.user;
         user.follows.splice(user.follows.indexOf(auth.session._id), 1);
         auth.updateUser(user);
+    }
+
+    /*
+    function handleBan() {
+        let user = auth.user;
+        user.banned = !user.banned;
+        auth.updateUser(user);
+    }
+    */
+
+    function handleDescription() {
+        if (description !== auth.user.description) {
+            let user = auth.user;
+            user.description = description;
+            auth.updateUser(user);
+        }
     }
 
     let drafts = ""
@@ -79,10 +104,10 @@ export default function ProfileScreen() {
         <Box id="profile_box" className="profile_centered">
             <Grid className="profile_centered" item={true} xs={10} container sx={{ minWidth: '1200px' }}>
                 <Grid item xs={3} sx={{ alignItems: 'right' }}>
-                    <Grid className="profile_centered" item xs={12} pb={6}>
+                    <Grid className="profile_centered" item xs={12} pb={3}>
                         { profile_image }
                     </Grid>
-                    <Grid className="profile_centered" item xs={12} pb={2}>
+                    <Grid className="profile_centered" item xs={12} pb={5}>
                         { 
                         (auth.session !== null && auth.user !== null && auth.session._id !== auth.user._id) ? 
                             ((auth.user.follows.includes(auth.session._id) ? 
@@ -94,15 +119,19 @@ export default function ProfileScreen() {
                     </Grid>
                     <Grid className="profile_centered" item xs={12} pb={6}>
                         <Box sx={{ width: '350px', textAlign: 'center' }}>
-                            <Typography color="white">
-                                A long description is a way to provide long alternative text for non-text elements, such as images. 
-                                Generally, alternative text exceeding 250 characters, which cannot be made more concise without making it less 
-                                descriptive or meaningful, should have a long description. Examples of suitable use of long description are 
-                                charts, graphs, maps, infographics, and other complex images. Like alternative text, long description should 
-                                be descriptive and meaningful. It should also include all text that is incorporated into the image. A long 
-                                description should provide visually-impaired users with as much information as sighted users would understand 
-                                from the image.
-                            </Typography>
+                        {
+                            (auth.session !== null && auth.user !== null && auth.session._id === auth.user._id) ?
+                                <textarea id="profile_description" 
+                                          value={description} 
+                                          onChange={(event) => setDescription(event.target.value)} 
+                                          onBlur={() => handleDescription()}
+                                          spellCheck="false"
+                                />
+                            :
+                            <div style={{ color: 'white' }}>
+                                { description }
+                            </div>
+                        }
                         </Box>
                     </Grid>
                 </Grid>

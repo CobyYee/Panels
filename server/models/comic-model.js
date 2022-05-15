@@ -10,7 +10,7 @@ const ComicSchema = new Schema(
         cover: { type: ObjectId, required: true },
         genres: { type: [String], required: true },
         ratings: { type: [String], required: true },
-        description: { type: String, required: true },
+        description: { type: String, required: function() { return typeof this.description === 'String' } },
         published: { type: Date, required: false },
         views: { type: Number, required: true},
         chapters: { type: [String], required: true },

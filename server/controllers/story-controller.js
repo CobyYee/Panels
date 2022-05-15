@@ -5,7 +5,7 @@ const Image = require('../models/image-model');
 createStory = (req, res) => {
     try {
         const { title, creatorId, creatorName, genres, description, cover_data } = req.body;
-        if (!title || !creatorId || !creatorName || !cover_data || !genres || !description) {
+        if (!title || !creatorId || !creatorName || !cover_data || !genres) {
             return res.status(400).json({
                 success: false,
                 error: "Must specify information to create the story."

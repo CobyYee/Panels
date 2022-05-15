@@ -35,6 +35,7 @@ getSession = async(req, res) => {
                 username: existingUser.username,
                 email: existingUser.email,
                 profilePicture: existingUser.profilePicture,
+                description: existingUser.description,
                 follows: existingUser.follows,
                 works: existingUser.works,
                 drafts: existingUser.drafts,
@@ -79,6 +80,7 @@ registerUser = async(req, res) => {
              passwordHash: passwordHash,
              email: email,
              profilePicture: null,
+             description: "",
              follows: [],
              works: [],
              drafts: [],
@@ -127,6 +129,7 @@ loginUser = async (req, res) => {
                     username: existingUser.username,
                     email: existingUser.email,
                     profilePicture: existingUser.profilePicture,
+                    description: existingUser.description,
                     follows: existingUser.follows,
                     works: existingUser.works,
                     drafts: existingUser.drafts,
@@ -167,6 +170,7 @@ getUserById = async (req, res) => {
                 username: existingUser.username,
                 email: existingUser.email,
                 profilePicture: existingUser.profilePicture,
+                description: existingUser.description,
                 follows: existingUser.follows,
                 works: existingUser.works,
                 drafts: existingUser.drafts,
@@ -196,6 +200,7 @@ updateUser = async (req, res) => {
         existingUser.username = user.username;
         existingUser.email = user.email;
         existingUser.profilePicture = user.profilePicture;
+        existingUser.description = user.description;
         existingUser.follows = user.follows;
         existingUser.works = user.works;
         existingUser.drafts = user.drafts;

@@ -90,7 +90,7 @@ function EditWorkScreen() {
                                     </button>
                         })}
                     </div>
-                    <input id="upload_work_description" type="text" defaultValue={description} onChange={(event) => setDescription(event.target.value)}></input> <br></br>
+                    <textarea id="upload_work_description" type="text" defaultValue={description} onChange={(event) => setDescription(event.target.value)} spellCheck="false"/> <br></br>
                     <input id="terms_checkbox" type="checkbox"></input>
                     <label id="terms_label" htmlFor="terms_checkbox">By editing this {store.mode}, I agree to Panels' terms and services</label> <br></br>
                     <button id="upload_button" type="submit" onClick={handleSubmit}>Save</button>

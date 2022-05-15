@@ -11,12 +11,19 @@ export default function ChapterScreen() {
     let navigate = useNavigate()
 
     const [chapter, setChapter] = useState("");
+    const [index, setIndex] = useState(0);
 
     useEffect(() => {
         if (store.chapter !== null) {
             setChapter(store.chapter.name);
         }
     }, [store.chapter])
+
+    useEffect(() => {
+        if (store.work !== null) {
+            setIndex(currentIndex());
+        }
+    })
 
     const switchChapter = (event) => {
         setChapter(event.target.value);
@@ -94,17 +101,18 @@ export default function ChapterScreen() {
                             </Button>
                         </Grid>
                         <Grid id="chapter_centered" item xs={0.5}>
-                            <Button id="button" variant="contained" onClick={handleClickFirst}>First</Button>
+                            <Button id="button" disabled={index === 0} variant="contained" onClick={handleClickFirst}>First</Button>
                         </Grid>
                         <Grid id="chapter_centered" item xs={0.5}>
-                            <Button id="button" variant="contained" onClick={handleClickPrev}>Prev</Button>
+                            <Button id="button" disabled={index === 0} variant="contained" onClick={handleClickPrev}>Prev</Button>
                         </Grid>
                         <Grid id="chapter_centered" item xs={4}>
-                            <FormControl>
+                            <FormControl sx={{ width: '60%' }}>
                                 <Select id="chapter_select" value={chapter} onChange={switchChapter} 
                                     sx={{ color: 'white', 
                                           backgroundColor: '#3d3d3d',
                                           height: '48px',
+                                          borderRadius: '25px',
                                           "& .MuiOutlinedInput-notchedOutline": { borderColor: 'transparent' }, 
                                           "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: 'transparent' },
                                           "&.Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: '#9c4247' },
@@ -134,10 +142,10 @@ export default function ChapterScreen() {
                             </FormControl>
                         </Grid>
                         <Grid id="chapter_centered" item xs={0.5}>
-                            <Button id="button" variant="contained" onClick={handleClickNext}>Next</Button>
+                            <Button id="button" disabled={(store.work !== null) ? index === store.work.chapters.length - 1 : true} variant="contained" onClick={handleClickNext}>Next</Button>
                         </Grid>
                         <Grid id="chapter_centered" item xs={0.5}>
-                            <Button id="button" variant="contained" onClick={handleClickLast}>Last</Button>
+                            <Button id="button" disabled={(store.work !== null) ? index === store.work.chapters.length - 1 : true} variant="contained" onClick={handleClickLast}>Last</Button>
                         </Grid>
                         <Grid item xs={3}></Grid>
                     </Grid>

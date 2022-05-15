@@ -5,7 +5,7 @@ import Rating from '@mui/material/Rating';
 import { useNavigate } from 'react-router-dom'
 import GlobalStoreContext from '../store'
 import AuthContextProvider from '../auth'
-import Comments from './Comments';
+//import Comments from './Comments';
 
 export default function ComicScreen() {
     const {store} = useContext(GlobalStoreContext)
@@ -140,10 +140,6 @@ export default function ComicScreen() {
                 </Grid>
             </Grid>
             <Grid id="comic_chapter_grid" item={true} xs={7} container spacing={2}>
-                <Grid id="comic_chapter_buttons" item xs={2}>
-                    <Button id="text_button" onClick={() => setStatus("chapters")}>Chapters</Button>
-                    <Button id="text_button" onClick={() => setStatus("comments")}>Comments</Button>
-                </Grid>
                 <Grid className="comic_centered" item xs={12}>
                     <Box id="comic_chapters_box">
                     { 

@@ -245,7 +245,7 @@ function AuthContextProvider(props) {
             }
         }
         catch (e) {
-            console.error("update user failed");
+            console.error("update user failed" + e);
             return false;
         }
     }

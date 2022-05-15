@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AuthContextProvider from '../auth'
 import { useContext, useState } from 'react';
 import GlobalStoreContext from '../store';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 export default function Banner() {
     const {auth} = useContext(AuthContextProvider)
@@ -33,20 +34,7 @@ export default function Banner() {
     if(store.mode === "story")
         storyBgColor = '#B8434B'
     else 
-        comicBgColor = '#B8434B'
-
-    let contentButton = <div id = "content-selector"> 
-        <Box sx={{ width: '50%', backgroundColor: comicBgColor, borderRadius: '15px' }}>
-            <div id = "comic-selector" onClick={() => changeContent("Comic")}>
-                Comic
-            </div>
-        </Box>
-        <Box sx={{ width: '50%', backgroundColor: storyBgColor, borderRadius: '15px' }}>
-            <div id = "story-selector" onClick={() => changeContent("Story")}>
-                Story
-            </div>
-        </Box>
-    </div> 
+        comicBgColor = '#B8434B'         
 
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
@@ -99,6 +87,8 @@ export default function Banner() {
             </MenuItem>
         </div>
 
+    let profile = <AccountCircle sx={{ width: 32, height: 32, color: 'white' }} />
+
     if (auth.session !== null) {
         options =
         <div>
@@ -115,6 +105,7 @@ export default function Banner() {
                 Logout
             </MenuItem>
         </div>
+        profile = <Avatar sx={{ width: 32, height: 32 }}>{auth.session.username.charAt(0)}</Avatar>
     }
     
     let menu = <Menu
@@ -154,9 +145,7 @@ export default function Banner() {
                                 onClick={handleListScreen} 
                                 disableRipple
                                 sx={{ color: 'white', fontSize: 15, "&.MuiButtonBase-root:hover": { bgcolor: "transparent" } }}>
-                                    {
-                                        (store.mode === "comic" ? "All Comics" : "All Stories")
-                                    }
+                                { (store.mode === "comic" ? "All Comics" : "All Stories") }
                             </Button>
                         </Grid>
                         <Grid item xs ={8} container sx={{display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -169,15 +158,20 @@ export default function Banner() {
                                     border: 'none', 
                                     input: {color: 'white'} 
                                 }}
-                                value={ searchStatus }
+                                value={searchStatus}
                                 onChange={handleSearchChange}
                                 onKeyDown={searchWorks}>
                             </TextField>
                         </Grid>
-                        <Grid item xs = {1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <Box>
-                            { contentButton }
-                            </Box>
+                        <Grid item xs={1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <div id="content-selector"> 
+                                <div style={{ width: '50%', backgroundColor: comicBgColor, borderRadius: '15px' }}>
+                                    <div id = "comic-selector" onClick={() => changeContent("Comic")}>Comic</div>
+                                </div>
+                                <div style={{ width: '50%', backgroundColor: storyBgColor, borderRadius: '15px' }}>
+                                    <div id = "story-selector" onClick={() => changeContent("Story")}>Story</div>
+                                </div>
+                            </div>
                         </Grid>
                         <Grid item xs = {1} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                             <IconButton
@@ -187,7 +181,7 @@ export default function Banner() {
                                 aria-controls="primary-search-account-menu"
                                 aria-haspopup="true"
                             >
-                                <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                                { profile }
                             </IconButton>
                         </Grid>
                     </Grid>

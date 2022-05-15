@@ -130,15 +130,13 @@ export default function ComicEditor() {
                     </Box>
                 </Grid>
                 <Grid item xs={9} container>
-                    <Grid item xs = {6} sx = {{display: 'flex', justifyContent:'center'}} >
-                        <TextField value={title} onChange = {(event) => {setTitle(event.target.value)}} sx = {{input: {color: 'white'}}}>  </TextField>
-                    </Grid>
                     <Grid id="edit_toolbar" item xs={12}>
                         <Grid id="edit_toolbar_buttons" item xs={12}>
                             <Button sx={{ color: 'white' }} onClick={saveChapter}>Save</Button>
                             <Button sx={{ color: 'white' }} onClick={handleModalOpen}>Insert</Button>
                             <Button sx={{ color: 'white' }} onClick={() => setStoryboardOpen(true)}>Edit</Button>
                             <Button sx={{ color: 'white' }}>Help</Button>
+                            <input id="edit_chapter_title" type="text" defaultValue={title} onChange={(event) => setTitle(event.target.value)}></input>
                         </Grid>
                         <Grid id="edit_display_grid" className="edit_chapter_centered" item xs={12}>
                             <Box id="edit_image_container" className="edit_chapter_centered">
