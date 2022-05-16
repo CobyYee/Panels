@@ -19,6 +19,7 @@ router.put('/comicchapter', ComicController.updateComicChapter)
 router.delete('/comicchapter/:id', ComicController.deleteComicChapter)
 router.get('/comicchapter/:id', ComicController.getComicChapterById)
 
+router.post('/profileimage', ComicController.createImage)
 router.post('/images', ComicController.getImagesById)
 router.post('/konva', ComicController.createKonva)
 router.post('/konvas', ComicController.getKonvasById)

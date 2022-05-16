@@ -120,6 +120,37 @@ getComicsById = async (req, res) => {
     }
 }
 
+createImage = async (req, res) => {
+    try {
+        const { image_data } = req.body;
+        if (!image_data) {
+            return res.status(400).json({
+                success: false,
+                error: "Must specify an image."
+            });
+        }
+
+        const newImage = new Image({data: image_data});
+        await newImage.save().then(() => {
+            console.log("Image saved.")
+            return res.status(200).json({   
+                success: true,
+                image: newImage,
+                message: "Image has been successfully created."
+            });
+        }).catch(err => {
+            console.log("Image not created")
+            return res.status(500).json({
+                success: false,
+                error: err
+            });
+        });
+    }
+    catch (err) {
+        return res.status(500).send();
+    }
+}
+
 getImagesById = async (req, res) => {
     try {
         const ids = req.body;
@@ -364,6 +395,7 @@ module.exports = {
     getComicsByCreator,
     getComics,
     getComicsById,
+    createImage,
     getImagesById,
     updateComic,
     createComicChapter,

@@ -18,6 +18,9 @@ export const unban = (payload) => api.post(`/unban/`, payload)
 export const getUserById = (id) => api.get(`/user/${id}`)
 export const updateUser = (payload) => api.put(`/user/`, payload)
 
+export const getImagesById = (payload) => api.post(`/images/`, payload)
+export const changeProfileImage = (payload) => api.post(`/profileimage/`, payload)
+
 const apis = {
     getSession,
     registerUser,
@@ -29,6 +32,8 @@ const apis = {
     unban,
     getUserById,
     updateUser,
+    getImagesById,
+    changeProfileImage
 }
 
 export default apis;

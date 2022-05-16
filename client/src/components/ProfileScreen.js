@@ -14,15 +14,22 @@ export default function ProfileScreen() {
 
     const [description, setDescription] = useState("")
 
+    /*
     let profileURL = window.location.href.substring(window.location.href.indexOf("/profile/") + 9);
     if (auth.user === null && profileURL !== "") {
         auth.loadProfile(profileURL);
         store.loadProfileWorks(profileURL);
     }
+    */
+
+    let profile_image = <AccountCircle id="profile_icon"/>
+
+    if (auth.user !== null && auth.user_image !== null) {
+        profile_image = <img id="profile_image" src={auth.user_image} alt="" />
+    }
 
     useEffect(() => {
         if (auth.user !== null) {
-            console.log(auth.user.username);
             setDescription(auth.user.description);
         }
     }, [auth.user])
@@ -46,14 +53,6 @@ export default function ProfileScreen() {
         auth.updateUser(user);
     }
 
-    /*
-    function handleBan() {
-        let user = auth.user;
-        user.banned = !user.banned;
-        auth.updateUser(user);
-    }
-    */
-
     function handleDescription() {
         if (description !== auth.user.description) {
             let user = auth.user;
@@ -62,9 +61,20 @@ export default function ProfileScreen() {
         }
     }
 
+    function handleFileUpload(event) {
+        const reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]);
+        reader.onload = function() {
+            auth.changeProfileImage(reader.result);
+            //setImage(reader.result);
+        }
+        reader.onerror = function (error) {
+            console.log("File onload error: " + error);
+        }
+    }
+
     let drafts = ""
     let profileButtons = ""
-    let profile_image = <AccountCircle id="profile_image"/>
 
     if (auth.session !== null && auth.user !== null && auth.session._id === auth.user._id) {
         drafts = 
@@ -101,11 +111,16 @@ export default function ProfileScreen() {
     }
 
     return (
-        <Box id="profile_box" className="profile_centered">
+        <div id="profile_box" className="profile_centered">
             <Grid className="profile_centered" item={true} xs={10} container sx={{ minWidth: '1200px' }}>
                 <Grid item xs={3} sx={{ alignItems: 'right' }}>
                     <Grid className="profile_centered" item xs={12} pb={3}>
-                        { profile_image }
+                        <div id="profile_image_container">
+                            <input id="profile_input" type="file" onChange={(event) => {handleFileUpload(event)}} />
+                            <label htmlFor="profile_input">
+                                { profile_image }
+                            </label>
+                        </div>
                     </Grid>
                     <Grid className="profile_centered" item xs={12} pb={5}>
                         { 
@@ -172,6 +187,6 @@ export default function ProfileScreen() {
                     { drafts }
                 </Grid>
             </Grid>
-        </Box>
+        </div>
     )
 }
