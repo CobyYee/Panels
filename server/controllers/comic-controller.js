@@ -296,13 +296,30 @@ updateComicChapter = async (req, res) => {
             });
         }
 
+        console.log(body._id)
+
         const old = await ComicChapter.findById(body._id);
         if (!old)
             return res.status(400).json({success: false, message: "This comic chapter does not exist!"});
 
+        console.log("old images: " + old.images)
+        for (let i = 0; i < old.images.length; i++) {
+            const deleted = await Image.findOneAndDelete({_id: old.images[i]._id});
+        }
+
+        let images = body.images;
+        let arr = [];
+        for (let i = 0; i < images.length; i++) {
+            let newImage = new Image({data: images[i]});
+            await newImage.save();
+            arr.push(newImage._id);
+        }
+
+        console.log("chapter images updated")
+
         old.name = body.name;
         old.uploaded = body.uploaded;
-        old.images = body.images;
+        old.images = arr;
 
         await old.save();
         return res.status(200).json({success: true, data: old});

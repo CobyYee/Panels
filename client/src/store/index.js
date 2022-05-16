@@ -279,6 +279,9 @@ function GlobalStoreContextProvider(props) {
                         }
                     })
                 }
+                else {
+                    console.error("store.home get images error")
+                }
             }
         }
         catch (err) {
@@ -713,17 +716,24 @@ function GlobalStoreContextProvider(props) {
         let response = await api.updateComicChapter(chapterDraft);
         if (response.status === 200) {
             let updated = response.data.data;
-            response = await api.getImagesById(newImages);
+            response = await api.getImagesById(updated.images);
             if (response.status === 200) {
                 let newImages = response.data.data;
+                console.log("NEW IMAGES : " + newImages)
                 storeReducer({
                     type: GlobalStoreActionType.UPDATE_COMIC_CHAPTER,
                     payload: {
                         chapter: updated,
-                        chapter_images: newImages
+                        images: newImages
                     }
                 })
             }
+            else {
+                console.error("store.updatecomicchapter getimages failed")
+            }
+        }
+        else {
+            console.error("store.updatecomicchapter failed")
         }
     }
 

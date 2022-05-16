@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from 'react'
 import {Typography, Box, Grid, Button, List, ListItem, Modal, TextField} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import GlobalStoreContext from '../store'
+import StoryBoard from './Storyboard';
 
 export default function ComicEditor() {
     const {store} = useContext(GlobalStoreContext)
@@ -10,6 +11,7 @@ export default function ComicEditor() {
     const [currentImage, setCurrentImage] = useState(null);
     const [chapterImageIds, setChapterImageIds] = useState([]);
     const [currentChapter, setCurrentChapter] = useState([]);
+    const [storyboardOpen, setStoryboardOpen] = useState(false);
 
     const [title, setTitle] = useState("");
     const [modalOpen, setModalOpen] = useState(false);
@@ -62,8 +64,8 @@ export default function ComicEditor() {
     const navigate = useNavigate();
     function saveChapter() {
         console.log("Saving chapter");
-        store.chapter.images = chapterImageIds;
-        store.updateComicChapter(title, store.chapter.images);
+        //store.chapter.images = chapterImageIds;
+        store.updateComicChapter(title, currentChapter);
         console.log("SAVED");
         navigate("/comic/" + store.work._id);
     }
@@ -80,6 +82,14 @@ export default function ComicEditor() {
         }
     }
 
+    function handleSaveImage(imageData) {
+        let images = currentChapter.slice();
+        images[currentPage] = imageData;
+        setCurrentChapter(images);
+        setCurrentImage(imageData)
+        setStoryboardOpen(false);
+    }
+
     const handleModalOpen = () => setModalOpen(true);
     const handleModalClose = () => setModalOpen(false);
 
@@ -93,6 +103,7 @@ export default function ComicEditor() {
 
     return (
         <Box id="edit_container" className="edit_chapter_centered">
+            {storyboardOpen ? <StoryBoard currentImage={currentImage} handleSaveImage={handleSaveImage}/> : ""}
             <Grid className="edit_chapter_centered" item={true} xs={12} container>
                 <Grid id="edit_slides" className="edit_chapter_centered" item xs={3}>
                     <Box id="edit_slides_container" className="edit_chapter_centered">
@@ -131,7 +142,7 @@ export default function ComicEditor() {
                         <Grid id="edit_toolbar_buttons" item xs={12}>
                             <Button sx={{ color: 'white' }} onClick={saveChapter}>Save</Button>
                             <Button sx={{ color: 'white' }} onClick={handleModalOpen}>Insert</Button>
-                            <Button sx={{ color: 'white' }}>Edit</Button>
+                            <Button sx={{ color: 'white' }} onClick={() => setStoryboardOpen(true)}>Edit</Button>
                             <Button sx={{ color: 'white' }}>Help</Button>
                             <input id="edit_chapter_title" type="text" defaultValue={title} onChange={(event) => setTitle(event.target.value)}></input>
                         </Grid>
