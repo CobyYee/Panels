@@ -721,6 +721,28 @@ function GlobalStoreContextProvider(props) {
                         images: newImages
                     }
                 })
+                let newChapters = store.work.chapters;
+                let index = newChapters.findIndex(function(element){
+                    return JSON.parse(element).id === updated._id
+                });
+                newChapters[index] = (JSON.stringify({
+                    id: updated._id,
+                    name: updated.name,
+                    uploaded: updated.uploaded
+                }))
+                let currentDraft = store.work;
+                currentDraft.chapters = newChapters;
+                response = await api.updateComic(currentDraft);
+                if (response.status === 200) {
+                    storeReducer({
+                        type: GlobalStoreActionType.LOAD_WORK,
+                        payload: {
+                            work: currentDraft,
+                            image: store.image
+                        }
+                    })
+                    console.log("comic updated")
+                }
             }
             else {
                 console.error("store.updatecomicchapter getimages failed")
@@ -866,6 +888,28 @@ function GlobalStoreContextProvider(props) {
                 type: GlobalStoreActionType.UPDATE_STORY_CHAPTER,
                 payload: updated
             })
+            let newChapters = store.work.chapters;
+            let index = newChapters.findIndex(function(element){
+                return JSON.parse(element).id === updated._id
+            });
+            newChapters[index] = (JSON.stringify({
+                id: updated._id,
+                name: updated.name,
+                uploaded: updated.uploaded
+            }))
+            let currentDraft = store.work;
+            currentDraft.chapters = newChapters;
+            response = await api.updateStory(currentDraft);
+            if (response.status === 200) {
+                storeReducer({
+                    type: GlobalStoreActionType.LOAD_STORY_CHAPTER,
+                    payload: updated
+                })
+                console.log("story updated")
+            }
+            else {
+                console.log(response);
+            }
         }
     }
 
