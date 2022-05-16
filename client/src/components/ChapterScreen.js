@@ -135,7 +135,7 @@ export default function ChapterScreen() {
                                                       value={JSON.parse(chapter).name}
                                                       onClick={() => changeChapter(JSON.parse(chapter).id)}
                                             >
-                                                <Typography align="center">{"Chapter " + (index + 1) + ": " + JSON.parse(chapter).name}</Typography>
+                                                <Typography align="center">{JSON.parse(chapter).name}</Typography>
                                             </MenuItem>
                                         )) : ""
                                 }
