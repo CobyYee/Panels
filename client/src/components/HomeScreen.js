@@ -18,7 +18,7 @@ function HomeScreen() {
 
     function handleChapter(workId, chapterId) {
         store.loadWorkAndChapter(workId, chapterId); 
-        navigate(((store.mode === "comic") ? "/comic/" : "/story/") + workId + "/chapter/" + chapterId);
+        navigate("/chapter/" + chapterId);
     }
     
     return (

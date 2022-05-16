@@ -26,7 +26,7 @@ export default function WorkScreen() {
         else {
             store.loadStoryChapter(chapterId);
         }
-        navigate(((store.mode === "comic") ? "/comic/" : "/story/") + workId + "/chapter/" + chapterId);
+        navigate("/chapter/" + chapterId);
     }
 
     function handleEdit(chapterId) {
