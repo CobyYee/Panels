@@ -3,6 +3,7 @@ import { Typography, Box, Grid, Button, List, ListItem, Modal } from '@mui/mater
 import { useNavigate } from 'react-router-dom';
 import GlobalStoreContext from '../store'
 import StoryBoard from './Storyboard';
+import Blank from './blank.jpg'
 
 export default function ComicEditor() {
     const {store} = useContext(GlobalStoreContext)
@@ -101,6 +102,13 @@ export default function ComicEditor() {
         handleModalClose();
     }
 
+    function createNew() {
+        console.log("Creating blank slide");
+        let temp = currentChapter.slice();
+        temp.splice(currentPage + 1, 0, Blank);
+        setCurrentChapter(temp);
+    }
+
     return (
         <Box id="edit_container" className="edit_chapter_centered">
             {storyboardOpen ? <StoryBoard currentImage={currentImage} handleSaveImage={handleSaveImage}/> : ""}
@@ -141,9 +149,9 @@ export default function ComicEditor() {
                     <Grid id="edit_toolbar" item xs={12}>
                         <Grid id="edit_toolbar_buttons" item xs={12}>
                             <Button sx={{ color: 'white' }} onClick={saveChapter}>Save</Button>
+                            <Button sx={{ color: 'white' }} onClick={() => createNew()}>Create New</Button>
                             <Button sx={{ color: 'white' }} onClick={handleModalOpen}>Insert</Button>
-                            <Button sx={{ color: 'white' }} onClick={() => setStoryboardOpen(true)}>Edit</Button>
-                            <Button sx={{ color: 'white' }}>Help</Button>
+                            <Button sx={{ color: 'white' }} onClick={() => setStoryboardOpen(true)}>Draw</Button>
                             <input id="edit_chapter_title" type="text" defaultValue={title} onChange={(event) => setTitle(event.target.value)}></input>
                         </Grid>
                         <Grid id="edit_display_grid" className="edit_chapter_centered" item xs={12}>
