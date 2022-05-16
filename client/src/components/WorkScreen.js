@@ -19,7 +19,7 @@ export default function WorkScreen() {
         }
     }, [store.work])
 
-    function handleChapter(workId, chapterId) {
+    function handleChapter(chapterId) {
         if (store.mode === "comic") {
             store.loadComicChapter(chapterId);
         }
@@ -146,7 +146,7 @@ export default function WorkScreen() {
                             store.work.chapters.map((chapter, index) => (
                                 <ListItem key={"chapter-card" + index} sx={{ p: '2px' }}>
                                     <div id="comic_chapter">
-                                        <div id="comic_chapter_name" onClick={() => handleChapter(store.work._id, JSON.parse(chapter).id)}>
+                                        <div id="comic_chapter_name" onClick={() => handleChapter(JSON.parse(chapter).id)}>
                                             {"Chapter " + (index + 1) + ": " + JSON.parse(chapter).name}
                                         </div>
                                         {
