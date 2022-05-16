@@ -20,12 +20,13 @@ export default function ChapterScreen() {
     }, [store.chapter])
 
     useEffect(() => {
-        if (store.work !== null) {
+        if (store.work !== null && store.chapter !== null) {
             setIndex(currentIndex());
         }
     }, [store.work])
 
     const switchChapter = (event) => {
+        console.log(event.target.value);
         setChapter(event.target.value);
     }
 
@@ -44,23 +45,23 @@ export default function ChapterScreen() {
 
     function handleClickFirst() {
         changeChapter(JSON.parse(store.work.chapters[0]).id);
+        setIndex(0);
     }
 
     function handleClickPrev() {
-        let index = currentIndex();
-
         changeChapter(JSON.parse(store.work.chapters[(index !== 0) ? index - 1 : 0]).id);
+        setIndex(index - 1);
     }
 
     function handleClickNext() {
-        let index = currentIndex();
         let last = store.work.chapters.length-1;
-
         changeChapter(JSON.parse(store.work.chapters[(index !== last) ? index + 1 : last]).id);
+        setIndex(index + 1);
     }
 
     function handleClickLast() {
         changeChapter(JSON.parse(store.work.chapters[store.work.chapters.length-1]).id);
+        setIndex(store.work.chapters.length - 1);
     }
 
     let display =
@@ -134,7 +135,7 @@ export default function ChapterScreen() {
                                                       value={JSON.parse(chapter).name}
                                                       onClick={() => changeChapter(JSON.parse(chapter).id)}
                                             >
-                                                <Typography>{"Chapter " + (index + 1) + ": " + JSON.parse(chapter).name}</Typography>
+                                                <Typography>{JSON.parse(chapter).name}</Typography>
                                             </MenuItem>
                                         )) : ""
                                 }
