@@ -26,8 +26,8 @@ export default function ChapterScreen() {
     }, [store.work])
 
     const switchChapter = (event) => {
-        console.log(event.target.value);
         setChapter(event.target.value);
+        setIndex(store.work.chapters.map(x => JSON.parse(x).name).indexOf(event.target.value));
     }
 
     function changeChapter(chapterId) {
