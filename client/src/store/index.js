@@ -299,7 +299,6 @@ function GlobalStoreContextProvider(props) {
         else if (value === "1") {
             sorted = sorted.sort((a, b) => { return b.views-a.views });
             sortedAll = sorted.sort((a, b) => { return b.views-a.views });
-            
         }
         else if (value === "2") {
             sorted = sorted.sort((a, b) => {

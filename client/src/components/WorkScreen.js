@@ -7,7 +7,7 @@ import GlobalStoreContext from '../store'
 import AuthContextProvider from '../auth'
 //import Comments from './Comments';
 
-export default function ComicScreen() {
+export default function WorkScreen() {
     const {store} = useContext(GlobalStoreContext)
     const {auth} = useContext(AuthContextProvider)
     let navigate = useNavigate()
@@ -19,14 +19,14 @@ export default function ComicScreen() {
         }
     }, [store.work])
 
-    function handleChapter(chapterId) {
+    function handleChapter(workId, chapterId) {
         if (store.mode === "comic") {
             store.loadComicChapter(chapterId);
         }
         else {
             store.loadStoryChapter(chapterId);
         }
-        navigate("/chapter/" + chapterId);
+        navigate(((store.mode === "comic") ? "/comic/" : "/story/") + workId + "/chapter/" + chapterId);
     }
 
     function handleEdit(chapterId) {
@@ -146,7 +146,7 @@ export default function ComicScreen() {
                             store.work.chapters.map((chapter, index) => (
                                 <ListItem key={"chapter-card" + index} sx={{ p: '2px' }}>
                                     <div id="comic_chapter">
-                                        <div id="comic_chapter_name" onClick={() => handleChapter(JSON.parse(chapter).id)}>
+                                        <div id="comic_chapter_name" onClick={() => handleChapter(store.work._id, JSON.parse(chapter).id)}>
                                             {"Chapter " + (index + 1) + ": " + JSON.parse(chapter).name}
                                         </div>
                                         {

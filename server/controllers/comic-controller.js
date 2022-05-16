@@ -289,6 +289,7 @@ createComicChapter = async (req, res) => {       // tested 200
 updateComicChapter = async (req, res) => {
     try {
         const body = req.body;
+        console.log(body)
         if(!body) {
             return res.status(400).json({
                 success: false,

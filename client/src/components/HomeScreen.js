@@ -13,12 +13,12 @@ function HomeScreen() {
 
     function handleLoad(workId) {
         store.loadWork(workId);
-        navigate(((store.mode === "comic") ? "/comic/" : "/story/") + workId);        
+        navigate(((store.mode === "comic") ? "/comic/" : "/story/") + workId);
     }
 
     function handleChapter(workId, chapterId) {
         store.loadWorkAndChapter(workId, chapterId); 
-        navigate("/chapter/" + chapterId);
+        navigate(((store.mode === "comic") ? "/comic/" : "/story/") + workId + "/chapter/" + chapterId);
     }
     
     return (
