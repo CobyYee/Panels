@@ -82,9 +82,6 @@ export default function Banner() {
             <MenuItem onClick={() => navigate('/register/')}>
                 Create New Account
             </MenuItem>
-            <MenuItem>
-                Continue as Guest
-            </MenuItem>
         </div>
 
     let profile = <AccountCircle sx={{ width: 32, height: 32, color: 'white' }} />

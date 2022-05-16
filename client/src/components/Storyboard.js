@@ -1,6 +1,5 @@
 import { GlobalStoreContext }  from '../store';
-import  AuthContextProvider  from '../auth';
-import { useContext, useState, useRef, useEffect } from 'react'
+import { useContext, useState, useRef } from 'react'
 import { Grid, Button, TextField, Box } from '@mui/material'
 import { useNavigate } from "react-router-dom";
 import exStory from '../testimgs/exStory.jpg';
@@ -11,7 +10,6 @@ import Editor from './Editor';
 
 function StoryBoard(props) {
     const { store } = useContext(GlobalStoreContext);
-    const {auth} = useContext(AuthContextProvider);
     const [tool, setTool] = useState('black');
     const [lines, setLines] = useState([]);
     const [trash, setTrash] = useState([]);

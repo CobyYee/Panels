@@ -47,7 +47,7 @@ const App = () => {
                         <Route exact path="/uploadstory" element={< UploadComic />} />
                         <Route exact path="/uploadchapter" element={< UploadChapter />} />
                         <Route exact path="/storyboard/" element={< Storyboard />} />
-                        <Route exact path="/chapter/" element={< ChapterScreen />}/>
+                        <Route exact path="/chapter/:id" element={< ChapterScreen />}/>
                         <Route exact path="/comiceditor/" element={< ComicEditor />}/>
                         <Route exact path="/editwork/" element={< EditWorkScreen />}/>
                         <Route exact path="/storyeditor/" element={ <StoryEditor />} />

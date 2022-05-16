@@ -1,6 +1,6 @@
-import { useRef, useState, useEffect } from 'react'
-import Konva from 'konva'
-import {Stage, Layer, Rect, Line, Text, Image} from 'react-konva'
+import { useEffect } from 'react'
+//import Konva from 'konva'
+import {Stage, Layer, Rect, Line, Image} from 'react-konva'
 import { SketchPicker } from 'react-color'
 
 function Editor(props) {

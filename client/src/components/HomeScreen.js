@@ -18,7 +18,7 @@ function HomeScreen() {
 
     function handleChapter(workId, chapterId) {
         store.loadWorkAndChapter(workId, chapterId); 
-        navigate("/chapter/");
+        navigate("/chapter/" + chapterId);
     }
     
     return (

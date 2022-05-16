@@ -23,7 +23,7 @@ export default function ChapterScreen() {
         if (store.work !== null) {
             setIndex(currentIndex());
         }
-    })
+    }, [store.work])
 
     const switchChapter = (event) => {
         setChapter(event.target.value);
