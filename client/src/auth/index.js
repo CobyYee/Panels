@@ -19,6 +19,7 @@ function AuthContextProvider(props) {
     const [auth, setAuth] = useState({
         session: null,
         user: null,
+        user_image: null,
         error: null
     });
     const navigate = useNavigate();
@@ -34,6 +35,7 @@ function AuthContextProvider(props) {
                 return setAuth({
                     session: payload,
                     user: auth.user,
+                    user_image: null,
                     error: null
                 });
             }
@@ -41,6 +43,7 @@ function AuthContextProvider(props) {
                 return setAuth({
                     session: null,
                     user: auth.user,
+                    user_image: null,
                     error: null
                 })
             }
@@ -48,6 +51,7 @@ function AuthContextProvider(props) {
                 return setAuth({
                     session: payload,
                     user: auth.user,
+                    user_image: null,
                     error: null
                 })
             }
@@ -55,6 +59,7 @@ function AuthContextProvider(props) {
                 return setAuth({
                     session: null,
                     user: null,
+                    user_image: null,
                     error: null
                 })
             }
@@ -62,13 +67,15 @@ function AuthContextProvider(props) {
                 return setAuth({
                     session: auth.session,
                     user: auth.user,
+                    user_image: null,
                     error: payload
                 })
             }
             case "LOAD_PROFILE": {
                 return setAuth({
                     session: auth.session,
-                    user: payload,
+                    user: payload.user,
+                    user_image: payload.image,
                     error: null
                 })
             }
@@ -76,6 +83,7 @@ function AuthContextProvider(props) {
                 return setAuth({
                     session: auth.session,
                     user: payload,
+                    user_image: null,
                     error: null
                 })
             }
@@ -174,13 +182,30 @@ function AuthContextProvider(props) {
     auth.loadProfile = async function (id) {
         console.log("loadProfile: " + id);
         try {
-            const response = await api.getUserById(id);
+            let response = await api.getUserById(id);
             if (response.status === 200) {
                 let profile_user = response.data.user
-                authReducer( {
-                    type: AuthActionType.LOAD_PROFILE,
-                    payload: profile_user
-                })
+                if (profile_user.profilePicture !== null) {
+                    response = await api.getImagesById([profile_user.profilePicture]);
+                    if (response.status === 200) {
+                        authReducer({
+                            type: AuthActionType.LOAD_PROFILE,
+                            payload: {
+                                user: profile_user,
+                                image: response.data.data[0]
+                            }
+                        })
+                    }
+                }
+                else {
+                    authReducer({
+                        type: AuthActionType.LOAD_PROFILE,
+                        payload: {
+                            user: profile_user,
+                            image: null
+                        }
+                    })
+                }
                 navigate(`/profile/${id}`) 
             }
             else {
@@ -232,7 +257,7 @@ function AuthContextProvider(props) {
         try {
             const response = await api.updateUser(user);
             if (response.status === 200) {
-                authReducer( {
+                authReducer({
                     type: AuthActionType.UPDATE_USER,
                     payload: user
                 })
@@ -247,6 +272,33 @@ function AuthContextProvider(props) {
         catch (e) {
             console.error("update user failed" + e);
             return false;
+        }
+    }
+
+    auth.changeProfileImage = async function(image) {
+        let profile_data = {
+            image_data: image
+        }
+        let response = await api.changeProfileImage(profile_data);
+        if (response.status === 200) {
+            let newImage = response.data.image;
+            let imageId = newImage._id;
+            let user = auth.user;
+            user.profilePicture = imageId;
+            response = await api.updateUser(user);
+            if (response.status === 200) {
+                authReducer({
+                    type: AuthActionType.LOAD_PROFILE,
+                    payload: {
+                        user: user,
+                        image: image
+                    }
+                })
+            }
+            else {
+                console.log("failed to update user");
+                return false;
+            }
         }
     }
 

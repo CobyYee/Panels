@@ -607,11 +607,32 @@ html, body {
   overflow-y: scroll;
 }
 
-#profile_image {
+#profile_image_container {
   position: relative;
-  top: 15%;
+  height: 100%;
+}
+
+#profile_input {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0%;
+  cursor: pointer;
+}
+
+#profile_icon {
   color: #4e4e4e;
-  font-size: 20em;
+  font-size: 320px;
+}
+
+#profile_image {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
 }
 
 #profile_works_card {
