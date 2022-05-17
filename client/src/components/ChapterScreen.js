@@ -49,13 +49,13 @@ export default function ChapterScreen() {
     }
 
     function handleClickPrev() {
-        changeChapter(JSON.parse(store.work.chapters[(index !== 0) ? index - 1 : 0]).id);
+        changeChapter(JSON.parse(store.work.chapters[index - 1]).id);
         setIndex(index - 1);
     }
 
     function handleClickNext() {
         let last = store.work.chapters.length-1;
-        changeChapter(JSON.parse(store.work.chapters[(index !== last) ? index + 1 : last]).id);
+        changeChapter(JSON.parse(store.work.chapters[index + 1]).id);
         setIndex(index + 1);
     }
 
