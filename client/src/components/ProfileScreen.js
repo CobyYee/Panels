@@ -28,6 +28,24 @@ export default function ProfileScreen() {
         profile_image = <img id="profile_image" src={auth.user_image} alt="" />
     }
 
+    let profile_container = <div></div>
+
+    if (auth.session !== null && auth.user !== null && auth.session._id === auth.user._id) {
+        profile_container = 
+            <div id="profile_image_container">
+                <input id="profile_input" type="file" onChange={(event) => {handleFileUpload(event)}} />
+                <label htmlFor="profile_input">
+                    { profile_image }
+                </label>
+            </div>
+    }
+    else {
+        profile_container = 
+            <div id="profile_image_container">
+                { profile_image }
+            </div>
+    }
+
     useEffect(() => {
         if (auth.user !== null) {
             setDescription(auth.user.description);
@@ -115,12 +133,7 @@ export default function ProfileScreen() {
             <Grid className="profile_centered" item={true} xs={10} container sx={{ minWidth: '1200px' }}>
                 <Grid item xs={3} sx={{ alignItems: 'right' }}>
                     <Grid className="profile_centered" item xs={12} pb={3}>
-                        <div id="profile_image_container">
-                            <input id="profile_input" type="file" onChange={(event) => {handleFileUpload(event)}} />
-                            <label htmlFor="profile_input">
-                                { profile_image }
-                            </label>
-                        </div>
+                    { profile_container }
                     </Grid>
                     <Grid className="profile_centered" item xs={12} pb={5}>
                         { 
