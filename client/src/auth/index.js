@@ -142,7 +142,7 @@ function AuthContextProvider(props) {
                     type: "REGISTER_USER",
                     payload: null
                 })
-                navigate("/login")
+                navigate("/login/")
                 return true;
             }
             else {

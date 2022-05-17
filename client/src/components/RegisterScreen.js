@@ -15,6 +15,8 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import AuthContextProvider from '../auth'
 import {useContext } from 'react'
+import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
 function Copyright(props) {
   return (
@@ -31,12 +33,13 @@ function Copyright(props) {
 
 export default function RegisterScreen() {
   const {auth} = useContext(AuthContextProvider)
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log(data.get('confirm'))
-    auth.registerUser({
+    let result = auth.registerUser({
       firstName: data.get('firstName'),
       lastName: data.get('lastName'),
       email: data.get('email'),
@@ -44,6 +47,8 @@ export default function RegisterScreen() {
       password: data.get('password'),
       passwordVerify: data.get('confirm')
     })
+    if(result)
+      navigate("/login/")
   }
 
   const[values, setValues] = React.useState({
