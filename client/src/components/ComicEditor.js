@@ -3,6 +3,7 @@ import { Typography, Box, Grid, Button, List, ListItem, Modal } from '@mui/mater
 import { useNavigate } from 'react-router-dom';
 import GlobalStoreContext from '../store'
 import StoryBoard from './Storyboard';
+import Blank from './blank.jpg'
 
 export default function ComicEditor() {
     const {store} = useContext(GlobalStoreContext)
@@ -21,6 +22,14 @@ export default function ComicEditor() {
     useEffect(() => {
         setCurrentChapter(store.chapter_images);
     }, [store.chapter_images]);
+
+    useEffect(() => {
+        if (currentChapter[0]) {
+            console.log("ehorrrrraueh")
+            setCurrentPage(0);
+            setCurrentImage(currentChapter[0]);
+        }
+    }, [])
 
     useEffect(() => {
         if (store.chapter !== null) {
@@ -82,6 +91,11 @@ export default function ComicEditor() {
         }
     }
 
+    function handleStoryboard() {
+        if (currentImage !== null)
+            setStoryboardOpen(true);
+    }
+
     function handleSaveImage(imageData) {
         let images = currentChapter.slice();
         images[currentPage] = imageData;
@@ -99,6 +113,20 @@ export default function ComicEditor() {
         temp.splice(currentPage + 1, 0, file);
         setCurrentChapter(temp);
         handleModalClose();
+    }
+
+    function createNew() {
+        console.log("Creating blank slide");
+        let temp = currentChapter.slice();
+        temp.splice(currentPage + 1, 0, Blank);
+        setCurrentChapter(temp);
+    }
+
+    function deleteSlide() {
+        let temp = currentChapter.slice();
+        temp.splice(currentPage, 1);
+        setCurrentChapter(temp);
+        setCurrentImage(null);
     }
 
     return (
@@ -141,9 +169,10 @@ export default function ComicEditor() {
                     <Grid id="edit_toolbar" item xs={12}>
                         <Grid id="edit_toolbar_buttons" item xs={12}>
                             <Button sx={{ color: 'white' }} onClick={saveChapter}>Save</Button>
+                            <Button sx={{ color: 'white' }} onClick={() => createNew()}>Create New</Button>
                             <Button sx={{ color: 'white' }} onClick={handleModalOpen}>Insert</Button>
-                            <Button sx={{ color: 'white' }} onClick={() => setStoryboardOpen(true)}>Edit</Button>
-                            <Button sx={{ color: 'white' }}>Help</Button>
+                            <Button sx={{ color: 'white' }} onClick={() => handleStoryboard()}>Draw</Button>
+                            <Button sx={{ color: 'white' }} onClick={() => deleteSlide()}>Delete Slide</Button>
                             <input id="edit_chapter_title" type="text" defaultValue={title} onChange={(event) => setTitle(event.target.value)}></input>
                         </Grid>
                         <Grid id="edit_display_grid" className="edit_chapter_centered" item xs={12}>
